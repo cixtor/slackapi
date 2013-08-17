@@ -55,6 +55,11 @@ username:channel> :exit
 - [x] `channels.myHistory` - Displays messages of the current user from a channel.
 - [x] `channels.purgeHistory` - Deletes history of messages and events from a channel.
 - [x] `chat.session` - Starts a new chat session.
+- [x] `files.listAfterTime` - Lists and filters team files after this timestamp _(inclusive)_.
+- [x] `files.listBeforeTime` - Lists and filters team files before this timestamp _(inclusive)_.
+- [x] `files.listByChannel` - Lists and filters team files in a specific channel.
+- [x] `files.listByType` - Lists and filters team files by type: all, posts, snippets, images, gdocs, zips, pdfs.
+- [x] `files.listByUser` - Lists and filters team files created by a single user.
 - [x] `groups.id` - Gets private channel identifier from readable name.
 - [x] `groups.myHistory` - Displays messages of the current user from a private channel.
 - [x] `groups.purgeHistory` - Deletes history of messages and events from a private channel.

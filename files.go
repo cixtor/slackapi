@@ -133,7 +133,11 @@ func (s *SlackAPI) FilesInfo(file string, count string, page string) ResponseFil
 	return response
 }
 
-func (s *SlackAPI) FilesList(count string, page string) ResponseFilesList {
+func (s *SlackAPI) FilesList(action string, filter string, count string, page string) ResponseFilesList {
+	if action != "" && action != "none" {
+		s.AddRequestParam(action, filter)
+	}
+
 	if count == "" {
 		count = "100"
 	}

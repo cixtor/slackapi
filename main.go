@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.5.10"
+const version = "1.5.11"
 
 func main() {
 	var client SlackAPI
@@ -52,6 +52,11 @@ func main() {
 		fmt.Println("  slackapi files.delete [file]                             Deletes a file and associated comments")
 		fmt.Println("  slackapi files.info [file] [count] [page]                Gets information about a team file")
 		fmt.Println("  slackapi files.list [count] [page]                       Lists and filters team files")
+		fmt.Println("  slackapi files.listAfterTime [time] [count] [page]       Lists and filters team files after this timestamp (inclusive)")
+		fmt.Println("  slackapi files.listBeforeTime [time] [count] [page]      Lists and filters team files before this timestamp (inclusive)")
+		fmt.Println("  slackapi files.listByChannel [channel] [count] [page]    Lists and filters team files in a specific channel")
+		fmt.Println("  slackapi files.listByType [type] [count] [page]          Lists and filters team files by type: all, posts, snippets, images, gdocs, zips, pdfs")
+		fmt.Println("  slackapi files.listByUser [user] [count] [page]          Lists and filters team files created by a single user")
 		fmt.Println("  slackapi files.upload [channel] [fpath]                  Uploads or creates a file from local data")
 		fmt.Println("  slackapi groups.close [channel]                          Closes a private channel")
 		fmt.Println("  slackapi groups.history [channel] [time]                 Fetches history of messages and events from a private channel")
@@ -177,7 +182,17 @@ func main() {
 	case "files.info":
 		client.PrintFilesInfo(flag.Arg(1), flag.Arg(2), flag.Arg(3))
 	case "files.list":
-		client.PrintFilesList(flag.Arg(1), flag.Arg(2))
+		client.PrintFilesList("none", "", flag.Arg(1), flag.Arg(2))
+	case "files.listAfterTime":
+		client.PrintFilesList("ts_from", flag.Arg(1), flag.Arg(2), flag.Arg(3))
+	case "files.listBeforeTime":
+		client.PrintFilesList("ts_to", flag.Arg(1), flag.Arg(2), flag.Arg(3))
+	case "files.listByChannel":
+		client.PrintFilesList("channel", flag.Arg(1), flag.Arg(2), flag.Arg(3))
+	case "files.listByType":
+		client.PrintFilesList("types", flag.Arg(1), flag.Arg(2), flag.Arg(3))
+	case "files.listByUser":
+		client.PrintFilesList("user", flag.Arg(1), flag.Arg(2), flag.Arg(3))
 	case "files.upload":
 		client.PrintFilesUpload(flag.Arg(1), flag.Arg(2))
 	case "groups.close":

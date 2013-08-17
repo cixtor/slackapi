@@ -16,6 +16,7 @@ import (
 
 type SlackAPI struct {
 	Owner          Owner
+	RequestParams  []string
 	RobotImage     string
 	RobotImageType string
 	RobotIsActive  bool
@@ -89,6 +90,11 @@ func (s *SlackAPI) Url(action string, params []string) string {
 }
 
 func (s *SlackAPI) HttpRequest(method string, body io.Reader, action string, params []string) *http.Request {
+	if len(s.RequestParams) > 0 {
+		params = append(params, s.RequestParams...)
+		s.RequestParams = s.RequestParams[:0]
+	}
+
 	var url string = s.Url(action, params)
 	req, err := http.NewRequest(method, url, body)
 
@@ -104,6 +110,11 @@ func (s *SlackAPI) HttpRequest(method string, body io.Reader, action string, par
 	}
 
 	return req
+}
+
+func (s *SlackAPI) AddRequestParam(param string, value string) {
+	var parameter string = fmt.Sprintf("%s=%s", param, value)
+	s.RequestParams = append(s.RequestParams, parameter)
 }
 
 func (s *SlackAPI) ExecuteRequest(req *http.Request, data interface{}) {
