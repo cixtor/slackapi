@@ -99,7 +99,7 @@ username:channel> :exit
 - [x] `files.comments.edit` - Edit an existing file comment.
 - [x] `files.delete` - Deletes a file.
 - [x] `files.info` - Gets information about a team file.
-- [ ] `files.list` - Lists & filters team files.
+- [x] `files.list` - Lists and filters team files.
 - [ ] `files.revokePublicURL` - Revokes public/external sharing access for a file
 - [ ] `files.sharedPublicURL` - Enables a file for public/external sharing.
 - [x] `files.upload` - Uploads or creates a file.

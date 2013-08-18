@@ -109,6 +109,11 @@ func (s *SlackAPI) PrintFilesInfo(file string, count string, page string) {
 	s.PrintAndExit(response)
 }
 
+func (s *SlackAPI) PrintFilesList(count string, page string) {
+	response := s.FilesList(count, page)
+	s.PrintAndExit(response)
+}
+
 func (s *SlackAPI) PrintFilesUpload(channel string, file string) {
 	response := s.FilesUpload(channel, file)
 	s.PrintAndExit(response)

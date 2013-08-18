@@ -7,6 +7,12 @@ type ResponseFilesInfo struct {
 	Paging   Pagination    `json:"paging"`
 }
 
+type ResponseFilesList struct {
+	Response
+	Files  []File     `json:"files"`
+	Paging Pagination `json:"paging"`
+}
+
 type ResponseFilesUpload struct {
 	Response
 	File File `json:"file"`
@@ -122,6 +128,20 @@ func (s *SlackAPI) FilesInfo(file string, count string, page string) ResponseFil
 		"files.info",
 		"token",
 		"file="+file,
+		"count="+count,
+		"page="+page)
+	return response
+}
+
+func (s *SlackAPI) FilesList(count string, page string) ResponseFilesList {
+	if count == "" {
+		count = "100"
+	}
+
+	var response ResponseFilesList
+	s.GetRequest(&response,
+		"files.list",
+		"token",
 		"count="+count,
 		"page="+page)
 	return response
