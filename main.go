@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.5.8"
+const version = "1.5.9"
 
 func main() {
 	var client SlackAPI
@@ -50,6 +50,7 @@ func main() {
 		fmt.Println("  slackapi files.comments.delete [file] [fcid]             Deletes an existing comment on a file")
 		fmt.Println("  slackapi files.comments.edit [file] [fcid] [text]        Edit an existing file comment")
 		fmt.Println("  slackapi files.delete [file]                             Deletes a file and associated comments")
+		fmt.Println("  slackapi files.info [file] [count] [page]                Gets information about a team file")
 		fmt.Println("  slackapi files.upload [channel] [fpath]                  Uploads or creates a file from local data")
 		fmt.Println("  slackapi groups.close [channel]                          Closes a private channel")
 		fmt.Println("  slackapi groups.history [channel] [time]                 Fetches history of messages and events from a private channel")
@@ -172,6 +173,8 @@ func main() {
 		client.PrintFilesCommentsEdit(flag.Arg(1), flag.Arg(2), flag.Arg(3))
 	case "files.delete":
 		client.PrintFilesDelete(flag.Arg(1))
+	case "files.info":
+		client.PrintFilesInfo(flag.Arg(1), flag.Arg(2), flag.Arg(3))
 	case "files.upload":
 		client.PrintFilesUpload(flag.Arg(1), flag.Arg(2))
 	case "groups.close":

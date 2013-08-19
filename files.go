@@ -1,5 +1,12 @@
 package main
 
+type ResponseFilesInfo struct {
+	Response
+	File     File          `json:"file"`
+	Comments []FileComment `json:"comments"`
+	Paging   Pagination    `json:"paging"`
+}
+
 type ResponseFilesUpload struct {
 	Response
 	File File `json:"file"`
@@ -11,43 +18,54 @@ type ResponseFilesComments struct {
 }
 
 type File struct {
-	Channels           []string `json:"channels"`
-	CommentsCount      int      `json:"comments_count"`
-	Created            int      `json:"created"`
-	DisplayAsBot       bool     `json:"display_as_bot"`
-	Editable           bool     `json:"editable"`
-	ExternalType       string   `json:"external_type"`
-	Filetype           string   `json:"filetype"`
-	Groups             []string `json:"groups"`
-	Id                 string   `json:"id"`
-	ImageExifRotation  int      `json:"image_exif_rotation"`
-	Ims                []string `json:"ims"`
-	IsExternal         bool     `json:"is_external"`
-	IsPublic           bool     `json:"is_public"`
-	Mimetype           string   `json:"mimetype"`
-	Mode               string   `json:"mode"`
-	Name               string   `json:"name"`
-	OriginalH          int      `json:"original_h"`
-	OriginalW          int      `json:"original_w"`
-	Permalink          string   `json:"permalink"`
-	PrettyType         string   `json:"pretty_type"`
-	PublicUrlShared    bool     `json:"public_url_shared"`
-	Size               int      `json:"size"`
-	Thumb160           string   `json:"thumb_160"`
-	Thumb360           string   `json:"thumb_360"`
-	Thumb360H          int      `json:"thumb_360_h"`
-	Thumb360W          int      `json:"thumb_360_w"`
-	Thumb480           string   `json:"thumb_480"`
-	Thumb480H          int      `json:"thumb_480_h"`
-	Thumb480W          int      `json:"thumb_480_w"`
-	Thumb64            string   `json:"thumb_64"`
-	Thumb80            string   `json:"thumb_80"`
-	Timestamp          int      `json:"timestamp"`
-	Title              string   `json:"title"`
-	UrlPrivate         string   `json:"url_private"`
-	UrlPrivateDownload string   `json:"url_private_download"`
-	User               string   `json:"user"`
-	Username           string   `json:"username"`
+	Channels           []string    `json:"channels"`
+	CommentsCount      int         `json:"comments_count"`
+	Created            int         `json:"created"`
+	DisplayAsBot       bool        `json:"display_as_bot"`
+	Editable           bool        `json:"editable"`
+	EditLink           string      `json:"edit_link"`
+	ExternalType       string      `json:"external_type"`
+	Filetype           string      `json:"filetype"`
+	Groups             []string    `json:"groups"`
+	Id                 string      `json:"id"`
+	ImageExifRotation  int         `json:"image_exif_rotation"`
+	Ims                []string    `json:"ims"`
+	InitialComment     FileComment `json:"initial_comment"`
+	IsExternal         bool        `json:"is_external"`
+	IsPublic           bool        `json:"is_public"`
+	IsStarred          bool        `json:"is_starred"`
+	Lines              int         `json:"lines"`
+	LinesMore          int         `json:"lines_more"`
+	Mimetype           string      `json:"mimetype"`
+	Mode               string      `json:"mode"`
+	Name               string      `json:"name"`
+	NumStars           int         `json:"num_stars"`
+	OriginalH          int         `json:"original_h"`
+	OriginalW          int         `json:"original_w"`
+	Permalink          string      `json:"permalink"`
+	PrettyType         string      `json:"pretty_type"`
+	Preview            string      `json:"preview"`
+	PreviewHighlight   string      `json:"preview_highlight"`
+	PublicUrlShared    bool        `json:"public_url_shared"`
+	Size               int         `json:"size"`
+	Thumb160           string      `json:"thumb_160"`
+	Thumb360           string      `json:"thumb_360"`
+	Thumb360Gif        string      `json:"thumb_360_gif"`
+	Thumb360H          int         `json:"thumb_360_h"`
+	Thumb360W          int         `json:"thumb_360_w"`
+	Thumb480           string      `json:"thumb_480"`
+	Thumb480H          int         `json:"thumb_480_h"`
+	Thumb480W          int         `json:"thumb_480_w"`
+	Thumb64            string      `json:"thumb_64"`
+	Thumb80            string      `json:"thumb_80"`
+	Timestamp          int         `json:"timestamp"`
+	Title              string      `json:"title"`
+	Url                string      `json:"url"`
+	UrlDownload        string      `json:"url_download"`
+	UrlPrivate         string      `json:"url_private"`
+	UrlPrivateDownload string      `json:"url_private_download"`
+	User               string      `json:"user"`
+	Username           string      `json:"username"`
 }
 
 type FileComment struct {
@@ -95,6 +113,17 @@ func (s *SlackAPI) FilesDelete(file string) Response {
 		"files.delete",
 		"token",
 		"file="+file)
+	return response
+}
+
+func (s *SlackAPI) FilesInfo(file string, count string, page string) ResponseFilesInfo {
+	var response ResponseFilesInfo
+	s.GetRequest(&response,
+		"files.info",
+		"token",
+		"file="+file,
+		"count="+count,
+		"page="+page)
 	return response
 }
 

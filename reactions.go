@@ -37,13 +37,6 @@ type Reaction struct {
 	Users []string `json:"users"`
 }
 
-type Pagination struct {
-	Count int `json:"count"`
-	Page  int `json:"page"`
-	Pages int `json:"pages"`
-	Total int `json:"total"`
-}
-
 func (s *SlackAPI) ReactionsAdd(name string, resource string, unique string) Response {
 	var response Response
 

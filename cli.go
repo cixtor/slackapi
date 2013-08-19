@@ -104,6 +104,11 @@ func (s *SlackAPI) PrintFilesDelete(file string) {
 	s.PrintAndExit(response)
 }
 
+func (s *SlackAPI) PrintFilesInfo(file string, count string, page string) {
+	response := s.FilesInfo(file, count, page)
+	s.PrintAndExit(response)
+}
+
 func (s *SlackAPI) PrintFilesUpload(channel string, file string) {
 	response := s.FilesUpload(channel, file)
 	s.PrintAndExit(response)

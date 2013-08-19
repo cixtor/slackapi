@@ -171,3 +171,10 @@ type AppsListAppsIcons struct {
 	Image72   string `json:"image_72"`
 	Image96   string `json:"image_96"`
 }
+
+type Pagination struct {
+	Count int `json:"count"`
+	Page  int `json:"page"`
+	Pages int `json:"pages"`
+	Total int `json:"total"`
+}
