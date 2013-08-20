@@ -54,6 +54,11 @@ func (s *SlackAPI) PrintChannelsSetPurpose(channel string, purpose string) {
 	s.PrintAndExit(response)
 }
 
+func (s *SlackAPI) PrintChannelsSetRetention(channel string, duration string) {
+	response := s.ChannelsSetRetention(channel, duration)
+	s.PrintAndExit(response)
+}
+
 func (s *SlackAPI) PrintChannelsSetTopic(channel string, topic string) {
 	response := s.ChannelsSetTopic(channel, topic)
 	s.PrintAndExit(response)

@@ -82,7 +82,7 @@ username:channel> :exit
 - [x] `channels.mark` - Sets the read cursor in a channel.
 - [ ] `channels.rename` - Renames a channel.
 - [x] `channels.setPurpose` - Sets the purpose for a channel.
-- [ ] `channels.setRetention` - Sets the retention time of the messages.
+- [x] `channels.setRetention` - Sets the retention time of the messages.
 - [x] `channels.setTopic` - Sets the topic for a channel.
 - [ ] `channels.unarchive` - Unarchives a channel.
 - [x] `chat.delete` - Deletes a message.

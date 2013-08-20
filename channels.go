@@ -63,6 +63,10 @@ func (s *SlackAPI) ChannelsSetPurpose(channel string, purpose string) ChannelPur
 	return s.ResourceSetPurpose("channels.setPurpose", channel, purpose)
 }
 
+func (s *SlackAPI) ChannelsSetRetention(channel string, duration string) Response {
+	return s.ResourceSetRetention("channels.setRetention", channel, duration)
+}
+
 func (s *SlackAPI) ChannelsSetTopic(channel string, topic string) ChannelTopicNow {
 	return s.ResourceSetTopic("channels.setTopic", channel, topic)
 }

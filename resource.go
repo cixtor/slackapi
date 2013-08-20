@@ -106,6 +106,17 @@ func (s *SlackAPI) ResourceSetPurpose(action string, channel string, purpose str
 	return response
 }
 
+func (s *SlackAPI) ResourceSetRetention(action string, channel string, duration string) Response {
+	var response Response
+	s.GetRequest(&response,
+		action,
+		"token",
+		"channel="+channel,
+		"retention_type=1",
+		"retention_duration="+duration)
+	return response
+}
+
 func (s *SlackAPI) ResourceSetTopic(action string, channel string, topic string) ChannelTopicNow {
 	var response ChannelTopicNow
 	s.GetRequest(&response,

@@ -77,14 +77,7 @@ func (s *SlackAPI) GroupsSetPurpose(channel string, purpose string) ChannelPurpo
 }
 
 func (s *SlackAPI) GroupsSetRetention(channel string, duration string) Response {
-	var response Response
-	s.GetRequest(&response,
-		"groups.setRetention",
-		"token",
-		"channel="+channel,
-		"retention_type=1",
-		"retention_duration="+duration)
-	return response
+	return s.ResourceSetRetention("groups.setRetention", channel, duration)
 }
 
 func (s *SlackAPI) GroupsSetTopic(channel string, topic string) ChannelTopicNow {
