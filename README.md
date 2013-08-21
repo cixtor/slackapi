@@ -117,7 +117,7 @@ username:channel> :exit
 - [x] `groups.open` - Opens a private channel.
 - [ ] `groups.rename` - Renames a private channel.
 - [x] `groups.setPurpose` - Sets the purpose for a private channel.
-- [ ] `groups.setRetention` - Sets the retention time of the messages.
+- [x] `groups.setRetention` - Sets the retention time of the messages.
 - [x] `groups.setTopic` - Sets the topic for a private channel.
 - [ ] `groups.unarchive` - Unarchives a private channel.
 - [x] `im.close` - Close a direct message channel.

@@ -153,6 +153,11 @@ func (s *SlackAPI) PrintGroupsSetPurpose(channel string, purpose string) {
 	s.PrintAndExit(response)
 }
 
+func (s *SlackAPI) PrintGroupsSetRetention(channel string, duration string) {
+	response := s.GroupsSetRetention(channel, duration)
+	s.PrintAndExit(response)
+}
+
 func (s *SlackAPI) PrintGroupsSetTopic(channel string, topic string) {
 	response := s.GroupsSetTopic(channel, topic)
 	s.PrintAndExit(response)
