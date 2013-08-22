@@ -150,7 +150,7 @@ username:channel> :exit
 - [ ] `stars.add` - Adds a star to an item.
 - [ ] `stars.list` - Lists stars for a user.
 - [ ] `stars.remove` - Removes a star from an item.
-- [ ] `team.accessLogs` - Gets the access logs for the current team.
+- [x] `team.accessLogs` - Gets the access logs for the current team.
 - [x] `team.info` - Gets information about the current team.
 - [ ] `team.integrationLogs` - Gets the integration logs for the current team.
 - [ ] `usergroups.create` - Create a User Group

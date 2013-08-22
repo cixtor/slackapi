@@ -217,6 +217,11 @@ func (s *SlackAPI) PrintReactionsRemove(name string, channel string, timestamp s
 	s.PrintAndExit(response)
 }
 
+func (s *SlackAPI) PrintTeamAccessLogs(count string, page string) {
+	response := s.TeamAccessLogs(count, page)
+	s.PrintAndExit(response)
+}
+
 func (s *SlackAPI) PrintTeamInfo() {
 	response := s.TeamInfo()
 	s.PrintAndExit(response)
