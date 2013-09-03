@@ -70,29 +70,56 @@ username:channel> :exit
 - [x] `api.test` - Checks API calling code.
 - [x] `apps.list` - Lists associated applications.
 - [x] `auth.test` - Checks authentication and identity.
+- [ ] `channels.archive` - Archives a channel.
+- [ ] `channels.create` - Creates a channel.
 - [x] `channels.history` - Fetches history of messages and events from a channel.
 - [x] `channels.info` - Gets information about a channel.
+- [ ] `channels.invite` - Invites a user to a channel.
+- [ ] `channels.join` - Joins a channel, creating it if needed.
+- [ ] `channels.kick` - Removes a user from a channel.
+- [ ] `channels.leave` - Leaves a channel.
 - [x] `channels.list` - Lists all channels in a Slack team.
 - [x] `channels.mark` - Sets the read cursor in a channel.
+- [ ] `channels.rename` - Renames a channel.
 - [x] `channels.setPurpose` - Sets the purpose for a channel.
+- [ ] `channels.setRetention` - Sets the retention time of the messages.
 - [x] `channels.setTopic` - Sets the topic for a channel.
+- [ ] `channels.unarchive` - Unarchives a channel.
 - [x] `chat.delete` - Deletes a message.
 - [x] `chat.postMessage` - Sends a message to a channel.
 - [x] `chat.update` - Updates a message.
+- [ ] `dnd.endDnd` - Ends the current user's _"Do Not Disturb"_ session immediately.
+- [ ] `dnd.endSnooze` - Ends the current user's snooze mode immediately.
+- [ ] `dnd.info` - Retrieves a user's current _"Do Not Disturb"_ status.
+- [ ] `dnd.setSnooze` - Turns on _"Do Not Disturb"_ mode for the current user, or changes its duration.
+- [ ] `dnd.teamInfo` - Retrieves the _"Do Not Disturb"_ status for users on a team.
 - [x] `emoji.list` - Lists custom emoji for a team.
 - [x] `files.comments.add` - Add a comment to an existing file.
 - [x] `files.comments.delete` - Deletes an existing comment on a file.
 - [x] `files.comments.edit` - Edit an existing file comment.
 - [x] `files.delete` - Deletes a file.
+- [ ] `files.info` - Gets information about a team file.
+- [ ] `files.list` - Lists & filters team files.
+- [ ] `files.revokePublicURL` - Revokes public/external sharing access for a file
+- [ ] `files.sharedPublicURL` - Enables a file for public/external sharing.
 - [x] `files.upload` - Uploads or creates a file.
+- [ ] `groups.archive` - Archives a private channel.
 - [x] `groups.close` - Closes a private channel.
+- [ ] `groups.create` - Creates a private channel.
+- [ ] `groups.createChild` - Clones and archives a private channel.
 - [x] `groups.history` - Fetches history of messages and events from a private channel.
 - [x] `groups.info` - Gets information about a private channel.
+- [ ] `groups.invite` - Invites a user to a private channel.
+- [ ] `groups.kick` - Removes a user from a private channel.
+- [ ] `groups.leave` - Leaves a private channel.
 - [x] `groups.list` - Lists private channels that the calling user has access to.
 - [x] `groups.mark` - Sets the read cursor in a private channel.
 - [x] `groups.open` - Opens a private channel.
+- [ ] `groups.rename` - Renames a private channel.
 - [x] `groups.setPurpose` - Sets the purpose for a private channel.
+- [ ] `groups.setRetention` - Sets the retention time of the messages.
 - [x] `groups.setTopic` - Sets the topic for a private channel.
+- [ ] `groups.unarchive` - Unarchives a private channel.
 - [x] `im.close` - Close a direct message channel.
 - [x] `im.history` - Fetches history of messages and events from direct message channel.
 - [x] `im.list` - Lists direct message channels for the calling user.
@@ -103,16 +130,36 @@ username:channel> :exit
 - [x] `mpim.list` - Lists multiparty direct message channels for the calling user.
 - [ ] `mpim.mark` - Sets the read cursor in a multiparty direct message channel.
 - [ ] `mpim.open` - This method opens a multiparty direct message.
+- [ ] `oauth.access` - Exchanges a temporary OAuth code for an API token.
 - [ ] `pins.add` - Pins an item to a channel.
+- [ ] `pins.list` - Lists items pinned to a channel.
 - [ ] `pins.remove` - Un-pins an item from a channel.
 - [x] `reactions.add` - Adds a reaction to an item.
 - [x] `reactions.get` - Gets reactions for an item.
 - [x] `reactions.list` - Lists reactions made by a user.
 - [x] `reactions.remove` - Removes a reaction from an item.
+- [ ] `reminders.add` - Creates a reminder.
+- [ ] `reminders.complete` - Marks a reminder as complete.
+- [ ] `reminders.delete` - Deletes a reminder.
+- [ ] `reminders.info` - Gets information about a reminder.
+- [ ] `reminders.list` - Lists all reminders created by or for a given user.
 - [ ] `rtm.start` - Starts a Real Time Messaging session.
+- [ ] `search.all` - Searches for messages and files matching a query.
+- [ ] `search.files` - Searches for files matching a query.
+- [ ] `search.messages` - Searches for messages matching a query.
 - [ ] `stars.add` - Adds a star to an item.
+- [ ] `stars.list` - Lists stars for a user.
 - [ ] `stars.remove` - Removes a star from an item.
+- [ ] `team.accessLogs` - Gets the access logs for the current team.
 - [x] `team.info` - Gets information about the current team.
+- [ ] `team.integrationLogs` - Gets the integration logs for the current team.
+- [ ] `usergroups.create` - Create a User Group
+- [ ] `usergroups.disable` - Disable an existing User Group
+- [ ] `usergroups.enable` - Enable a User Group
+- [ ] `usergroups.list` - List all User Groups for a team
+- [ ] `usergroups.update` - Update an existing User Group
+- [ ] `usergroups.users.list` - List all users in a User Group
+- [ ] `usergroups.users.update` - Update the list of users for a User Group
 - [x] `users.getPresence` - Gets user presence information.
 - [x] `users.info` - Gets information about a user.
 - [x] `users.list` - Lists all users in a Slack team.
