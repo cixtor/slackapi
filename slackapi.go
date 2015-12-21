@@ -100,3 +100,8 @@ func (s *SlackAPI) AuthTest() {
 	response := s.GetRequest("auth.test", "token")
 	s.PrintResponse(response)
 }
+
+func (s *SlackAPI) UsersList() {
+	response := s.GetRequest("users.list", "token", "presence=1")
+	s.PrintResponse(response)
+}

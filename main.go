@@ -13,6 +13,7 @@ func main() {
 		fmt.Println("Usage:")
 		fmt.Println("  slackapi api.test")
 		fmt.Println("  slackapi auth.test")
+		fmt.Println("  slackapi users.list")
 		flag.PrintDefaults()
 	}
 
@@ -24,6 +25,8 @@ func main() {
 		client.Test()
 	case "auth.test":
 		client.AuthTest()
+	case "users.list":
+		client.UsersList()
 	case "-help":
 		flag.Usage()
 	}
