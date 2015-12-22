@@ -14,6 +14,7 @@ func main() {
 		fmt.Println("  slackapi api.test")
 		fmt.Println("  slackapi auth.test")
 		fmt.Println("  slackapi users.list")
+		fmt.Println("  slackapi users.search [query]")
 		flag.PrintDefaults()
 	}
 
@@ -27,6 +28,8 @@ func main() {
 		client.AuthTest()
 	case "users.list":
 		client.UsersList()
+	case "users.search":
+		client.UsersSearch(flag.Arg(1))
 	case "-help":
 		flag.Usage()
 	}

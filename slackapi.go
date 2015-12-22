@@ -2,10 +2,11 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"os"
+	"strings"
 )
 
 type SlackAPI struct {
@@ -21,15 +22,8 @@ func (s *SlackAPI) ReportError(err error) {
 	os.Exit(1)
 }
 
-func (s *SlackAPI) PrintResponse(data []byte) {
-	var temp interface{}
-	err := json.Unmarshal(data, &temp)
-
-	if err != nil {
-		s.ReportError(err)
-	}
-
-	response, err := json.MarshalIndent(temp, "", "\x20\x20")
+func (s *SlackAPI) PrintJson(data interface{}) {
+	response, err := json.MarshalIndent(data, "", "\x20\x20")
 
 	if err != nil {
 		s.ReportError(err)
@@ -39,7 +33,7 @@ func (s *SlackAPI) PrintResponse(data []byte) {
 	os.Exit(0)
 }
 
-func (s *SlackAPI) GetRequest(action string, params ...string) []byte {
+func (s *SlackAPI) GetRequest(data interface{}, action string, params ...string) interface{} {
 	var url string = fmt.Sprintf("https://slack.com/api/%s", action)
 
 	if len(params) > 0 {
@@ -82,26 +76,51 @@ func (s *SlackAPI) GetRequest(action string, params ...string) []byte {
 	}
 
 	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
+
+	dec := json.NewDecoder(resp.Body)
+	err = dec.Decode(data)
 
 	if err != nil {
 		s.ReportError(err)
 	}
 
-	return body
+	return data
 }
 
 func (s *SlackAPI) Test() {
-	response := s.GetRequest("api.test")
-	s.PrintResponse(response)
+	var response interface{}
+	s.GetRequest(&response, "api.test")
+	s.PrintJson(response)
 }
 
 func (s *SlackAPI) AuthTest() {
-	response := s.GetRequest("auth.test", "token")
-	s.PrintResponse(response)
+	var response interface{}
+	s.GetRequest(&response, "auth.test", "token")
+	s.PrintJson(response)
 }
 
 func (s *SlackAPI) UsersList() {
-	response := s.GetRequest("users.list", "token", "presence=1")
-	s.PrintResponse(response)
+	var response interface{}
+	s.GetRequest(&response, "users.list", "token", "presence=1")
+	s.PrintJson(response)
+}
+
+func (s *SlackAPI) UsersSearch(query string) {
+	if len(query) == 0 {
+		s.ReportError(errors.New("empty query is invalid"))
+	}
+
+	var response Users
+	var matches []User
+	s.GetRequest(&response, "users.list", "token", "presence=1")
+
+	for _, user := range response.Members {
+		if strings.Contains(user.Name, query) ||
+			strings.Contains(user.RealName, query) ||
+			strings.Contains(user.Profile.Email, query) {
+			matches = append(matches, user)
+		}
+	}
+
+	s.PrintJson(matches)
 }
