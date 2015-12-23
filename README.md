@@ -17,6 +17,57 @@ Since this is a client you will need to give access to the perform HTTP requests
 3. Copy the token and use the terminal to interact with the service
 4. `$ SLACK_TOKEN=xoxs-token slackapi api.test # test token integrity`
 
+### Progress
+
+- [x] `api.test` - Checks API calling code.
+- [x] `auth.test` - Checks authentication &amp; identity.
+- [ ] `channels.history` - Fetches history of messages and events from a channel.
+- [ ] `channels.info` - Gets information about a channel.
+- [ ] `channels.list` - Lists all channels in a Slack team.
+- [ ] `channels.mark` - Sets the read cursor in a channel.
+- [ ] `channels.setPurpose` - Sets the purpose for a channel.
+- [ ] `channels.setTopic` - Sets the topic for a channel.
+- [ ] `chat.delete` - Deletes a message.
+- [ ] `chat.postMessage` - Sends a message to a channel.
+- [ ] `chat.update` - Updates a message.
+- [ ] `emoji.list` - Lists custom emoji for a team.
+- [ ] `files.delete` - Deletes a file.
+- [ ] `files.upload` - Uploads or creates a file.
+- [ ] `groups.close` - Closes a private channel.
+- [ ] `groups.history` - Fetches history of messages and events from a private channel.
+- [ ] `groups.info` - Gets information about a private channel.
+- [ ] `groups.list` - Lists private channels that the calling user has access to.
+- [ ] `groups.mark` - Sets the read cursor in a private channel.
+- [ ] `groups.open` - Opens a private channel.
+- [ ] `groups.setPurpose` - Sets the purpose for a private channel.
+- [ ] `groups.setTopic` - Sets the topic for a private channel.
+- [ ] `im.close` - Close a direct message channel.
+- [ ] `im.history` - Fetches history of messages and events from direct message channel.
+- [ ] `im.list` - Lists direct message channels for the calling user.
+- [ ] `im.mark` - Sets the read cursor in a direct message channel.
+- [ ] `im.open` - Opens a direct message channel.
+- [ ] `mpim.close` - Closes a multiparty direct message channel.
+- [ ] `mpim.history` - Fetches history of messages and events from a multiparty direct message.
+- [ ] `mpim.list` - Lists multiparty direct message channels for the calling user.
+- [ ] `mpim.mark` - Sets the read cursor in a multiparty direct message channel.
+- [ ] `mpim.open` - This method opens a multiparty direct message.
+- [ ] `pins.add` - Pins an item to a channel.
+- [ ] `pins.remove` - Un-pins an item from a channel.
+- [ ] `reactions.add` - Adds a reaction to an item.
+- [ ] `reactions.get` - Gets reactions for an item.
+- [ ] `reactions.list` - Lists reactions made by a user.
+- [ ] `reactions.remove` - Removes a reaction from an item.
+- [ ] `rtm.start` - Starts a Real Time Messaging session.
+- [ ] `stars.add` - Adds a star to an item.
+- [ ] `stars.remove` - Removes a star from an item.
+- [ ] `team.info` - Gets information about the current team.
+- [ ] `users.getPresence` - Gets user presence information.
+- [ ] `users.info` - Gets information about a user.
+- [x] `users.list` - Lists all users in a Slack team.
+- [x] `users.search` - Search users by name or email address.
+- [ ] `users.setActive` - Marks a user as active.
+- [ ] `users.setPresence` - Manually sets user presence.
+
 ### License
 
 ```
