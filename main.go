@@ -26,6 +26,8 @@ func main() {
 		client.Test()
 	case "auth.test":
 		client.AuthTest()
+	case "users.info":
+		client.UsersInfo(flag.Arg(1))
 	case "users.list":
 		client.UsersList()
 	case "users.search":
