@@ -99,6 +99,12 @@ func (s *SlackAPI) AuthTest() {
 	s.PrintJson(response)
 }
 
+func (s *SlackAPI) UsersGetPresence(query string) {
+	var response interface{}
+	s.GetRequest(&response, "users.getPresence", "token", "user="+query)
+	s.PrintJson(response)
+}
+
 func (s *SlackAPI) UsersInfo(query string) {
 	var response interface{}
 	s.GetRequest(&response, "users.info", "token", "user="+query)

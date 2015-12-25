@@ -61,7 +61,7 @@ Since this is a client you will need to give access to the perform HTTP requests
 - [ ] `stars.add` - Adds a star to an item.
 - [ ] `stars.remove` - Removes a star from an item.
 - [ ] `team.info` - Gets information about the current team.
-- [ ] `users.getPresence` - Gets user presence information.
+- [x] `users.getPresence` - Gets user presence information.
 - [x] `users.info` - Gets information about a user.
 - [x] `users.list` - Lists all users in a Slack team.
 - [x] `users.search` - Search users by name or email address.
