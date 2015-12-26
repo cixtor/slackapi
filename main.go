@@ -34,6 +34,8 @@ func main() {
 		client.UsersList()
 	case "users.search":
 		client.UsersSearch(flag.Arg(1))
+	case "users.setPresence":
+		client.UsersSetPresence(flag.Arg(1))
 	case "-help":
 		flag.Usage()
 	}

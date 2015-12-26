@@ -136,3 +136,9 @@ func (s *SlackAPI) UsersSearch(query string) {
 
 	s.PrintJson(matches)
 }
+
+func (s *SlackAPI) UsersSetPresence(query string) {
+	var response interface{}
+	s.GetRequest(&response, "users.setPresence", "token", "presence="+query)
+	s.PrintJson(response)
+}
