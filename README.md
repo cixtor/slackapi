@@ -65,7 +65,7 @@ Since this is a client you will need to give access to the perform HTTP requests
 - [x] `users.info` - Gets information about a user.
 - [x] `users.list` - Lists all users in a Slack team.
 - [x] `users.search` - Search users by name or email address.
-- [ ] `users.setActive` - Marks a user as active.
+- [x] `users.setActive` - Marks a user as active.
 - [x] `users.setPresence` - Manually sets user presence.
 
 ### License
