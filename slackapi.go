@@ -33,7 +33,7 @@ func (s *SlackAPI) PrintJson(data interface{}) {
 	os.Exit(0)
 }
 
-func (s *SlackAPI) GetRequest(data interface{}, action string, params ...string) interface{} {
+func (s *SlackAPI) Url(action string, params []string) string {
 	var url string = fmt.Sprintf("https://slack.com/api/%s", action)
 
 	if len(params) > 0 {
@@ -54,6 +54,11 @@ func (s *SlackAPI) GetRequest(data interface{}, action string, params ...string)
 		}
 	}
 
+	return url
+}
+
+func (s *SlackAPI) GetRequest(data interface{}, action string, params ...string) interface{} {
+	var url string = s.Url(action, params)
 	req, err := http.NewRequest("GET", url, nil)
 	client := &http.Client{}
 
