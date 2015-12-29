@@ -26,6 +26,8 @@ func main() {
 		client.Test()
 	case "auth.test":
 		client.AuthTest()
+	case "im.open":
+		client.InstantMessagingOpen(flag.Arg(1))
 	case "users.getPresence":
 		client.UsersGetPresence(flag.Arg(1))
 	case "users.info":
