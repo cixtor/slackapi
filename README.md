@@ -30,7 +30,7 @@ Since this is a client you will need to give access to the perform HTTP requests
 - [ ] `chat.delete` - Deletes a message.
 - [ ] `chat.postMessage` - Sends a message to a channel.
 - [ ] `chat.update` - Updates a message.
-- [ ] `emoji.list` - Lists custom emoji for a team.
+- [x] `emoji.list` - Lists custom emoji for a team.
 - [ ] `files.delete` - Deletes a file.
 - [ ] `files.upload` - Uploads or creates a file.
 - [ ] `groups.close` - Closes a private channel.

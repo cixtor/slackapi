@@ -26,6 +26,8 @@ func main() {
 		client.Test()
 	case "auth.test":
 		client.AuthTest()
+	case "emoji.list":
+		client.EmojiList()
 	case "im.close":
 		client.InstantMessagingClose(flag.Arg(1))
 	case "im.open":

@@ -104,6 +104,12 @@ func (s *SlackAPI) AuthTest() {
 	s.PrintJson(response)
 }
 
+func (s *SlackAPI) EmojiList() {
+	var response interface{}
+	s.GetRequest(&response, "emoji.list", "token")
+	s.PrintJson(response)
+}
+
 func (s *SlackAPI) InstantMessagingClose(query string) {
 	var response interface{}
 	s.GetRequest(&response, "im.close", "token", "channel="+query)
