@@ -1,7 +1,21 @@
 package main
 
+type Base struct {
+	Ok    bool   `json:"ok"`
+	Error string `json:"error"`
+}
+
+type Session struct {
+	Base
+	AlreadyOpen bool `json:"already_open"`
+	NoOp        bool `json:"no_op"`
+	Channel     struct {
+		Id string `json:"id"`
+	} `json:"channel"`
+}
+
 type Users struct {
-	Ok      bool   `json:"ok"`
+	Base
 	Members []User `json:"members"`
 }
 

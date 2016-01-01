@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -31,6 +32,16 @@ func (s *SlackAPI) PrintJson(data interface{}) {
 
 	fmt.Printf("%s\n", response)
 	os.Exit(0)
+}
+
+func (s *SlackAPI) PrintInlineJson(data interface{}) {
+	response, err := json.Marshal(data)
+
+	if err != nil {
+		s.ReportError(err)
+	}
+
+	fmt.Printf("%s\n", response)
 }
 
 func (s *SlackAPI) Url(action string, params []string) string {
@@ -104,25 +115,86 @@ func (s *SlackAPI) AuthTest() {
 	s.PrintJson(response)
 }
 
+func (s *SlackAPI) ChatSession() {
+	var command string
+	var parts []string
+	var channel string = "unknown"
+	reader := bufio.NewReader(os.Stdin)
+
+	for {
+		fmt.Printf("slack:%s> ", channel)
+		message, err := reader.ReadString('\n')
+
+		if err != nil {
+			s.ReportError(err)
+		}
+
+		message = strings.TrimSpace(message)
+
+		if message == ":exit" {
+			// Close the chat session and exit the loop.
+			fmt.Printf("Closing...")
+			response := s.InstantMessagingClose(channel)
+			fmt.Printf("\r")
+			s.PrintInlineJson(response)
+			fmt.Println("Closed")
+			break
+		} else if message[0] == ':' {
+			// Execute a custom command with the message.
+			parts = strings.SplitN(message, "\x20", 2)
+			command = parts[0]
+			message = parts[1]
+
+			if command == ":open" {
+				fmt.Printf("Opening session...")
+				response := s.InstantMessagingOpen(message)
+				fmt.Printf("\r")
+				s.PrintInlineJson(response)
+
+				if response.Ok == true {
+					channel = response.Channel.Id
+				}
+			}
+		} else {
+			// Send the message to the remote service.
+			fmt.Println(message)
+		}
+	}
+
+	os.Exit(0)
+}
+
 func (s *SlackAPI) EmojiList() {
 	var response interface{}
 	s.GetRequest(&response, "emoji.list", "token")
 	s.PrintJson(response)
 }
 
-func (s *SlackAPI) InstantMessagingClose(query string) {
-	var response interface{}
+func (s *SlackAPI) InstantMessagingClose(query string) Base {
+	var response Base
 	s.GetRequest(&response, "im.close", "token", "channel="+query)
+	return response
+}
+
+func (s *SlackAPI) InstantMessagingCloseVerbose(query string) {
+	response := s.InstantMessagingClose(query)
 	s.PrintJson(response)
 }
 
-func (s *SlackAPI) InstantMessagingOpen(query string) {
+func (s *SlackAPI) InstantMessagingOpen(query string) Session {
+	var response Session
+
 	if query == "slackbot" {
 		query = "USLACKBOT"
 	}
 
-	var response interface{}
 	s.GetRequest(&response, "im.open", "token", "user="+query)
+
+	return response
+}
+
+func (s *SlackAPI) InstantMessagingOpenVerbose(query string) {
+	response := s.InstantMessagingOpen(query)
 	s.PrintJson(response)
 }
 
