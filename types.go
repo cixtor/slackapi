@@ -56,3 +56,16 @@ type Profile struct {
 	RealNameNormalized string `json:"real_name_normalized"`
 	Email              string `json:"email"`
 }
+
+type Message struct {
+	Base
+	Channel string `json:"channel"`
+	Ts      string `json:"ts"`
+	Message struct {
+		Subtype  string `json:"subtype"`
+		Text     string `json:"text"`
+		Ts       string `json:"ts"`
+		Type     string `json:"type"`
+		Username string `json:"username"`
+	} `json:"message"`
+}

@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"os"
 	"strings"
 )
@@ -45,24 +46,27 @@ func (s *SlackAPI) PrintInlineJson(data interface{}) {
 }
 
 func (s *SlackAPI) Url(action string, params []string) string {
+	data := url.Values{}
+	var parts []string
+	var encoded string
 	var url string = fmt.Sprintf("https://slack.com/api/%s", action)
 
-	if len(params) > 0 {
-		var anchor string
-
-		for key, keyvalue := range params {
-			if key == 0 {
-				anchor = "?"
-			} else {
-				anchor = "&"
-			}
-
-			if keyvalue == "token" {
-				keyvalue += "=" + s.Token
-			}
-
-			url += anchor + keyvalue
+	for _, keyvalue := range params {
+		if keyvalue == "token" {
+			keyvalue += "=" + s.Token
 		}
+
+		parts = strings.SplitN(keyvalue, "=", 2)
+
+		if len(parts) == 2 {
+			data.Add(parts[0], parts[1])
+		}
+	}
+
+	encoded = data.Encode()
+
+	if encoded != "" {
+		url = fmt.Sprintf("%s?%s", url, encoded)
 	}
 
 	return url
@@ -112,6 +116,23 @@ func (s *SlackAPI) Test() {
 func (s *SlackAPI) AuthTest() {
 	var response interface{}
 	s.GetRequest(&response, "auth.test", "token")
+	s.PrintJson(response)
+}
+
+func (s *SlackAPI) ChatPostMessage(channel string, message string) Message {
+	var response Message
+	s.GetRequest(&response,
+		"chat.postMessage",
+		"token",
+		"channel="+channel,
+		"text="+message,
+		"as_user=true",
+		"link_names=1")
+	return response
+}
+
+func (s *SlackAPI) ChatPostMessageVerbose(channel string, message string) {
+	response := s.ChatPostMessage(channel, message)
 	s.PrintJson(response)
 }
 

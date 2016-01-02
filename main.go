@@ -26,6 +26,8 @@ func main() {
 		client.Test()
 	case "auth.test":
 		client.AuthTest()
+	case "chat.postMessage":
+		client.ChatPostMessageVerbose(flag.Arg(1), flag.Arg(2))
 	case "chat.session":
 		client.ChatSession()
 	case "emoji.list":
