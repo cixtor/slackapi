@@ -57,10 +57,14 @@ type Profile struct {
 	Email              string `json:"email"`
 }
 
-type Message struct {
+type ChannelEvent struct {
 	Base
 	Channel string `json:"channel"`
 	Ts      string `json:"ts"`
+}
+
+type Message struct {
+	ChannelEvent
 	Message struct {
 		Subtype  string `json:"subtype"`
 		Text     string `json:"text"`
