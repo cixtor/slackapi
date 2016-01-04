@@ -23,7 +23,7 @@ func main() {
 
 	switch flag.Arg(0) {
 	case "api.test":
-		client.Test()
+		client.ApiTest()
 	case "auth.test":
 		client.AuthTest()
 	case "chat.delete":
