@@ -61,7 +61,7 @@ Since this is a client you will need to give access to the perform HTTP requests
 - [ ] `rtm.start` - Starts a Real Time Messaging session.
 - [ ] `stars.add` - Adds a star to an item.
 - [ ] `stars.remove` - Removes a star from an item.
-- [ ] `team.info` - Gets information about the current team.
+- [x] `team.info` - Gets information about the current team.
 - [x] `users.getPresence` - Gets user presence information.
 - [x] `users.info` - Gets information about a user.
 - [x] `users.list` - Lists all users in a Slack team.

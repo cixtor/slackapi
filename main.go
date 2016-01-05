@@ -38,6 +38,8 @@ func main() {
 		client.InstantMessagingCloseVerbose(flag.Arg(1))
 	case "im.open":
 		client.InstantMessagingOpenVerbose(flag.Arg(1))
+	case "team.info":
+		client.TeamInfo()
 	case "users.getPresence":
 		client.UsersGetPresence(flag.Arg(1))
 	case "users.info":
