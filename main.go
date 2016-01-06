@@ -34,6 +34,8 @@ func main() {
 		client.ChatSession()
 	case "emoji.list":
 		client.EmojiList()
+	case "groups.info":
+		client.GroupsInfo(flag.Arg(1))
 	case "im.close":
 		client.InstantMessagingCloseVerbose(flag.Arg(1))
 	case "im.open":

@@ -33,6 +33,12 @@ func (s *SlackAPI) EmojiList() {
 	s.PrintJson(response)
 }
 
+func (s *SlackAPI) GroupsInfo(channel string) {
+	var response interface{}
+	s.GetRequest(&response, "groups.info", "token", "channel="+channel)
+	s.PrintJson(response)
+}
+
 func (s *SlackAPI) InstantMessagingCloseVerbose(channel string) {
 	response := s.InstantMessagingClose(channel)
 	s.PrintJson(response)
