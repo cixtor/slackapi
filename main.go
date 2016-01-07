@@ -26,6 +26,8 @@ func main() {
 		client.ApiTest()
 	case "auth.test":
 		client.AuthTest()
+	case "channels.info":
+		client.ChannelsInfo(flag.Arg(1))
 	case "chat.delete":
 		client.ChatDeleteVerbose(flag.Arg(1), flag.Arg(2))
 	case "chat.postMessage":

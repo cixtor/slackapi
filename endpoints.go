@@ -17,6 +17,12 @@ func (s *SlackAPI) AuthTest() {
 	s.PrintJson(response)
 }
 
+func (s *SlackAPI) ChannelsInfo(channel string) {
+	var response interface{}
+	s.GetRequest(&response, "channels.info", "token", "channel="+channel)
+	s.PrintJson(response)
+}
+
 func (s *SlackAPI) ChatDeleteVerbose(channel string, timestamp string) {
 	response := s.ChatDelete(channel, timestamp)
 	s.PrintJson(response)
