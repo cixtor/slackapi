@@ -23,6 +23,12 @@ func (s *SlackAPI) ChannelsInfo(channel string) {
 	s.PrintJson(response)
 }
 
+func (s *SlackAPI) ChannelsList() {
+	var response interface{}
+	s.GetRequest(&response, "channels.list", "token", "exclude_archived=0")
+	s.PrintJson(response)
+}
+
 func (s *SlackAPI) ChatDeleteVerbose(channel string, timestamp string) {
 	response := s.ChatDelete(channel, timestamp)
 	s.PrintJson(response)
