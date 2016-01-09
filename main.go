@@ -40,6 +40,8 @@ func main() {
 		client.EmojiList()
 	case "groups.info":
 		client.GroupsInfo(flag.Arg(1))
+	case "groups.list":
+		client.GroupsList()
 	case "im.close":
 		client.InstantMessagingCloseVerbose(flag.Arg(1))
 	case "im.open":

@@ -51,6 +51,12 @@ func (s *SlackAPI) GroupsInfo(channel string) {
 	s.PrintJson(response)
 }
 
+func (s *SlackAPI) GroupsList() {
+	var response interface{}
+	s.GetRequest(&response, "groups.list", "token", "exclude_archived=0")
+	s.PrintJson(response)
+}
+
 func (s *SlackAPI) InstantMessagingCloseVerbose(channel string) {
 	response := s.InstantMessagingClose(channel)
 	s.PrintJson(response)
