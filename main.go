@@ -44,6 +44,8 @@ func main() {
 		client.GroupsList()
 	case "im.close":
 		client.InstantMessagingCloseVerbose(flag.Arg(1))
+	case "im.list":
+		client.InstantMessagingList()
 	case "im.open":
 		client.InstantMessagingOpenVerbose(flag.Arg(1))
 	case "team.info":

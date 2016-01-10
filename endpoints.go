@@ -62,6 +62,12 @@ func (s *SlackAPI) InstantMessagingCloseVerbose(channel string) {
 	s.PrintJson(response)
 }
 
+func (s *SlackAPI) InstantMessagingList() {
+	var response interface{}
+	s.GetRequest(&response, "im.list", "token")
+	s.PrintJson(response)
+}
+
 func (s *SlackAPI) InstantMessagingOpenVerbose(userid string) {
 	response := s.InstantMessagingOpen(userid)
 	s.PrintJson(response)
