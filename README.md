@@ -49,7 +49,7 @@ Since this is a client you will need to give access to the perform HTTP requests
 - [x] `im.open` - Opens a direct message channel.
 - [ ] `mpim.close` - Closes a multiparty direct message channel.
 - [ ] `mpim.history` - Fetches history of messages and events from a multiparty direct message.
-- [ ] `mpim.list` - Lists multiparty direct message channels for the calling user.
+- [x] `mpim.list` - Lists multiparty direct message channels for the calling user.
 - [ ] `mpim.mark` - Sets the read cursor in a multiparty direct message channel.
 - [ ] `mpim.open` - This method opens a multiparty direct message.
 - [ ] `pins.add` - Pins an item to a channel.

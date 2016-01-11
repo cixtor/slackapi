@@ -48,6 +48,8 @@ func main() {
 		client.InstantMessagingList()
 	case "im.open":
 		client.InstantMessagingOpenVerbose(flag.Arg(1))
+	case "mpim.list":
+		client.MultiPartyInstantMessagingList()
 	case "team.info":
 		client.TeamInfo()
 	case "users.getPresence":

@@ -73,6 +73,12 @@ func (s *SlackAPI) InstantMessagingOpenVerbose(userid string) {
 	s.PrintJson(response)
 }
 
+func (s *SlackAPI) MultiPartyInstantMessagingList() {
+	var response interface{}
+	s.GetRequest(&response, "mpim.list", "token")
+	s.PrintJson(response)
+}
+
 func (s *SlackAPI) TeamInfo() {
 	var response interface{}
 	s.GetRequest(&response, "team.info", "token")
