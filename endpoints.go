@@ -79,6 +79,26 @@ func (s *SlackAPI) MultiPartyInstantMessagingList() {
 	s.PrintJson(response)
 }
 
+func (s *SlackAPI) ReactionsList(userid string) {
+	var response interface{}
+
+	if userid == "" {
+		s.GetRequest(&response,
+			"reactions.list",
+			"token",
+			"full=true",
+			"count=100")
+	} else {
+		s.GetRequest(&response,
+			"reactions.list",
+			"token",
+			"full=true",
+			"count=100",
+			"user="+userid)
+	}
+	s.PrintJson(response)
+}
+
 func (s *SlackAPI) TeamInfo() {
 	var response interface{}
 	s.GetRequest(&response, "team.info", "token")
