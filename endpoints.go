@@ -99,6 +99,17 @@ func (s *SlackAPI) ReactionsList(userid string) {
 	s.PrintJson(response)
 }
 
+func (s *SlackAPI) ReactionsRemove(name string, channel string, timestamp string) {
+	var response interface{}
+	s.GetRequest(&response,
+		"reactions.remove",
+		"token",
+		"name="+name,
+		"channel="+channel,
+		"timestamp="+timestamp)
+	s.PrintJson(response)
+}
+
 func (s *SlackAPI) TeamInfo() {
 	var response interface{}
 	s.GetRequest(&response, "team.info", "token")

@@ -52,6 +52,8 @@ func main() {
 		client.MultiPartyInstantMessagingList()
 	case "reactions.list":
 		client.ReactionsList(flag.Arg(1))
+	case "reactions.remove":
+		client.ReactionsRemove(flag.Arg(1), flag.Arg(2), flag.Arg(3))
 	case "team.info":
 		client.TeamInfo()
 	case "users.getPresence":
