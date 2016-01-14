@@ -101,12 +101,23 @@ func (s *SlackAPI) ReactionsList(userid string) {
 
 func (s *SlackAPI) ReactionsRemove(name string, channel string, timestamp string) {
 	var response interface{}
-	s.GetRequest(&response,
-		"reactions.remove",
-		"token",
-		"name="+name,
-		"channel="+channel,
-		"timestamp="+timestamp)
+
+	// Remove reaction from a file, file comment, or message.
+	if channel[0] == 'F' {
+		s.GetRequest(&response,
+			"reactions.remove",
+			"token",
+			"name="+name,
+			"file="+channel)
+	} else {
+		s.GetRequest(&response,
+			"reactions.remove",
+			"token",
+			"name="+name,
+			"channel="+channel,
+			"timestamp="+timestamp)
+	}
+
 	s.PrintJson(response)
 }
 
