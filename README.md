@@ -55,7 +55,7 @@ Since this is a client you will need to give access to the perform HTTP requests
 - [ ] `pins.add` - Pins an item to a channel.
 - [ ] `pins.remove` - Un-pins an item from a channel.
 - [ ] `reactions.add` - Adds a reaction to an item.
-- [ ] `reactions.get` - Gets reactions for an item.
+- [x] `reactions.get` - Gets reactions for an item.
 - [x] `reactions.list` - Lists reactions made by a user.
 - [x] `reactions.remove` - Removes a reaction from an item.
 - [ ] `rtm.start` - Starts a Real Time Messaging session.
