@@ -79,6 +79,28 @@ func (s *SlackAPI) MultiPartyInstantMessagingList() {
 	s.PrintJson(response)
 }
 
+func (s *SlackAPI) ReactionsAdd(name string, channel string, timestamp string) {
+	var response interface{}
+
+	// Remove reaction from a file, file comment, or message.
+	if channel[0] == 'F' {
+		s.GetRequest(&response,
+			"reactions.add",
+			"token",
+			"name="+name,
+			"file="+channel)
+	} else {
+		s.GetRequest(&response,
+			"reactions.add",
+			"token",
+			"name="+name,
+			"channel="+channel,
+			"timestamp="+timestamp)
+	}
+
+	s.PrintJson(response)
+}
+
 func (s *SlackAPI) ReactionsGet(channel string, timestamp string) {
 	var response interface{}
 

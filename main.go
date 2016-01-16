@@ -50,6 +50,8 @@ func main() {
 		client.InstantMessagingOpenVerbose(flag.Arg(1))
 	case "mpim.list":
 		client.MultiPartyInstantMessagingList()
+	case "reactions.add":
+		client.ReactionsAdd(flag.Arg(1), flag.Arg(2), flag.Arg(3))
 	case "reactions.get":
 		client.ReactionsGet(flag.Arg(1), flag.Arg(2))
 	case "reactions.list":
