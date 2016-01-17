@@ -21,7 +21,7 @@ Since this is a client you will need to give access to the perform HTTP requests
 
 - [x] `api.test` - Checks API calling code.
 - [x] `auth.test` - Checks authentication &amp; identity.
-- [ ] `channels.history` - Fetches history of messages and events from a channel.
+- [x] `channels.history` - Fetches history of messages and events from a channel.
 - [x] `channels.info` - Gets information about a channel.
 - [x] `channels.list` - Lists all channels in a Slack team.
 - [ ] `channels.mark` - Sets the read cursor in a channel.

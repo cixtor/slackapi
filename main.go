@@ -26,6 +26,8 @@ func main() {
 		client.ApiTest()
 	case "auth.test":
 		client.AuthTest()
+	case "channels.history":
+		client.ChannelsHistory(flag.Arg(1), flag.Arg(2))
 	case "channels.info":
 		client.ChannelsInfo(flag.Arg(1))
 	case "channels.list":
