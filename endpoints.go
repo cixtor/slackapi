@@ -53,6 +53,16 @@ func (s *SlackAPI) ChannelsList() {
 	s.PrintJson(response)
 }
 
+func (s *SlackAPI) ChannelsMark(channel string, timestamp string) {
+	var response interface{}
+	s.GetRequest(&response,
+		"channels.mark",
+		"token",
+		"channel="+channel,
+		"ts="+timestamp)
+	s.PrintJson(response)
+}
+
 func (s *SlackAPI) ChatDeleteVerbose(channel string, timestamp string) {
 	response := s.ChatDelete(channel, timestamp)
 	s.PrintJson(response)
