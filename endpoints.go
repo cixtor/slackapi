@@ -73,6 +73,16 @@ func (s *SlackAPI) ChannelsSetPurpose(channel string, purpose string) {
 	s.PrintJson(response)
 }
 
+func (s *SlackAPI) ChannelsSetTopic(channel string, topic string) {
+	var response interface{}
+	s.GetRequest(&response,
+		"channels.setTopic",
+		"token",
+		"channel="+channel,
+		"topic="+topic)
+	s.PrintJson(response)
+}
+
 func (s *SlackAPI) ChatDeleteVerbose(channel string, timestamp string) {
 	response := s.ChatDelete(channel, timestamp)
 	s.PrintJson(response)

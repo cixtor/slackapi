@@ -26,7 +26,7 @@ Since this is a client you will need to give access to the perform HTTP requests
 - [x] `channels.list` - Lists all channels in a Slack team.
 - [x] `channels.mark` - Sets the read cursor in a channel.
 - [x] `channels.setPurpose` - Sets the purpose for a channel.
-- [ ] `channels.setTopic` - Sets the topic for a channel.
+- [x] `channels.setTopic` - Sets the topic for a channel.
 - [x] `chat.delete` - Deletes a message.
 - [x] `chat.postMessage` - Sends a message to a channel.
 - [x] `chat.session` - Starts a new chat session.

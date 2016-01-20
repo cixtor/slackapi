@@ -36,6 +36,8 @@ func main() {
 		client.ChannelsMark(flag.Arg(1), flag.Arg(2))
 	case "channels.setPurpose":
 		client.ChannelsSetPurpose(flag.Arg(1), flag.Arg(2))
+	case "channels.setTopic":
+		client.ChannelsSetTopic(flag.Arg(1), flag.Arg(2))
 	case "chat.delete":
 		client.ChatDeleteVerbose(flag.Arg(1), flag.Arg(2))
 	case "chat.postMessage":
