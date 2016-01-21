@@ -17,6 +17,11 @@ func (s *SlackAPI) ChatDelete(channel string, timestamp string) ChannelEvent {
 	return response
 }
 
+func (s *SlackAPI) ChatDeleteVerbose(channel string, timestamp string) {
+	response := s.ChatDelete(channel, timestamp)
+	s.PrintJson(response)
+}
+
 func (s *SlackAPI) ChatPostMessage(channel string, message string) Message {
 	var response Message
 	s.GetRequest(&response,
@@ -27,6 +32,11 @@ func (s *SlackAPI) ChatPostMessage(channel string, message string) Message {
 		"as_user=true",
 		"link_names=1")
 	return response
+}
+
+func (s *SlackAPI) ChatPostMessageVerbose(channel string, message string) {
+	response := s.ChatPostMessage(channel, message)
+	s.PrintJson(response)
 }
 
 func (s *SlackAPI) ChatSession() {
@@ -76,22 +86,4 @@ func (s *SlackAPI) ChatSession() {
 	}
 
 	os.Exit(0)
-}
-
-func (s *SlackAPI) InstantMessagingClose(channel string) Base {
-	var response Base
-	s.GetRequest(&response, "im.close", "token", "channel="+channel)
-	return response
-}
-
-func (s *SlackAPI) InstantMessagingOpen(userid string) Session {
-	var response Session
-
-	if userid == "slackbot" {
-		userid = "USLACKBOT"
-	}
-
-	s.GetRequest(&response, "im.open", "token", "user="+userid)
-
-	return response
 }
