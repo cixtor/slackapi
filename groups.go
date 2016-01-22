@@ -1,5 +1,11 @@
 package main
 
+func (s *SlackAPI) GroupsClose(channel string) {
+	var response interface{}
+	s.GetRequest(&response, "groups.close", "token", "channel="+channel)
+	s.PrintJson(response)
+}
+
 func (s *SlackAPI) GroupsInfo(channel string) {
 	var response interface{}
 	s.GetRequest(&response, "groups.info", "token", "channel="+channel)
