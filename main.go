@@ -48,6 +48,8 @@ func main() {
 		client.EmojiList()
 	case "groups.close":
 		client.GroupsClose(flag.Arg(1))
+	case "groups.history":
+		client.GroupsHistory(flag.Arg(1), flag.Arg(2))
 	case "groups.info":
 		client.GroupsInfo(flag.Arg(1))
 	case "groups.list":

@@ -35,7 +35,7 @@ Since this is a client you will need to give access to the perform HTTP requests
 - [ ] `files.delete` - Deletes a file.
 - [ ] `files.upload` - Uploads or creates a file.
 - [x] `groups.close` - Closes a private channel.
-- [ ] `groups.history` - Fetches history of messages and events from a private channel.
+- [x] `groups.history` - Fetches history of messages and events from a private channel.
 - [x] `groups.info` - Gets information about a private channel.
 - [x] `groups.list` - Lists private channels that the calling user has access to.
 - [ ] `groups.mark` - Sets the read cursor in a private channel.
