@@ -41,3 +41,13 @@ func (s *SlackAPI) GroupsList() {
 	s.GetRequest(&response, "groups.list", "token", "exclude_archived=0")
 	s.PrintJson(response)
 }
+
+func (s *SlackAPI) GroupsMark(channel string, timestamp string) {
+	var response interface{}
+	s.GetRequest(&response,
+		"groups.mark",
+		"token",
+		"channel="+channel,
+		"ts="+timestamp)
+	s.PrintJson(response)
+}
