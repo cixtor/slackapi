@@ -51,3 +51,12 @@ func (s *SlackAPI) GroupsMark(channel string, timestamp string) {
 		"ts="+timestamp)
 	s.PrintJson(response)
 }
+
+func (s *SlackAPI) GroupsOpen(channel string) {
+	var response interface{}
+	s.GetRequest(&response,
+		"groups.open",
+		"token",
+		"channel="+channel)
+	s.PrintJson(response)
+}

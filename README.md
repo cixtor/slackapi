@@ -39,7 +39,7 @@ Since this is a client you will need to give access to the perform HTTP requests
 - [x] `groups.info` - Gets information about a private channel.
 - [x] `groups.list` - Lists private channels that the calling user has access to.
 - [x] `groups.mark` - Sets the read cursor in a private channel.
-- [ ] `groups.open` - Opens a private channel.
+- [x] `groups.open` - Opens a private channel.
 - [ ] `groups.setPurpose` - Sets the purpose for a private channel.
 - [ ] `groups.setTopic` - Sets the topic for a private channel.
 - [x] `im.close` - Close a direct message channel.
