@@ -60,3 +60,13 @@ func (s *SlackAPI) GroupsOpen(channel string) {
 		"channel="+channel)
 	s.PrintJson(response)
 }
+
+func (s *SlackAPI) GroupsSetPurpose(channel string, purpose string) {
+	var response interface{}
+	s.GetRequest(&response,
+		"groups.setPurpose",
+		"token",
+		"channel="+channel,
+		"purpose="+purpose)
+	s.PrintJson(response)
+}
