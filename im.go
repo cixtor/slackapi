@@ -11,6 +11,10 @@ func (s *SlackAPI) InstantMessagingCloseVerbose(channel string) {
 	s.PrintJson(response)
 }
 
+func (s *SlackAPI) InstantMessagingHistory(channel string, latest string) {
+	s.ResourceHistory("im.history", channel, latest)
+}
+
 func (s *SlackAPI) InstantMessagingList() {
 	var response interface{}
 	s.GetRequest(&response, "im.list", "token")

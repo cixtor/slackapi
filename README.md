@@ -43,7 +43,7 @@ Since this is a client you will need to give access to the perform HTTP requests
 - [x] `groups.setPurpose` - Sets the purpose for a private channel.
 - [x] `groups.setTopic` - Sets the topic for a private channel.
 - [x] `im.close` - Close a direct message channel.
-- [ ] `im.history` - Fetches history of messages and events from direct message channel.
+- [x] `im.history` - Fetches history of messages and events from direct message channel.
 - [x] `im.list` - Lists direct message channels for the calling user.
 - [ ] `im.mark` - Sets the read cursor in a direct message channel.
 - [x] `im.open` - Opens a direct message channel.
