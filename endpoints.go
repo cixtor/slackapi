@@ -43,6 +43,16 @@ func (s *SlackAPI) ResourceHistory(action string, channel string, latest string)
 	s.PrintJson(response)
 }
 
+func (s *SlackAPI) ResourceMark(action string, channel string, timestamp string) {
+	var response interface{}
+	s.GetRequest(&response,
+		action,
+		"token",
+		"channel="+channel,
+		"ts="+timestamp)
+	s.PrintJson(response)
+}
+
 func (s *SlackAPI) TeamInfo() {
 	var response interface{}
 	s.GetRequest(&response, "team.info", "token")

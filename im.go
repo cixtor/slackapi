@@ -21,6 +21,10 @@ func (s *SlackAPI) InstantMessagingList() {
 	s.PrintJson(response)
 }
 
+func (s *SlackAPI) InstantMessagingMark(channel string, timestamp string) {
+	s.ResourceMark("im.mark", channel, timestamp)
+}
+
 func (s *SlackAPI) InstantMessagingOpen(userid string) Session {
 	var response Session
 

@@ -17,13 +17,7 @@ func (s *SlackAPI) ChannelsList() {
 }
 
 func (s *SlackAPI) ChannelsMark(channel string, timestamp string) {
-	var response interface{}
-	s.GetRequest(&response,
-		"channels.mark",
-		"token",
-		"channel="+channel,
-		"ts="+timestamp)
-	s.PrintJson(response)
+	s.ResourceMark("channels.mark", channel, timestamp)
 }
 
 func (s *SlackAPI) ChannelsSetPurpose(channel string, purpose string) {

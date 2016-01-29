@@ -68,6 +68,8 @@ func main() {
 		client.InstantMessagingHistory(flag.Arg(1), flag.Arg(2))
 	case "im.list":
 		client.InstantMessagingList()
+	case "im.mark":
+		client.InstantMessagingMark(flag.Arg(1), flag.Arg(2))
 	case "im.open":
 		client.InstantMessagingOpenVerbose(flag.Arg(1))
 	case "mpim.list":
