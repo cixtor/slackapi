@@ -30,7 +30,7 @@ Since this is a client you will need to give access to the perform HTTP requests
 - [x] `chat.delete` - Deletes a message.
 - [x] `chat.postMessage` - Sends a message to a channel.
 - [x] `chat.session` - Starts a new chat session.
-- [ ] `chat.update` - Updates a message.
+- [x] `chat.update` - Updates a message.
 - [x] `emoji.list` - Lists custom emoji for a team.
 - [ ] `files.delete` - Deletes a file.
 - [ ] `files.upload` - Uploads or creates a file.

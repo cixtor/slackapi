@@ -87,3 +87,20 @@ func (s *SlackAPI) ChatSession() {
 
 	os.Exit(0)
 }
+
+func (s *SlackAPI) ChatUpdate(channel string, timestamp string, message string) Message {
+	var response Message
+	s.GetRequest(&response,
+		"chat.update",
+		"token",
+		"channel="+channel,
+		"text="+message,
+		"ts="+timestamp,
+		"link_names=1")
+	return response
+}
+
+func (s *SlackAPI) ChatUpdateVerbose(channel string, timestamp string, message string) {
+	response := s.ChatUpdate(channel, timestamp, message)
+	s.PrintJson(response)
+}

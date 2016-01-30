@@ -44,6 +44,8 @@ func main() {
 		client.ChatPostMessageVerbose(flag.Arg(1), flag.Arg(2))
 	case "chat.session":
 		client.ChatSession()
+	case "chat.update":
+		client.ChatUpdateVerbose(flag.Arg(1), flag.Arg(2), flag.Arg(3))
 	case "emoji.list":
 		client.EmojiList()
 	case "groups.close":
