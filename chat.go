@@ -43,6 +43,7 @@ func (s *SlackAPI) ChatSession() {
 	var command string
 	var parts []string
 	var channel string = "unknown"
+	var is_connected bool = false
 	reader := bufio.NewReader(os.Stdin)
 
 	for {
@@ -55,19 +56,26 @@ func (s *SlackAPI) ChatSession() {
 
 		message = strings.TrimSpace(message)
 
-		if message == ":exit" {
+		if message == "" {
+			// Do nothing on empty message.
+		} else if message == ":exit" {
 			// Close the chat session and exit the loop.
-			fmt.Printf("Closing...")
-			response := s.InstantMessagingClose(channel)
-			fmt.Printf("\r")
-			s.PrintInlineJson(response)
+			if is_connected {
+				fmt.Printf("Closing...")
+				response := s.InstantMessagingClose(channel)
+				fmt.Printf("\r")
+				s.PrintInlineJson(response)
+			}
 			fmt.Println("Closed")
 			break
 		} else if message[0] == ':' {
 			// Execute a custom command with the message.
 			parts = strings.SplitN(message, "\x20", 2)
 			command = parts[0]
-			message = parts[1]
+
+			if len(parts) == 2 {
+				message = parts[1]
+			}
 
 			if command == ":open" {
 				fmt.Printf("Opening session...")
@@ -77,11 +85,17 @@ func (s *SlackAPI) ChatSession() {
 
 				if response.Ok == true {
 					channel = response.Channel.Id
+					is_connected = response.Ok
 				}
 			}
 		} else {
 			// Send the message to the remote service.
-			fmt.Println(message)
+			if is_connected {
+				response := s.ChatPostMessage(channel, message)
+				s.PrintInlineJson(response)
+			} else {
+				fmt.Println("{\"ok\":false,\"error\":\"not_connected\"}")
+			}
 		}
 	}
 
