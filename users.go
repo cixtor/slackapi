@@ -8,19 +8,19 @@ import (
 func (s *SlackAPI) UsersGetPresence(query string) {
 	var response interface{}
 	s.GetRequest(&response, "users.getPresence", "token", "user="+query)
-	s.PrintJson(response)
+	s.PrintAndExit(response)
 }
 
 func (s *SlackAPI) UsersInfo(query string) {
 	var response interface{}
 	s.GetRequest(&response, "users.info", "token", "user="+query)
-	s.PrintJson(response)
+	s.PrintAndExit(response)
 }
 
 func (s *SlackAPI) UsersList() {
 	var response interface{}
 	s.GetRequest(&response, "users.list", "token", "presence=1")
-	s.PrintJson(response)
+	s.PrintAndExit(response)
 }
 
 func (s *SlackAPI) UsersSearch(query string) {
@@ -40,17 +40,17 @@ func (s *SlackAPI) UsersSearch(query string) {
 		}
 	}
 
-	s.PrintJson(matches)
+	s.PrintAndExit(matches)
 }
 
 func (s *SlackAPI) UsersSetActive() {
 	var response interface{}
 	s.GetRequest(&response, "users.setActive", "token")
-	s.PrintJson(response)
+	s.PrintAndExit(response)
 }
 
 func (s *SlackAPI) UsersSetPresence(value string) {
 	var response interface{}
 	s.GetRequest(&response, "users.setPresence", "token", "presence="+value)
-	s.PrintJson(response)
+	s.PrintAndExit(response)
 }

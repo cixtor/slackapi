@@ -8,7 +8,7 @@ func (s *SlackAPI) InstantMessagingClose(channel string) Base {
 
 func (s *SlackAPI) InstantMessagingCloseVerbose(channel string) {
 	response := s.InstantMessagingClose(channel)
-	s.PrintJson(response)
+	s.PrintAndExit(response)
 }
 
 func (s *SlackAPI) InstantMessagingHistory(channel string, latest string) {
@@ -18,7 +18,7 @@ func (s *SlackAPI) InstantMessagingHistory(channel string, latest string) {
 func (s *SlackAPI) InstantMessagingList() {
 	var response interface{}
 	s.GetRequest(&response, "im.list", "token")
-	s.PrintJson(response)
+	s.PrintAndExit(response)
 }
 
 func (s *SlackAPI) InstantMessagingMark(channel string, timestamp string) {
@@ -39,5 +39,5 @@ func (s *SlackAPI) InstantMessagingOpen(userid string) Session {
 
 func (s *SlackAPI) InstantMessagingOpenVerbose(userid string) {
 	response := s.InstantMessagingOpen(userid)
-	s.PrintJson(response)
+	s.PrintAndExit(response)
 }

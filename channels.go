@@ -7,13 +7,13 @@ func (s *SlackAPI) ChannelsHistory(channel string, latest string) {
 func (s *SlackAPI) ChannelsInfo(channel string) {
 	var response interface{}
 	s.GetRequest(&response, "channels.info", "token", "channel="+channel)
-	s.PrintJson(response)
+	s.PrintAndExit(response)
 }
 
 func (s *SlackAPI) ChannelsList() {
 	var response interface{}
 	s.GetRequest(&response, "channels.list", "token", "exclude_archived=0")
-	s.PrintJson(response)
+	s.PrintAndExit(response)
 }
 
 func (s *SlackAPI) ChannelsMark(channel string, timestamp string) {
@@ -27,7 +27,7 @@ func (s *SlackAPI) ChannelsSetPurpose(channel string, purpose string) {
 		"token",
 		"channel="+channel,
 		"purpose="+purpose)
-	s.PrintJson(response)
+	s.PrintAndExit(response)
 }
 
 func (s *SlackAPI) ChannelsSetTopic(channel string, topic string) {
@@ -37,5 +37,5 @@ func (s *SlackAPI) ChannelsSetTopic(channel string, topic string) {
 		"token",
 		"channel="+channel,
 		"topic="+topic)
-	s.PrintJson(response)
+	s.PrintAndExit(response)
 }

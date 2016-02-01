@@ -10,7 +10,12 @@ import (
 )
 
 type SlackAPI struct {
-	Token string
+	Token       string
+	Channel     string
+	Command     string
+	UserInput   string
+	IsConnected bool
+	History     []Message
 }
 
 func (s *SlackAPI) AutoConfigure() {
@@ -22,7 +27,7 @@ func (s *SlackAPI) ReportError(err error) {
 	os.Exit(1)
 }
 
-func (s *SlackAPI) PrintJson(data interface{}) {
+func (s *SlackAPI) PrintFormattedJson(data interface{}) {
 	response, err := json.MarshalIndent(data, "", "\x20\x20")
 
 	if err != nil {
@@ -30,7 +35,6 @@ func (s *SlackAPI) PrintJson(data interface{}) {
 	}
 
 	fmt.Printf("%s\n", response)
-	os.Exit(0)
 }
 
 func (s *SlackAPI) PrintInlineJson(data interface{}) {
@@ -41,6 +45,11 @@ func (s *SlackAPI) PrintInlineJson(data interface{}) {
 	}
 
 	fmt.Printf("%s\n", response)
+}
+
+func (s *SlackAPI) PrintAndExit(data interface{}) {
+	s.PrintFormattedJson(data)
+	os.Exit(0)
 }
 
 func (s *SlackAPI) Url(action string, params []string) string {

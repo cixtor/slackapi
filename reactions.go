@@ -19,7 +19,7 @@ func (s *SlackAPI) ReactionsAdd(name string, channel string, timestamp string) {
 			"timestamp="+timestamp)
 	}
 
-	s.PrintJson(response)
+	s.PrintAndExit(response)
 }
 
 func (s *SlackAPI) ReactionsGet(channel string, timestamp string) {
@@ -39,7 +39,7 @@ func (s *SlackAPI) ReactionsGet(channel string, timestamp string) {
 			"timestamp="+timestamp)
 	}
 
-	s.PrintJson(response)
+	s.PrintAndExit(response)
 }
 
 func (s *SlackAPI) ReactionsList(userid string) {
@@ -59,7 +59,7 @@ func (s *SlackAPI) ReactionsList(userid string) {
 			"count=100",
 			"user="+userid)
 	}
-	s.PrintJson(response)
+	s.PrintAndExit(response)
 }
 
 func (s *SlackAPI) ReactionsRemove(name string, channel string, timestamp string) {
@@ -81,5 +81,5 @@ func (s *SlackAPI) ReactionsRemove(name string, channel string, timestamp string
 			"timestamp="+timestamp)
 	}
 
-	s.PrintJson(response)
+	s.PrintAndExit(response)
 }
