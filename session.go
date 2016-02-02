@@ -61,6 +61,8 @@ func (s *SlackAPI) ProcessMessage() {
 func (s *SlackAPI) ProcessCommand() {
 	if s.Command == ":open" {
 		s.ProcessCommandOpen()
+	} else if s.Command == ":history" {
+		s.PrintFormattedJson(s.History)
 	}
 }
 
