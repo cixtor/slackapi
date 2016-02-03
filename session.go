@@ -61,6 +61,8 @@ func (s *SlackAPI) ProcessMessage() {
 func (s *SlackAPI) ProcessCommand() {
 	if s.Command == ":open" {
 		s.ProcessCommandOpen()
+	} else if s.Command == ":delete" {
+		s.ProcessCommandDelete()
 	} else if s.Command == ":history" {
 		s.PrintFormattedJson(s.History)
 	}
@@ -73,6 +75,23 @@ func (s *SlackAPI) ProcessCommandOpen() {
 	if response.Ok == true {
 		s.Channel = response.Channel.Id
 		s.IsConnected = response.Ok
+	}
+}
+
+func (s *SlackAPI) ProcessCommandDelete() {
+	var forDeletion int = len(s.History) - 1
+	var latestMsg Message = s.History[forDeletion]
+	var shortHistory []Message
+
+	response := s.ChatDelete(latestMsg.Channel, latestMsg.Ts)
+	s.PrintInlineJson(response)
+
+	if response.Ok == true {
+		for key := 0; key < forDeletion; key++ {
+			shortHistory = append(shortHistory, s.History[key])
+		}
+
+		s.History = shortHistory
 	}
 }
 
