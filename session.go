@@ -63,6 +63,8 @@ func (s *SlackAPI) ProcessCommand() {
 		s.ProcessCommandOpen()
 	} else if s.Command == ":delete" {
 		s.ProcessCommandDelete()
+	} else if s.Command == ":flush" {
+		s.ProcessCommandFlush()
 	} else if s.Command == ":history" {
 		s.PrintFormattedJson(s.History)
 	}
@@ -93,6 +95,30 @@ func (s *SlackAPI) ProcessCommandDelete() {
 
 		s.History = shortHistory
 	}
+}
+
+func (s *SlackAPI) ProcessCommandFlush() {
+	var shortHistory []Message
+	var totalHistory int = len(s.History)
+	var offset int = (totalHistory - 1)
+	var message Message
+
+	fmt.Printf("@ Deleting %d messages\n", totalHistory)
+
+	for key := offset; key >= 0; key-- {
+		message = s.History[key]
+		fmt.Printf("\x20 %s from %s ", message.Ts, message.Channel)
+		response := s.ChatDelete(message.Channel, message.Ts)
+
+		if response.Ok == true {
+			fmt.Println("\u2714")
+		} else {
+			shortHistory = append(shortHistory, message)
+			fmt.Printf("\u2718 %s\n", response.Error)
+		}
+	}
+
+	s.History = shortHistory
 }
 
 func (s *SlackAPI) CloseSession() {
