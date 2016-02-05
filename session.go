@@ -47,26 +47,41 @@ func (s *SlackAPI) ProcessMessage() {
 
 		s.ProcessCommand()
 	} else {
-		// Send the message to the remote service.
-		if s.IsConnected {
-			response := s.ChatPostMessage(s.Channel, s.UserInput)
-			s.History = append(s.History, response)
-			s.PrintInlineJson(response)
-		} else {
-			fmt.Println("{\"ok\":false,\"error\":\"not_connected\"}")
-		}
+		s.SendUserMessage()
 	}
 }
 
 func (s *SlackAPI) ProcessCommand() {
-	if s.Command == ":open" {
-		s.ProcessCommandOpen()
-	} else if s.Command == ":delete" {
-		s.ProcessCommandDelete()
-	} else if s.Command == ":flush" {
-		s.ProcessCommandFlush()
-	} else if s.Command == ":history" {
+	switch s.Command {
+	case ":history":
 		s.PrintFormattedJson(s.History)
+	case ":open":
+		s.ProcessCommandOpen()
+	case ":delete":
+		s.ProcessCommandDelete()
+	case ":flush":
+		s.ProcessCommandFlush()
+	case ":boton":
+		s.ProcessCommandRobotOn()
+	case ":botoff":
+		s.ProcessCommandRobotOff()
+	case ":botinfo":
+		s.ProcessCommandRobotInfo()
+	case ":botname":
+		s.ProcessCommandRobotName()
+	case ":botimage":
+		s.ProcessCommandRobotImage()
+	}
+}
+
+func (s *SlackAPI) SendUserMessage() {
+	// Send the message to the remote service.
+	if s.IsConnected {
+		response := s.ChatPostMessage(s.Channel, s.UserInput)
+		s.History = append(s.History, response)
+		s.PrintInlineJson(response)
+	} else {
+		fmt.Println("{\"ok\":false,\"error\":\"not_connected\"}")
 	}
 }
 
@@ -119,6 +134,45 @@ func (s *SlackAPI) ProcessCommandFlush() {
 	}
 
 	s.History = shortHistory
+}
+
+func (s *SlackAPI) ProcessCommandRobotOn() {
+	s.RobotIsActive = true
+}
+
+func (s *SlackAPI) ProcessCommandRobotOff() {
+	s.RobotIsActive = false
+}
+
+func (s *SlackAPI) ProcessCommandRobotInfo() {
+	fmt.Printf("@ Robot info:\n")
+	fmt.Printf("  Robot name: %s\n", s.RobotName)
+	fmt.Printf("  Robot type: %s\n", s.RobotImageType)
+	fmt.Printf("  Robot image: %s\n", s.RobotImage)
+
+	if s.RobotIsActive == true {
+		fmt.Println("  Robot active: true")
+	} else {
+		fmt.Println("  Robot active: false")
+	}
+}
+
+func (s *SlackAPI) ProcessCommandRobotName() {
+	if s.UserInput != "" {
+		s.RobotName = s.UserInput
+	}
+}
+
+func (s *SlackAPI) ProcessCommandRobotImage() {
+	if s.UserInput != "" {
+		s.RobotImage = s.UserInput
+
+		if s.UserInput[0] == ':' {
+			s.RobotImageType = "emoji"
+		} else {
+			s.RobotImageType = "icon_url"
+		}
+	}
 }
 
 func (s *SlackAPI) CloseSession() {

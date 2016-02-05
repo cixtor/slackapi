@@ -10,16 +10,25 @@ import (
 )
 
 type SlackAPI struct {
-	Token       string
-	Channel     string
-	Command     string
-	UserInput   string
-	IsConnected bool
-	History     []Message
+	Token          string
+	Channel        string
+	Command        string
+	UserInput      string
+	RobotName      string
+	RobotImage     string
+	RobotImageType string
+	RobotIsActive  bool
+	IsConnected    bool
+	History        []Message
 }
 
 func (s *SlackAPI) AutoConfigure() {
 	s.Token = os.Getenv("SLACK_TOKEN")
+
+	s.RobotName = "bender"
+	s.RobotImage = ":robot_face:"
+	s.RobotImageType = "emoji"
+	s.RobotIsActive = false
 }
 
 func (s *SlackAPI) ReportError(err error) {

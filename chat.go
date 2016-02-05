@@ -17,13 +17,35 @@ func (s *SlackAPI) ChatDeleteVerbose(channel string, timestamp string) {
 
 func (s *SlackAPI) ChatPostMessage(channel string, message string) Message {
 	var response Message
-	s.GetRequest(&response,
-		"chat.postMessage",
-		"token",
-		"channel="+channel,
-		"text="+message,
-		"as_user=true",
-		"link_names=1")
+
+	if s.RobotIsActive == true {
+		var imageType string
+
+		if s.RobotImageType == "emoji" {
+			imageType = "icon_emoji"
+		} else {
+			imageType = "icon_url"
+		}
+
+		s.GetRequest(&response,
+			"chat.postMessage",
+			"token",
+			"channel="+channel,
+			"text="+message,
+			"as_user=false",
+			"link_names=1",
+			"username="+s.RobotName,
+			imageType+"="+s.RobotImage)
+	} else {
+		s.GetRequest(&response,
+			"chat.postMessage",
+			"token",
+			"channel="+channel,
+			"text="+message,
+			"as_user=true",
+			"link_names=1")
+	}
+
 	return response
 }
 
