@@ -61,6 +61,10 @@ func (s *SlackAPI) ProcessCommand() {
 		s.ProcessCommandDelete()
 	case ":flush":
 		s.ProcessCommandFlush()
+	case ":exec":
+		s.ProcessCommandExec()
+	case ":execv":
+		s.ProcessCommandExecv()
 	case ":boton":
 		s.ProcessCommandRobotOn()
 	case ":botoff":
@@ -79,7 +83,14 @@ func (s *SlackAPI) SendUserMessage() {
 	if s.IsConnected {
 		response := s.ChatPostMessage(s.Channel, s.UserInput)
 		s.History = append(s.History, response)
-		s.PrintInlineJson(response)
+
+		if response.Ok == true {
+			fmt.Printf("{\"ok\":true,\"channel\":\"%s\",\"ts\":\"%s\"}\n",
+				response.Channel,
+				response.Ts)
+		} else {
+			s.PrintInlineJson(response)
+		}
 	} else {
 		fmt.Println("{\"ok\":false,\"error\":\"not_connected\"}")
 	}
@@ -134,6 +145,18 @@ func (s *SlackAPI) ProcessCommandFlush() {
 	}
 
 	s.History = shortHistory
+}
+
+func (s *SlackAPI) ProcessCommandExec() {
+	response := s.System(s.UserInput)
+	s.UserInput = fmt.Sprintf("```%s```", response)
+	s.SendUserMessage()
+}
+
+func (s *SlackAPI) ProcessCommandExecv() {
+	response := s.System(s.UserInput)
+	s.UserInput = fmt.Sprintf("```$ %s\n%s```", s.UserInput, response)
+	s.SendUserMessage()
 }
 
 func (s *SlackAPI) ProcessCommandRobotOn() {

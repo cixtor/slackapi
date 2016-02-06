@@ -1,11 +1,14 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"net/url"
 	"os"
+	"os/exec"
 	"strings"
 )
 
@@ -59,6 +62,28 @@ func (s *SlackAPI) PrintInlineJson(data interface{}) {
 func (s *SlackAPI) PrintAndExit(data interface{}) {
 	s.PrintFormattedJson(data)
 	os.Exit(0)
+}
+
+func (s *SlackAPI) System(kommand string) []byte {
+	var binary string
+	var parts []string
+	var arguments []string
+
+	if kommand == "" {
+		s.ReportError(errors.New("invalid empty command"))
+	}
+
+	parts = strings.Fields(kommand)
+	binary = parts[0]
+	arguments = parts[1:len(parts)]
+
+	response, err := exec.Command(binary, arguments...).Output()
+
+	if err != nil {
+		s.ReportError(err)
+	}
+
+	return bytes.Trim(response, "\n")
 }
 
 func (s *SlackAPI) Url(action string, params []string) string {
