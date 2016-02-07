@@ -107,19 +107,23 @@ func (s *SlackAPI) ProcessCommandOpen() {
 }
 
 func (s *SlackAPI) ProcessCommandDelete() {
-	var forDeletion int = len(s.History) - 1
-	var latestMsg Message = s.History[forDeletion]
-	var shortHistory []Message
+	var totalHistory int = len(s.History)
 
-	response := s.ChatDelete(latestMsg.Channel, latestMsg.Ts)
-	s.PrintInlineJson(response)
+	if totalHistory > 0 {
+		var forDeletion int = totalHistory - 1
+		var latestMsg Message = s.History[forDeletion]
+		var shortHistory []Message
 
-	if response.Ok == true {
-		for key := 0; key < forDeletion; key++ {
-			shortHistory = append(shortHistory, s.History[key])
+		response := s.ChatDelete(latestMsg.Channel, latestMsg.Ts)
+		s.PrintInlineJson(response)
+
+		if response.Ok == true {
+			for key := 0; key < forDeletion; key++ {
+				shortHistory = append(shortHistory, s.History[key])
+			}
+
+			s.History = shortHistory
 		}
-
-		s.History = shortHistory
 	}
 }
 
