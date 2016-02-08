@@ -91,7 +91,7 @@ func main() {
 	case "users.info":
 		client.UsersInfo(flag.Arg(1))
 	case "users.list":
-		client.UsersList()
+		client.UsersListVerbose()
 	case "users.search":
 		client.UsersSearch(flag.Arg(1))
 	case "users.setActive":

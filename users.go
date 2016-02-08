@@ -11,15 +11,43 @@ func (s *SlackAPI) UsersGetPresence(query string) {
 	s.PrintAndExit(response)
 }
 
+func (s *SlackAPI) UsersId(query string) string {
+	var identifier string
+	response := s.UsersList()
+
+	if response.Ok {
+		for _, user := range response.Members {
+			if user.Name == query {
+				identifier = user.Id
+				break
+			}
+		}
+	}
+
+	return identifier
+}
+
 func (s *SlackAPI) UsersInfo(query string) {
 	var response interface{}
+	query = s.UsersId(query)
 	s.GetRequest(&response, "users.info", "token", "user="+query)
 	s.PrintAndExit(response)
 }
 
-func (s *SlackAPI) UsersList() {
-	var response interface{}
+func (s *SlackAPI) UsersList() Users {
+	if s.TeamUsers.Ok == true {
+		return s.TeamUsers
+	}
+
+	var response Users
 	s.GetRequest(&response, "users.list", "token", "presence=1")
+	s.TeamUsers = response
+
+	return response
+}
+
+func (s *SlackAPI) UsersListVerbose() {
+	response := s.UsersList()
 	s.PrintAndExit(response)
 }
 
