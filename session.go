@@ -75,6 +75,8 @@ func (s *SlackAPI) ProcessCommand() {
 		s.ProcessCommandRobotName()
 	case ":botimage":
 		s.ProcessCommandRobotImage()
+	case ":userlist":
+		s.ProcessCommandUserList()
 	}
 }
 
@@ -200,6 +202,11 @@ func (s *SlackAPI) ProcessCommandRobotImage() {
 			s.RobotImageType = "icon_url"
 		}
 	}
+}
+
+func (s *SlackAPI) ProcessCommandUserList() {
+	response := s.UsersList()
+	s.PrintFormattedJson(response)
 }
 
 func (s *SlackAPI) CloseSession() {
