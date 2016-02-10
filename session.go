@@ -75,6 +75,8 @@ func (s *SlackAPI) ProcessCommand() {
 		s.ProcessCommandRobotName()
 	case ":botimage":
 		s.ProcessCommandRobotImage()
+	case ":userid":
+		s.ProcessCommandUserId()
 	case ":userlist":
 		s.ProcessCommandUserList()
 	}
@@ -202,6 +204,11 @@ func (s *SlackAPI) ProcessCommandRobotImage() {
 			s.RobotImageType = "icon_url"
 		}
 	}
+}
+
+func (s *SlackAPI) ProcessCommandUserId() {
+	uniqueid := s.UsersId(s.UserInput)
+	fmt.Printf("@ User identifier: %s\n", uniqueid)
 }
 
 func (s *SlackAPI) ProcessCommandUserList() {
