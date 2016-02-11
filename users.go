@@ -51,14 +51,13 @@ func (s *SlackAPI) UsersListVerbose() {
 	s.PrintAndExit(response)
 }
 
-func (s *SlackAPI) UsersSearch(query string) {
+func (s *SlackAPI) UsersSearch(query string) []User {
 	if len(query) == 0 {
 		s.ReportError(errors.New("empty query is invalid"))
 	}
 
-	var response Users
 	var matches []User
-	s.GetRequest(&response, "users.list", "token", "presence=1")
+	response := s.UsersList()
 
 	for _, user := range response.Members {
 		if strings.Contains(user.Name, query) ||
@@ -68,7 +67,12 @@ func (s *SlackAPI) UsersSearch(query string) {
 		}
 	}
 
-	s.PrintAndExit(matches)
+	return matches
+}
+
+func (s *SlackAPI) UsersSearchVerbose(query string) {
+	response := s.UsersSearch(query)
+	s.PrintAndExit(response)
 }
 
 func (s *SlackAPI) UsersSetActive() {

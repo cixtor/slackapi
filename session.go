@@ -79,6 +79,8 @@ func (s *SlackAPI) ProcessCommand() {
 		s.ProcessCommandUserId()
 	case ":userlist":
 		s.ProcessCommandUserList()
+	case ":usersearch":
+		s.ProcessCommandUserSearch()
 	}
 }
 
@@ -213,6 +215,11 @@ func (s *SlackAPI) ProcessCommandUserId() {
 
 func (s *SlackAPI) ProcessCommandUserList() {
 	response := s.UsersList()
+	s.PrintFormattedJson(response)
+}
+
+func (s *SlackAPI) ProcessCommandUserSearch() {
+	response := s.UsersSearch(s.UserInput)
 	s.PrintFormattedJson(response)
 }
 

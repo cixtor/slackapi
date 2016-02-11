@@ -93,7 +93,7 @@ func main() {
 	case "users.list":
 		client.UsersListVerbose()
 	case "users.search":
-		client.UsersSearch(flag.Arg(1))
+		client.UsersSearchVerbose(flag.Arg(1))
 	case "users.setActive":
 		client.UsersSetActive()
 	case "users.setPresence":
