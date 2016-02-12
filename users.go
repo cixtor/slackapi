@@ -12,19 +12,17 @@ func (s *SlackAPI) UsersGetPresence(query string) {
 }
 
 func (s *SlackAPI) UsersId(query string) string {
-	var identifier string
 	response := s.UsersList()
 
 	if response.Ok {
 		for _, user := range response.Members {
 			if user.Name == query {
-				identifier = user.Id
-				break
+				return user.Id
 			}
 		}
 	}
 
-	return identifier
+	return query
 }
 
 func (s *SlackAPI) UsersInfo(query string) {

@@ -103,7 +103,8 @@ func (s *SlackAPI) SendUserMessage() {
 }
 
 func (s *SlackAPI) ProcessCommandOpen() {
-	response := s.InstantMessagingOpen(s.UserInput)
+	uniqueid := s.UsersId(s.UserInput)
+	response := s.InstantMessagingOpen(uniqueid)
 	s.PrintInlineJson(response)
 
 	if response.Ok == true {
