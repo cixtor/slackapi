@@ -4,15 +4,41 @@ func (s *SlackAPI) ChannelsHistory(channel string, latest string) {
 	s.ResourceHistory("channels.history", channel, latest)
 }
 
+func (s *SlackAPI) ChannelsId(query string) string {
+	response := s.ChannelsList()
+
+	if response.Ok {
+		for _, room := range response.Channels {
+			if room.Name == query {
+				return room.Id
+			}
+		}
+	}
+
+	return query
+}
+
 func (s *SlackAPI) ChannelsInfo(channel string) {
 	var response interface{}
+	channel = s.ChannelsId(channel)
 	s.GetRequest(&response, "channels.info", "token", "channel="+channel)
 	s.PrintAndExit(response)
 }
 
-func (s *SlackAPI) ChannelsList() {
-	var response interface{}
+func (s *SlackAPI) ChannelsList() Rooms {
+	if s.TeamRooms.Ok == true {
+		return s.TeamRooms
+	}
+
+	var response Rooms
 	s.GetRequest(&response, "channels.list", "token", "exclude_archived=0")
+	s.TeamRooms = response
+
+	return response
+}
+
+func (s *SlackAPI) ChannelsListVerbose() {
+	response := s.ChannelsList()
 	s.PrintAndExit(response)
 }
 

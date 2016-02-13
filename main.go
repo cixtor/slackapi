@@ -31,7 +31,7 @@ func main() {
 	case "channels.info":
 		client.ChannelsInfo(flag.Arg(1))
 	case "channels.list":
-		client.ChannelsList()
+		client.ChannelsListVerbose()
 	case "channels.mark":
 		client.ChannelsMark(flag.Arg(1), flag.Arg(2))
 	case "channels.setPurpose":
@@ -59,7 +59,7 @@ func main() {
 	case "groups.mark":
 		client.GroupsMark(flag.Arg(1), flag.Arg(2))
 	case "groups.open":
-		client.GroupsOpen(flag.Arg(1))
+		client.GroupsOpenVerbose(flag.Arg(1))
 	case "groups.setPurpose":
 		client.GroupsSetPurpose(flag.Arg(1), flag.Arg(2))
 	case "groups.setTopic":

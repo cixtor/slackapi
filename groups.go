@@ -26,12 +26,14 @@ func (s *SlackAPI) GroupsMark(channel string, timestamp string) {
 	s.ResourceMark("groups.mark", channel, timestamp)
 }
 
-func (s *SlackAPI) GroupsOpen(channel string) {
-	var response interface{}
-	s.GetRequest(&response,
-		"groups.open",
-		"token",
-		"channel="+channel)
+func (s *SlackAPI) GroupsOpen(channel string) Session {
+	var response Session
+	s.GetRequest(&response, "groups.open", "token", "channel="+channel)
+	return response
+}
+
+func (s *SlackAPI) GroupsOpenVerbose(channel string) {
+	response := s.GroupsOpen(channel)
 	s.PrintAndExit(response)
 }
 

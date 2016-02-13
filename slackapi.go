@@ -23,6 +23,7 @@ type SlackAPI struct {
 	RobotIsActive  bool
 	IsConnected    bool
 	TeamUsers      Users
+	TeamRooms      Rooms
 	History        []Message
 }
 

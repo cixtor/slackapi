@@ -22,6 +22,8 @@ func (s *SlackAPI) ChatSession() {
 		s.UserInput = strings.TrimSpace(message)
 
 		if s.UserInput == ":exit" {
+			break
+		} else if s.UserInput == ":close" {
 			s.CloseSession()
 			break
 		} else {
@@ -105,12 +107,25 @@ func (s *SlackAPI) SendUserMessage() {
 func (s *SlackAPI) ProcessCommandOpen() {
 	uniqueid := s.UsersId(s.UserInput)
 	response := s.InstantMessagingOpen(uniqueid)
-	s.PrintInlineJson(response)
+
+	if response.Error == "user_not_found" {
+		uniqueid = s.ChannelsId(s.UserInput)
+
+		if uniqueid != s.UserInput {
+			response.Ok = true
+			response.Error = ""
+			response.Channel.Id = uniqueid
+		} else {
+			response.Error = "channel_not_found"
+		}
+	}
 
 	if response.Ok == true {
 		s.Channel = response.Channel.Id
 		s.IsConnected = response.Ok
 	}
+
+	s.PrintInlineJson(response)
 }
 
 func (s *SlackAPI) ProcessCommandDelete() {

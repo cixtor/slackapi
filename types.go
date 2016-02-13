@@ -19,6 +19,11 @@ type Users struct {
 	Members []User `json:"members"`
 }
 
+type Rooms struct {
+	Base
+	Channels []Room `json:"channels"`
+}
+
 type User struct {
 	Id                string  `json:"id"`
 	TeamId            string  `json:"team_id"`
@@ -72,4 +77,27 @@ type Message struct {
 		Type     string `json:"type"`
 		Username string `json:"username"`
 	} `json:"message"`
+}
+
+type Room struct {
+	Id         string   `json:"id"`
+	Name       string   `json:"name"`
+	Creator    string   `json:"creator"`
+	Created    int      `json:"created"`
+	IsArchived bool     `json:"is_archived"`
+	IsChannel  bool     `json:"is_channel"`
+	IsGeneral  bool     `json:"is_general"`
+	IsMember   bool     `json:"is_member"`
+	NumMembers int      `json:"num_members"`
+	Members    []string `json:"members"`
+	Purpose    struct {
+		Creator string `json:"creator"`
+		LastSet int    `json:"last_set"`
+		Value   string `json:"value"`
+	} `json:"purpose"`
+	Topic struct {
+		Creator string `json:"creator"`
+		LastSet int    `json:"last_set"`
+		Value   string `json:"value"`
+	} `json:"topic"`
 }
