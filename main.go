@@ -55,7 +55,7 @@ func main() {
 	case "groups.info":
 		client.GroupsInfo(flag.Arg(1))
 	case "groups.list":
-		client.GroupsList()
+		client.GroupsListVerbose()
 	case "groups.mark":
 		client.GroupsMark(flag.Arg(1), flag.Arg(2))
 	case "groups.open":

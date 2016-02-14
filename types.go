@@ -24,6 +24,11 @@ type Rooms struct {
 	Channels []Room `json:"channels"`
 }
 
+type Groups struct {
+	Base
+	Channels []Room `json:"groups"`
+}
+
 type User struct {
 	Id                string  `json:"id"`
 	TeamId            string  `json:"team_id"`

@@ -10,15 +10,41 @@ func (s *SlackAPI) GroupsHistory(channel string, latest string) {
 	s.ResourceHistory("groups.history", channel, latest)
 }
 
+func (s *SlackAPI) GroupsId(query string) string {
+	response := s.GroupsList()
+
+	if response.Ok {
+		for _, room := range response.Channels {
+			if room.Name == query {
+				return room.Id
+			}
+		}
+	}
+
+	return query
+}
+
 func (s *SlackAPI) GroupsInfo(channel string) {
 	var response interface{}
+	channel = s.GroupsId(channel)
 	s.GetRequest(&response, "groups.info", "token", "channel="+channel)
 	s.PrintAndExit(response)
 }
 
-func (s *SlackAPI) GroupsList() {
-	var response interface{}
+func (s *SlackAPI) GroupsList() Groups {
+	if s.TeamGroups.Ok == true {
+		return s.TeamGroups
+	}
+
+	var response Groups
 	s.GetRequest(&response, "groups.list", "token", "exclude_archived=0")
+	s.TeamGroups = response
+
+	return response
+}
+
+func (s *SlackAPI) GroupsListVerbose() {
+	response := s.GroupsList()
 	s.PrintAndExit(response)
 }
 

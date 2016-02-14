@@ -24,6 +24,7 @@ type SlackAPI struct {
 	IsConnected    bool
 	TeamUsers      Users
 	TeamRooms      Rooms
+	TeamGroups     Groups
 	History        []Message
 }
 

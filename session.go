@@ -109,6 +109,7 @@ func (s *SlackAPI) ProcessCommandOpen() {
 	response := s.InstantMessagingOpen(uniqueid)
 
 	if response.Error == "user_not_found" {
+		s.PrintInlineJson(response)
 		uniqueid = s.ChannelsId(s.UserInput)
 
 		if uniqueid != s.UserInput {
@@ -117,6 +118,19 @@ func (s *SlackAPI) ProcessCommandOpen() {
 			response.Channel.Id = uniqueid
 		} else {
 			response.Error = "channel_not_found"
+		}
+	}
+
+	if response.Error == "channel_not_found" {
+		s.PrintInlineJson(response)
+		uniqueid = s.GroupsId(s.UserInput)
+
+		if uniqueid != s.UserInput {
+			response.Ok = true
+			response.Error = ""
+			response.Channel.Id = uniqueid
+		} else {
+			response.Error = "group_not_found"
 		}
 	}
 
