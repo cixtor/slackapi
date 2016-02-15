@@ -122,10 +122,9 @@ func (s *SlackAPI) HttpRequest(method string, data interface{}, action string, p
 	client := &http.Client{}
 
 	req.Header.Add("DNT", "1")
-	req.Header.Add("Accept", "*/*")
 	req.Header.Add("Connection", "keep-alive")
+	req.Header.Add("Accept", "application/json")
 	req.Header.Add("Accept-Language", "en-US,en")
-	req.Header.Add("Origin", "https://sucuri.slack.com")
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	req.Header.Add("User-Agent", "Mozilla/5.0 (KHTML, like Gecko) Safari/537.36")
 
