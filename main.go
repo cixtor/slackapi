@@ -65,6 +65,7 @@ func main() {
 		fmt.Println("  slackapi -help")
 		fmt.Println()
 		fmt.Println("Usage (chat.session):")
+		fmt.Println("  :token       Sets the token for the chat session")
 		fmt.Println("  :history     Displays the messages in the current session")
 		fmt.Println("  :open        Opens a new session with a user, channel, or group")
 		fmt.Println("  :delete      Deletes the latest message in the session history")

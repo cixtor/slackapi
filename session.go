@@ -77,6 +77,8 @@ func (s *SlackAPI) ProcessCommand() {
 		s.ProcessCommandRobotName()
 	case ":botimage":
 		s.ProcessCommandRobotImage()
+	case ":token":
+		s.ProcessCommandToken()
 	case ":userid":
 		s.ProcessCommandUserId()
 	case ":userlist":
@@ -236,6 +238,10 @@ func (s *SlackAPI) ProcessCommandRobotImage() {
 			s.RobotImageType = "icon_url"
 		}
 	}
+}
+
+func (s *SlackAPI) ProcessCommandToken() {
+	s.Token = s.UserInput
 }
 
 func (s *SlackAPI) ProcessCommandUserId() {
