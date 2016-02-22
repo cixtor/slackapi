@@ -90,7 +90,7 @@ func main() {
 	case "api.test":
 		client.ApiTest()
 	case "auth.test":
-		client.AuthTest()
+		client.AuthTestVerbose()
 	case "channels.history":
 		client.ChannelsHistory(flag.Arg(1), flag.Arg(2))
 	case "channels.info":

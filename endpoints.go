@@ -6,9 +6,14 @@ func (s *SlackAPI) ApiTest() {
 	s.PrintAndExit(response)
 }
 
-func (s *SlackAPI) AuthTest() {
-	var response interface{}
+func (s *SlackAPI) AuthTest() Owner {
+	var response Owner
 	s.GetRequest(&response, "auth.test", "token")
+	return response
+}
+
+func (s *SlackAPI) AuthTestVerbose() {
+	response := s.AuthTest()
 	s.PrintAndExit(response)
 }
 

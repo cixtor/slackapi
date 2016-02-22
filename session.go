@@ -79,6 +79,8 @@ func (s *SlackAPI) ProcessCommand() {
 		s.ProcessCommandRobotImage()
 	case ":token":
 		s.ProcessCommandToken()
+	case ":owner":
+		s.ProcessCommandOwner()
 	case ":userid":
 		s.ProcessCommandUserId()
 	case ":userlist":
@@ -242,6 +244,11 @@ func (s *SlackAPI) ProcessCommandRobotImage() {
 
 func (s *SlackAPI) ProcessCommandToken() {
 	s.Token = s.UserInput
+	s.Owner = s.AuthTest()
+}
+
+func (s *SlackAPI) ProcessCommandOwner() {
+	s.PrintFormattedJson(s.Owner)
 }
 
 func (s *SlackAPI) ProcessCommandUserId() {

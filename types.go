@@ -14,6 +14,15 @@ type Session struct {
 	} `json:"channel"`
 }
 
+type Owner struct {
+	Ok     string `json:"ok"`
+	Team   string `json:"team"`
+	TeamId string `json:"team_id"`
+	Url    string `json:"url"`
+	User   string `json:"user"`
+	UserId string `json:"user_id"`
+}
+
 type Users struct {
 	Base
 	Members []User `json:"members"`
