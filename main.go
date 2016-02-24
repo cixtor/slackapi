@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.2.23"
+const version = "1.2.24"
 
 func main() {
 	var client SlackAPI
@@ -68,18 +68,21 @@ func main() {
 		fmt.Println("  slackapi help                                      Displays usage and program options")
 		fmt.Println()
 		fmt.Println("Usage (chat.session):")
-		fmt.Println("  :token       Sets the token for the chat session")
-		fmt.Println("  :history     Displays the messages in the current session")
-		fmt.Println("  :open        Opens a new session with a user, channel, or group")
+		fmt.Println("  :close       Close current chat session")
 		fmt.Println("  :delete      Deletes the latest message in the session history")
-		fmt.Println("  :flush       Deletes all the messages in the session history")
 		fmt.Println("  :exec        Executes and sends the output of a local command")
 		fmt.Println("  :execv       Same as :exec but includes the executed command")
-		fmt.Println("  :boton       Activates the robot to send 3rd-party messages")
-		fmt.Println("  :botoff      Deactivates the robot to send normal messages")
-		fmt.Println("  :botinfo     Displays the configuration of the robot")
-		fmt.Println("  :botname     Sets the user name of the robot")
-		fmt.Println("  :botimage    Sets the avatar for the robot")
+		fmt.Println("  :exit        Exits the program without closing chat sessions")
+		fmt.Println("  :flush       Deletes all the messages in the session history")
+		fmt.Println("  :history     Displays the messages in the current session")
+		fmt.Println("  :open        Opens a new session with a user, channel, or group")
+		fmt.Println("  :owner       Displays account information of the user in session")
+		fmt.Println("  :robotimage  Sets the avatar for the robot")
+		fmt.Println("  :robotinfo   Displays the configuration of the robot")
+		fmt.Println("  :robotname   Sets the user name of the robot")
+		fmt.Println("  :robotoff    Deactivates the robot to send normal messages")
+		fmt.Println("  :roboton     Activates the robot to send 3rd-party messages")
+		fmt.Println("  :token       Sets the token for the chat session")
 		fmt.Println("  :userid      Displays the unique identifier of an user")
 		fmt.Println("  :userlist    Displays the information of all the users")
 		fmt.Println("  :usersearch  Searches the information of a specific user")

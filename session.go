@@ -23,9 +23,6 @@ func (s *SlackAPI) ChatSession() {
 
 		if s.UserInput == ":exit" {
 			break
-		} else if s.UserInput == ":close" {
-			s.CloseSession()
-			break
 		} else {
 			s.ProcessMessage()
 		}
@@ -55,32 +52,34 @@ func (s *SlackAPI) ProcessMessage() {
 
 func (s *SlackAPI) ProcessCommand() {
 	switch s.Command {
-	case ":history":
-		s.PrintFormattedJson(s.History)
-	case ":open":
-		s.ProcessCommandOpen()
+	case ":close":
+		s.ProcessCommandClose()
 	case ":delete":
 		s.ProcessCommandDelete()
-	case ":flush":
-		s.ProcessCommandFlush()
 	case ":exec":
 		s.ProcessCommandExec()
 	case ":execv":
 		s.ProcessCommandExecv()
-	case ":boton":
-		s.ProcessCommandRobotOn()
-	case ":botoff":
-		s.ProcessCommandRobotOff()
-	case ":botinfo":
-		s.ProcessCommandRobotInfo()
-	case ":botname":
-		s.ProcessCommandRobotName()
-	case ":botimage":
-		s.ProcessCommandRobotImage()
-	case ":token":
-		s.ProcessCommandToken()
+	case ":flush":
+		s.ProcessCommandFlush()
+	case ":history":
+		s.ProcessCommandHistory()
+	case ":open":
+		s.ProcessCommandOpen()
 	case ":owner":
 		s.ProcessCommandOwner()
+	case ":robotimage":
+		s.ProcessCommandRobotImage()
+	case ":robotinfo":
+		s.ProcessCommandRobotInfo()
+	case ":robotname":
+		s.ProcessCommandRobotName()
+	case ":robotoff":
+		s.ProcessCommandRobotOff()
+	case ":roboton":
+		s.ProcessCommandRobotOn()
+	case ":token":
+		s.ProcessCommandToken()
 	case ":userid":
 		s.ProcessCommandUserId()
 	case ":userlist":
@@ -106,6 +105,75 @@ func (s *SlackAPI) SendUserMessage() {
 	} else {
 		fmt.Println("{\"ok\":false,\"error\":\"not_connected\"}")
 	}
+}
+
+func (s *SlackAPI) ProcessCommandClose() {
+	if s.IsConnected {
+		response := s.InstantMessagingClose(s.Channel)
+		s.PrintInlineJson(response)
+		s.IsConnected = false
+	}
+}
+
+func (s *SlackAPI) ProcessCommandDelete() {
+	var totalHistory int = len(s.History)
+
+	if totalHistory > 0 {
+		var forDeletion int = totalHistory - 1
+		var latestMsg Message = s.History[forDeletion]
+		var shortHistory []Message
+
+		response := s.ChatDelete(latestMsg.Channel, latestMsg.Ts)
+		s.PrintInlineJson(response)
+
+		if response.Ok == true {
+			for key := 0; key < forDeletion; key++ {
+				shortHistory = append(shortHistory, s.History[key])
+			}
+
+			s.History = shortHistory
+		}
+	}
+}
+
+func (s *SlackAPI) ProcessCommandExec() {
+	response := s.System(s.UserInput)
+	s.UserInput = fmt.Sprintf("```%s```", response)
+	s.SendUserMessage()
+}
+
+func (s *SlackAPI) ProcessCommandExecv() {
+	response := s.System(s.UserInput)
+	s.UserInput = fmt.Sprintf("```$ %s\n%s```", s.UserInput, response)
+	s.SendUserMessage()
+}
+
+func (s *SlackAPI) ProcessCommandFlush() {
+	var shortHistory []Message
+	var totalHistory int = len(s.History)
+	var offset int = (totalHistory - 1)
+	var message Message
+
+	fmt.Printf("@ Deleting %d messages\n", totalHistory)
+
+	for key := offset; key >= 0; key-- {
+		message = s.History[key]
+		fmt.Printf("\x20 %s from %s ", message.Ts, message.Channel)
+		response := s.ChatDelete(message.Channel, message.Ts)
+
+		if response.Ok == true {
+			fmt.Println("\u2714")
+		} else {
+			shortHistory = append(shortHistory, message)
+			fmt.Printf("\u2718 %s\n", response.Error)
+		}
+	}
+
+	s.History = shortHistory
+}
+
+func (s *SlackAPI) ProcessCommandHistory() {
+	s.PrintFormattedJson(s.History)
 }
 
 func (s *SlackAPI) ProcessCommandOpen() {
@@ -146,69 +214,20 @@ func (s *SlackAPI) ProcessCommandOpen() {
 	s.PrintInlineJson(response)
 }
 
-func (s *SlackAPI) ProcessCommandDelete() {
-	var totalHistory int = len(s.History)
-
-	if totalHistory > 0 {
-		var forDeletion int = totalHistory - 1
-		var latestMsg Message = s.History[forDeletion]
-		var shortHistory []Message
-
-		response := s.ChatDelete(latestMsg.Channel, latestMsg.Ts)
-		s.PrintInlineJson(response)
-
-		if response.Ok == true {
-			for key := 0; key < forDeletion; key++ {
-				shortHistory = append(shortHistory, s.History[key])
-			}
-
-			s.History = shortHistory
-		}
-	}
+func (s *SlackAPI) ProcessCommandOwner() {
+	s.PrintFormattedJson(s.Owner)
 }
 
-func (s *SlackAPI) ProcessCommandFlush() {
-	var shortHistory []Message
-	var totalHistory int = len(s.History)
-	var offset int = (totalHistory - 1)
-	var message Message
+func (s *SlackAPI) ProcessCommandRobotImage() {
+	if s.UserInput != "" {
+		s.RobotImage = s.UserInput
 
-	fmt.Printf("@ Deleting %d messages\n", totalHistory)
-
-	for key := offset; key >= 0; key-- {
-		message = s.History[key]
-		fmt.Printf("\x20 %s from %s ", message.Ts, message.Channel)
-		response := s.ChatDelete(message.Channel, message.Ts)
-
-		if response.Ok == true {
-			fmt.Println("\u2714")
+		if s.UserInput[0] == ':' {
+			s.RobotImageType = "emoji"
 		} else {
-			shortHistory = append(shortHistory, message)
-			fmt.Printf("\u2718 %s\n", response.Error)
+			s.RobotImageType = "icon_url"
 		}
 	}
-
-	s.History = shortHistory
-}
-
-func (s *SlackAPI) ProcessCommandExec() {
-	response := s.System(s.UserInput)
-	s.UserInput = fmt.Sprintf("```%s```", response)
-	s.SendUserMessage()
-}
-
-func (s *SlackAPI) ProcessCommandExecv() {
-	response := s.System(s.UserInput)
-	s.UserInput = fmt.Sprintf("```$ %s\n%s```", s.UserInput, response)
-	s.SendUserMessage()
-}
-
-func (s *SlackAPI) ProcessCommandRobotOn() {
-	s.RobotIsActive = true
-}
-
-func (s *SlackAPI) ProcessCommandRobotOff() {
-	s.RobotIsActive = false
 }
 
 func (s *SlackAPI) ProcessCommandRobotInfo() {
@@ -230,25 +249,17 @@ func (s *SlackAPI) ProcessCommandRobotName() {
 	}
 }
 
-func (s *SlackAPI) ProcessCommandRobotImage() {
-	if s.UserInput != "" {
-		s.RobotImage = s.UserInput
+func (s *SlackAPI) ProcessCommandRobotOff() {
+	s.RobotIsActive = false
+}
 
-		if s.UserInput[0] == ':' {
-			s.RobotImageType = "emoji"
-		} else {
-			s.RobotImageType = "icon_url"
-		}
-	}
+func (s *SlackAPI) ProcessCommandRobotOn() {
+	s.RobotIsActive = true
 }
 
 func (s *SlackAPI) ProcessCommandToken() {
 	s.Token = s.UserInput
 	s.Owner = s.AuthTest()
-}
-
-func (s *SlackAPI) ProcessCommandOwner() {
-	s.PrintFormattedJson(s.Owner)
 }
 
 func (s *SlackAPI) ProcessCommandUserId() {
@@ -264,12 +275,4 @@ func (s *SlackAPI) ProcessCommandUserList() {
 func (s *SlackAPI) ProcessCommandUserSearch() {
 	response := s.UsersSearch(s.UserInput)
 	s.PrintFormattedJson(response)
-}
-
-func (s *SlackAPI) CloseSession() {
-	if s.IsConnected {
-		response := s.InstantMessagingClose(s.Channel)
-		s.PrintInlineJson(response)
-		s.IsConnected = false
-	}
 }
