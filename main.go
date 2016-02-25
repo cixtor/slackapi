@@ -6,10 +6,11 @@ import (
 	"os"
 )
 
-const version = "1.2.24"
+const version = "1.2.25"
 
 func main() {
 	var client SlackAPI
+	var command string
 
 	flag.Usage = func() {
 		fmt.Println("Slack API Client")
@@ -87,12 +88,18 @@ func main() {
 		fmt.Println("  :userlist    Displays the information of all the users")
 		fmt.Println("  :usersearch  Searches the information of a specific user")
 		flag.PrintDefaults()
+		os.Exit(2)
 	}
 
 	flag.Parse()
 	client.AutoConfigure()
+	command = flag.Arg(0)
 
-	switch flag.Arg(0) {
+	if command == "" {
+		command = "help"
+	}
+
+	switch command {
 	case "api.test":
 		client.ApiTest()
 	case "auth.test":
