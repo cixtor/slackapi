@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.2.25"
+const version = "1.2.26"
 
 func main() {
 	var client SlackAPI
@@ -17,6 +17,7 @@ func main() {
 		fmt.Println("  http://cixtor.com/")
 		fmt.Println("  https://api.slack.com/")
 		fmt.Println("  https://github.com/cixtor/slackapi")
+		fmt.Println("  version", version)
 		fmt.Println()
 		fmt.Println("Description:")
 		fmt.Println("  Low level Slack API client with custom commands. Slack, the 'messaging app for")
