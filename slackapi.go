@@ -14,6 +14,7 @@ import (
 
 type SlackAPI struct {
 	Token          string
+	Username       string
 	Channel        string
 	Command        string
 	UserInput      string

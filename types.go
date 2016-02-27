@@ -15,7 +15,7 @@ type Session struct {
 }
 
 type Owner struct {
-	Ok     string `json:"ok"`
+	Ok     bool   `json:"ok"`
 	Team   string `json:"team"`
 	TeamId string `json:"team_id"`
 	Url    string `json:"url"`

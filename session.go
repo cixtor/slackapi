@@ -8,11 +8,12 @@ import (
 )
 
 func (s *SlackAPI) ChatSession() {
-	s.Channel = "unknown"
 	reader := bufio.NewReader(os.Stdin)
+	s.Username = "username"
+	s.Channel = "channel"
 
 	for {
-		fmt.Printf("slack:%s> ", s.Channel)
+		fmt.Printf("%s:%s> ", s.Username, s.Channel)
 		message, err := reader.ReadString('\n')
 
 		if err != nil {
@@ -108,6 +109,9 @@ func (s *SlackAPI) SendUserMessage() {
 }
 
 func (s *SlackAPI) ProcessCommandClose() {
+	s.Username = "username"
+	s.Channel = "channel"
+
 	if s.IsConnected {
 		response := s.InstantMessagingClose(s.Channel)
 		s.PrintInlineJson(response)
@@ -207,6 +211,7 @@ func (s *SlackAPI) ProcessCommandOpen() {
 	}
 
 	if response.Ok == true {
+		s.Username = s.UserInput
 		s.Channel = response.Channel.Id
 		s.IsConnected = response.Ok
 	}
