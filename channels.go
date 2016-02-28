@@ -1,7 +1,11 @@
 package main
 
 func (s *SlackAPI) ChannelsHistory(channel string, latest string) {
-	s.ResourceHistory("channels.history", channel, latest)
+	s.ResourceHistoryVerbose("channels.history", channel, latest)
+}
+
+func (s *SlackAPI) ChannelsHistoryPurge(channel string, latest string) {
+	s.ResourceHistoryPurge("channels.history", channel, latest)
 }
 
 func (s *SlackAPI) ChannelsId(query string) string {

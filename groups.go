@@ -7,7 +7,11 @@ func (s *SlackAPI) GroupsClose(channel string) {
 }
 
 func (s *SlackAPI) GroupsHistory(channel string, latest string) {
-	s.ResourceHistory("groups.history", channel, latest)
+	s.ResourceHistoryVerbose("groups.history", channel, latest)
+}
+
+func (s *SlackAPI) GroupsHistoryPurge(channel string, latest string) {
+	s.ResourceHistoryPurge("groups.history", channel, latest)
 }
 
 func (s *SlackAPI) GroupsId(query string) string {

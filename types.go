@@ -84,13 +84,23 @@ type ChannelEvent struct {
 
 type Message struct {
 	ChannelEvent
-	Message struct {
-		Subtype  string `json:"subtype"`
-		Text     string `json:"text"`
-		Ts       string `json:"ts"`
-		Type     string `json:"type"`
-		Username string `json:"username"`
-	} `json:"message"`
+	Message MessageNode `json:"message"`
+}
+
+type History struct {
+	Base
+	HasMore            bool          `json:"has_more"`
+	Messages           []MessageNode `json:"messages"`
+	UnreadCountDisplay int           `json:"unread_count_display"`
+}
+
+type MessageNode struct {
+	Subtype  string `json:"subtype"`
+	Text     string `json:"text"`
+	Ts       string `json:"ts"`
+	Type     string `json:"type"`
+	User     string `json:"user"`
+	Username string `json:"username"`
 }
 
 type Room struct {

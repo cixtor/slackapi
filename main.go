@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.2.27"
+const version = "1.2.28"
 
 func main() {
 	var client SlackAPI
@@ -31,6 +31,7 @@ func main() {
 		fmt.Println("  slackapi api.test                                  Checks API calling code")
 		fmt.Println("  slackapi auth.test                                 Checks authentication and identity")
 		fmt.Println("  slackapi channels.history [channel] [time]         Fetches history of messages and events from a channel")
+		fmt.Println("  slackapi channels.historyPurge [channel] [time]    Deletes history of messages and events from a channel")
 		fmt.Println("  slackapi channels.info [channel]                   Gets information about a channel")
 		fmt.Println("  slackapi channels.list                             Lists all channels in a Slack team")
 		fmt.Println("  slackapi channels.mark [channel] [time]            Sets the read cursor in a channel")
@@ -43,6 +44,7 @@ func main() {
 		fmt.Println("  slackapi emoji.list                                Lists custom emoji for a team")
 		fmt.Println("  slackapi groups.close [channel]                    Closes a private channel")
 		fmt.Println("  slackapi groups.history [channel] [time]           Fetches history of messages and events from a private channel")
+		fmt.Println("  slackapi groups.historyPurge [channel] [time]      Deletes history of messages and events from a private channel")
 		fmt.Println("  slackapi groups.info [channel]                     Gets information about a private channel")
 		fmt.Println("  slackapi groups.list                               Lists private channels that the calling user has access to")
 		fmt.Println("  slackapi groups.mark [channel] [time]              Sets the read cursor in a private channel")
@@ -51,6 +53,7 @@ func main() {
 		fmt.Println("  slackapi groups.setTopic [channel] [topic]         Sets the topic for a private channel")
 		fmt.Println("  slackapi im.close [channel]                        Close a direct message channel")
 		fmt.Println("  slackapi im.history [channel] [time]               Fetches history of messages and events from direct message channel")
+		fmt.Println("  slackapi im.historyPurge [channel] [time]          Deletes history of messages and events from direct message channel")
 		fmt.Println("  slackapi im.list                                   Lists direct message channels for the calling user")
 		fmt.Println("  slackapi im.mark [channel] [time]                  Sets the read cursor in a direct message channel")
 		fmt.Println("  slackapi im.open [user]                            Opens a direct message channel")
@@ -107,6 +110,8 @@ func main() {
 		client.AuthTestVerbose()
 	case "channels.history":
 		client.ChannelsHistory(flag.Arg(1), flag.Arg(2))
+	case "channels.historyPurge":
+		client.ChannelsHistoryPurge(flag.Arg(1), flag.Arg(2))
 	case "channels.info":
 		client.ChannelsInfo(flag.Arg(1))
 	case "channels.list":
@@ -131,6 +136,8 @@ func main() {
 		client.GroupsClose(flag.Arg(1))
 	case "groups.history":
 		client.GroupsHistory(flag.Arg(1), flag.Arg(2))
+	case "groups.historyPurge":
+		client.GroupsHistoryPurge(flag.Arg(1), flag.Arg(2))
 	case "groups.info":
 		client.GroupsInfo(flag.Arg(1))
 	case "groups.list":
@@ -147,6 +154,8 @@ func main() {
 		client.InstantMessagingCloseVerbose(flag.Arg(1))
 	case "im.history":
 		client.InstantMessagingHistory(flag.Arg(1), flag.Arg(2))
+	case "im.historyPurge":
+		client.InstantMessagingHistoryPurge(flag.Arg(1), flag.Arg(2))
 	case "im.list":
 		client.InstantMessagingList()
 	case "im.mark":

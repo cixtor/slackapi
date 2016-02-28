@@ -12,7 +12,11 @@ func (s *SlackAPI) InstantMessagingCloseVerbose(channel string) {
 }
 
 func (s *SlackAPI) InstantMessagingHistory(channel string, latest string) {
-	s.ResourceHistory("im.history", channel, latest)
+	s.ResourceHistoryVerbose("im.history", channel, latest)
+}
+
+func (s *SlackAPI) InstantMessagingHistoryPurge(channel string, latest string) {
+	s.ResourceHistoryPurge("im.history", channel, latest)
 }
 
 func (s *SlackAPI) InstantMessagingList() {
