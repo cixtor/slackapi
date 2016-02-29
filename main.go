@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.2.28"
+const version = "1.2.29"
 
 func main() {
 	var client SlackAPI
@@ -82,6 +82,7 @@ func main() {
 		fmt.Println("  :history     Displays the messages in the current session")
 		fmt.Println("  :open        Opens a new session with a user, channel, or group")
 		fmt.Println("  :owner       Displays account information of the user in session")
+		fmt.Println("  :purge       Deletes the messages in the current session")
 		fmt.Println("  :robotimage  Sets the avatar for the robot")
 		fmt.Println("  :robotinfo   Displays the configuration of the robot")
 		fmt.Println("  :robotname   Sets the user name of the robot")

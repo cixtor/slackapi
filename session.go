@@ -40,6 +40,7 @@ func (s *SlackAPI) ProcessMessage() {
 	} else if s.UserInput[0] == ':' {
 		parts = strings.SplitN(s.UserInput, "\x20", 2)
 		s.Command = parts[0]
+		s.UserInput = ""
 
 		if len(parts) == 2 {
 			s.UserInput = parts[1]
@@ -69,6 +70,8 @@ func (s *SlackAPI) ProcessCommand() {
 		s.ProcessCommandOpen()
 	case ":owner":
 		s.ProcessCommandOwner()
+	case ":purge":
+		s.ProcessCommandPurge()
 	case ":robotimage":
 		s.ProcessCommandRobotImage()
 	case ":robotinfo":
@@ -192,6 +195,7 @@ func (s *SlackAPI) ProcessCommandOpen() {
 			response.Ok = true
 			response.Error = ""
 			response.Channel.Id = uniqueid
+			s.IsChannelConn = true
 		} else {
 			response.Error = "channel_not_found"
 		}
@@ -205,6 +209,7 @@ func (s *SlackAPI) ProcessCommandOpen() {
 			response.Ok = true
 			response.Error = ""
 			response.Channel.Id = uniqueid
+			s.IsGroupConn = true
 		} else {
 			response.Error = "group_not_found"
 		}
@@ -214,6 +219,10 @@ func (s *SlackAPI) ProcessCommandOpen() {
 		s.Username = s.UserInput
 		s.Channel = response.Channel.Id
 		s.IsConnected = response.Ok
+
+		if !s.IsChannelConn && !s.IsGroupConn {
+			s.IsUserConn = true
+		}
 	}
 
 	s.PrintInlineJson(response)
@@ -221,6 +230,18 @@ func (s *SlackAPI) ProcessCommandOpen() {
 
 func (s *SlackAPI) ProcessCommandOwner() {
 	s.PrintFormattedJson(s.Owner)
+}
+
+func (s *SlackAPI) ProcessCommandPurge() {
+	if s.IsChannelConn {
+		s.ChannelsHistoryPurge(s.Channel, s.UserInput)
+	} else if s.IsGroupConn {
+		s.GroupsHistoryPurge(s.Channel, s.UserInput)
+	} else if s.IsUserConn {
+		s.InstantMessagingHistoryPurge(s.Channel, s.UserInput)
+	} else {
+		fmt.Println("{\"ok\":false,\"error\":\"not_connected\"}")
+	}
 }
 
 func (s *SlackAPI) ProcessCommandRobotImage() {

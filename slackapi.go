@@ -23,6 +23,9 @@ type SlackAPI struct {
 	RobotImageType string
 	RobotIsActive  bool
 	IsConnected    bool
+	IsUserConn     bool
+	IsGroupConn    bool
+	IsChannelConn  bool
 	Owner          Owner
 	TeamUsers      Users
 	TeamRooms      Rooms
