@@ -234,11 +234,11 @@ func (s *SlackAPI) ProcessCommandOwner() {
 
 func (s *SlackAPI) ProcessCommandPurge() {
 	if s.IsChannelConn {
-		s.ChannelsHistoryPurge(s.Channel, s.UserInput)
+		s.ChannelsPurgeHistory(s.Channel, s.UserInput)
 	} else if s.IsGroupConn {
-		s.GroupsHistoryPurge(s.Channel, s.UserInput)
+		s.GroupsPurgeHistory(s.Channel, s.UserInput)
 	} else if s.IsUserConn {
-		s.InstantMessagingHistoryPurge(s.Channel, s.UserInput)
+		s.InstantMessagingPurgeHistory(s.Channel, s.UserInput)
 	} else {
 		fmt.Println("{\"ok\":false,\"error\":\"not_connected\"}")
 	}

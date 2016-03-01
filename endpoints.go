@@ -58,7 +58,22 @@ func (s *SlackAPI) ResourceHistory(action string, channel string, latest string)
 	return response
 }
 
-func (s *SlackAPI) ResourceHistoryPurge(action string, channel string, latest string) {
+func (s *SlackAPI) ResourceHistoryVerbose(action string, channel string, latest string) {
+	response := s.ResourceHistory(action, channel, latest)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) ResourceMark(action string, channel string, timestamp string) {
+	var response interface{}
+	s.GetRequest(&response,
+		action,
+		"token",
+		"channel="+channel,
+		"ts="+timestamp)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) ResourcePurgeHistory(action string, channel string, latest string) {
 	var owner Owner = s.AuthTest()
 	response := s.ResourceHistory(action, channel, latest)
 	var history []MessageNode
@@ -85,21 +100,6 @@ func (s *SlackAPI) ResourceHistoryPurge(action string, channel string, latest st
 			}
 		}
 	}
-}
-
-func (s *SlackAPI) ResourceHistoryVerbose(action string, channel string, latest string) {
-	response := s.ResourceHistory(action, channel, latest)
-	s.PrintAndExit(response)
-}
-
-func (s *SlackAPI) ResourceMark(action string, channel string, timestamp string) {
-	var response interface{}
-	s.GetRequest(&response,
-		action,
-		"token",
-		"channel="+channel,
-		"ts="+timestamp)
-	s.PrintAndExit(response)
 }
 
 func (s *SlackAPI) TeamInfo() {

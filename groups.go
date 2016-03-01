@@ -10,10 +10,6 @@ func (s *SlackAPI) GroupsHistory(channel string, latest string) {
 	s.ResourceHistoryVerbose("groups.history", channel, latest)
 }
 
-func (s *SlackAPI) GroupsHistoryPurge(channel string, latest string) {
-	s.ResourceHistoryPurge("groups.history", channel, latest)
-}
-
 func (s *SlackAPI) GroupsId(query string) string {
 	response := s.GroupsList()
 
@@ -65,6 +61,10 @@ func (s *SlackAPI) GroupsOpen(channel string) Session {
 func (s *SlackAPI) GroupsOpenVerbose(channel string) {
 	response := s.GroupsOpen(channel)
 	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) GroupsPurgeHistory(channel string, latest string) {
+	s.ResourcePurgeHistory("groups.history", channel, latest)
 }
 
 func (s *SlackAPI) GroupsSetPurpose(channel string, purpose string) {

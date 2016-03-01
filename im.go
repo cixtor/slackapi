@@ -15,10 +15,6 @@ func (s *SlackAPI) InstantMessagingHistory(channel string, latest string) {
 	s.ResourceHistoryVerbose("im.history", channel, latest)
 }
 
-func (s *SlackAPI) InstantMessagingHistoryPurge(channel string, latest string) {
-	s.ResourceHistoryPurge("im.history", channel, latest)
-}
-
 func (s *SlackAPI) InstantMessagingList() {
 	var response interface{}
 	s.GetRequest(&response, "im.list", "token")
@@ -44,4 +40,8 @@ func (s *SlackAPI) InstantMessagingOpen(userid string) Session {
 func (s *SlackAPI) InstantMessagingOpenVerbose(userid string) {
 	response := s.InstantMessagingOpen(userid)
 	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) InstantMessagingPurgeHistory(channel string, latest string) {
+	s.ResourcePurgeHistory("im.history", channel, latest)
 }
