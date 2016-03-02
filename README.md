@@ -15,12 +15,51 @@ Since this is a client you will need to give access to the perform HTTP requests
 1. Open the messages board of your team [here](https://slack.com/messages/)
 2. Press `Ctrl + Shift + J` and enter the code `boot_data.api_token`
 3. Copy the token and use the terminal to interact with the service
-4. `$ SLACK_TOKEN=xoxs-token slackapi api.test # test token integrity`
 
-### Progress
+```
+$ SLACK_TOKEN=xoxs-token slackapi auth.test
+$ slackapi chat.session
+username:channel> :token xoxs-token
+username:channel> :owner
+username:channel> :exit
+```
+
+### Chat Session Commands
+
+- [x] `:close` - Close current chat session.
+- [x] `:delete` - Deletes the latest message in the session history.
+- [x] `:exec` - Executes and sends the output of a local command.
+- [x] `:execv` - Same as :exec but includes the executed command.
+- [x] `:exit` - Exits the program without closing chat sessions.
+- [x] `:flush` - Deletes all the messages in the session history.
+- [x] `:history` - Displays the messages in the current session.
+- [x] `:open` - Opens a new session with a user, channel, or group.
+- [x] `:owner` - Displays account information of the user in session.
+- [x] `:purge` - Deletes the messages in the current session.
+- [x] `:robotimage` - Sets the avatar for the robot.
+- [x] `:robotinfo` - Displays the configuration of the robot.
+- [x] `:robotname` - Sets the user name of the robot.
+- [x] `:robotoff` - Deactivates the robot to send normal messages.
+- [x] `:roboton` - Activates the robot to send 3rd-party messages.
+- [x] `:token` - Sets the token for the chat session.
+- [x] `:userid` - Displays the unique identifier of an user.
+- [x] `:userlist` - Displays the information of all the users.
+- [x] `:usersearch` - Searches the information of a specific user.
+
+### Non-Official Client Methods
+
+- [x] `channels.purgeHistory` - Deletes history of messages and events from a channel.
+- [x] `chat.session` - Starts a new chat session.
+- [x] `groups.purgeHistory` - Deletes history of messages and events from a private channel.
+- [x] `im.purgeHistory` - Deletes history of messages and events from direct message channel.
+- [x] `users.search` - Search users by name or email address.
+- [x] `version` - Displays the program version number.
+- [x] `help` - Displays usage and program options.
+
+### Official Client Methods
 
 - [x] `api.test` - Checks API calling code.
-- [x] `auth.test` - Checks authentication &amp; identity.
+- [x] `auth.test` - Checks authentication and identity.
 - [x] `channels.history` - Fetches history of messages and events from a channel.
 - [x] `channels.info` - Gets information about a channel.
 - [x] `channels.list` - Lists all channels in a Slack team.
@@ -29,7 +68,6 @@ Since this is a client you will need to give access to the perform HTTP requests
 - [x] `channels.setTopic` - Sets the topic for a channel.
 - [x] `chat.delete` - Deletes a message.
 - [x] `chat.postMessage` - Sends a message to a channel.
-- [x] `chat.session` - Starts a new chat session.
 - [x] `chat.update` - Updates a message.
 - [x] `emoji.list` - Lists custom emoji for a team.
 - [ ] `files.delete` - Deletes a file.
@@ -65,7 +103,6 @@ Since this is a client you will need to give access to the perform HTTP requests
 - [x] `users.getPresence` - Gets user presence information.
 - [x] `users.info` - Gets information about a user.
 - [x] `users.list` - Lists all users in a Slack team.
-- [x] `users.search` - Search users by name or email address.
 - [x] `users.setActive` - Marks a user as active.
 - [x] `users.setPresence` - Manually sets user presence.
 
