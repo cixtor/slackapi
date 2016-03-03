@@ -46,6 +46,10 @@ func (s *SlackAPI) ChannelsMark(channel string, timestamp string) {
 	s.ResourceMark("channels.mark", channel, timestamp)
 }
 
+func (s *SlackAPI) ChannelsMyHistory(channel string, latest string) {
+	s.ResourceMyHistoryVerbose("channels.history", channel, latest)
+}
+
 func (s *SlackAPI) ChannelsPurgeHistory(channel string, latest string) {
 	s.ResourcePurgeHistory("channels.history", channel, latest)
 }

@@ -34,6 +34,7 @@ func main() {
 		fmt.Println("  slackapi channels.info [channel]                   Gets information about a channel")
 		fmt.Println("  slackapi channels.list                             Lists all channels in a Slack team")
 		fmt.Println("  slackapi channels.mark [channel] [time]            Sets the read cursor in a channel")
+		fmt.Println("  slackapi channels.myHistory [channel] [time]       Displays messages of the current user from a channel")
 		fmt.Println("  slackapi channels.purgeHistory [channel] [time]    Deletes history of messages and events from a channel")
 		fmt.Println("  slackapi channels.setPurpose [channel] [purpose]   Sets the purpose for a channel")
 		fmt.Println("  slackapi channels.setTopic [channel] [topic]       Sets the topic for a channel")
@@ -117,6 +118,8 @@ func main() {
 		client.ChannelsListVerbose()
 	case "channels.mark":
 		client.ChannelsMark(flag.Arg(1), flag.Arg(2))
+	case "channels.myHistory":
+		client.ChannelsMyHistory(flag.Arg(1), flag.Arg(2))
 	case "channels.purgeHistory":
 		client.ChannelsPurgeHistory(flag.Arg(1), flag.Arg(2))
 	case "channels.setPurpose":

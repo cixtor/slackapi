@@ -73,23 +73,44 @@ func (s *SlackAPI) ResourceMark(action string, channel string, timestamp string)
 	s.PrintAndExit(response)
 }
 
-func (s *SlackAPI) ResourcePurgeHistory(action string, channel string, latest string) {
+func (s *SlackAPI) ResourceMyHistory(action string, channel string, latest string) UserHistory {
 	var owner Owner = s.AuthTest()
+	var rhistory UserHistory
+
 	response := s.ResourceHistory(action, channel, latest)
-	var history []MessageNode
-	var totalHistory int
 
 	for _, message := range response.Messages {
+		rhistory.Total += 1
+
 		if message.User == owner.UserId {
-			history = append(history, message)
-			totalHistory += 1
+			rhistory.Messages = append(rhistory.Messages, message)
+			rhistory.Filtered += 1
 		}
 	}
 
-	if totalHistory > 0 {
-		fmt.Printf("@ Deleting %d messages\n", totalHistory)
+	if rhistory.Total > 0 {
+		var offset int = len(response.Messages) - 1
 
-		for _, message := range history {
+		rhistory.Username = owner.User
+		rhistory.Latest = response.Messages[0].Ts
+		rhistory.Oldest = response.Messages[offset].Ts
+	}
+
+	return rhistory
+}
+
+func (s *SlackAPI) ResourceMyHistoryVerbose(action string, channel string, latest string) {
+	response := s.ResourceMyHistory(action, channel, latest)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) ResourcePurgeHistory(action string, channel string, latest string) {
+	response := s.ResourceMyHistory(action, channel, latest)
+
+	if response.Filtered > 0 {
+		fmt.Printf("@ Deleting %d messages\n", response.Filtered)
+
+		for _, message := range response.Messages {
 			fmt.Printf("\x20 %s from %s ", message.Ts, channel)
 			result := s.ChatDelete(channel, message.Ts)
 

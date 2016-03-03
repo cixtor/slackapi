@@ -94,6 +94,15 @@ type History struct {
 	UnreadCountDisplay int           `json:"unread_count_display"`
 }
 
+type UserHistory struct {
+	Filtered int
+	Latest   string
+	Messages []MessageNode
+	Oldest   string
+	Total    int
+	Username string
+}
+
 type MessageNode struct {
 	Subtype  string `json:"subtype"`
 	Text     string `json:"text"`
