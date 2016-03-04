@@ -18,6 +18,7 @@ type SlackAPI struct {
 	Channel        string
 	Command        string
 	UserInput      string
+	MethodName     string
 	RobotName      string
 	RobotImage     string
 	RobotImageType string

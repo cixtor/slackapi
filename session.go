@@ -66,6 +66,8 @@ func (s *SlackAPI) ProcessCommand() {
 		s.ProcessCommandFlush()
 	case ":history":
 		s.ProcessCommandHistory()
+	case ":messages":
+		s.ProcessCommandMessages()
 	case ":open":
 		s.ProcessCommandOpen()
 	case ":owner":
@@ -180,6 +182,16 @@ func (s *SlackAPI) ProcessCommandFlush() {
 }
 
 func (s *SlackAPI) ProcessCommandHistory() {
+	if s.IsChannelConn || s.IsGroupConn || s.IsUserConn {
+		var action string = fmt.Sprintf("%s.history", s.MethodName)
+		response := s.ResourceHistory(action, s.Channel, s.UserInput)
+		s.PrintFormattedJson(response)
+	} else {
+		fmt.Println("{\"ok\":false,\"error\":\"not_connected\"}")
+	}
+}
+
+func (s *SlackAPI) ProcessCommandMessages() {
 	s.PrintFormattedJson(s.History)
 }
 
@@ -195,6 +207,7 @@ func (s *SlackAPI) ProcessCommandOpen() {
 			response.Ok = true
 			response.Error = ""
 			response.Channel.Id = uniqueid
+			s.MethodName = "channels"
 			s.IsChannelConn = true
 		} else {
 			response.Error = "channel_not_found"
@@ -209,6 +222,7 @@ func (s *SlackAPI) ProcessCommandOpen() {
 			response.Ok = true
 			response.Error = ""
 			response.Channel.Id = uniqueid
+			s.MethodName = "groups"
 			s.IsGroupConn = true
 		} else {
 			response.Error = "group_not_found"
@@ -221,6 +235,7 @@ func (s *SlackAPI) ProcessCommandOpen() {
 		s.IsConnected = response.Ok
 
 		if !s.IsChannelConn && !s.IsGroupConn {
+			s.MethodName = "im"
 			s.IsUserConn = true
 		}
 	}
@@ -233,12 +248,10 @@ func (s *SlackAPI) ProcessCommandOwner() {
 }
 
 func (s *SlackAPI) ProcessCommandPurge() {
-	if s.IsChannelConn {
-		s.ChannelsPurgeHistory(s.Channel, s.UserInput)
-	} else if s.IsGroupConn {
-		s.GroupsPurgeHistory(s.Channel, s.UserInput)
-	} else if s.IsUserConn {
-		s.InstantMessagingPurgeHistory(s.Channel, s.UserInput)
+	if s.IsChannelConn || s.IsGroupConn || s.IsUserConn {
+		var action string = fmt.Sprintf("%s.history", s.MethodName)
+		response := s.ResourcePurgeHistory(action, s.Channel, s.UserInput)
+		s.PrintFormattedJson(response)
 	} else {
 		fmt.Println("{\"ok\":false,\"error\":\"not_connected\"}")
 	}

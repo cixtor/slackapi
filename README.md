@@ -32,7 +32,8 @@ username:channel> :exit
 - [x] `:execv` - Same as :exec but includes the executed command.
 - [x] `:exit` - Exits the program without closing chat sessions.
 - [x] `:flush` - Deletes all the messages in the session history.
-- [x] `:history` - Displays the messages in the current session.
+- [x] `:history` - Fetches messages and events in current session.
+- [x] `:messages` - Displays the messages in the current session.
 - [x] `:open` - Opens a new session with a user, channel, or group.
 - [x] `:owner` - Displays account information of the user in session.
 - [x] `:purge` - Deletes the messages in the current session.
