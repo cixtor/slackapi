@@ -52,6 +52,10 @@ func (s *SlackAPI) GroupsMark(channel string, timestamp string) {
 	s.ResourceMark("groups.mark", channel, timestamp)
 }
 
+func (s *SlackAPI) GroupsMyHistory(channel string, latest string) {
+	s.ResourceMyHistoryVerbose("groups.history", channel, latest)
+}
+
 func (s *SlackAPI) GroupsOpen(channel string) Session {
 	var response Session
 	s.GetRequest(&response, "groups.open", "token", "channel="+channel)

@@ -48,6 +48,7 @@ func main() {
 		fmt.Println("  slackapi groups.info [channel]                     Gets information about a private channel")
 		fmt.Println("  slackapi groups.list                               Lists private channels that the calling user has access to")
 		fmt.Println("  slackapi groups.mark [channel] [time]              Sets the read cursor in a private channel")
+		fmt.Println("  slackapi groups.myHistory [channel] [time]         Displays messages of the current user from a private channel")
 		fmt.Println("  slackapi groups.open [group]                       Opens a private channel")
 		fmt.Println("  slackapi groups.purgeHistory [channel] [time]      Deletes history of messages and events from a private channel")
 		fmt.Println("  slackapi groups.setPurpose [channel] [purpose]     Sets the purpose for a private channel")
@@ -147,6 +148,8 @@ func main() {
 		client.GroupsListVerbose()
 	case "groups.mark":
 		client.GroupsMark(flag.Arg(1), flag.Arg(2))
+	case "groups.myHistory":
+		client.GroupsMyHistory(flag.Arg(1), flag.Arg(2))
 	case "groups.open":
 		client.GroupsOpenVerbose(flag.Arg(1))
 	case "groups.purgeHistory":

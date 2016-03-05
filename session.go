@@ -250,8 +250,7 @@ func (s *SlackAPI) ProcessCommandOwner() {
 func (s *SlackAPI) ProcessCommandPurge() {
 	if s.IsChannelConn || s.IsGroupConn || s.IsUserConn {
 		var action string = fmt.Sprintf("%s.history", s.MethodName)
-		response := s.ResourcePurgeHistory(action, s.Channel, s.UserInput)
-		s.PrintFormattedJson(response)
+		s.ResourcePurgeHistory(action, s.Channel, s.UserInput)
 	} else {
 		fmt.Println("{\"ok\":false,\"error\":\"not_connected\"}")
 	}
