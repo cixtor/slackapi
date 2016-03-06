@@ -25,6 +25,10 @@ func (s *SlackAPI) InstantMessagingMark(channel string, timestamp string) {
 	s.ResourceMark("im.mark", channel, timestamp)
 }
 
+func (s *SlackAPI) InstantMessagingMyHistory(channel string, latest string) {
+	s.ResourceMyHistoryVerbose("im.history", channel, latest)
+}
+
 func (s *SlackAPI) InstantMessagingOpen(userid string) Session {
 	var response Session
 

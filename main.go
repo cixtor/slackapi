@@ -57,6 +57,7 @@ func main() {
 		fmt.Println("  slackapi im.history [channel] [time]               Fetches history of messages and events from direct message channel")
 		fmt.Println("  slackapi im.list                                   Lists direct message channels for the calling user")
 		fmt.Println("  slackapi im.mark [channel] [time]                  Sets the read cursor in a direct message channel")
+		fmt.Println("  slackapi im.myHistory [channel] [time]             Displays messages of the current user from direct message channel")
 		fmt.Println("  slackapi im.open [user]                            Opens a direct message channel")
 		fmt.Println("  slackapi im.purgeHistory [channel] [time]          Deletes history of messages and events from direct message channel")
 		fmt.Println("  slackapi mpim.list                                 Lists multiparty direct message channels for the calling user")
@@ -166,6 +167,8 @@ func main() {
 		client.InstantMessagingList()
 	case "im.mark":
 		client.InstantMessagingMark(flag.Arg(1), flag.Arg(2))
+	case "im.myHistory":
+		client.InstantMessagingMyHistory(flag.Arg(1), flag.Arg(2))
 	case "im.open":
 		client.InstantMessagingOpenVerbose(flag.Arg(1))
 	case "im.purgeHistory":

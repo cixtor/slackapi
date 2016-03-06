@@ -54,6 +54,7 @@ username:channel> :exit
 - [x] `chat.session` - Starts a new chat session.
 - [x] `groups.myHistory` - Displays messages of the current user from a private channel.
 - [x] `groups.purgeHistory` - Deletes history of messages and events from a private channel.
+- [x] `im.myHistory` - Displays messages of the current user from direct message channel.
 - [x] `im.purgeHistory` - Deletes history of messages and events from direct message channel.
 - [x] `users.search` - Search users by name or email address.
 - [x] `version` - Displays the program version number.
