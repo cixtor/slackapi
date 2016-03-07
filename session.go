@@ -68,6 +68,8 @@ func (s *SlackAPI) ProcessCommand() {
 		s.ProcessCommandHistory()
 	case ":messages":
 		s.ProcessCommandMessages()
+	case ":myhistory":
+		s.ProcessCommandMyHistory()
 	case ":open":
 		s.ProcessCommandOpen()
 	case ":owner":
@@ -193,6 +195,16 @@ func (s *SlackAPI) ProcessCommandHistory() {
 
 func (s *SlackAPI) ProcessCommandMessages() {
 	s.PrintFormattedJson(s.History)
+}
+
+func (s *SlackAPI) ProcessCommandMyHistory() {
+	if s.IsChannelConn || s.IsGroupConn || s.IsUserConn {
+		var action string = fmt.Sprintf("%s.history", s.MethodName)
+		response := s.ResourceMyHistory(action, s.Channel, s.UserInput)
+		s.PrintFormattedJson(response)
+	} else {
+		fmt.Println("{\"ok\":false,\"error\":\"not_connected\"}")
+	}
 }
 
 func (s *SlackAPI) ProcessCommandOpen() {

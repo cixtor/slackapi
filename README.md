@@ -34,6 +34,7 @@ username:channel> :exit
 - [x] `:flush` - Deletes all the messages in the session history.
 - [x] `:history` - Fetches messages and events in current session.
 - [x] `:messages` - Displays the messages in the current session.
+- [x] `:myhistory` - Fetches messages and events from current user.
 - [x] `:open` - Opens a new session with a user, channel, or group.
 - [x] `:owner` - Displays account information of the user in session.
 - [x] `:purge` - Deletes the messages in the current session.

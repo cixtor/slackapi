@@ -84,6 +84,7 @@ func main() {
 		fmt.Println("  :flush       Deletes all the messages in the session history")
 		fmt.Println("  :history     Fetches messages and events in current session")
 		fmt.Println("  :messages    Displays the messages in the current session")
+		fmt.Println("  :myhistory   Fetches messages and events from current user")
 		fmt.Println("  :open        Opens a new session with a user, channel, or group")
 		fmt.Println("  :owner       Displays account information of the user in session")
 		fmt.Println("  :purge       Deletes the messages in the current session")
