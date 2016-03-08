@@ -116,13 +116,15 @@ func (s *SlackAPI) SendUserMessage() {
 }
 
 func (s *SlackAPI) ProcessCommandClose() {
-	s.Username = "username"
-	s.Channel = "channel"
-
 	if s.IsConnected {
 		response := s.InstantMessagingClose(s.Channel)
 		s.PrintInlineJson(response)
-		s.IsConnected = false
+
+		if response.Ok {
+			s.IsConnected = false
+			s.Username = "username"
+			s.Channel = "channel"
+		}
 	}
 }
 
@@ -208,51 +210,53 @@ func (s *SlackAPI) ProcessCommandMyHistory() {
 }
 
 func (s *SlackAPI) ProcessCommandOpen() {
-	uniqueid := s.UsersId(s.UserInput)
-	response := s.InstantMessagingOpen(uniqueid)
+	if s.UserInput != "" {
+		uniqueid := s.UsersId(s.UserInput)
+		response := s.InstantMessagingOpen(uniqueid)
 
-	if response.Error == "user_not_found" {
+		if response.Error == "user_not_found" {
+			s.PrintInlineJson(response)
+			uniqueid = s.ChannelsId(s.UserInput)
+
+			if uniqueid != s.UserInput {
+				response.Ok = true
+				response.Error = ""
+				response.Channel.Id = uniqueid
+				s.MethodName = "channels"
+				s.IsChannelConn = true
+			} else {
+				response.Error = "channel_not_found"
+			}
+		}
+
+		if response.Error == "channel_not_found" {
+			s.PrintInlineJson(response)
+			uniqueid = s.GroupsId(s.UserInput)
+
+			if uniqueid != s.UserInput {
+				response.Ok = true
+				response.Error = ""
+				response.Channel.Id = uniqueid
+				s.MethodName = "groups"
+				s.IsGroupConn = true
+			} else {
+				response.Error = "group_not_found"
+			}
+		}
+
+		if response.Ok == true {
+			s.Username = s.UserInput
+			s.Channel = response.Channel.Id
+			s.IsConnected = response.Ok
+
+			if !s.IsChannelConn && !s.IsGroupConn {
+				s.MethodName = "im"
+				s.IsUserConn = true
+			}
+		}
+
 		s.PrintInlineJson(response)
-		uniqueid = s.ChannelsId(s.UserInput)
-
-		if uniqueid != s.UserInput {
-			response.Ok = true
-			response.Error = ""
-			response.Channel.Id = uniqueid
-			s.MethodName = "channels"
-			s.IsChannelConn = true
-		} else {
-			response.Error = "channel_not_found"
-		}
 	}
-
-	if response.Error == "channel_not_found" {
-		s.PrintInlineJson(response)
-		uniqueid = s.GroupsId(s.UserInput)
-
-		if uniqueid != s.UserInput {
-			response.Ok = true
-			response.Error = ""
-			response.Channel.Id = uniqueid
-			s.MethodName = "groups"
-			s.IsGroupConn = true
-		} else {
-			response.Error = "group_not_found"
-		}
-	}
-
-	if response.Ok == true {
-		s.Username = s.UserInput
-		s.Channel = response.Channel.Id
-		s.IsConnected = response.Ok
-
-		if !s.IsChannelConn && !s.IsGroupConn {
-			s.MethodName = "im"
-			s.IsUserConn = true
-		}
-	}
-
-	s.PrintInlineJson(response)
 }
 
 func (s *SlackAPI) ProcessCommandOwner() {

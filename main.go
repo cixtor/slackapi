@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.2.29"
+const version = "1.3.8"
 
 func main() {
 	var client SlackAPI
