@@ -75,7 +75,7 @@ username:channel> :exit
 - [x] `chat.postMessage` - Sends a message to a channel.
 - [x] `chat.update` - Updates a message.
 - [x] `emoji.list` - Lists custom emoji for a team.
-- [ ] `files.delete` - Deletes a file.
+- [x] `files.delete` - Deletes a file.
 - [ ] `files.upload` - Uploads or creates a file.
 - [x] `groups.close` - Closes a private channel.
 - [x] `groups.history` - Fetches history of messages and events from a private channel.
