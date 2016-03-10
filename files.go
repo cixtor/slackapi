@@ -8,3 +8,13 @@ func (s *SlackAPI) FilesDelete(file string) {
 		"file="+file)
 	s.PrintAndExit(response)
 }
+
+func (s *SlackAPI) FilesUpload(channel string, file string) {
+	var response interface{}
+	s.PostRequest(&response,
+		"files.upload",
+		"token",
+		"file=@"+file,
+		"channels="+channel)
+	s.PrintAndExit(response)
+}
