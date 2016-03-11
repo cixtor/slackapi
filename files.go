@@ -1,5 +1,15 @@
 package main
 
+func (s *SlackAPI) FilesCommentsAdd(file string, text string) {
+	var response interface{}
+	s.GetRequest(&response,
+		"files.comments.add",
+		"token",
+		"file="+file,
+		"comment="+text)
+	s.PrintAndExit(response)
+}
+
 func (s *SlackAPI) FilesDelete(file string) {
 	var response interface{}
 	s.GetRequest(&response,
