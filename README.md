@@ -76,6 +76,7 @@ username:channel> :exit
 - [x] `chat.update` - Updates a message.
 - [x] `emoji.list` - Lists custom emoji for a team.
 - [x] `files.comments.add` - Add a comment to an existing file.
+- [x] `files.comments.delete` - Deletes an existing comment on a file.
 - [x] `files.comments.edit` - Edit an existing file comment.
 - [x] `files.delete` - Deletes a file.
 - [x] `files.upload` - Uploads or creates a file.

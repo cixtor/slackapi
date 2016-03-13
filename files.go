@@ -10,6 +10,16 @@ func (s *SlackAPI) FilesCommentsAdd(file string, text string) {
 	s.PrintAndExit(response)
 }
 
+func (s *SlackAPI) FilesCommentsDelete(file string, textid string) {
+	var response interface{}
+	s.GetRequest(&response,
+		"files.comments.delete",
+		"token",
+		"file="+file,
+		"id="+textid)
+	s.PrintAndExit(response)
+}
+
 func (s *SlackAPI) FilesCommentsEdit(file string, textid string, text string) {
 	var response interface{}
 	s.GetRequest(&response,
