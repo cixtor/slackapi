@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.3.13"
+const version = "1.3.14"
 
 func main() {
 	var client SlackAPI
@@ -146,15 +146,15 @@ func main() {
 	case "emoji.list":
 		client.EmojiList()
 	case "files.comments.add":
-		client.FilesCommentsAdd(flag.Arg(1), flag.Arg(2))
+		client.PrintFilesCommentsAdd(flag.Arg(1), flag.Arg(2))
 	case "files.comments.delete":
-		client.FilesCommentsDelete(flag.Arg(1), flag.Arg(2))
+		client.PrintFilesCommentsDelete(flag.Arg(1), flag.Arg(2))
 	case "files.comments.edit":
-		client.FilesCommentsEdit(flag.Arg(1), flag.Arg(2), flag.Arg(3))
+		client.PrintFilesCommentsEdit(flag.Arg(1), flag.Arg(2), flag.Arg(3))
 	case "files.delete":
-		client.FilesDelete(flag.Arg(1))
+		client.PrintFilesDelete(flag.Arg(1))
 	case "files.upload":
-		client.FilesUpload(flag.Arg(1), flag.Arg(2))
+		client.PrintFilesUpload(flag.Arg(1), flag.Arg(2))
 	case "groups.close":
 		client.GroupsClose(flag.Arg(1))
 	case "groups.history":
