@@ -30,7 +30,7 @@ type SlackAPI struct {
 	IsGroupConn    bool
 	IsChannelConn  bool
 	Owner          Owner
-	TeamUsers      Users
+	TeamUsers      ResponseUsersList
 	TeamRooms      Rooms
 	TeamGroups     Groups
 	History        []Message

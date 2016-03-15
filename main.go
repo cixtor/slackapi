@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.3.14"
+const version = "1.3.15"
 
 func main() {
 	var client SlackAPI
@@ -72,6 +72,7 @@ func main() {
 		fmt.Println("  slackapi reactions.remove [name] [channel] [time]  Removes a reaction from an item")
 		fmt.Println("  slackapi team.info                                 Gets information about the current team")
 		fmt.Println("  slackapi users.getPresence [user]                  Gets user presence information")
+		fmt.Println("  slackapi users.id [user]                           Gets user identifier from username")
 		fmt.Println("  slackapi users.info [user]                         Gets information about a user")
 		fmt.Println("  slackapi users.list                                Lists all users in a Slack team")
 		fmt.Println("  slackapi users.search [user]                       Search users by name or email address")
@@ -202,17 +203,19 @@ func main() {
 	case "team.info":
 		client.TeamInfo()
 	case "users.getPresence":
-		client.UsersGetPresence(flag.Arg(1))
+		client.PrintUsersGetPresence(flag.Arg(1))
+	case "users.id":
+		client.PrintUsersId(flag.Arg(1))
 	case "users.info":
-		client.UsersInfo(flag.Arg(1))
+		client.PrintUsersInfo(flag.Arg(1))
 	case "users.list":
-		client.UsersListVerbose()
+		client.PrintUsersList()
 	case "users.search":
-		client.UsersSearchVerbose(flag.Arg(1))
+		client.PrintUsersSearch(flag.Arg(1))
 	case "users.setActive":
-		client.UsersSetActive()
+		client.PrintUsersSetActive()
 	case "users.setPresence":
-		client.UsersSetPresence(flag.Arg(1))
+		client.PrintUsersSetPresence(flag.Arg(1))
 	case "version":
 		fmt.Println(version)
 	case "help":

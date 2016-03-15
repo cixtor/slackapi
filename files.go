@@ -1,10 +1,5 @@
 package main
 
-type Response struct {
-	Ok    bool   `json:"ok"`
-	Error string `json:"error"`
-}
-
 type ResponseFilesUpload struct {
 	Ok   bool `json:"ok"`
 	File File `json:"file"`

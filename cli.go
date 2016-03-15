@@ -24,3 +24,38 @@ func (s *SlackAPI) PrintFilesUpload(channel string, file string) {
 	response := s.FilesUpload(channel, file)
 	s.PrintAndExit(response)
 }
+
+func (s *SlackAPI) PrintUsersGetPresence(query string) {
+	response := s.UsersGetPresence(query)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintUsersId(query string) {
+	response := s.UsersId(query)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintUsersInfo(query string) {
+	response := s.UsersInfo(query)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintUsersList() {
+	response := s.UsersList()
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintUsersSearch(query string) {
+	response := s.UsersSearch(query)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintUsersSetActive() {
+	response := s.UsersSetActive()
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintUsersSetPresence(value string) {
+	response := s.UsersSetPresence(value)
+	s.PrintAndExit(response)
+}
