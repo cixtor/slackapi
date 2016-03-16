@@ -122,9 +122,3 @@ func (s *SlackAPI) ResourcePurgeHistory(action string, channel string, latest st
 		}
 	}
 }
-
-func (s *SlackAPI) TeamInfo() {
-	var response interface{}
-	s.GetRequest(&response, "team.info", "token")
-	s.PrintAndExit(response)
-}

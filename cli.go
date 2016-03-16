@@ -25,6 +25,11 @@ func (s *SlackAPI) PrintFilesUpload(channel string, file string) {
 	s.PrintAndExit(response)
 }
 
+func (s *SlackAPI) PrintTeamInfo() {
+	response := s.TeamInfo()
+	s.PrintAndExit(response)
+}
+
 func (s *SlackAPI) PrintUsersGetPresence(query string) {
 	response := s.UsersGetPresence(query)
 	s.PrintAndExit(response)

@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.3.15"
+const version = "1.3.16"
 
 func main() {
 	var client SlackAPI
@@ -201,7 +201,7 @@ func main() {
 	case "reactions.remove":
 		client.ReactionsRemove(flag.Arg(1), flag.Arg(2), flag.Arg(3))
 	case "team.info":
-		client.TeamInfo()
+		client.PrintTeamInfo()
 	case "users.getPresence":
 		client.PrintUsersGetPresence(flag.Arg(1))
 	case "users.id":
