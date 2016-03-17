@@ -25,6 +25,26 @@ func (s *SlackAPI) PrintFilesUpload(channel string, file string) {
 	s.PrintAndExit(response)
 }
 
+func (s *SlackAPI) PrintReactionsAdd(name string, channel string, timestamp string) {
+	response := s.ReactionsAdd(name, channel, timestamp)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintReactionsGet(resource string, unique string) {
+	response := s.ReactionsGet(resource, unique)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintReactionsList(userid string) {
+	response := s.ReactionsList(userid)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintReactionsRemove(name string, channel string, timestamp string) {
+	response := s.ReactionsRemove(name, channel, timestamp)
+	s.PrintAndExit(response)
+}
+
 func (s *SlackAPI) PrintTeamInfo() {
 	response := s.TeamInfo()
 	s.PrintAndExit(response)

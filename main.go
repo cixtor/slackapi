@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.3.16"
+const version = "1.3.17"
 
 func main() {
 	var client SlackAPI
@@ -193,13 +193,13 @@ func main() {
 	case "mpim.list":
 		client.MultiPartyInstantMessagingList()
 	case "reactions.add":
-		client.ReactionsAdd(flag.Arg(1), flag.Arg(2), flag.Arg(3))
+		client.PrintReactionsAdd(flag.Arg(1), flag.Arg(2), flag.Arg(3))
 	case "reactions.get":
-		client.ReactionsGet(flag.Arg(1), flag.Arg(2))
+		client.PrintReactionsGet(flag.Arg(1), flag.Arg(2))
 	case "reactions.list":
-		client.ReactionsList(flag.Arg(1))
+		client.PrintReactionsList(flag.Arg(1))
 	case "reactions.remove":
-		client.ReactionsRemove(flag.Arg(1), flag.Arg(2), flag.Arg(3))
+		client.PrintReactionsRemove(flag.Arg(1), flag.Arg(2), flag.Arg(3))
 	case "team.info":
 		client.PrintTeamInfo()
 	case "users.getPresence":
