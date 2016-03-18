@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.3.17"
+const version = "1.3.18"
 
 func main() {
 	var client SlackAPI
@@ -191,7 +191,7 @@ func main() {
 	case "im.purgeHistory":
 		client.InstantMessagingPurgeHistory(flag.Arg(1), flag.Arg(2))
 	case "mpim.list":
-		client.MultiPartyInstantMessagingList()
+		client.PrintMultiPartyInstantMessagingList()
 	case "reactions.add":
 		client.PrintReactionsAdd(flag.Arg(1), flag.Arg(2), flag.Arg(3))
 	case "reactions.get":

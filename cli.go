@@ -25,6 +25,11 @@ func (s *SlackAPI) PrintFilesUpload(channel string, file string) {
 	s.PrintAndExit(response)
 }
 
+func (s *SlackAPI) PrintMultiPartyInstantMessagingList() {
+	response := s.MultiPartyInstantMessagingList()
+	s.PrintAndExit(response)
+}
+
 func (s *SlackAPI) PrintReactionsAdd(name string, channel string, timestamp string) {
 	response := s.ReactionsAdd(name, channel, timestamp)
 	s.PrintAndExit(response)
