@@ -11,7 +11,7 @@ type Response struct {
 }
 
 type Session struct {
-	Base
+	Response
 	AlreadyOpen bool `json:"already_open"`
 	NoOp        bool `json:"no_op"`
 	Channel     struct {

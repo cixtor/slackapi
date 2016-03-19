@@ -25,6 +25,41 @@ func (s *SlackAPI) PrintFilesUpload(channel string, file string) {
 	s.PrintAndExit(response)
 }
 
+func (s *SlackAPI) PrintInstantMessagingClose(channel string) {
+	response := s.InstantMessagingClose(channel)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintInstantMessagingHistory(channel string, latest string) {
+	response := s.InstantMessagingHistory(channel, latest)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintInstantMessagingList() {
+	response := s.InstantMessagingList()
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintInstantMessagingMark(channel string, timestamp string) {
+	response := s.InstantMessagingMark(channel, timestamp)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintInstantMessagingMyHistory(channel string, latest string) {
+	response := s.InstantMessagingMyHistory(channel, latest)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintInstantMessagingOpen(userid string) {
+	response := s.InstantMessagingOpen(userid)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintInstantMessagingPurgeHistory(channel string, latest string) {
+	response := s.InstantMessagingPurgeHistory(channel, latest)
+	s.PrintAndExit(response)
+}
+
 func (s *SlackAPI) PrintMultiPartyInstantMessagingList() {
 	response := s.MultiPartyInstantMessagingList()
 	s.PrintAndExit(response)

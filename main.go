@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.3.18"
+const version = "1.3.19"
 
 func main() {
 	var client SlackAPI
@@ -177,19 +177,19 @@ func main() {
 	case "groups.setTopic":
 		client.GroupsSetTopic(flag.Arg(1), flag.Arg(2))
 	case "im.close":
-		client.InstantMessagingCloseVerbose(flag.Arg(1))
+		client.PrintInstantMessagingClose(flag.Arg(1))
 	case "im.history":
-		client.InstantMessagingHistory(flag.Arg(1), flag.Arg(2))
+		client.PrintInstantMessagingHistory(flag.Arg(1), flag.Arg(2))
 	case "im.list":
-		client.InstantMessagingList()
+		client.PrintInstantMessagingList()
 	case "im.mark":
-		client.InstantMessagingMark(flag.Arg(1), flag.Arg(2))
+		client.PrintInstantMessagingMark(flag.Arg(1), flag.Arg(2))
 	case "im.myHistory":
-		client.InstantMessagingMyHistory(flag.Arg(1), flag.Arg(2))
+		client.PrintInstantMessagingMyHistory(flag.Arg(1), flag.Arg(2))
 	case "im.open":
-		client.InstantMessagingOpenVerbose(flag.Arg(1))
+		client.PrintInstantMessagingOpen(flag.Arg(1))
 	case "im.purgeHistory":
-		client.InstantMessagingPurgeHistory(flag.Arg(1), flag.Arg(2))
+		client.PrintInstantMessagingPurgeHistory(flag.Arg(1), flag.Arg(2))
 	case "mpim.list":
 		client.PrintMultiPartyInstantMessagingList()
 	case "reactions.add":
