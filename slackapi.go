@@ -32,7 +32,7 @@ type SlackAPI struct {
 	Owner          Owner
 	TeamUsers      ResponseUsersList
 	TeamRooms      Rooms
-	TeamGroups     Groups
+	TeamGroups     ResponseGroupsList
 	History        []Message
 }
 

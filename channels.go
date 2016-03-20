@@ -51,7 +51,7 @@ func (s *SlackAPI) ChannelsMyHistory(channel string, latest string) {
 }
 
 func (s *SlackAPI) ChannelsPurgeHistory(channel string, latest string) {
-	s.ResourcePurgeHistory("channels.history", channel, latest)
+	s.ResourcePurgeHistory("channels.history", channel, latest, true)
 }
 
 func (s *SlackAPI) ChannelsSetPurpose(channel string, purpose string) {

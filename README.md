@@ -53,6 +53,7 @@ username:channel> :exit
 - [x] `channels.myHistory` - Displays messages of the current user from a channel.
 - [x] `channels.purgeHistory` - Deletes history of messages and events from a channel.
 - [x] `chat.session` - Starts a new chat session.
+- [x] `groups.id` - Gets private channel identifier from readable name.
 - [x] `groups.myHistory` - Displays messages of the current user from a private channel.
 - [x] `groups.purgeHistory` - Deletes history of messages and events from a private channel.
 - [x] `im.myHistory` - Displays messages of the current user from direct message channel.

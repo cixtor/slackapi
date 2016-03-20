@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.3.19"
+const version = "1.3.20"
 
 func main() {
 	var client SlackAPI
@@ -50,6 +50,7 @@ func main() {
 		fmt.Println("  slackapi files.upload [channel] [fpath]            Uploads or creates a file from local data")
 		fmt.Println("  slackapi groups.close [channel]                    Closes a private channel")
 		fmt.Println("  slackapi groups.history [channel] [time]           Fetches history of messages and events from a private channel")
+		fmt.Println("  slackapi groups.id [channel]                       Gets private channel identifier from readable name")
 		fmt.Println("  slackapi groups.info [channel]                     Gets information about a private channel")
 		fmt.Println("  slackapi groups.list                               Lists private channels that the calling user has access to")
 		fmt.Println("  slackapi groups.mark [channel] [time]              Sets the read cursor in a private channel")
@@ -157,25 +158,27 @@ func main() {
 	case "files.upload":
 		client.PrintFilesUpload(flag.Arg(1), flag.Arg(2))
 	case "groups.close":
-		client.GroupsClose(flag.Arg(1))
+		client.PrintGroupsClose(flag.Arg(1))
 	case "groups.history":
-		client.GroupsHistory(flag.Arg(1), flag.Arg(2))
+		client.PrintGroupsHistory(flag.Arg(1), flag.Arg(2))
+	case "groups.id":
+		client.PrintGroupsId(flag.Arg(1))
 	case "groups.info":
-		client.GroupsInfo(flag.Arg(1))
+		client.PrintGroupsInfo(flag.Arg(1))
 	case "groups.list":
-		client.GroupsListVerbose()
+		client.PrintGroupsList()
 	case "groups.mark":
-		client.GroupsMark(flag.Arg(1), flag.Arg(2))
+		client.PrintGroupsMark(flag.Arg(1), flag.Arg(2))
 	case "groups.myHistory":
-		client.GroupsMyHistory(flag.Arg(1), flag.Arg(2))
+		client.PrintGroupsMyHistory(flag.Arg(1), flag.Arg(2))
 	case "groups.open":
-		client.GroupsOpenVerbose(flag.Arg(1))
+		client.PrintGroupsOpen(flag.Arg(1))
 	case "groups.purgeHistory":
-		client.GroupsPurgeHistory(flag.Arg(1), flag.Arg(2))
+		client.PrintGroupsPurgeHistory(flag.Arg(1), flag.Arg(2))
 	case "groups.setPurpose":
-		client.GroupsSetPurpose(flag.Arg(1), flag.Arg(2))
+		client.PrintGroupsSetPurpose(flag.Arg(1), flag.Arg(2))
 	case "groups.setTopic":
-		client.GroupsSetTopic(flag.Arg(1), flag.Arg(2))
+		client.PrintGroupsSetTopic(flag.Arg(1), flag.Arg(2))
 	case "im.close":
 		client.PrintInstantMessagingClose(flag.Arg(1))
 	case "im.history":

@@ -25,6 +25,60 @@ func (s *SlackAPI) PrintFilesUpload(channel string, file string) {
 	s.PrintAndExit(response)
 }
 
+func (s *SlackAPI) PrintGroupsClose(channel string) {
+	response := s.GroupsClose(channel)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintGroupsHistory(channel string, latest string) {
+	response := s.GroupsHistory(channel, latest)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintGroupsId(query string) {
+	response := s.GroupsId(query)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintGroupsInfo(channel string) {
+	response := s.GroupsInfo(channel)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintGroupsList() {
+	response := s.GroupsList()
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintGroupsMark(channel string, timestamp string) {
+	response := s.GroupsMark(channel, timestamp)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintGroupsMyHistory(channel string, latest string) {
+	response := s.GroupsMyHistory(channel, latest)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintGroupsOpen(channel string) {
+	response := s.GroupsOpen(channel)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintGroupsPurgeHistory(channel string, latest string) {
+	s.GroupsPurgeHistory(channel, latest, true)
+}
+
+func (s *SlackAPI) PrintGroupsSetPurpose(channel string, purpose string) {
+	response := s.GroupsSetPurpose(channel, purpose)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintGroupsSetTopic(channel string, topic string) {
+	response := s.GroupsSetTopic(channel, topic)
+	s.PrintAndExit(response)
+}
+
 func (s *SlackAPI) PrintInstantMessagingClose(channel string) {
 	response := s.InstantMessagingClose(channel)
 	s.PrintAndExit(response)
@@ -56,8 +110,7 @@ func (s *SlackAPI) PrintInstantMessagingOpen(userid string) {
 }
 
 func (s *SlackAPI) PrintInstantMessagingPurgeHistory(channel string, latest string) {
-	response := s.InstantMessagingPurgeHistory(channel, latest)
-	s.PrintAndExit(response)
+	s.InstantMessagingPurgeHistory(channel, latest, true)
 }
 
 func (s *SlackAPI) PrintMultiPartyInstantMessagingList() {
