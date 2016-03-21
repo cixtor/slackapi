@@ -27,12 +27,6 @@ func (s *SlackAPI) AuthTestVerbose() {
 	s.PrintAndExit(response)
 }
 
-func (s *SlackAPI) EmojiList() {
-	var response interface{}
-	s.GetRequest(&response, "emoji.list", "token")
-	s.PrintAndExit(response)
-}
-
 func (s *SlackAPI) ResourceHistory(action string, channel string, latest string) History {
 	var response History
 	s.GetRequest(&response,

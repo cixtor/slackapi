@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.3.20"
+const version = "1.3.21"
 
 func main() {
 	var client SlackAPI
@@ -146,7 +146,7 @@ func main() {
 	case "chat.update":
 		client.ChatUpdateVerbose(flag.Arg(1), flag.Arg(2), flag.Arg(3))
 	case "emoji.list":
-		client.EmojiList()
+		client.PrintEmojiList()
 	case "files.comments.add":
 		client.PrintFilesCommentsAdd(flag.Arg(1), flag.Arg(2))
 	case "files.comments.delete":

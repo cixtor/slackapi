@@ -1,5 +1,10 @@
 package main
 
+func (s *SlackAPI) PrintEmojiList() {
+	response := s.EmojiList()
+	s.PrintAndExit(response)
+}
+
 func (s *SlackAPI) PrintFilesCommentsAdd(file string, text string) {
 	response := s.FilesCommentsAdd(file, text)
 	s.PrintAndExit(response)

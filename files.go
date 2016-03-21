@@ -1,12 +1,12 @@
 package main
 
 type ResponseFilesUpload struct {
-	Ok   bool `json:"ok"`
+	Response
 	File File `json:"file"`
 }
 
 type ResponseFilesComments struct {
-	Ok      bool        `json:"ok"`
+	Response
 	Comment FileComment `json:"comment"`
 }
 
