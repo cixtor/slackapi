@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.3.21"
+const version = "1.3.22"
 
 func main() {
 	var client SlackAPI
@@ -138,13 +138,13 @@ func main() {
 	case "channels.setTopic":
 		client.ChannelsSetTopic(flag.Arg(1), flag.Arg(2))
 	case "chat.delete":
-		client.ChatDeleteVerbose(flag.Arg(1), flag.Arg(2))
+		client.PrintChatDelete(flag.Arg(1), flag.Arg(2))
 	case "chat.postMessage":
-		client.ChatPostMessageVerbose(flag.Arg(1), flag.Arg(2))
+		client.PrintChatPostMessage(flag.Arg(1), flag.Arg(2))
 	case "chat.session":
 		client.ChatSession()
 	case "chat.update":
-		client.ChatUpdateVerbose(flag.Arg(1), flag.Arg(2), flag.Arg(3))
+		client.PrintChatUpdate(flag.Arg(1), flag.Arg(2), flag.Arg(3))
 	case "emoji.list":
 		client.PrintEmojiList()
 	case "files.comments.add":

@@ -36,13 +36,20 @@ type DeletedHistory struct {
 	Messages   []DeletedMessage
 }
 
+type Post struct {
+	Response
+	Channel string  `json:"channel"`
+	Message Message `json:"message"`
+	Text    string  `json:"text"`
+	Ts      string  `json:"ts"`
+}
+
 type Message struct {
 	Attachments  []Attachment `json:"attachments"`
 	BotId        string       `json:"bot_id"`
 	Channel      string       `json:"channel"`
 	DisplayAsBot bool         `json:"display_as_bot"`
 	File         File         `json:"file"`
-	Ok           bool         `json:"ok"`
 	Subtype      string       `json:"subtype"`
 	Text         string       `json:"text"`
 	Ts           string       `json:"ts"`

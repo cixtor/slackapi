@@ -33,7 +33,7 @@ type SlackAPI struct {
 	TeamUsers      ResponseUsersList
 	TeamRooms      Rooms
 	TeamGroups     ResponseGroupsList
-	History        []Message
+	History        []Post
 }
 
 func (s *SlackAPI) AutoConfigure() {

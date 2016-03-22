@@ -1,7 +1,7 @@
 package main
 
-func (s *SlackAPI) ChatDelete(channel string, timestamp string) ChannelEvent {
-	var response ChannelEvent
+func (s *SlackAPI) ChatDelete(channel string, timestamp string) Post {
+	var response Post
 	s.GetRequest(&response,
 		"chat.delete",
 		"token",
@@ -10,13 +10,8 @@ func (s *SlackAPI) ChatDelete(channel string, timestamp string) ChannelEvent {
 	return response
 }
 
-func (s *SlackAPI) ChatDeleteVerbose(channel string, timestamp string) {
-	response := s.ChatDelete(channel, timestamp)
-	s.PrintAndExit(response)
-}
-
-func (s *SlackAPI) ChatPostMessage(channel string, message string) Message {
-	var response Message
+func (s *SlackAPI) ChatPostMessage(channel string, message string) Post {
+	var response Post
 
 	if s.RobotIsActive == true {
 		var imageType string
@@ -49,13 +44,8 @@ func (s *SlackAPI) ChatPostMessage(channel string, message string) Message {
 	return response
 }
 
-func (s *SlackAPI) ChatPostMessageVerbose(channel string, message string) {
-	response := s.ChatPostMessage(channel, message)
-	s.PrintAndExit(response)
-}
-
-func (s *SlackAPI) ChatUpdate(channel string, timestamp string, message string) Message {
-	var response Message
+func (s *SlackAPI) ChatUpdate(channel string, timestamp string, message string) Post {
+	var response Post
 	s.GetRequest(&response,
 		"chat.update",
 		"token",
@@ -64,9 +54,4 @@ func (s *SlackAPI) ChatUpdate(channel string, timestamp string, message string) 
 		"ts="+timestamp,
 		"link_names=1")
 	return response
-}
-
-func (s *SlackAPI) ChatUpdateVerbose(channel string, timestamp string, message string) {
-	response := s.ChatUpdate(channel, timestamp, message)
-	s.PrintAndExit(response)
 }

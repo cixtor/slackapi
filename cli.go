@@ -1,5 +1,20 @@
 package main
 
+func (s *SlackAPI) PrintChatDelete(channel string, timestamp string) {
+	response := s.ChatDelete(channel, timestamp)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintChatPostMessage(channel string, message string) {
+	response := s.ChatPostMessage(channel, message)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintChatUpdate(channel string, timestamp string, message string) {
+	response := s.ChatUpdate(channel, timestamp, message)
+	s.PrintAndExit(response)
+}
+
 func (s *SlackAPI) PrintEmojiList() {
 	response := s.EmojiList()
 	s.PrintAndExit(response)

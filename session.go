@@ -133,8 +133,8 @@ func (s *SlackAPI) ProcessCommandDelete() {
 
 	if totalHistory > 0 {
 		var forDeletion int = totalHistory - 1
-		var latestMsg Message = s.History[forDeletion]
-		var shortHistory []Message
+		var latestMsg Post = s.History[forDeletion]
+		var shortHistory []Post
 
 		response := s.ChatDelete(latestMsg.Channel, latestMsg.Ts)
 		s.PrintInlineJson(response)
@@ -162,10 +162,10 @@ func (s *SlackAPI) ProcessCommandExecv() {
 }
 
 func (s *SlackAPI) ProcessCommandFlush() {
-	var shortHistory []Message
+	var shortHistory []Post
 	var totalHistory int = len(s.History)
 	var offset int = (totalHistory - 1)
-	var message Message
+	var message Post
 
 	fmt.Printf("@ Deleting %d messages\n", totalHistory)
 
