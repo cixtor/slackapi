@@ -128,3 +128,23 @@ func (s *SlackAPI) ResourcePurgeHistory(action string, channel string, latest st
 
 	return delhist
 }
+
+func (s *SlackAPI) ResourceSetPurpose(action string, channel string, purpose string) ChannelPurposeNow {
+	var response ChannelPurposeNow
+	s.GetRequest(&response,
+		action,
+		"token",
+		"channel="+channel,
+		"purpose="+purpose)
+	return response
+}
+
+func (s *SlackAPI) ResourceSetTopic(action string, channel string, topic string) ChannelTopicNow {
+	var response ChannelTopicNow
+	s.GetRequest(&response,
+		action,
+		"token",
+		"channel="+channel,
+		"topic="+topic)
+	return response
+}

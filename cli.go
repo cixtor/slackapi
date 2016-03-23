@@ -1,5 +1,49 @@
 package main
 
+func (s *SlackAPI) PrintChannelsHistory(channel string, latest string) {
+	response := s.ChannelsHistory(channel, latest)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintChannelsId(query string) {
+	response := s.ChannelsId(query)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintChannelsInfo(channel string) {
+	response := s.ChannelsInfo(channel)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintChannelsList() {
+	response := s.ChannelsList()
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintChannelsMark(channel string, timestamp string) {
+	response := s.ChannelsMark(channel, timestamp)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintChannelsMyHistory(channel string, latest string) {
+	response := s.ChannelsMyHistory(channel, latest)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintChannelsPurgeHistory(channel string, latest string) {
+	s.ChannelsPurgeHistory(channel, latest, true)
+}
+
+func (s *SlackAPI) PrintChannelsSetPurpose(channel string, purpose string) {
+	response := s.ChannelsSetPurpose(channel, purpose)
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintChannelsSetTopic(channel string, topic string) {
+	response := s.ChannelsSetTopic(channel, topic)
+	s.PrintAndExit(response)
+}
+
 func (s *SlackAPI) PrintChatDelete(channel string, timestamp string) {
 	response := s.ChatDelete(channel, timestamp)
 	s.PrintAndExit(response)

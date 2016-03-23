@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.3.22"
+const version = "1.3.23"
 
 func main() {
 	var client SlackAPI
@@ -31,6 +31,7 @@ func main() {
 		fmt.Println("  slackapi api.test                                  Checks API calling code")
 		fmt.Println("  slackapi auth.test                                 Checks authentication and identity")
 		fmt.Println("  slackapi channels.history [channel] [time]         Fetches history of messages and events from a channel")
+		fmt.Println("  slackapi channels.id [channel]                     Gets channel identifier from readable name")
 		fmt.Println("  slackapi channels.info [channel]                   Gets information about a channel")
 		fmt.Println("  slackapi channels.list                             Lists all channels in a Slack team")
 		fmt.Println("  slackapi channels.mark [channel] [time]            Sets the read cursor in a channel")
@@ -122,21 +123,23 @@ func main() {
 	case "auth.test":
 		client.AuthTestVerbose()
 	case "channels.history":
-		client.ChannelsHistory(flag.Arg(1), flag.Arg(2))
+		client.PrintChannelsHistory(flag.Arg(1), flag.Arg(2))
+	case "channels.id":
+		client.PrintChannelsId(flag.Arg(1))
 	case "channels.info":
-		client.ChannelsInfo(flag.Arg(1))
+		client.PrintChannelsInfo(flag.Arg(1))
 	case "channels.list":
-		client.ChannelsListVerbose()
+		client.PrintChannelsList()
 	case "channels.mark":
-		client.ChannelsMark(flag.Arg(1), flag.Arg(2))
+		client.PrintChannelsMark(flag.Arg(1), flag.Arg(2))
 	case "channels.myHistory":
-		client.ChannelsMyHistory(flag.Arg(1), flag.Arg(2))
+		client.PrintChannelsMyHistory(flag.Arg(1), flag.Arg(2))
 	case "channels.purgeHistory":
-		client.ChannelsPurgeHistory(flag.Arg(1), flag.Arg(2))
+		client.PrintChannelsPurgeHistory(flag.Arg(1), flag.Arg(2))
 	case "channels.setPurpose":
-		client.ChannelsSetPurpose(flag.Arg(1), flag.Arg(2))
+		client.PrintChannelsSetPurpose(flag.Arg(1), flag.Arg(2))
 	case "channels.setTopic":
-		client.ChannelsSetTopic(flag.Arg(1), flag.Arg(2))
+		client.PrintChannelsSetTopic(flag.Arg(1), flag.Arg(2))
 	case "chat.delete":
 		client.PrintChatDelete(flag.Arg(1), flag.Arg(2))
 	case "chat.postMessage":

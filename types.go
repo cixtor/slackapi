@@ -83,6 +83,57 @@ type DeletedMessage struct {
 	Ts      string
 }
 
+type Channel struct {
+	Created            int            `json:"created"`
+	Creator            string         `json:"creator"`
+	Id                 string         `json:"id"`
+	IsArchived         bool           `json:"is_archived"`
+	IsChannel          bool           `json:"is_channel"`
+	IsGeneral          bool           `json:"is_general"`
+	IsGroup            bool           `json:"is_group"`
+	IsMember           bool           `json:"is_member"`
+	IsMpim             bool           `json:"is_mpim"`
+	IsOpen             bool           `json:"is_open"`
+	LastRead           string         `json:"last_read"`
+	Latest             ChannelLatest  `json:"latest"`
+	Members            []string       `json:"members"`
+	Name               string         `json:"name"`
+	NumMembers         int            `json:"num_members"`
+	Purpose            ChannelPurpose `json:"purpose"`
+	Topic              ChannelTopic   `json:"topic"`
+	UnreadCount        int            `json:"unread_count"`
+	UnreadCountDisplay int            `json:"unread_count_display"`
+}
+
+type ChannelLatest struct {
+	Text string `json:"text"`
+	Ts   string `json:"ts"`
+	Type string `json:"type"`
+	User string `json:"user"`
+}
+
+type ChannelPurpose struct {
+	Creator string `json:"creator"`
+	LastSet int    `json:"last_set"`
+	Value   string `json:"value"`
+}
+
+type ChannelTopic struct {
+	Creator string `json:"creator"`
+	LastSet int    `json:"last_set"`
+	Value   string `json:"value"`
+}
+
+type ChannelPurposeNow struct {
+	Response
+	Purpose string `json:"purpose"`
+}
+
+type ChannelTopicNow struct {
+	Response
+	Topic string `json:"topic"`
+}
+
 type Owner struct {
 	Ok     bool   `json:"ok"`
 	Team   string `json:"team"`
@@ -90,43 +141,4 @@ type Owner struct {
 	Url    string `json:"url"`
 	User   string `json:"user"`
 	UserId string `json:"user_id"`
-}
-
-type Rooms struct {
-	Response
-	Channels []Room `json:"channels"`
-}
-
-type Groups struct {
-	Response
-	Channels []Room `json:"groups"`
-}
-
-type ChannelEvent struct {
-	Response
-	Channel string `json:"channel"`
-	Ts      string `json:"ts"`
-}
-
-type Room struct {
-	Id         string   `json:"id"`
-	Name       string   `json:"name"`
-	Creator    string   `json:"creator"`
-	Created    int      `json:"created"`
-	IsArchived bool     `json:"is_archived"`
-	IsChannel  bool     `json:"is_channel"`
-	IsGeneral  bool     `json:"is_general"`
-	IsMember   bool     `json:"is_member"`
-	NumMembers int      `json:"num_members"`
-	Members    []string `json:"members"`
-	Purpose    struct {
-		Creator string `json:"creator"`
-		LastSet int    `json:"last_set"`
-		Value   string `json:"value"`
-	} `json:"purpose"`
-	Topic struct {
-		Creator string `json:"creator"`
-		LastSet int    `json:"last_set"`
-		Value   string `json:"value"`
-	} `json:"topic"`
 }

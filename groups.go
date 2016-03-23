@@ -2,59 +2,12 @@ package main
 
 type ResponseGroupsInfo struct {
 	Response
-	Group Group `json:"group"`
+	Group Channel `json:"group"`
 }
 
 type ResponseGroupsList struct {
 	Response
-	Groups []Group `json:"groups"`
-}
-
-type ResponsePurpose struct {
-	Response
-	Purpose string `json:"purpose"`
-}
-
-type ResponseTopic struct {
-	Response
-	Topic string `json:"topic"`
-}
-
-type Group struct {
-	Created            int          `json:"created"`
-	Creator            string       `json:"creator"`
-	Id                 string       `json:"id"`
-	IsArchived         bool         `json:"is_archived"`
-	IsGroup            bool         `json:"is_group"`
-	IsMpim             bool         `json:"is_mpim"`
-	IsOpen             bool         `json:"is_open"`
-	LastRead           string       `json:"last_read"`
-	Latest             GroupLatest  `json:"latest"`
-	Members            []string     `json:"members"`
-	Name               string       `json:"name"`
-	Purpose            GroupPurpose `json:"purpose"`
-	Topic              GroupTopic   `json:"topic"`
-	UnreadCount        int          `json:"unread_count"`
-	UnreadCountDisplay int          `json:"unread_count_display"`
-}
-
-type GroupLatest struct {
-	Text string `json:"text"`
-	Ts   string `json:"ts"`
-	Type string `json:"type"`
-	User string `json:"user"`
-}
-
-type GroupPurpose struct {
-	Creator string `json:"creator"`
-	LastSet int    `json:"last_set"`
-	Value   string `json:"value"`
-}
-
-type GroupTopic struct {
-	Creator string `json:"creator"`
-	LastSet int    `json:"last_set"`
-	Value   string `json:"value"`
+	Groups []Channel `json:"groups"`
 }
 
 func (s *SlackAPI) GroupsClose(channel string) Response {
@@ -119,22 +72,10 @@ func (s *SlackAPI) GroupsPurgeHistory(channel string, latest string, verbose boo
 	return s.ResourcePurgeHistory("groups.history", channel, latest, verbose)
 }
 
-func (s *SlackAPI) GroupsSetPurpose(channel string, purpose string) ResponsePurpose {
-	var response ResponsePurpose
-	s.GetRequest(&response,
-		"groups.setPurpose",
-		"token",
-		"channel="+channel,
-		"purpose="+purpose)
-	return response
+func (s *SlackAPI) GroupsSetPurpose(channel string, purpose string) ChannelPurposeNow {
+	return s.ResourceSetPurpose("groups.setPurpose", channel, purpose)
 }
 
-func (s *SlackAPI) GroupsSetTopic(channel string, topic string) ResponseTopic {
-	var response ResponseTopic
-	s.GetRequest(&response,
-		"groups.setTopic",
-		"token",
-		"channel="+channel,
-		"topic="+topic)
-	return response
+func (s *SlackAPI) GroupsSetTopic(channel string, topic string) ChannelTopicNow {
+	return s.ResourceSetTopic("groups.setTopic", channel, topic)
 }

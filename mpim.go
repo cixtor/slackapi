@@ -2,7 +2,7 @@ package main
 
 type ResponseMPIMList struct {
 	Response
-	Groups []Group `json:"groups"`
+	Groups []Channel `json:"groups"`
 }
 
 func (s *SlackAPI) MultiPartyInstantMessagingList() ResponseMPIMList {

@@ -50,6 +50,7 @@ username:channel> :exit
 
 ### Non-Official Client Methods
 
+- [x] `channels.id` - Gets channel identifier from readable name.
 - [x] `channels.myHistory` - Displays messages of the current user from a channel.
 - [x] `channels.purgeHistory` - Deletes history of messages and events from a channel.
 - [x] `chat.session` - Starts a new chat session.

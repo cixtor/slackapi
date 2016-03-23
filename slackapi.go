@@ -31,8 +31,8 @@ type SlackAPI struct {
 	IsChannelConn  bool
 	Owner          Owner
 	TeamUsers      ResponseUsersList
-	TeamRooms      Rooms
 	TeamGroups     ResponseGroupsList
+	TeamChannels   ResponseChannelsList
 	History        []Post
 }
 
