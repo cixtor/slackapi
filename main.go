@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.3.23"
+const version = "1.3.24"
 
 func main() {
 	var client SlackAPI
@@ -119,9 +119,9 @@ func main() {
 
 	switch command {
 	case "api.test":
-		client.ApiTest()
+		client.PrintApiTest()
 	case "auth.test":
-		client.AuthTestVerbose()
+		client.PrintAuthTest()
 	case "channels.history":
 		client.PrintChannelsHistory(flag.Arg(1), flag.Arg(2))
 	case "channels.id":

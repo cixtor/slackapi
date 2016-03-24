@@ -1,5 +1,15 @@
 package main
 
+func (s *SlackAPI) PrintApiTest() {
+	response := s.ApiTest()
+	s.PrintAndExit(response)
+}
+
+func (s *SlackAPI) PrintAuthTest() {
+	response := s.AuthTest()
+	s.PrintAndExit(response)
+}
+
 func (s *SlackAPI) PrintChannelsHistory(channel string, latest string) {
 	response := s.ChannelsHistory(channel, latest)
 	s.PrintAndExit(response)

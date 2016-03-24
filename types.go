@@ -14,6 +14,15 @@ type Session struct {
 	} `json:"channel"`
 }
 
+type Owner struct {
+	Response
+	Team   string `json:"team"`
+	TeamId string `json:"team_id"`
+	Url    string `json:"url"`
+	User   string `json:"user"`
+	UserId string `json:"user_id"`
+}
+
 type History struct {
 	Response
 	HasMore            bool      `json:"has_more"`
@@ -132,13 +141,4 @@ type ChannelPurposeNow struct {
 type ChannelTopicNow struct {
 	Response
 	Topic string `json:"topic"`
-}
-
-type Owner struct {
-	Ok     bool   `json:"ok"`
-	Team   string `json:"team"`
-	TeamId string `json:"team_id"`
-	Url    string `json:"url"`
-	User   string `json:"user"`
-	UserId string `json:"user_id"`
 }

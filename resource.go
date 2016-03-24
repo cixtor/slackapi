@@ -4,29 +4,6 @@ import (
 	"fmt"
 )
 
-func (s *SlackAPI) ApiTest() {
-	var response interface{}
-	s.GetRequest(&response, "api.test")
-	s.PrintAndExit(response)
-}
-
-func (s *SlackAPI) AuthTest() Owner {
-	if s.Owner.Ok == true {
-		return s.Owner
-	}
-
-	var response Owner
-	s.GetRequest(&response, "auth.test", "token")
-	s.Owner = response
-
-	return response
-}
-
-func (s *SlackAPI) AuthTestVerbose() {
-	response := s.AuthTest()
-	s.PrintAndExit(response)
-}
-
 func (s *SlackAPI) ResourceHistory(action string, channel string, latest string) History {
 	var response History
 	s.GetRequest(&response,
@@ -38,11 +15,6 @@ func (s *SlackAPI) ResourceHistory(action string, channel string, latest string)
 		"count=1000",
 		"unreads=1")
 	return response
-}
-
-func (s *SlackAPI) ResourceHistoryVerbose(action string, channel string, latest string) {
-	response := s.ResourceHistory(action, channel, latest)
-	s.PrintAndExit(response)
 }
 
 func (s *SlackAPI) ResourceMark(action string, channel string, timestamp string) Response {
@@ -79,11 +51,6 @@ func (s *SlackAPI) ResourceMyHistory(action string, channel string, latest strin
 	}
 
 	return rhistory
-}
-
-func (s *SlackAPI) ResourceMyHistoryVerbose(action string, channel string, latest string) {
-	response := s.ResourceMyHistory(action, channel, latest)
-	s.PrintAndExit(response)
 }
 
 func (s *SlackAPI) ResourcePurgeHistory(action string, channel string, latest string, verbose bool) DeletedHistory {
