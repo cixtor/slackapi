@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.3.24"
+const version = "1.3.25"
 
 func main() {
 	var client SlackAPI
@@ -117,6 +117,13 @@ func main() {
 		command = "help"
 	}
 
+	if command == "chat.session" {
+		var session ChatSession
+		session.AutoConfigure()
+		session.StartChatSession()
+		os.Exit(0)
+	}
+
 	switch command {
 	case "api.test":
 		client.PrintApiTest()
@@ -144,8 +151,6 @@ func main() {
 		client.PrintChatDelete(flag.Arg(1), flag.Arg(2))
 	case "chat.postMessage":
 		client.PrintChatPostMessage(flag.Arg(1), flag.Arg(2))
-	case "chat.session":
-		client.ChatSession()
 	case "chat.update":
 		client.PrintChatUpdate(flag.Arg(1), flag.Arg(2), flag.Arg(3))
 	case "emoji.list":

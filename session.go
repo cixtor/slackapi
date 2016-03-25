@@ -7,10 +7,32 @@ import (
 	"strings"
 )
 
-func (s *SlackAPI) ChatSession() {
+type ChatSession struct {
+	SlackAPI
+	Channel       string
+	Command       string
+	History       []Post
+	IsChannelConn bool
+	IsConnected   bool
+	IsGroupConn   bool
+	IsUserConn    bool
+	MethodName    string
+	UserInput     string
+	Username      string
+}
+
+func (s *ChatSession) StartChatSession() {
 	reader := bufio.NewReader(os.Stdin)
+
 	s.Username = "username"
 	s.Channel = "channel"
+
+	if s.Token != "" {
+		author := s.AuthTest()
+		s.Username = author.User
+		s.Channel = author.TeamId
+		s.Owner = author
+	}
 
 	for {
 		fmt.Printf("%s:%s> ", s.Username, s.Channel)
@@ -28,11 +50,9 @@ func (s *SlackAPI) ChatSession() {
 			s.ProcessMessage()
 		}
 	}
-
-	os.Exit(0)
 }
 
-func (s *SlackAPI) ProcessMessage() {
+func (s *ChatSession) ProcessMessage() {
 	var parts []string
 
 	if s.UserInput == "" {
@@ -52,7 +72,7 @@ func (s *SlackAPI) ProcessMessage() {
 	}
 }
 
-func (s *SlackAPI) ProcessCommand() {
+func (s *ChatSession) ProcessCommand() {
 	switch s.Command {
 	case ":close":
 		s.ProcessCommandClose()
@@ -97,7 +117,7 @@ func (s *SlackAPI) ProcessCommand() {
 	}
 }
 
-func (s *SlackAPI) SendUserMessage() {
+func (s *ChatSession) SendUserMessage() {
 	// Send the message to the remote service.
 	if s.IsConnected {
 		response := s.ChatPostMessage(s.Channel, s.UserInput)
@@ -115,7 +135,7 @@ func (s *SlackAPI) SendUserMessage() {
 	}
 }
 
-func (s *SlackAPI) ProcessCommandClose() {
+func (s *ChatSession) ProcessCommandClose() {
 	if s.IsConnected {
 		response := s.InstantMessagingClose(s.Channel)
 		s.PrintInlineJson(response)
@@ -128,7 +148,7 @@ func (s *SlackAPI) ProcessCommandClose() {
 	}
 }
 
-func (s *SlackAPI) ProcessCommandDelete() {
+func (s *ChatSession) ProcessCommandDelete() {
 	var totalHistory int = len(s.History)
 
 	if totalHistory > 0 {
@@ -149,19 +169,19 @@ func (s *SlackAPI) ProcessCommandDelete() {
 	}
 }
 
-func (s *SlackAPI) ProcessCommandExec() {
+func (s *ChatSession) ProcessCommandExec() {
 	response := s.System(s.UserInput)
 	s.UserInput = fmt.Sprintf("```%s```", response)
 	s.SendUserMessage()
 }
 
-func (s *SlackAPI) ProcessCommandExecv() {
+func (s *ChatSession) ProcessCommandExecv() {
 	response := s.System(s.UserInput)
 	s.UserInput = fmt.Sprintf("```$ %s\n%s```", s.UserInput, response)
 	s.SendUserMessage()
 }
 
-func (s *SlackAPI) ProcessCommandFlush() {
+func (s *ChatSession) ProcessCommandFlush() {
 	var shortHistory []Post
 	var totalHistory int = len(s.History)
 	var offset int = (totalHistory - 1)
@@ -185,7 +205,7 @@ func (s *SlackAPI) ProcessCommandFlush() {
 	s.History = shortHistory
 }
 
-func (s *SlackAPI) ProcessCommandHistory() {
+func (s *ChatSession) ProcessCommandHistory() {
 	if s.IsChannelConn || s.IsGroupConn || s.IsUserConn {
 		var action string = fmt.Sprintf("%s.history", s.MethodName)
 		response := s.ResourceHistory(action, s.Channel, s.UserInput)
@@ -195,11 +215,11 @@ func (s *SlackAPI) ProcessCommandHistory() {
 	}
 }
 
-func (s *SlackAPI) ProcessCommandMessages() {
+func (s *ChatSession) ProcessCommandMessages() {
 	s.PrintFormattedJson(s.History)
 }
 
-func (s *SlackAPI) ProcessCommandMyHistory() {
+func (s *ChatSession) ProcessCommandMyHistory() {
 	if s.IsChannelConn || s.IsGroupConn || s.IsUserConn {
 		var action string = fmt.Sprintf("%s.history", s.MethodName)
 		response := s.ResourceMyHistory(action, s.Channel, s.UserInput)
@@ -209,7 +229,7 @@ func (s *SlackAPI) ProcessCommandMyHistory() {
 	}
 }
 
-func (s *SlackAPI) ProcessCommandOpen() {
+func (s *ChatSession) ProcessCommandOpen() {
 	if s.UserInput != "" {
 		uniqueid := s.UsersId(s.UserInput)
 		response := s.InstantMessagingOpen(uniqueid)
@@ -259,11 +279,11 @@ func (s *SlackAPI) ProcessCommandOpen() {
 	}
 }
 
-func (s *SlackAPI) ProcessCommandOwner() {
+func (s *ChatSession) ProcessCommandOwner() {
 	s.PrintFormattedJson(s.Owner)
 }
 
-func (s *SlackAPI) ProcessCommandPurge() {
+func (s *ChatSession) ProcessCommandPurge() {
 	if s.IsChannelConn || s.IsGroupConn || s.IsUserConn {
 		var action string = fmt.Sprintf("%s.history", s.MethodName)
 		s.ResourcePurgeHistory(action, s.Channel, s.UserInput, true)
@@ -272,7 +292,7 @@ func (s *SlackAPI) ProcessCommandPurge() {
 	}
 }
 
-func (s *SlackAPI) ProcessCommandRobotImage() {
+func (s *ChatSession) ProcessCommandRobotImage() {
 	if s.UserInput != "" {
 		s.RobotImage = s.UserInput
 
@@ -284,7 +304,7 @@ func (s *SlackAPI) ProcessCommandRobotImage() {
 	}
 }
 
-func (s *SlackAPI) ProcessCommandRobotInfo() {
+func (s *ChatSession) ProcessCommandRobotInfo() {
 	fmt.Printf("@ Robot info:\n")
 	fmt.Printf("  Robot name: %s\n", s.RobotName)
 	fmt.Printf("  Robot type: %s\n", s.RobotImageType)
@@ -297,36 +317,36 @@ func (s *SlackAPI) ProcessCommandRobotInfo() {
 	}
 }
 
-func (s *SlackAPI) ProcessCommandRobotName() {
+func (s *ChatSession) ProcessCommandRobotName() {
 	if s.UserInput != "" {
 		s.RobotName = s.UserInput
 	}
 }
 
-func (s *SlackAPI) ProcessCommandRobotOff() {
+func (s *ChatSession) ProcessCommandRobotOff() {
 	s.RobotIsActive = false
 }
 
-func (s *SlackAPI) ProcessCommandRobotOn() {
+func (s *ChatSession) ProcessCommandRobotOn() {
 	s.RobotIsActive = true
 }
 
-func (s *SlackAPI) ProcessCommandToken() {
+func (s *ChatSession) ProcessCommandToken() {
 	s.Token = s.UserInput
 	s.Owner = s.AuthTest()
 }
 
-func (s *SlackAPI) ProcessCommandUserId() {
+func (s *ChatSession) ProcessCommandUserId() {
 	uniqueid := s.UsersId(s.UserInput)
 	fmt.Printf("@ User identifier: %s\n", uniqueid)
 }
 
-func (s *SlackAPI) ProcessCommandUserList() {
+func (s *ChatSession) ProcessCommandUserList() {
 	response := s.UsersList()
 	s.PrintFormattedJson(response)
 }
 
-func (s *SlackAPI) ProcessCommandUserSearch() {
+func (s *ChatSession) ProcessCommandUserSearch() {
 	response := s.UsersSearch(s.UserInput)
 	s.PrintFormattedJson(response)
 }

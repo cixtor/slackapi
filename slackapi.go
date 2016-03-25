@@ -15,25 +15,19 @@ import (
 )
 
 type SlackAPI struct {
-	Token          string
-	Username       string
-	Channel        string
-	Command        string
-	UserInput      string
-	MethodName     string
-	RobotName      string
+	Owner          Owner
 	RobotImage     string
 	RobotImageType string
 	RobotIsActive  bool
-	IsConnected    bool
-	IsUserConn     bool
-	IsGroupConn    bool
-	IsChannelConn  bool
-	Owner          Owner
-	TeamUsers      ResponseUsersList
-	TeamGroups     ResponseGroupsList
+	RobotName      string
 	TeamChannels   ResponseChannelsList
-	History        []Post
+	TeamGroups     ResponseGroupsList
+	TeamUsers      ResponseUsersList
+	Token          string
+}
+
+func (s *SlackAPI) SetToken(token string) {
+	s.Token = token
 }
 
 func (s *SlackAPI) AutoConfigure() {
@@ -43,36 +37,6 @@ func (s *SlackAPI) AutoConfigure() {
 	s.RobotImage = ":robot_face:"
 	s.RobotImageType = "emoji"
 	s.RobotIsActive = false
-}
-
-func (s *SlackAPI) ReportError(err error) {
-	fmt.Printf("Error: %s\n", err)
-	os.Exit(1)
-}
-
-func (s *SlackAPI) PrintFormattedJson(data interface{}) {
-	response, err := json.MarshalIndent(data, "", "\x20\x20")
-
-	if err != nil {
-		s.ReportError(err)
-	}
-
-	fmt.Printf("%s\n", response)
-}
-
-func (s *SlackAPI) PrintInlineJson(data interface{}) {
-	response, err := json.Marshal(data)
-
-	if err != nil {
-		s.ReportError(err)
-	}
-
-	fmt.Printf("%s\n", response)
-}
-
-func (s *SlackAPI) PrintAndExit(data interface{}) {
-	s.PrintFormattedJson(data)
-	os.Exit(0)
 }
 
 func (s *SlackAPI) System(kommand string) []byte {
@@ -212,4 +176,34 @@ func (s *SlackAPI) PostRequest(data interface{}, action string, params ...string
 	req.Header.Set("Content-Type", writer.FormDataContentType())
 
 	s.ExecuteRequest(req, &data)
+}
+
+func (s *SlackAPI) PrintFormattedJson(data interface{}) {
+	response, err := json.MarshalIndent(data, "", "\x20\x20")
+
+	if err != nil {
+		s.ReportError(err)
+	}
+
+	fmt.Printf("%s\n", response)
+}
+
+func (s *SlackAPI) PrintInlineJson(data interface{}) {
+	response, err := json.Marshal(data)
+
+	if err != nil {
+		s.ReportError(err)
+	}
+
+	fmt.Printf("%s\n", response)
+}
+
+func (s *SlackAPI) PrintAndExit(data interface{}) {
+	s.PrintFormattedJson(data)
+	os.Exit(0)
+}
+
+func (s *SlackAPI) ReportError(err error) {
+	fmt.Printf("Error: %s\n", err)
+	os.Exit(1)
 }
