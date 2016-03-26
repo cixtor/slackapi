@@ -108,6 +108,8 @@ func (s *ChatSession) ProcessCommand() {
 		s.ProcessCommandRobotOn()
 	case ":token":
 		s.ProcessCommandToken()
+	case ":update":
+		s.ProcessCommandUpdate()
 	case ":userid":
 		s.ProcessCommandUserId()
 	case ":userlist":
@@ -334,6 +336,16 @@ func (s *ChatSession) ProcessCommandRobotOn() {
 func (s *ChatSession) ProcessCommandToken() {
 	s.Token = s.UserInput
 	s.Owner = s.AuthTest()
+}
+
+func (s *ChatSession) ProcessCommandUpdate() {
+	var totalHistory int = len(s.History)
+
+	if s.UserInput != "" && totalHistory > 0 {
+		var latest Post = s.History[totalHistory-1]
+		response := s.ChatUpdate(latest.Channel, latest.Ts, s.UserInput)
+		s.PrintInlineJson(response)
+	}
 }
 
 func (s *ChatSession) ProcessCommandUserId() {

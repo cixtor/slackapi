@@ -44,6 +44,7 @@ username:channel> :exit
 - [x] `:robotoff` - Deactivates the robot to send normal messages.
 - [x] `:roboton` - Activates the robot to send 3rd-party messages.
 - [x] `:token` - Sets the token for the chat session.
+- [x] `:update` - Updates the latest chat session message.
 - [x] `:userid` - Displays the unique identifier of an user.
 - [x] `:userlist` - Displays the information of all the users.
 - [x] `:usersearch` - Searches the information of a specific user.

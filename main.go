@@ -102,6 +102,7 @@ func main() {
 		fmt.Println("  :robotoff    Deactivates the robot to send normal messages")
 		fmt.Println("  :roboton     Activates the robot to send 3rd-party messages")
 		fmt.Println("  :token       Sets the token for the chat session")
+		fmt.Println("  :update      Updates the latest chat session message")
 		fmt.Println("  :userid      Displays the unique identifier of an user")
 		fmt.Println("  :userlist    Displays the information of all the users")
 		fmt.Println("  :usersearch  Searches the information of a specific user")
