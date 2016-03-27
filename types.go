@@ -1,5 +1,9 @@
 package main
 
+import (
+	"encoding/json"
+)
+
 type Response struct {
 	Ok    bool   `json:"ok"`
 	Error string `json:"error"`
@@ -69,21 +73,21 @@ type Message struct {
 }
 
 type Attachment struct {
-	Fallback    string `json:"fallback"`
-	FromUrl     string `json:"from_url"`
-	Id          int    `json:"id"`
-	ImageBytes  int    `json:"image_bytes"`
-	ImageHeight int    `json:"image_height"`
-	ImageUrl    string `json:"image_url"`
-	ImageWidth  int    `json:"image_width"`
-	ServiceName string `json:"service_name"`
-	Text        string `json:"text"`
-	ThumbHeight int    `json:"thumb_height"`
-	ThumbUrl    string `json:"thumb_url"`
-	ThumbWidth  int    `json:"thumb_width"`
-	Title       string `json:"title"`
-	TitleLink   string `json:"title_link"`
-	Ts          int    `json:"ts"`
+	Fallback    string      `json:"fallback"`
+	FromUrl     string      `json:"from_url"`
+	Id          int         `json:"id"`
+	ImageBytes  int         `json:"image_bytes"`
+	ImageHeight int         `json:"image_height"`
+	ImageUrl    string      `json:"image_url"`
+	ImageWidth  int         `json:"image_width"`
+	ServiceName string      `json:"service_name"`
+	Text        string      `json:"text"`
+	ThumbHeight int         `json:"thumb_height"`
+	ThumbUrl    string      `json:"thumb_url"`
+	ThumbWidth  int         `json:"thumb_width"`
+	Title       string      `json:"title"`
+	TitleLink   string      `json:"title_link"`
+	Ts          json.Number `json:"ts"`
 }
 
 type DeletedMessage struct {
