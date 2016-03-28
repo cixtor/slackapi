@@ -5,6 +5,11 @@ func (s *SlackAPI) PrintApiTest() {
 	s.PrintAndExit(response)
 }
 
+func (s *SlackAPI) PrintAppsList() {
+	response := s.AppsList()
+	s.PrintAndExit(response)
+}
+
 func (s *SlackAPI) PrintAuthTest() {
 	response := s.AuthTest()
 	s.PrintAndExit(response)

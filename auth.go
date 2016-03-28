@@ -6,6 +6,12 @@ func (s *SlackAPI) ApiTest() Response {
 	return response
 }
 
+func (s *SlackAPI) AppsList() AppsList {
+	var response AppsList
+	s.GetRequest(&response, "apps.list", "token")
+	return response
+}
+
 func (s *SlackAPI) AuthTest() Owner {
 	if s.Owner.Ok == true {
 		return s.Owner

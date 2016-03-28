@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.3.27"
+const version = "1.3.28"
 
 func main() {
 	var client SlackAPI
@@ -29,6 +29,7 @@ func main() {
 		fmt.Println()
 		fmt.Println("Usage:")
 		fmt.Println("  slackapi api.test                                  Checks API calling code")
+		fmt.Println("  slackapi apps.list                                 Lists associated applications")
 		fmt.Println("  slackapi auth.test                                 Checks authentication and identity")
 		fmt.Println("  slackapi channels.history [channel] [time]         Fetches history of messages and events from a channel")
 		fmt.Println("  slackapi channels.id [channel]                     Gets channel identifier from readable name")
@@ -128,6 +129,8 @@ func main() {
 	switch command {
 	case "api.test":
 		client.PrintApiTest()
+	case "apps.list":
+		client.PrintAppsList()
 	case "auth.test":
 		client.PrintAuthTest()
 	case "channels.history":

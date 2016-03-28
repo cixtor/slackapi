@@ -68,6 +68,7 @@ username:channel> :exit
 ### Official Client Methods
 
 - [x] `api.test` - Checks API calling code.
+- [x] `apps.list` - Lists associated applications.
 - [x] `auth.test` - Checks authentication and identity.
 - [x] `channels.history` - Fetches history of messages and events from a channel.
 - [x] `channels.info` - Gets information about a channel.
