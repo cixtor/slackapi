@@ -5,6 +5,12 @@ type ResponseChannelsInfo struct {
 	Channel Channel `json:"channel"`
 }
 
+type ResponseChannelsJoin struct {
+	Response
+	AlreadyInChannel bool    `json:"already_in_channel"`
+	Channel          Channel `json:"channel"`
+}
+
 type ResponseChannelsList struct {
 	Response
 	Channels []Channel `json:"channels"`
@@ -32,6 +38,12 @@ func (s *SlackAPI) ChannelsInfo(channel string) ResponseChannelsInfo {
 	var response ResponseChannelsInfo
 	channel = s.ChannelsId(channel)
 	s.GetRequest(&response, "channels.info", "token", "channel="+channel)
+	return response
+}
+
+func (s *SlackAPI) ChannelsJoin(channel string) ResponseChannelsJoin {
+	var response ResponseChannelsJoin
+	s.GetRequest(&response, "channels.join", "token", "name="+channel)
 	return response
 }
 

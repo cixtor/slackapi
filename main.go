@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.5.12"
+const version = "1.5.13"
 
 func main() {
 	var client SlackAPI
@@ -34,6 +34,7 @@ func main() {
 		fmt.Println("  slackapi channels.history [channel] [time]               Fetches history of messages and events from a channel")
 		fmt.Println("  slackapi channels.id [channel]                           Gets channel identifier from readable name")
 		fmt.Println("  slackapi channels.info [channel]                         Gets information about a channel")
+		fmt.Println("  slackapi channels.join [channel]                         Joins a channel, creates it if it does not exist")
 		fmt.Println("  slackapi channels.list                                   Lists all channels in a Slack team")
 		fmt.Println("  slackapi channels.mark [channel] [time]                  Sets the read cursor in a channel")
 		fmt.Println("  slackapi channels.myHistory [channel] [time]             Displays messages of the current user from a channel")
@@ -152,6 +153,8 @@ func main() {
 		client.PrintChannelsId(flag.Arg(1))
 	case "channels.info":
 		client.PrintChannelsInfo(flag.Arg(1))
+	case "channels.join":
+		client.PrintChannelsJoin(flag.Arg(1))
 	case "channels.list":
 		client.PrintChannelsList()
 	case "channels.mark":

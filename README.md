@@ -82,7 +82,7 @@ Also, you can pass an environment variable `VERBOSE=true` to print additional in
 - [x] `channels.history` - Fetches history of messages and events from a channel.
 - [x] `channels.info` - Gets information about a channel.
 - [ ] `channels.invite` - Invites a user to a channel.
-- [ ] `channels.join` - Joins a channel, creating it if needed.
+- [x] `channels.join` - Joins a channel, creating it if needed.
 - [ ] `channels.kick` - Removes a user from a channel.
 - [ ] `channels.leave` - Leaves a channel.
 - [x] `channels.list` - Lists all channels in a Slack team.

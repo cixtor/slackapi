@@ -30,6 +30,11 @@ func (s *SlackAPI) PrintChannelsInfo(channel string) {
 	s.PrintAndExit(response)
 }
 
+func (s *SlackAPI) PrintChannelsJoin(channel string) {
+	response := s.ChannelsJoin(channel)
+	s.PrintAndExit(response)
+}
+
 func (s *SlackAPI) PrintChannelsList() {
 	response := s.ChannelsList()
 	s.PrintAndExit(response)
