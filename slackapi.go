@@ -118,6 +118,8 @@ func (s *SlackAPI) AddRequestParam(param string, value string) {
 }
 
 func (s *SlackAPI) ExecuteRequest(req *http.Request, data interface{}) {
+	s.PrintCurlCommand(req)
+
 	client := &http.Client{}
 	resp, err := client.Do(req)
 
@@ -131,6 +133,18 @@ func (s *SlackAPI) ExecuteRequest(req *http.Request, data interface{}) {
 
 	if err != nil {
 		s.ReportError(err)
+	}
+}
+
+func (s *SlackAPI) PrintCurlCommand(req *http.Request) {
+	if os.Getenv("VERBOSE") == "true" {
+		fmt.Printf("curl -X %s '%s'", req.Method, req.URL)
+
+		for header, values := range req.Header {
+			fmt.Printf("\x20\x5c\x0a-H '%s: %s'", header, values[0])
+		}
+
+		fmt.Printf("\x20\x5c\x0a-H 'Host: %s'\n", req.Host)
 	}
 }
 
