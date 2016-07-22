@@ -15,6 +15,11 @@ func (s *SlackAPI) PrintAuthTest() {
 	s.PrintAndExit(response)
 }
 
+func (s *SlackAPI) PrintChannelsCreate(channel string) {
+	response := s.ChannelsCreate(channel)
+	s.PrintAndExit(response)
+}
+
 func (s *SlackAPI) PrintChannelsHistory(channel string, latest string) {
 	response := s.ChannelsHistory(channel, latest)
 	s.PrintAndExit(response)

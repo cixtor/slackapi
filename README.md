@@ -78,7 +78,7 @@ Also, you can pass an environment variable `VERBOSE=true` to print additional in
 - [x] `apps.list` - Lists associated applications.
 - [x] `auth.test` - Checks authentication and identity.
 - [ ] `channels.archive` - Archives a channel.
-- [ ] `channels.create` - Creates a channel.
+- [x] `channels.create` - Creates a channel.
 - [x] `channels.history` - Fetches history of messages and events from a channel.
 - [x] `channels.info` - Gets information about a channel.
 - [ ] `channels.invite` - Invites a user to a channel.
