@@ -47,6 +47,14 @@ func (s *SlackAPI) ChannelsInfo(channel string) ResponseChannelsInfo {
 	return response
 }
 
+func (s *SlackAPI) ChannelsInvite(channel string, user string) ResponseChannelsInfo {
+	var response ResponseChannelsInfo
+	channel = s.ChannelsId(channel)
+	user = s.UsersId(user)
+	s.GetRequest(&response, "channels.invite", "token", "channel="+channel, "user="+user)
+	return response
+}
+
 func (s *SlackAPI) ChannelsJoin(channel string) ResponseChannelsJoin {
 	var response ResponseChannelsJoin
 	s.GetRequest(&response, "channels.join", "token", "name="+channel)
