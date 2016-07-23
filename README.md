@@ -83,7 +83,7 @@ Also, you can pass an environment variable `VERBOSE=true` to print additional in
 - [x] `channels.info` - Gets information about a channel.
 - [x] `channels.invite` - Invites a user to a channel.
 - [x] `channels.join` - Joins a channel, creating it if needed.
-- [ ] `channels.kick` - Removes a user from a channel.
+- [x] `channels.kick` - Removes a user from a channel.
 - [ ] `channels.leave` - Leaves a channel.
 - [x] `channels.list` - Lists all channels in a Slack team.
 - [x] `channels.mark` - Sets the read cursor in a channel.

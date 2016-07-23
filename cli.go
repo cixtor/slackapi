@@ -45,6 +45,11 @@ func (s *SlackAPI) PrintChannelsJoin(channel string) {
 	s.PrintAndExit(response)
 }
 
+func (s *SlackAPI) PrintChannelsKick(channel string, user string) {
+	response := s.ChannelsKick(channel, user)
+	s.PrintAndExit(response)
+}
+
 func (s *SlackAPI) PrintChannelsList() {
 	response := s.ChannelsList()
 	s.PrintAndExit(response)
