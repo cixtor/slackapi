@@ -87,7 +87,7 @@ Also, you can pass an environment variable `VERBOSE=true` to print additional in
 - [ ] `channels.leave` - Leaves a channel.
 - [x] `channels.list` - Lists all channels in a Slack team.
 - [x] `channels.mark` - Sets the read cursor in a channel.
-- [ ] `channels.rename` - Renames a channel.
+- [x] `channels.rename` - Renames a channel.
 - [x] `channels.setPurpose` - Sets the purpose for a channel.
 - [x] `channels.setRetention` - Sets the retention time of the messages.
 - [x] `channels.setTopic` - Sets the topic for a channel.

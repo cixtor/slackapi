@@ -96,6 +96,16 @@ func (s *SlackAPI) ResourcePurgeHistory(action string, channel string, latest st
 	return delhist
 }
 
+func (s *SlackAPI) ResourceRename(action string, channel string, name string) ChannelRename {
+	var response ChannelRename
+	s.GetRequest(&response,
+		action,
+		"token",
+		"channel="+channel,
+		"name="+name)
+	return response
+}
+
 func (s *SlackAPI) ResourceSetPurpose(action string, channel string, purpose string) ChannelPurposeNow {
 	var response ChannelPurposeNow
 	s.GetRequest(&response,

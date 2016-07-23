@@ -64,6 +64,11 @@ func (s *SlackAPI) PrintChannelsPurgeHistory(channel string, latest string) {
 	s.ChannelsPurgeHistory(channel, latest, true)
 }
 
+func (s *SlackAPI) PrintChannelsRename(channel string, name string) {
+	response := s.ChannelsRename(channel, name)
+	s.PrintAndExit(response)
+}
+
 func (s *SlackAPI) PrintChannelsSetPurpose(channel string, purpose string) {
 	response := s.ChannelsSetPurpose(channel, purpose)
 	s.PrintAndExit(response)

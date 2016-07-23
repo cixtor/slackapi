@@ -131,6 +131,17 @@ type ChannelPurpose struct {
 	Value   string `json:"value"`
 }
 
+type ChannelRename struct {
+	Response
+	Channel struct {
+		ID        string `json:"id"`
+		IsChannel bool   `json:"is_channel"`
+		IsGroup   bool   `json:"is_group"`
+		Name      string `json:"name"`
+		Created   int    `json:"created"`
+	} `json:"channel"`
+}
+
 type ChannelTopic struct {
 	Creator string `json:"creator"`
 	LastSet int    `json:"last_set"`

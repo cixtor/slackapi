@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.5.15"
+const version = "1.5.16"
 
 func main() {
 	var client SlackAPI
@@ -41,6 +41,7 @@ func main() {
 		fmt.Println("  slackapi channels.mark [channel] [time]                  Sets the read cursor in a channel")
 		fmt.Println("  slackapi channels.myHistory [channel] [time]             Displays messages of the current user from a channel")
 		fmt.Println("  slackapi channels.purgeHistory [channel] [time]          Deletes history of messages and events from a channel")
+		fmt.Println("  slackapi channels.rename [channel] [name]                Renames a channel")
 		fmt.Println("  slackapi channels.setPurpose [channel] [purpose]         Sets the purpose for a channel")
 		fmt.Println("  slackapi channels.setRetention [channel] [duration]      Sets the retention time of the messages")
 		fmt.Println("  slackapi channels.setTopic [channel] [topic]             Sets the topic for a channel")
@@ -169,6 +170,8 @@ func main() {
 		client.PrintChannelsMyHistory(flag.Arg(1), flag.Arg(2))
 	case "channels.purgeHistory":
 		client.PrintChannelsPurgeHistory(flag.Arg(1), flag.Arg(2))
+	case "channels.rename":
+		client.PrintChannelsRename(flag.Arg(1), flag.Arg(2))
 	case "channels.setPurpose":
 		client.PrintChannelsSetPurpose(flag.Arg(1), flag.Arg(2))
 	case "channels.setRetention":
