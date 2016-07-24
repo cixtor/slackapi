@@ -71,6 +71,12 @@ func (s *SlackAPI) ChannelsKick(channel string, user string) Response {
 	return response
 }
 
+func (s *SlackAPI) ChannelsLeave(channel string) Response {
+	var response Response
+	s.GetRequest(&response, "channels.leave", "token", "channel="+s.ChannelsId(channel))
+	return response
+}
+
 func (s *SlackAPI) ChannelsList() ResponseChannelsList {
 	if s.TeamChannels.Ok == true {
 		return s.TeamChannels
