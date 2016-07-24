@@ -16,6 +16,12 @@ type ResponseChannelsList struct {
 	Channels []Channel `json:"channels"`
 }
 
+func (s *SlackAPI) ChannelsArchive(channel string) Response {
+	var response Response
+	s.GetRequest(&response, "channels.archive", "token", "channel="+s.ChannelsId(channel))
+	return response
+}
+
 func (s *SlackAPI) ChannelsCreate(channel string) ResponseChannelsInfo {
 	var response ResponseChannelsInfo
 	s.GetRequest(&response, "channels.create", "token", "name="+channel)
