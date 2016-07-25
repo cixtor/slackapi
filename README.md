@@ -76,7 +76,9 @@ Also, you can pass an environment variable `VERBOSE=true` to print additional in
 
 - [x] `api.test` - Checks API calling code.
 - [x] `apps.list` - Lists associated applications.
+- [ ] `auth.revoke` - Revokes a token.
 - [x] `auth.test` - Checks authentication and identity.
+- [ ] `bots.info` - Gets information about a bot user.
 - [x] `channels.archive` - Archives a channel.
 - [x] `channels.create` - Creates a channel.
 - [x] `channels.history` - Fetches history of messages and events from a channel.
@@ -93,6 +95,7 @@ Also, you can pass an environment variable `VERBOSE=true` to print additional in
 - [x] `channels.setTopic` - Sets the topic for a channel.
 - [x] `channels.unarchive` - Unarchives a channel.
 - [x] `chat.delete` - Deletes a message.
+- [ ] `chat.meMessage` - Share a me message into a channel.
 - [x] `chat.postMessage` - Sends a message to a channel.
 - [x] `chat.update` - Updates a message.
 - [ ] `dnd.endDnd` - Ends the current user's _"Do Not Disturb"_ session immediately.
@@ -158,8 +161,10 @@ Also, you can pass an environment variable `VERBOSE=true` to print additional in
 - [ ] `stars.list` - Lists stars for a user.
 - [ ] `stars.remove` - Removes a star from an item.
 - [x] `team.accessLogs` - Gets the access logs for the current team.
+- [ ] `team.billableInfo` - Gets billable users information for the current team.
 - [x] `team.info` - Gets information about the current team.
 - [ ] `team.integrationLogs` - Gets the integration logs for the current team.
+- [ ] `team.profile.get` - Retrieve a team's profile.
 - [ ] `usergroups.create` - Create a User Group
 - [ ] `usergroups.disable` - Disable an existing User Group
 - [ ] `usergroups.enable` - Enable a User Group
@@ -168,10 +173,13 @@ Also, you can pass an environment variable `VERBOSE=true` to print additional in
 - [ ] `usergroups.users.list` - List all users in a User Group
 - [ ] `usergroups.users.update` - Update the list of users for a User Group
 - [x] `users.getPresence` - Gets user presence information.
+- [ ] `users.identity` - Get a user's identity.
 - [x] `users.info` - Gets information about a user.
 - [x] `users.list` - Lists all users in a Slack team.
 - [x] `users.setActive` - Marks a user as active.
 - [x] `users.setPresence` - Manually sets user presence.
+- [ ] `users.profile.get` - Retrieves a user's profile information.
+- [ ] `users.profile.set` - Set the profile information for a user.
 
 ### License
 
