@@ -122,3 +122,9 @@ func (s *SlackAPI) ChannelsSetRetention(channel string, duration string) Respons
 func (s *SlackAPI) ChannelsSetTopic(channel string, topic string) ChannelTopicNow {
 	return s.ResourceSetTopic("channels.setTopic", channel, topic)
 }
+
+func (s *SlackAPI) ChannelsUnarchive(channel string) Response {
+	var response Response
+	s.GetRequest(&response, "channels.unarchive", "token", "channel="+s.ChannelsId(channel))
+	return response
+}

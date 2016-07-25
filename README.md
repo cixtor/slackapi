@@ -91,7 +91,7 @@ Also, you can pass an environment variable `VERBOSE=true` to print additional in
 - [x] `channels.setPurpose` - Sets the purpose for a channel.
 - [x] `channels.setRetention` - Sets the retention time of the messages.
 - [x] `channels.setTopic` - Sets the topic for a channel.
-- [ ] `channels.unarchive` - Unarchives a channel.
+- [x] `channels.unarchive` - Unarchives a channel.
 - [x] `chat.delete` - Deletes a message.
 - [x] `chat.postMessage` - Sends a message to a channel.
 - [x] `chat.update` - Updates a message.

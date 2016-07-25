@@ -99,6 +99,11 @@ func (s *SlackAPI) PrintChannelsSetTopic(channel string, topic string) {
 	s.PrintAndExit(response)
 }
 
+func (s *SlackAPI) PrintChannelsUnarchive(channel string) {
+	response := s.ChannelsUnarchive(channel)
+	s.PrintAndExit(response)
+}
+
 func (s *SlackAPI) PrintChatDelete(channel string, timestamp string) {
 	response := s.ChatDelete(channel, timestamp)
 	s.PrintAndExit(response)
