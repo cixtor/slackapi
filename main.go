@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.5.21"
+const version = "1.5.22"
 
 func main() {
 	var client SlackAPI
@@ -66,6 +66,7 @@ func main() {
 		fmt.Println("  slackapi files.listByType [type] [count] [page]          Lists and filters team files by type: all, posts, snippets, images, gdocs, zips, pdfs")
 		fmt.Println("  slackapi files.listByUser [user] [count] [page]          Lists and filters team files created by a single user")
 		fmt.Println("  slackapi files.upload [channel] [fpath]                  Uploads or creates a file from local data")
+		fmt.Println("  slackapi groups.archive [channel]                        Archives a private channel")
 		fmt.Println("  slackapi groups.close [channel]                          Closes a private channel")
 		fmt.Println("  slackapi groups.history [channel] [time]                 Fetches history of messages and events from a private channel")
 		fmt.Println("  slackapi groups.id [channel]                             Gets private channel identifier from readable name")
@@ -222,6 +223,8 @@ func main() {
 		client.PrintAndExit(client.FilesList("user", flag.Arg(1), flag.Arg(2), flag.Arg(3)))
 	case "files.upload":
 		client.PrintAndExit(client.FilesUpload(flag.Arg(1), flag.Arg(2)))
+	case "groups.archive":
+		client.PrintAndExit(client.GroupsArchive(flag.Arg(1)))
 	case "groups.close":
 		client.PrintAndExit(client.GroupsClose(flag.Arg(1)))
 	case "groups.history":

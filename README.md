@@ -113,7 +113,7 @@ Also, you can pass an environment variable `VERBOSE=true` to print additional in
 - [ ] `files.revokePublicURL` - Revokes public/external sharing access for a file
 - [ ] `files.sharedPublicURL` - Enables a file for public/external sharing.
 - [x] `files.upload` - Uploads or creates a file.
-- [ ] `groups.archive` - Archives a private channel.
+- [x] `groups.archive` - Archives a private channel.
 - [x] `groups.close` - Closes a private channel.
 - [ ] `groups.create` - Creates a private channel.
 - [ ] `groups.createChild` - Clones and archives a private channel.

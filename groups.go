@@ -10,6 +10,12 @@ type ResponseGroupsList struct {
 	Groups []Channel `json:"groups"`
 }
 
+func (s *SlackAPI) GroupsArchive(channel string) Response {
+	var response Response
+	s.GetRequest(&response, "groups.archive", "token", "channel="+s.GroupsId(channel))
+	return response
+}
+
 func (s *SlackAPI) GroupsClose(channel string) Response {
 	var response Response
 	s.GetRequest(&response, "groups.close", "token", "channel="+channel)
