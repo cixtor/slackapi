@@ -89,3 +89,9 @@ func (s *SlackAPI) GroupsSetRetention(channel string, duration string) Response 
 func (s *SlackAPI) GroupsSetTopic(channel string, topic string) ChannelTopicNow {
 	return s.ResourceSetTopic("groups.setTopic", channel, topic)
 }
+
+func (s *SlackAPI) GroupsUnarchive(channel string) Response {
+	var response Response
+	s.GetRequest(&response, "groups.unarchive", "token", "channel="+s.GroupsId(channel))
+	return response
+}

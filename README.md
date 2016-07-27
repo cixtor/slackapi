@@ -129,7 +129,7 @@ Also, you can pass an environment variable `VERBOSE=true` to print additional in
 - [x] `groups.setPurpose` - Sets the purpose for a private channel.
 - [x] `groups.setRetention` - Sets the retention time of the messages.
 - [x] `groups.setTopic` - Sets the topic for a private channel.
-- [ ] `groups.unarchive` - Unarchives a private channel.
+- [x] `groups.unarchive` - Unarchives a private channel.
 - [x] `im.close` - Close a direct message channel.
 - [x] `im.history` - Fetches history of messages and events from direct message channel.
 - [x] `im.list` - Lists direct message channels for the calling user.
