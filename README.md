@@ -125,7 +125,7 @@ Also, you can pass an environment variable `VERBOSE=true` to print additional in
 - [x] `groups.list` - Lists private channels that the calling user has access to.
 - [x] `groups.mark` - Sets the read cursor in a private channel.
 - [x] `groups.open` - Opens a private channel.
-- [ ] `groups.rename` - Renames a private channel.
+- [x] `groups.rename` - Renames a private channel.
 - [x] `groups.setPurpose` - Sets the purpose for a private channel.
 - [x] `groups.setRetention` - Sets the retention time of the messages.
 - [x] `groups.setTopic` - Sets the topic for a private channel.

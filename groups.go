@@ -74,6 +74,10 @@ func (s *SlackAPI) GroupsOpen(channel string) Session {
 	return response
 }
 
+func (s *SlackAPI) GroupsRename(channel string) ChannelRename {
+	return s.ResourceRename("groups.rename", s.GroupsId(channel), name)
+}
+
 func (s *SlackAPI) GroupsPurgeHistory(channel string, latest string, verbose bool) DeletedHistory {
 	return s.ResourcePurgeHistory("groups.history", channel, latest, verbose)
 }
