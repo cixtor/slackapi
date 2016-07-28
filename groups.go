@@ -57,6 +57,10 @@ func (s *SlackAPI) GroupsList() ResponseGroupsList {
 	return response
 }
 
+func (s *SlackAPI) GroupsLeave(channel string) Response {
+	return s.ResourceLeave("groups.leave", s.GroupsId(channel))
+}
+
 func (s *SlackAPI) GroupsMark(channel string, timestamp string) Response {
 	return s.ResourceMark("groups.mark", channel, timestamp)
 }

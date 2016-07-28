@@ -26,6 +26,15 @@ func (s *SlackAPI) ResourceHistory(action string, channel string, latest string)
 	return response
 }
 
+func (s *SlackAPI) ResourceLeave(action string, channel string) Response {
+	var response Response
+	s.GetRequest(&response,
+		action,
+		"token",
+		"channel="+channel)
+	return response
+}
+
 func (s *SlackAPI) ResourceMark(action string, channel string, timestamp string) Response {
 	var response Response
 	s.GetRequest(&response,

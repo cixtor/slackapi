@@ -121,7 +121,7 @@ Also, you can pass an environment variable `VERBOSE=true` to print additional in
 - [x] `groups.info` - Gets information about a private channel.
 - [ ] `groups.invite` - Invites a user to a private channel.
 - [ ] `groups.kick` - Removes a user from a private channel.
-- [ ] `groups.leave` - Leaves a private channel.
+- [x] `groups.leave` - Leaves a private channel.
 - [x] `groups.list` - Lists private channels that the calling user has access to.
 - [x] `groups.mark` - Sets the read cursor in a private channel.
 - [x] `groups.open` - Opens a private channel.
