@@ -17,9 +17,7 @@ type ResponseChannelsList struct {
 }
 
 func (s *SlackAPI) ChannelsArchive(channel string) Response {
-	var response Response
-	s.GetRequest(&response, "channels.archive", "token", "channel="+s.ChannelsId(channel))
-	return response
+	return s.ResourceArchive("channels.archive", s.ChannelsId(channel))
 }
 
 func (s *SlackAPI) ChannelsCreate(channel string) ResponseChannelsInfo {
@@ -124,7 +122,5 @@ func (s *SlackAPI) ChannelsSetTopic(channel string, topic string) ChannelTopicNo
 }
 
 func (s *SlackAPI) ChannelsUnarchive(channel string) Response {
-	var response Response
-	s.GetRequest(&response, "channels.unarchive", "token", "channel="+s.ChannelsId(channel))
-	return response
+	return s.ResourceUnarchive("channels.unarchive", s.ChannelsId(channel))
 }

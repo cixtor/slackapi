@@ -4,6 +4,15 @@ import (
 	"fmt"
 )
 
+func (s *SlackAPI) ResourceArchive(action string, channel string) Response {
+	var response Response
+	s.GetRequest(&response,
+		action,
+		"token",
+		"channel="+channel)
+	return response
+}
+
 func (s *SlackAPI) ResourceHistory(action string, channel string, latest string) History {
 	var response History
 	s.GetRequest(&response,
@@ -134,5 +143,14 @@ func (s *SlackAPI) ResourceSetTopic(action string, channel string, topic string)
 		"token",
 		"channel="+channel,
 		"topic="+topic)
+	return response
+}
+
+func (s *SlackAPI) ResourceUnarchive(action string, channel string) Response {
+	var response Response
+	s.GetRequest(&response,
+		action,
+		"token",
+		"channel="+channel)
 	return response
 }

@@ -11,9 +11,7 @@ type ResponseGroupsList struct {
 }
 
 func (s *SlackAPI) GroupsArchive(channel string) Response {
-	var response Response
-	s.GetRequest(&response, "groups.archive", "token", "channel="+s.GroupsId(channel))
-	return response
+	return s.ResourceArchive("groups.archive", s.GroupsId(channel))
 }
 
 func (s *SlackAPI) GroupsClose(channel string) Response {
@@ -95,7 +93,5 @@ func (s *SlackAPI) GroupsSetTopic(channel string, topic string) ChannelTopicNow 
 }
 
 func (s *SlackAPI) GroupsUnarchive(channel string) Response {
-	var response Response
-	s.GetRequest(&response, "groups.unarchive", "token", "channel="+s.GroupsId(channel))
-	return response
+	return s.ResourceUnarchive("groups.unarchive", s.GroupsId(channel))
 }
