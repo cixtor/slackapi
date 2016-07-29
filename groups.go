@@ -45,6 +45,14 @@ func (s *SlackAPI) GroupsInfo(channel string) ResponseGroupsInfo {
 	return response
 }
 
+func (s *SlackAPI) GroupsKick(channel string, user string) Response {
+	return s.ResourceKick("groups.kick", s.GroupsId(channel), s.UsersId(user))
+}
+
+func (s *SlackAPI) GroupsLeave(channel string) Response {
+	return s.ResourceLeave("groups.leave", s.GroupsId(channel))
+}
+
 func (s *SlackAPI) GroupsList() ResponseGroupsList {
 	if s.TeamGroups.Ok == true {
 		return s.TeamGroups
@@ -55,10 +63,6 @@ func (s *SlackAPI) GroupsList() ResponseGroupsList {
 	s.TeamGroups = response
 
 	return response
-}
-
-func (s *SlackAPI) GroupsLeave(channel string) Response {
-	return s.ResourceLeave("groups.leave", s.GroupsId(channel))
 }
 
 func (s *SlackAPI) GroupsMark(channel string, timestamp string) Response {
