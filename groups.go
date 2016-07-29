@@ -45,6 +45,10 @@ func (s *SlackAPI) GroupsInfo(channel string) ResponseGroupsInfo {
 	return response
 }
 
+func (s *SlackAPI) GroupsInvite(channel string, user string) Response {
+	return s.ResourceInvite("groups.invite", s.GroupsId(channel), s.UsersId(user))
+}
+
 func (s *SlackAPI) GroupsKick(channel string, user string) Response {
 	return s.ResourceKick("groups.kick", s.GroupsId(channel), s.UsersId(user))
 }
@@ -80,7 +84,7 @@ func (s *SlackAPI) GroupsOpen(channel string) Session {
 	return response
 }
 
-func (s *SlackAPI) GroupsRename(channel string) ChannelRename {
+func (s *SlackAPI) GroupsRename(channel string, name string) ChannelRename {
 	return s.ResourceRename("groups.rename", s.GroupsId(channel), name)
 }
 

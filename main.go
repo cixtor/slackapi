@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.5.27"
+const version = "1.5.28"
 
 func main() {
 	var client SlackAPI
@@ -71,6 +71,7 @@ func main() {
 		fmt.Println("  slackapi groups.history [channel] [time]                 Fetches history of messages and events from a private channel")
 		fmt.Println("  slackapi groups.id [channel]                             Gets private channel identifier from readable name")
 		fmt.Println("  slackapi groups.info [channel]                           Gets information about a private channel")
+		fmt.Println("  slackapi groups.invite [channel] [user]                  Invites a user to a private channel")
 		fmt.Println("  slackapi groups.kick [channel] [user]                    Removes a user from a private channel")
 		fmt.Println("  slackapi groups.leave [channel]                          Leaves a private channel")
 		fmt.Println("  slackapi groups.list                                     Lists private channels that the calling user has access to")
@@ -237,6 +238,8 @@ func main() {
 		client.PrintAndExit(client.GroupsId(flag.Arg(1)))
 	case "groups.info":
 		client.PrintAndExit(client.GroupsInfo(flag.Arg(1)))
+	case "groups.invite":
+		client.PrintAndExit(client.GroupsInvite(flag.Arg(1), flag.Arg(2)))
 	case "groups.kick":
 		client.PrintAndExit(client.GroupsKick(flag.Arg(1), flag.Arg(2)))
 	case "groups.leave":

@@ -119,7 +119,7 @@ Also, you can pass an environment variable `VERBOSE=true` to print additional in
 - [ ] `groups.createChild` - Clones and archives a private channel.
 - [x] `groups.history` - Fetches history of messages and events from a private channel.
 - [x] `groups.info` - Gets information about a private channel.
-- [ ] `groups.invite` - Invites a user to a private channel.
+- [x] `groups.invite` - Invites a user to a private channel.
 - [x] `groups.kick` - Removes a user from a private channel.
 - [x] `groups.leave` - Leaves a private channel.
 - [x] `groups.list` - Lists private channels that the calling user has access to.
