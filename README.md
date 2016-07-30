@@ -115,7 +115,7 @@ Also, you can pass an environment variable `VERBOSE=true` to print additional in
 - [x] `files.upload` - Uploads or creates a file.
 - [x] `groups.archive` - Archives a private channel.
 - [x] `groups.close` - Closes a private channel.
-- [ ] `groups.create` - Creates a private channel.
+- [x] `groups.create` - Creates a private channel.
 - [ ] `groups.createChild` - Clones and archives a private channel.
 - [x] `groups.history` - Fetches history of messages and events from a private channel.
 - [x] `groups.info` - Gets information about a private channel.

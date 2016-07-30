@@ -20,6 +20,12 @@ func (s *SlackAPI) GroupsClose(channel string) Response {
 	return response
 }
 
+func (s *SlackAPI) GroupsCreate(channel string) ResponseGroupsInfo {
+	var response ResponseGroupsInfo
+	s.GetRequest(&response, "groups.create", "token", "name="+channel)
+	return response
+}
+
 func (s *SlackAPI) GroupsHistory(channel string, latest string) History {
 	return s.ResourceHistory("groups.history", channel, latest)
 }
