@@ -116,7 +116,7 @@ Also, you can pass an environment variable `VERBOSE=true` to print additional in
 - [x] `groups.archive` - Archives a private channel.
 - [x] `groups.close` - Closes a private channel.
 - [x] `groups.create` - Creates a private channel.
-- [ ] `groups.createChild` - Clones and archives a private channel.
+- [x] `groups.createChild` - Clones and archives a private channel.
 - [x] `groups.history` - Fetches history of messages and events from a private channel.
 - [x] `groups.info` - Gets information about a private channel.
 - [x] `groups.invite` - Invites a user to a private channel.
