@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.5.30"
+const version = "1.5.31"
 
 func main() {
 	var client SlackAPI
@@ -30,6 +30,8 @@ func main() {
 		fmt.Println("Usage:")
 		fmt.Println("  slackapi api.test                                        Checks API calling code")
 		fmt.Println("  slackapi apps.list                                       Lists associated applications")
+		fmt.Println("  slackapi auth.revoke                                     Revokes a token")
+		fmt.Println("  slackapi auth.revokeTest                                 Test the token revocation")
 		fmt.Println("  slackapi auth.test                                       Checks authentication and identity")
 		fmt.Println("  slackapi channels.archive [channel]                      Archives a channel")
 		fmt.Println("  slackapi channels.create [channel]                       Creates a channel if authorized")
@@ -162,6 +164,10 @@ func main() {
 		client.PrintAndExit(client.AppsList())
 	case "auth.test":
 		client.PrintAndExit(client.AuthTest())
+	case "auth.revoke":
+		client.PrintAndExit(client.AuthRevoke())
+	case "auth.revokeTest":
+		client.PrintAndExit(client.AuthRevokeTest())
 	case "channels.archive":
 		client.PrintAndExit(client.ChannelsArchive(flag.Arg(1)))
 	case "channels.create":

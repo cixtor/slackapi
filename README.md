@@ -53,6 +53,7 @@ Also, you can pass an environment variable `VERBOSE=true` to print additional in
 
 ### Non-Official Client Methods
 
+- [x] `auth.revokeTest` - Test the token revocation.
 - [x] `channels.id` - Gets channel identifier from readable name.
 - [x] `channels.myHistory` - Displays messages of the current user from a channel.
 - [x] `channels.purgeHistory` - Deletes history of messages and events from a channel.
@@ -76,7 +77,7 @@ Also, you can pass an environment variable `VERBOSE=true` to print additional in
 
 - [x] `api.test` - Checks API calling code.
 - [x] `apps.list` - Lists associated applications.
-- [ ] `auth.revoke` - Revokes a token.
+- [x] `auth.revoke` - Revokes a token.
 - [x] `auth.test` - Checks authentication and identity.
 - [ ] `bots.info` - Gets information about a bot user.
 - [x] `channels.archive` - Archives a channel.
