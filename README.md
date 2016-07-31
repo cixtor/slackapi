@@ -111,7 +111,7 @@ Also, you can pass an environment variable `VERBOSE=true` to print additional in
 - [x] `files.delete` - Deletes a file.
 - [x] `files.info` - Gets information about a team file.
 - [x] `files.list` - Lists and filters team files.
-- [ ] `files.revokePublicURL` - Revokes public/external sharing access for a file
+- [ ] `files.revokePublicURL` - Revokes public/external sharing access for a file.
 - [ ] `files.sharedPublicURL` - Enables a file for public/external sharing.
 - [x] `files.upload` - Uploads or creates a file.
 - [x] `groups.archive` - Archives a private channel.
@@ -166,13 +166,13 @@ Also, you can pass an environment variable `VERBOSE=true` to print additional in
 - [x] `team.info` - Gets information about the current team.
 - [ ] `team.integrationLogs` - Gets the integration logs for the current team.
 - [ ] `team.profile.get` - Retrieve a team's profile.
-- [ ] `usergroups.create` - Create a User Group
-- [ ] `usergroups.disable` - Disable an existing User Group
-- [ ] `usergroups.enable` - Enable a User Group
-- [ ] `usergroups.list` - List all User Groups for a team
-- [ ] `usergroups.update` - Update an existing User Group
-- [ ] `usergroups.users.list` - List all users in a User Group
-- [ ] `usergroups.users.update` - Update the list of users for a User Group
+- [ ] `usergroups.create` - Create a User Group.
+- [ ] `usergroups.disable` - Disable an existing User Group.
+- [ ] `usergroups.enable` - Enable a User Group.
+- [ ] `usergroups.list` - List all User Groups for a team.
+- [ ] `usergroups.update` - Update an existing User Group.
+- [ ] `usergroups.users.list` - List all users in a User Group.
+- [ ] `usergroups.users.update` - Update the list of users for a User Group.
 - [x] `users.getPresence` - Gets user presence information.
 - [ ] `users.identity` - Get a user's identity.
 - [x] `users.info` - Gets information about a user.
