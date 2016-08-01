@@ -79,7 +79,7 @@ Also, you can pass an environment variable `VERBOSE=true` to print additional in
 - [x] `apps.list` - Lists associated applications.
 - [x] `auth.revoke` - Revokes a token.
 - [x] `auth.test` - Checks authentication and identity.
-- [ ] `bots.info` - Gets information about a bot user.
+- [x] `bots.info` - Gets information about a bot user.
 - [x] `channels.archive` - Archives a channel.
 - [x] `channels.create` - Creates a channel.
 - [x] `channels.history` - Fetches history of messages and events from a channel.
