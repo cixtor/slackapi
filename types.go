@@ -72,6 +72,13 @@ type Message struct {
 	Username     string       `json:"username"`
 }
 
+type ModifiedMessage struct {
+	Response
+	Channel string `json:"channel"`
+	Text    string `json:"text"`
+	Ts      string `json:"ts"`
+}
+
 type Attachment struct {
 	Fallback    string      `json:"fallback"`
 	FromUrl     string      `json:"from_url"`

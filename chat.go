@@ -1,12 +1,22 @@
 package main
 
-func (s *SlackAPI) ChatDelete(channel string, timestamp string) Post {
-	var response Post
+func (s *SlackAPI) ChatDelete(channel string, timestamp string) ModifiedMessage {
+	var response ModifiedMessage
 	s.GetRequest(&response,
 		"chat.delete",
 		"token",
 		"channel="+channel,
 		"ts="+timestamp)
+	return response
+}
+
+func (s *SlackAPI) ChatMeMessage(channel string, message string) ModifiedMessage {
+	var response ModifiedMessage
+	s.GetRequest(&response,
+		"chat.meMessage",
+		"token",
+		"channel="+channel,
+		"text="+message)
 	return response
 }
 

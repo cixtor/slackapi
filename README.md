@@ -96,7 +96,7 @@ Also, you can pass an environment variable `VERBOSE=true` to print additional in
 - [x] `channels.setTopic` - Sets the topic for a channel.
 - [x] `channels.unarchive` - Unarchives a channel.
 - [x] `chat.delete` - Deletes a message.
-- [ ] `chat.meMessage` - Share a me message into a channel.
+- [x] `chat.meMessage` - Share a me message into a channel.
 - [x] `chat.postMessage` - Sends a message to a channel.
 - [x] `chat.update` - Updates a message.
 - [ ] `dnd.endDnd` - Ends the current user's _"Do Not Disturb"_ session immediately.

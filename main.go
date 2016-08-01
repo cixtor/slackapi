@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.5.32"
+const version = "1.5.33"
 
 func main() {
 	var client SlackAPI
@@ -53,6 +53,7 @@ func main() {
 		fmt.Println("  slackapi channels.setTopic [channel] [topic]             Sets the topic for a channel")
 		fmt.Println("  slackapi channels.unarchive [channel]                    Unarchives a channel")
 		fmt.Println("  slackapi chat.delete [channel] [time]                    Deletes a message")
+		fmt.Println("  slackapi chat.meMessage [channel] [text]                 Share a me message into a channel")
 		fmt.Println("  slackapi chat.postMessage [channel] [text]               Sends a message to a channel")
 		fmt.Println("  slackapi chat.session                                    Starts a new chat session")
 		fmt.Println("  slackapi chat.update [channel] [time] [text]             Updates a message")
@@ -209,6 +210,8 @@ func main() {
 		client.PrintAndExit(client.ChannelsUnarchive(flag.Arg(1)))
 	case "chat.delete":
 		client.PrintAndExit(client.ChatDelete(flag.Arg(1), flag.Arg(2)))
+	case "chat.meMessage":
+		client.PrintAndExit(client.ChatMeMessage(flag.Arg(1), flag.Arg(2)))
 	case "chat.postMessage":
 		client.PrintAndExit(client.ChatPostMessage(flag.Arg(1), flag.Arg(2)))
 	case "chat.update":
