@@ -52,22 +52,31 @@ type UserData struct {
 }
 
 type UserProfile struct {
-	Email              string `json:"email"`
-	FirstName          string `json:"first_name"`
-	Image1024          string `json:"image_1024"`
-	Image192           string `json:"image_192"`
-	Image24            string `json:"image_24"`
-	Image32            string `json:"image_32"`
-	Image48            string `json:"image_48"`
-	Image512           string `json:"image_512"`
-	Image72            string `json:"image_72"`
-	ImageOriginal      string `json:"image_original"`
-	LastName           string `json:"last_name"`
-	Phone              string `json:"phone"`
-	RealName           string `json:"real_name"`
-	RealNameNormalized string `json:"real_name_normalized"`
-	Skype              string `json:"skype"`
-	Title              string `json:"title"`
+	ApiAppID           string      `json:"api_app_id"`
+	BotID              string      `json:"bot_id"`
+	AvatarHash         string      `json:"avatar_hash"`
+	Email              string      `json:"email"`
+	Fields             interface{} `json:"fields"`
+	FirstName          string      `json:"first_name"`
+	Image1024          string      `json:"image_1024"`
+	Image192           string      `json:"image_192"`
+	Image24            string      `json:"image_24"`
+	Image32            string      `json:"image_32"`
+	Image48            string      `json:"image_48"`
+	Image512           string      `json:"image_512"`
+	Image72            string      `json:"image_72"`
+	ImageOriginal      string      `json:"image_original"`
+	LastName           string      `json:"last_name"`
+	Phone              string      `json:"phone"`
+	RealName           string      `json:"real_name"`
+	RealNameNormalized string      `json:"real_name_normalized"`
+	Skype              string      `json:"skype"`
+	Title              string      `json:"title"`
+}
+
+type ResponseUserIdentity struct {
+	Response
+	Profile UserProfile `json:"profile"`
 }
 
 func (s *SlackAPI) UsersGetPresence(query string) ResponseUsersGetPresence {
@@ -135,5 +144,15 @@ func (s *SlackAPI) UsersSetActive() Response {
 func (s *SlackAPI) UsersSetPresence(value string) Response {
 	var response Response
 	s.GetRequest(&response, "users.setPresence", "token", "presence="+value)
+	return response
+}
+
+func (s *SlackAPI) UsersProfileGet(user string) ResponseUserIdentity {
+	var response ResponseUserIdentity
+	s.GetRequest(&response,
+		"users.profile.get",
+		"token",
+		"user="+s.UsersId(user),
+		"include_labels=1")
 	return response
 }
