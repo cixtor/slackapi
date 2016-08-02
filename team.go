@@ -47,6 +47,15 @@ type TeamIcon struct {
 	ImageOriginal string `json:"image_original"`
 }
 
+type BillableInfo struct {
+	BillingActive bool `json:"billing_active"`
+}
+
+type ResponseBillableInfo struct {
+	Response
+	BillableInfo map[string]BillableInfo `json:"billable_info"`
+}
+
 func (s *SlackAPI) TeamAccessLogs(count string, page string) ResponseTeamAccessLogs {
 	var response ResponseTeamAccessLogs
 	s.GetRequest(&response,
@@ -54,6 +63,18 @@ func (s *SlackAPI) TeamAccessLogs(count string, page string) ResponseTeamAccessL
 		"token",
 		"count="+count,
 		"page="+page)
+	return response
+}
+
+func (s *SlackAPI) TeamBillableInfo(user string) ResponseBillableInfo {
+	var response ResponseBillableInfo
+
+	if user == "" {
+		s.GetRequest(&response, "team.billableInfo", "token")
+	} else {
+		s.GetRequest(&response, "team.billableInfo", "token", "user="+s.UsersId(user))
+	}
+
 	return response
 }
 

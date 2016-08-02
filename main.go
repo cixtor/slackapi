@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.5.33"
+const version = "1.5.34"
 
 func main() {
 	var client SlackAPI
@@ -103,6 +103,7 @@ func main() {
 		fmt.Println("  slackapi reactions.list [user]                           Lists reactions made by a user")
 		fmt.Println("  slackapi reactions.remove [name] [channel] [time]        Removes a reaction from an item")
 		fmt.Println("  slackapi team.accessLogs [count] [page]                  Gets the access logs for the current team")
+		fmt.Println("  slackapi team.billableInfo [user]                        Gets billable users information for the current team")
 		fmt.Println("  slackapi team.info                                       Gets information about the current team")
 		fmt.Println("  slackapi users.getPresence [user]                        Gets user presence information")
 		fmt.Println("  slackapi users.id [user]                                 Gets user identifier from username")
@@ -308,6 +309,8 @@ func main() {
 		client.PrintAndExit(client.ReactionsRemove(flag.Arg(1), flag.Arg(2), flag.Arg(3)))
 	case "team.accessLogs":
 		client.PrintAndExit(client.TeamAccessLogs(flag.Arg(1), flag.Arg(2)))
+	case "team.billableInfo":
+		client.PrintAndExit(client.TeamBillableInfo(flag.Arg(1)))
 	case "team.info":
 		client.PrintAndExit(client.TeamInfo())
 	case "users.getPresence":

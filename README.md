@@ -162,7 +162,7 @@ Also, you can pass an environment variable `VERBOSE=true` to print additional in
 - [ ] `stars.list` - Lists stars for a user.
 - [ ] `stars.remove` - Removes a star from an item.
 - [x] `team.accessLogs` - Gets the access logs for the current team.
-- [ ] `team.billableInfo` - Gets billable users information for the current team.
+- [x] `team.billableInfo` - Gets billable users information for the current team.
 - [x] `team.info` - Gets information about the current team.
 - [ ] `team.integrationLogs` - Gets the integration logs for the current team.
 - [ ] `team.profile.get` - Retrieve a team's profile.
