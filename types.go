@@ -5,8 +5,10 @@ import (
 )
 
 type Response struct {
-	Ok    bool   `json:"ok"`
-	Error string `json:"error"`
+	Ok       bool   `json:"ok"`
+	Error    string `json:"error,omitempty"`
+	Needed   string `json:"needed,omitempty"`
+	Provided string `json:"provided,omitempty"`
 }
 
 type Session struct {

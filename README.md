@@ -173,14 +173,17 @@ Also, you can pass an environment variable `VERBOSE=true` to print additional in
 - [ ] `usergroups.update` - Update an existing User Group.
 - [ ] `usergroups.users.list` - List all users in a User Group.
 - [ ] `usergroups.users.update` - Update the list of users for a User Group.
+- [ ] `users.deletePhoto` - Delete the user avatar.
 - [x] `users.getPresence` - Gets user presence information.
 - [ ] `users.identity` - Get a user's identity.
 - [x] `users.info` - Gets information about a user.
 - [x] `users.list` - Lists all users in a Slack team.
-- [x] `users.setActive` - Marks a user as active.
-- [x] `users.setPresence` - Manually sets user presence.
+- [ ] `users.preparePhoto` - Upload a picture to use as the avatar.
 - [x] `users.profile.get` - Retrieves a user's profile information.
 - [x] `users.profile.set` - Set the profile information for a user.
+- [x] `users.setActive` - Marks a user as active.
+- [ ] `users.setPhoto` - Define which picture will be the avatar.
+- [x] `users.setPresence` - Manually sets user presence.
 
 ### License
 
