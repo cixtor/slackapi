@@ -156,3 +156,14 @@ func (s *SlackAPI) UsersProfileGet(user string) ResponseUserIdentity {
 		"include_labels=1")
 	return response
 }
+
+func (s *SlackAPI) UsersProfileSet(user string, name string, value string) ResponseUserIdentity {
+	var response ResponseUserIdentity
+	s.GetRequest(&response,
+		"users.profile.set",
+		"token",
+		"user="+s.UsersId(user),
+		"name="+name,
+		"value="+value)
+	return response
+}

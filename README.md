@@ -180,7 +180,7 @@ Also, you can pass an environment variable `VERBOSE=true` to print additional in
 - [x] `users.setActive` - Marks a user as active.
 - [x] `users.setPresence` - Manually sets user presence.
 - [x] `users.profile.get` - Retrieves a user's profile information.
-- [ ] `users.profile.set` - Set the profile information for a user.
+- [x] `users.profile.set` - Set the profile information for a user.
 
 ### License
 
