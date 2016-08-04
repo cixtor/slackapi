@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.5.37"
+const version = "1.5.38"
 
 func main() {
 	var client SlackAPI
@@ -55,6 +55,7 @@ func main() {
 		fmt.Println("  slackapi chat.delete [channel] [time]                    Deletes a message")
 		fmt.Println("  slackapi chat.meMessage [channel] [text]                 Share a me message into a channel")
 		fmt.Println("  slackapi chat.postMessage [channel] [text]               Sends a message to a channel")
+		fmt.Println("  slackapi chat.robotMessage [channel] [text]              Sends a message to a channel as a robot")
 		fmt.Println("  slackapi chat.session                                    Starts a new chat session")
 		fmt.Println("  slackapi chat.update [channel] [time] [text]             Updates a message")
 		fmt.Println("  slackapi emoji.list                                      Lists custom emoji for a team")
@@ -217,6 +218,8 @@ func main() {
 		client.PrintAndExit(client.ChatMeMessage(flag.Arg(1), flag.Arg(2)))
 	case "chat.postMessage":
 		client.PrintAndExit(client.ChatPostMessage(flag.Arg(1), flag.Arg(2)))
+	case "chat.robotMessage":
+		client.PrintAndExit(client.ChatRobotMessage(flag.Arg(1), flag.Arg(2)))
 	case "chat.update":
 		client.PrintAndExit(client.ChatUpdate(flag.Arg(1), flag.Arg(2), flag.Arg(3)))
 	case "emoji.list":

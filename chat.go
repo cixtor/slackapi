@@ -1,5 +1,10 @@
 package main
 
+import (
+	"log"
+	"os"
+)
+
 func (s *SlackAPI) ChatDelete(channel string, timestamp string) ModifiedMessage {
 	var response ModifiedMessage
 	s.GetRequest(&response,
@@ -54,6 +59,28 @@ func (s *SlackAPI) ChatPostMessage(channel string, message string) Post {
 	}
 
 	return response
+}
+
+func (s *SlackAPI) ChatRobotMessage(channel string, message string) Post {
+	s.RobotIsActive = true
+	s.RobotName = os.Getenv("SLACK_ROBOT_NAME")
+	s.RobotImage = os.Getenv("SLACK_ROBOT_IMAGE")
+
+	if s.RobotName == "" {
+		log.Fatal("Missing SLACK_ROBOT_NAME environment variable")
+	}
+
+	if s.RobotImage == "" {
+		log.Fatal("Missing SLACK_ROBOT_IMAGE environment variable")
+	}
+
+	if s.RobotImage[0] == ':' {
+		s.RobotImageType = "emoji"
+	} else {
+		s.RobotImageType = "icon_url"
+	}
+
+	return s.ChatPostMessage(channel, message)
 }
 
 func (s *SlackAPI) ChatUpdate(channel string, timestamp string, message string) Post {

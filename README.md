@@ -57,6 +57,7 @@ Also, you can pass an environment variable `SLACK_VERBOSE=true` to print additio
 - [x] `channels.id` - Gets channel identifier from readable name.
 - [x] `channels.myHistory` - Displays messages of the current user from a channel.
 - [x] `channels.purgeHistory` - Deletes history of messages and events from a channel.
+- [x] `chat.robotMessage` - Sends a message to a channel as a robot.
 - [x] `chat.session` - Starts a new chat session.
 - [x] `files.listAfterTime` - Lists and filters team files after this timestamp _(inclusive)_.
 - [x] `files.listBeforeTime` - Lists and filters team files before this timestamp _(inclusive)_.
