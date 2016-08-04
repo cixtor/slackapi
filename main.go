@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.5.36"
+const version = "1.5.37"
 
 func main() {
 	var client SlackAPI
@@ -142,7 +142,7 @@ func main() {
 		fmt.Println("  :usersearch  Searches the information of a specific user")
 		fmt.Println()
 		fmt.Println("Usage (debug):")
-		fmt.Println("  VERBOSE=true Environment variable to print debug messages")
+		fmt.Println("  SLACK_VERBOSE=true Environment variable to print debug messages")
 		flag.PrintDefaults()
 		os.Exit(2)
 	}

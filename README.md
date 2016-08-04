@@ -24,7 +24,7 @@ username:channel> :owner
 username:channel> :exit
 ```
 
-Also, you can pass an environment variable `VERBOSE=true` to print additional information during the execution of certain operations to troubleshoot issues with either the communication with the Slack API service or the program in itself.
+Also, you can pass an environment variable `SLACK_VERBOSE=true` to print additional information during the execution of certain operations to troubleshoot issues with either the communication with the Slack API service or the program in itself.
 
 ### Chat Session Commands
 

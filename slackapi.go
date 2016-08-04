@@ -137,7 +137,7 @@ func (s *SlackAPI) ExecuteRequest(req *http.Request, data interface{}) {
 }
 
 func (s *SlackAPI) PrintCurlCommand(req *http.Request) {
-	if os.Getenv("VERBOSE") == "true" {
+	if os.Getenv("SLACK_VERBOSE") == "true" {
 		fmt.Printf("curl -X %s '%s'", req.Method, req.URL)
 
 		for header, values := range req.Header {
