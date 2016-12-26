@@ -142,8 +142,12 @@ func main() {
 		fmt.Println("  :userlist    Displays the information of all the users")
 		fmt.Println("  :usersearch  Searches the information of a specific user")
 		fmt.Println()
-		fmt.Println("Usage (debug):")
-		fmt.Println("  SLACK_VERBOSE=true Environment variable to print debug messages")
+		fmt.Println("Usage (environment):")
+		fmt.Println("  SLACK_TOKEN        Set global token for all actions")
+		fmt.Println("  SLACK_VERBOSE      Print debug messages and HTTP requests")
+		fmt.Println("  SLACK_ROBOT_NAME   Name to identify user with chat.robotMessage")
+		fmt.Println("  SLACK_ROBOT_IMAGE  Avatar to identify user with chat.robotMessage")
+
 		flag.PrintDefaults()
 		os.Exit(2)
 	}
