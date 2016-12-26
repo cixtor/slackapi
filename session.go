@@ -335,7 +335,12 @@ func (s *ChatSession) ProcessCommandRobotOn() {
 
 func (s *ChatSession) ProcessCommandToken() {
 	s.Token = s.UserInput
-	s.Owner = s.AuthTest()
+
+	author := s.AuthTest()
+
+	s.Username = author.User
+	s.Channel = author.TeamId
+	s.Owner = author
 }
 
 func (s *ChatSession) ProcessCommandUpdate() {
