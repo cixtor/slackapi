@@ -79,6 +79,58 @@ type ResponseUserIdentity struct {
 	Profile UserProfile `json:"profile"`
 }
 
+type ResponseUsersCounts struct {
+	Response
+	Channels []CountChannel `json:"channels"`
+	Groups   []CountGroup   `json:"groups"`
+	Ims      []CountIm      `json:"ims"`
+}
+
+type CountChannel struct {
+	ID                  string `json:"id"`
+	IsArchived          bool   `json:"is_archived"`
+	IsGeneral           bool   `json:"is_general"`
+	IsMember            bool   `json:"is_member"`
+	IsMuted             bool   `json:"is_muted"`
+	IsStarred           bool   `json:"is_starred"`
+	MentionCount        int    `json:"mention_count"`
+	MentionCountDisplay int    `json:"mention_count_display"`
+	Name                string `json:"name"`
+	NameNormalized      string `json:"name_normalized"`
+	UnreadCount         int    `json:"unread_count"`
+	UnreadCountDisplay  int    `json:"unread_count_display"`
+}
+
+type CountGroup struct {
+	ID                  string `json:"id"`
+	IsArchived          bool   `json:"is_archived"`
+	IsMpim              bool   `json:"is_mpim"`
+	IsMuted             bool   `json:"is_muted"`
+	IsOpen              bool   `json:"is_open"`
+	IsStarred           bool   `json:"is_starred"`
+	MentionCount        int    `json:"mention_count"`
+	MentionCountDisplay int    `json:"mention_count_display"`
+	Name                string `json:"name"`
+	NameNormalized      string `json:"name_normalized"`
+	UnreadCount         int    `json:"unread_count"`
+	UnreadCountDisplay  int    `json:"unread_count_display"`
+}
+
+type CountIm struct {
+	DmCount   int    `json:"dm_count"`
+	ID        string `json:"id"`
+	IsOpen    bool   `json:"is_open"`
+	IsStarred bool   `json:"is_starred"`
+	Name      string `json:"name"`
+	UserID    string `json:"user_id"`
+}
+
+func (s *SlackAPI) UsersCounts() ResponseUsersCounts {
+	var response ResponseUsersCounts
+	s.GetRequest(&response, "users.counts", "token")
+	return response
+}
+
 func (s *SlackAPI) UsersGetPresence(query string) ResponseUsersGetPresence {
 	var response ResponseUsersGetPresence
 	s.GetRequest(&response, "users.getPresence", "token", "user="+query)

@@ -174,6 +174,7 @@ Also, you can pass an environment variable `SLACK_VERBOSE=true` to print additio
 - [ ] `usergroups.update` - Update an existing User Group.
 - [ ] `usergroups.users.list` - List all users in a User Group.
 - [ ] `usergroups.users.update` - Update the list of users for a User Group.
+- [x] `users.counts` - Count number of users in the team.
 - [ ] `users.deletePhoto` - Delete the user avatar.
 - [x] `users.getPresence` - Gets user presence information.
 - [ ] `users.identity` - Get a user's identity.
