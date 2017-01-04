@@ -16,6 +16,12 @@ type ResponseChannelsList struct {
 	Channels []Channel `json:"channels"`
 }
 
+type ChannelSuggestions struct {
+	Response
+	Status               Response `json:"status"`
+	SuggestionTypesTried []string `json:"suggestion_types_tried"`
+}
+
 func (s *SlackAPI) ChannelsArchive(channel string) Response {
 	return s.ResourceArchive("channels.archive", s.ChannelsId(channel))
 }
@@ -107,6 +113,12 @@ func (s *SlackAPI) ChannelsSetRetention(channel string, duration string) Respons
 
 func (s *SlackAPI) ChannelsSetTopic(channel string, topic string) ChannelTopicNow {
 	return s.ResourceSetTopic("channels.setTopic", channel, topic)
+}
+
+func (s *SlackAPI) ChannelsSuggestions() ChannelSuggestions {
+	var response ChannelSuggestions
+	s.GetRequest(&response, "channels.suggestions", "token")
+	return response
 }
 
 func (s *SlackAPI) ChannelsUnarchive(channel string) Response {

@@ -95,6 +95,7 @@ Also, you can pass an environment variable `SLACK_VERBOSE=true` to print additio
 - [x] `channels.setPurpose` - Sets the purpose for a channel.
 - [x] `channels.setRetention` - Sets the retention time of the messages.
 - [x] `channels.setTopic` - Sets the topic for a channel.
+- [x] `channels.suggestions` - Prints a list of suggested channels to join.
 - [x] `channels.unarchive` - Unarchives a channel.
 - [x] `chat.delete` - Deletes a message.
 - [x] `chat.meMessage` - Share a me message into a channel.
