@@ -133,6 +133,7 @@ Also, you can pass an environment variable `SLACK_VERBOSE=true` to print additio
 - [x] `groups.setRetention` - Sets the retention time of the messages.
 - [x] `groups.setTopic` - Sets the topic for a private channel.
 - [x] `groups.unarchive` - Unarchives a private channel.
+- [x] `help.issues.list` - List issues reported by the current user.
 - [x] `im.close` - Close a direct message channel.
 - [x] `im.history` - Fetches history of messages and events from direct message channel.
 - [x] `im.list` - Lists direct message channels for the calling user.

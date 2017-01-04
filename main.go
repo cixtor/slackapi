@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.5.39"
+const version = "1.5.30"
 
 func main() {
 	var client SlackAPI
@@ -92,6 +92,7 @@ func main() {
 		fmt.Println("  slackapi groups.setRetention [channel] [duration]        Sets the retention time of the messages")
 		fmt.Println("  slackapi groups.setTopic [channel] [topic]               Sets the topic for a private channel")
 		fmt.Println("  slackapi groups.unarchive [channel]                      Unarchives a private channel")
+		fmt.Println("  slackapi help.issues.list                                List issues reported by the current user")
 		fmt.Println("  slackapi im.close [channel]                              Close a direct message channel")
 		fmt.Println("  slackapi im.history [channel] [time]                     Fetches history of messages and events from direct message channel")
 		fmt.Println("  slackapi im.list                                         Lists direct message channels for the calling user")
@@ -296,6 +297,8 @@ func main() {
 		client.PrintAndExit(client.GroupsSetTopic(flag.Arg(1), flag.Arg(2)))
 	case "groups.unarchive":
 		client.PrintAndExit(client.GroupsUnarchive(flag.Arg(1)))
+	case "help.issues.list":
+		client.PrintAndExit(client.HelpIssuesList())
 	case "im.close":
 		client.PrintAndExit(client.InstantMessagingClose(flag.Arg(1)))
 	case "im.history":
