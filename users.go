@@ -70,6 +70,8 @@ type UserProfile struct {
 	Phone              string      `json:"phone"`
 	RealName           string      `json:"real_name"`
 	RealNameNormalized string      `json:"real_name_normalized"`
+	StatusText         string      `json:"status_text"`
+	StatusEmoji        string      `json:"status_emoji"`
 	Skype              string      `json:"skype"`
 	Title              string      `json:"title"`
 }
