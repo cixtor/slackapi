@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.5.30"
+const version = "1.5.31"
 
 func main() {
 	var client SlackAPI
@@ -60,6 +60,7 @@ func main() {
 		fmt.Println("  slackapi chat.session                                    Starts a new chat session")
 		fmt.Println("  slackapi chat.update [channel] [time] [text]             Updates a message")
 		fmt.Println("  slackapi emoji.list                                      Lists custom emoji for a team")
+		fmt.Println("  slackapi eventlog.history [time]                         Lists all the events since the specified time")
 		fmt.Println("  slackapi files.comments.add [file] [text]                Add a comment to an existing file")
 		fmt.Println("  slackapi files.comments.delete [file] [fcid]             Deletes an existing comment on a file")
 		fmt.Println("  slackapi files.comments.edit [file] [fcid] [text]        Edit an existing file comment")
@@ -233,6 +234,8 @@ func main() {
 		client.PrintAndExit(client.ChatUpdate(flag.Arg(1), flag.Arg(2), flag.Arg(3)))
 	case "emoji.list":
 		client.PrintAndExit(client.EmojiList())
+	case "eventlog.history":
+		client.PrintAndExit(client.EventlogHistory(flag.Arg(1)))
 	case "files.comments.add":
 		client.PrintAndExit(client.FilesCommentsAdd(flag.Arg(1), flag.Arg(2)))
 	case "files.comments.delete":

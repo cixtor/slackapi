@@ -107,6 +107,7 @@ Also, you can pass an environment variable `SLACK_VERBOSE=true` to print additio
 - [ ] `dnd.setSnooze` - Turns on _"Do Not Disturb"_ mode for the current user, or changes its duration.
 - [ ] `dnd.teamInfo` - Retrieves the _"Do Not Disturb"_ status for users on a team.
 - [x] `emoji.list` - Lists custom emoji for a team.
+- [x] `eventlog.history` - Lists all the events since the specified time.
 - [x] `files.comments.add` - Add a comment to an existing file.
 - [x] `files.comments.delete` - Deletes an existing comment on a file.
 - [x] `files.comments.edit` - Edit an existing file comment.
