@@ -137,6 +137,7 @@ Also, you can pass an environment variable `SLACK_VERBOSE=true` to print additio
 - [ ] `mpim.close` - Closes a multiparty direct message channel.
 - [ ] `mpim.history` - Fetches history of messages and events from a multiparty direct message.
 - [x] `mpim.list` - Lists multiparty direct message channels for the calling user.
+- [x] `mpim.listSimple` - Lists ID and members in a multiparty direct message channels.
 - [ ] `mpim.mark` - Sets the read cursor in a multiparty direct message channel.
 - [ ] `mpim.open` - This method opens a multiparty direct message.
 - [ ] `oauth.access` - Exchanges a temporary OAuth code for an API token.

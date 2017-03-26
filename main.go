@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.5.31"
+const version = "1.5.32"
 
 func main() {
 	var client SlackAPI
@@ -102,6 +102,7 @@ func main() {
 		fmt.Println("  slackapi im.open [user]                                  Opens a direct message channel")
 		fmt.Println("  slackapi im.purgeHistory [channel] [time]                Deletes history of messages and events from direct message channel")
 		fmt.Println("  slackapi mpim.list                                       Lists multiparty direct message channels for the calling user")
+		fmt.Println("  slackapi mpim.listSimple                                 Lists ID and members in a multiparty direct message channels.")
 		fmt.Println("  slackapi reactions.add [name] [channel] [time]           Adds a reaction to an item")
 		fmt.Println("  slackapi reactions.get [channel] [time]                  Gets reactions for an item")
 		fmt.Println("  slackapi reactions.list [user]                           Lists reactions made by a user")
@@ -318,6 +319,8 @@ func main() {
 		client.InstantMessagingPurgeHistory(flag.Arg(1), flag.Arg(2), true)
 	case "mpim.list":
 		client.PrintAndExit(client.MultiPartyInstantMessagingList())
+	case "mpim.listSimple":
+		client.PrintAndExit(client.MultiPartyInstantMessagingListSimple())
 	case "reactions.add":
 		client.PrintAndExit(client.ReactionsAdd(flag.Arg(1), flag.Arg(2), flag.Arg(3)))
 	case "reactions.get":
