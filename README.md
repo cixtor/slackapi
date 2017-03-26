@@ -51,39 +51,18 @@ Also, you can pass an environment variable `SLACK_VERBOSE=true` to print additio
 - [x] `:userlist` - Displays the information of all the users.
 - [x] `:usersearch` - Searches the information of a specific user.
 
-### Non-Official Client Methods
-
-- [x] `auth.revokeTest` - Test the token revocation.
-- [x] `channels.id` - Gets channel identifier from readable name.
-- [x] `channels.myHistory` - Displays messages of the current user from a channel.
-- [x] `channels.purgeHistory` - Deletes history of messages and events from a channel.
-- [x] `chat.robotMessage` - Sends a message to a channel as a robot.
-- [x] `chat.session` - Starts a new chat session.
-- [x] `files.listAfterTime` - Lists and filters team files after this timestamp _(inclusive)_.
-- [x] `files.listBeforeTime` - Lists and filters team files before this timestamp _(inclusive)_.
-- [x] `files.listByChannel` - Lists and filters team files in a specific channel.
-- [x] `files.listByType` - Lists and filters team files by type: all, posts, snippets, images, gdocs, zips, pdfs.
-- [x] `files.listByUser` - Lists and filters team files created by a single user.
-- [x] `groups.id` - Gets private channel identifier from readable name.
-- [x] `groups.myHistory` - Displays messages of the current user from a private channel.
-- [x] `groups.purgeHistory` - Deletes history of messages and events from a private channel.
-- [x] `im.myHistory` - Displays messages of the current user from direct message channel.
-- [x] `im.purgeHistory` - Deletes history of messages and events from direct message channel.
-- [x] `users.id` - Gets user identifier from username.
-- [x] `users.search` - Search users by name or email address.
-- [x] `version` - Displays the program version number.
-- [x] `help` - Displays usage and program options.
-
 ### Official Client Methods
 
 - [x] `api.test` - Checks API calling code.
 - [x] `apps.list` - Lists associated applications.
 - [x] `auth.revoke` - Revokes a token.
+- [x] `auth.revokeTest` - Test the token revocation.
 - [x] `auth.test` - Checks authentication and identity.
 - [x] `bots.info` - Gets information about a bot user.
 - [x] `channels.archive` - Archives a channel.
 - [x] `channels.create` - Creates a channel.
 - [x] `channels.history` - Fetches history of messages and events from a channel.
+- [x] `channels.id` - Gets channel identifier from readable name.
 - [x] `channels.info` - Gets information about a channel.
 - [x] `channels.invite` - Invites a user to a channel.
 - [x] `channels.join` - Joins a channel, creating it if needed.
@@ -91,6 +70,8 @@ Also, you can pass an environment variable `SLACK_VERBOSE=true` to print additio
 - [x] `channels.leave` - Leaves a channel.
 - [x] `channels.list` - Lists all channels in a Slack team.
 - [x] `channels.mark` - Sets the read cursor in a channel.
+- [x] `channels.myHistory` - Displays messages of the current user from a channel.
+- [x] `channels.purgeHistory` - Deletes history of messages and events from a channel.
 - [x] `channels.rename` - Renames a channel.
 - [x] `channels.setPurpose` - Sets the purpose for a channel.
 - [x] `channels.setRetention` - Sets the retention time of the messages.
@@ -100,6 +81,8 @@ Also, you can pass an environment variable `SLACK_VERBOSE=true` to print additio
 - [x] `chat.delete` - Deletes a message.
 - [x] `chat.meMessage` - Share a me message into a channel.
 - [x] `chat.postMessage` - Sends a message to a channel.
+- [x] `chat.robotMessage` - Sends a message to a channel as a robot.
+- [x] `chat.session` - Starts a new chat session.
 - [x] `chat.update` - Updates a message.
 - [ ] `dnd.endDnd` - Ends the current user's _"Do Not Disturb"_ session immediately.
 - [ ] `dnd.endSnooze` - Ends the current user's snooze mode immediately.
@@ -114,6 +97,11 @@ Also, you can pass an environment variable `SLACK_VERBOSE=true` to print additio
 - [x] `files.delete` - Deletes a file.
 - [x] `files.info` - Gets information about a team file.
 - [x] `files.list` - Lists and filters team files.
+- [x] `files.listAfterTime` - Lists and filters team files after this timestamp _(inclusive)_.
+- [x] `files.listBeforeTime` - Lists and filters team files before this timestamp _(inclusive)_.
+- [x] `files.listByChannel` - Lists and filters team files in a specific channel.
+- [x] `files.listByType` - Lists and filters team files by type: all, posts, snippets, images, gdocs, zips, pdfs.
+- [x] `files.listByUser` - Lists and filters team files created by a single user.
 - [ ] `files.revokePublicURL` - Revokes public/external sharing access for a file.
 - [ ] `files.sharedPublicURL` - Enables a file for public/external sharing.
 - [x] `files.upload` - Uploads or creates a file.
@@ -122,24 +110,30 @@ Also, you can pass an environment variable `SLACK_VERBOSE=true` to print additio
 - [x] `groups.create` - Creates a private channel.
 - [x] `groups.createChild` - Clones and archives a private channel.
 - [x] `groups.history` - Fetches history of messages and events from a private channel.
+- [x] `groups.id` - Gets private channel identifier from readable name.
 - [x] `groups.info` - Gets information about a private channel.
 - [x] `groups.invite` - Invites a user to a private channel.
 - [x] `groups.kick` - Removes a user from a private channel.
 - [x] `groups.leave` - Leaves a private channel.
 - [x] `groups.list` - Lists private channels that the calling user has access to.
 - [x] `groups.mark` - Sets the read cursor in a private channel.
+- [x] `groups.myHistory` - Displays messages of the current user from a private channel.
 - [x] `groups.open` - Opens a private channel.
+- [x] `groups.purgeHistory` - Deletes history of messages and events from a private channel.
 - [x] `groups.rename` - Renames a private channel.
 - [x] `groups.setPurpose` - Sets the purpose for a private channel.
 - [x] `groups.setRetention` - Sets the retention time of the messages.
 - [x] `groups.setTopic` - Sets the topic for a private channel.
 - [x] `groups.unarchive` - Unarchives a private channel.
+- [x] `help` - Displays usage and program options.
 - [x] `help.issues.list` - List issues reported by the current user.
 - [x] `im.close` - Close a direct message channel.
 - [x] `im.history` - Fetches history of messages and events from direct message channel.
 - [x] `im.list` - Lists direct message channels for the calling user.
 - [x] `im.mark` - Sets the read cursor in a direct message channel.
+- [x] `im.myHistory` - Displays messages of the current user from direct message channel.
 - [x] `im.open` - Opens a direct message channel.
+- [x] `im.purgeHistory` - Deletes history of messages and events from direct message channel.
 - [ ] `mpim.close` - Closes a multiparty direct message channel.
 - [ ] `mpim.history` - Fetches history of messages and events from a multiparty direct message.
 - [x] `mpim.list` - Lists multiparty direct message channels for the calling user.
@@ -180,12 +174,15 @@ Also, you can pass an environment variable `SLACK_VERBOSE=true` to print additio
 - [x] `users.counts` - Count number of users in the team.
 - [ ] `users.deletePhoto` - Delete the user avatar.
 - [x] `users.getPresence` - Gets user presence information.
+- [x] `users.id` - Gets user identifier from username.
 - [ ] `users.identity` - Get a user's identity.
 - [x] `users.info` - Gets information about a user.
 - [x] `users.list` - Lists all users in a Slack team.
 - [ ] `users.preparePhoto` - Upload a picture to use as the avatar.
 - [x] `users.profile.get` - Retrieves a user's profile information.
 - [x] `users.profile.set` - Set the profile information for a user.
+- [x] `users.search` - Search users by name or email address.
 - [x] `users.setActive` - Marks a user as active.
 - [ ] `users.setPhoto` - Define which picture will be the avatar.
 - [x] `users.setPresence` - Manually sets user presence.
+- [x] `version` - Displays the program version number.
