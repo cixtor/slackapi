@@ -26,3 +26,7 @@ func (s *SlackAPI) MultiPartyInstantMessagingListSimple() ResponseMPIMListSimple
 	}
 	return output
 }
+
+func (s *SlackAPI) MultiPartyInstantMessagingMyHistory(channel string, latest string) MyHistory {
+	return s.ResourceMyHistory("mpim.history", channel, latest)
+}
