@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.5.32"
+const version = "1.5.33"
 
 func main() {
 	var client SlackAPI
@@ -101,6 +101,7 @@ func main() {
 		fmt.Println("  slackapi im.myHistory [channel] [time]                   Displays messages of the current user from direct message channel")
 		fmt.Println("  slackapi im.open [user]                                  Opens a direct message channel")
 		fmt.Println("  slackapi im.purgeHistory [channel] [time]                Deletes history of messages and events from direct message channel")
+		fmt.Println("  slackapi mpim.history [channel] [time]                   Fetches history of messages and events from a multiparty direct message.")
 		fmt.Println("  slackapi mpim.list                                       Lists multiparty direct message channels for the calling user")
 		fmt.Println("  slackapi mpim.listSimple                                 Lists ID and members in a multiparty direct message channels.")
 		fmt.Println("  slackapi reactions.add [name] [channel] [time]           Adds a reaction to an item")
@@ -317,6 +318,8 @@ func main() {
 		client.PrintAndExit(client.InstantMessagingOpen(flag.Arg(1)))
 	case "im.purgeHistory":
 		client.InstantMessagingPurgeHistory(flag.Arg(1), flag.Arg(2), true)
+	case "mpim.history":
+		client.PrintAndExit(client.MultiPartyInstantMessagingHistory(flag.Arg(1), flag.Arg(2)))
 	case "mpim.list":
 		client.PrintAndExit(client.MultiPartyInstantMessagingList())
 	case "mpim.listSimple":

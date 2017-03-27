@@ -7,6 +7,10 @@ type ResponseMPIMList struct {
 
 type ResponseMPIMListSimple map[string]string
 
+func (s *SlackAPI) MultiPartyInstantMessagingHistory(channel string, latest string) History {
+	return s.ResourceHistory("mpim.history", channel, latest)
+}
+
 func (s *SlackAPI) MultiPartyInstantMessagingList() ResponseMPIMList {
 	var response ResponseMPIMList
 	s.GetRequest(&response, "mpim.list", "token")

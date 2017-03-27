@@ -135,7 +135,7 @@ Also, you can pass an environment variable `SLACK_VERBOSE=true` to print additio
 - [x] `im.open` - Opens a direct message channel.
 - [x] `im.purgeHistory` - Deletes history of messages and events from direct message channel.
 - [ ] `mpim.close` - Closes a multiparty direct message channel.
-- [ ] `mpim.history` - Fetches history of messages and events from a multiparty direct message.
+- [x] `mpim.history` - Fetches history of messages and events from a multiparty direct message.
 - [x] `mpim.list` - Lists multiparty direct message channels for the calling user.
 - [x] `mpim.listSimple` - Lists ID and members in a multiparty direct message channels.
 - [ ] `mpim.mark` - Sets the read cursor in a multiparty direct message channel.
