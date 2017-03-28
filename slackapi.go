@@ -167,21 +167,24 @@ func (s *SlackAPI) PostRequest(data interface{}, action string, params ...string
 		parts = strings.SplitN(keyvalue, "=", 2)
 
 		if len(parts) == 2 {
-			if parts[0] == "file" {
+			if len(parts[1]) > 0 && parts[1][0] == '@' {
 				// Get real filepath.
 				var filepath string = parts[1]
 				filepath = filepath[1:len(filepath)]
 
 				// Get short filename.
-				parts = strings.Split(filepath, "/")
-				filename := parts[len(parts)-1]
+				fileParts := strings.Split(filepath, "/")
+				filename := fileParts[len(fileParts)-1]
 
 				// Read local file data.
-				resource, _ := os.Open(filepath)
+				resource, err := os.Open(filepath)
+				if err != nil {
+					s.ReportError(err)
+				}
 				defer resource.Close()
 
 				// Attach the data read from the local file.
-				fwriter, _ := writer.CreateFormFile("file", filepath)
+				fwriter, _ := writer.CreateFormFile(parts[0], filepath)
 				io.Copy(fwriter, resource)
 
 				// Append another HTTP parameter with the filename.
