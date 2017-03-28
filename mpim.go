@@ -30,3 +30,7 @@ func (s *SlackAPI) MultiPartyInstantMessagingListSimple() ResponseMPIMListSimple
 func (s *SlackAPI) MultiPartyInstantMessagingMyHistory(channel string, latest string) MyHistory {
 	return s.ResourceMyHistory("mpim.history", channel, latest)
 }
+
+func (s *SlackAPI) MultiPartyInstantMessagingPurgeHistory(channel string, latest string, verbose bool) DeletedHistory {
+	return s.ResourcePurgeHistory("mpim.history", channel, latest, verbose)
+}

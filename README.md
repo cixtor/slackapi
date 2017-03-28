@@ -141,6 +141,7 @@ Also, you can pass an environment variable `SLACK_VERBOSE=true` to print additio
 - [ ] `mpim.mark` - Sets the read cursor in a multiparty direct message channel.
 - [x] `mpim.myHistory` - Displays messages of the current user from multiparty direct message channel.
 - [ ] `mpim.open` - This method opens a multiparty direct message.
+- [x] `mpim.purgeHistory` - Deletes history of messages and events from multiparty direct message channel.
 - [ ] `oauth.access` - Exchanges a temporary OAuth code for an API token.
 - [ ] `pins.add` - Pins an item to a channel.
 - [ ] `pins.list` - Lists items pinned to a channel.
