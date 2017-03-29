@@ -187,6 +187,27 @@ func (s *SlackAPI) UsersPreparePhoto(image string) ResponseUserPhoto {
 	return response
 }
 
+func (s *SlackAPI) UsersProfileGet(user string) ResponseUserIdentity {
+	var response ResponseUserIdentity
+	s.GetRequest(&response,
+		"users.profile.get",
+		"token",
+		"user="+s.UsersId(user),
+		"include_labels=1")
+	return response
+}
+
+func (s *SlackAPI) UsersProfileSet(user string, name string, value string) ResponseUserIdentity {
+	var response ResponseUserIdentity
+	s.GetRequest(&response,
+		"users.profile.set",
+		"token",
+		"user="+s.UsersId(user),
+		"name="+name,
+		"value="+value)
+	return response
+}
+
 func (s *SlackAPI) UsersSearch(query string) []UserData {
 	var matches []UserData
 	response := s.UsersList()
@@ -213,26 +234,5 @@ func (s *SlackAPI) UsersSetActive() Response {
 func (s *SlackAPI) UsersSetPresence(value string) Response {
 	var response Response
 	s.GetRequest(&response, "users.setPresence", "token", "presence="+value)
-	return response
-}
-
-func (s *SlackAPI) UsersProfileGet(user string) ResponseUserIdentity {
-	var response ResponseUserIdentity
-	s.GetRequest(&response,
-		"users.profile.get",
-		"token",
-		"user="+s.UsersId(user),
-		"include_labels=1")
-	return response
-}
-
-func (s *SlackAPI) UsersProfileSet(user string, name string, value string) ResponseUserIdentity {
-	var response ResponseUserIdentity
-	s.GetRequest(&response,
-		"users.profile.set",
-		"token",
-		"user="+s.UsersId(user),
-		"name="+name,
-		"value="+value)
 	return response
 }

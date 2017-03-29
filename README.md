@@ -186,6 +186,6 @@ Also, you can pass an environment variable `SLACK_VERBOSE=true` to print additio
 - [x] `users.profile.set` - Set the profile information for a user.
 - [x] `users.search` - Search users by name or email address.
 - [x] `users.setActive` - Marks a user as active.
-- [ ] `users.setPhoto` - Define which picture will be the avatar.
+- [x] `users.setPhoto` - Define which picture will be the avatar.
 - [x] `users.setPresence` - Manually sets user presence.
 - [x] `version` - Displays the program version number.
