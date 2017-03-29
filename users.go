@@ -81,6 +81,12 @@ type ResponseUserIdentity struct {
 	Profile UserProfile `json:"profile"`
 }
 
+type ResponseUserPhoto struct {
+	Response
+	ID  string `json:"id"`
+	URL string `json:"url"`
+}
+
 type ResponseUsersCounts struct {
 	Response
 	Channels []CountChannel `json:"channels"`
@@ -169,6 +175,15 @@ func (s *SlackAPI) UsersList() ResponseUsersList {
 	s.GetRequest(&response, "users.list", "token", "presence=1")
 	s.TeamUsers = response
 
+	return response
+}
+
+func (s *SlackAPI) UsersPreparePhoto(image string) ResponseUserPhoto {
+	var response ResponseUserPhoto
+	s.PostRequest(&response,
+		"users.preparePhoto",
+		"token",
+		"image=@"+image)
 	return response
 }
 
