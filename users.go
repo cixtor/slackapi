@@ -83,6 +83,21 @@ type ResponseUserIdentity struct {
 
 type ResponseUserPhoto struct {
 	Response
+	Profile struct {
+		AvatarHash    string `json:"avatar_hash"`
+		Image1024     string `json:"image_1024"`
+		Image192      string `json:"image_192"`
+		Image24       string `json:"image_24"`
+		Image32       string `json:"image_32"`
+		Image48       string `json:"image_48"`
+		Image512      string `json:"image_512"`
+		Image72       string `json:"image_72"`
+		ImageOriginal string `json:"image_original"`
+	} `json:"profile"`
+}
+
+type ResponseUserPhotoUpload struct {
+	Response
 	ID  string `json:"id"`
 	URL string `json:"url"`
 }
@@ -178,8 +193,8 @@ func (s *SlackAPI) UsersList() ResponseUsersList {
 	return response
 }
 
-func (s *SlackAPI) UsersPreparePhoto(image string) ResponseUserPhoto {
-	var response ResponseUserPhoto
+func (s *SlackAPI) UsersPreparePhoto(image string) ResponseUserPhotoUpload {
+	var response ResponseUserPhotoUpload
 	s.PostRequest(&response,
 		"users.preparePhoto",
 		"token",
@@ -228,6 +243,18 @@ func (s *SlackAPI) UsersSearch(query string) []UserData {
 func (s *SlackAPI) UsersSetActive() Response {
 	var response Response
 	s.GetRequest(&response, "users.setActive", "token")
+	return response
+}
+
+func (s *SlackAPI) UsersSetPhoto(imageid string) ResponseUserPhoto {
+	var response ResponseUserPhoto
+	s.GetRequest(&response,
+		"users.setPhoto",
+		"token",
+		"crop_x=0",
+		"crop_y=0",
+		"crop_w=300",
+		"id="+imageid)
 	return response
 }
 
