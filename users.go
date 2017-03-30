@@ -154,6 +154,12 @@ func (s *SlackAPI) UsersCounts() ResponseUsersCounts {
 	return response
 }
 
+func (s *SlackAPI) UsersDeletePhoto() Response {
+	var response Response
+	s.GetRequest(&response, "users.deletePhoto", "token")
+	return response
+}
+
 func (s *SlackAPI) UsersGetPresence(query string) ResponseUsersGetPresence {
 	var response ResponseUsersGetPresence
 	s.GetRequest(&response, "users.getPresence", "token", "user="+query)
