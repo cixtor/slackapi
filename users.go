@@ -81,19 +81,28 @@ type ResponseUserIdentity struct {
 	Profile UserProfile `json:"profile"`
 }
 
+type ResponseUserAvatar struct {
+	Response
+	UploadID  string                   `json:"upload_id"`
+	UploadURL string                   `json:"upload_url"`
+	Profile   ResponseUserPhotoProfile `json:"profile"`
+}
+
 type ResponseUserPhoto struct {
 	Response
-	Profile struct {
-		AvatarHash    string `json:"avatar_hash"`
-		Image1024     string `json:"image_1024"`
-		Image192      string `json:"image_192"`
-		Image24       string `json:"image_24"`
-		Image32       string `json:"image_32"`
-		Image48       string `json:"image_48"`
-		Image512      string `json:"image_512"`
-		Image72       string `json:"image_72"`
-		ImageOriginal string `json:"image_original"`
-	} `json:"profile"`
+	Profile ResponseUserPhotoProfile `json:"profile"`
+}
+
+type ResponseUserPhotoProfile struct {
+	AvatarHash    string `json:"avatar_hash"`
+	Image1024     string `json:"image_1024"`
+	Image192      string `json:"image_192"`
+	Image24       string `json:"image_24"`
+	Image32       string `json:"image_32"`
+	Image48       string `json:"image_48"`
+	Image512      string `json:"image_512"`
+	Image72       string `json:"image_72"`
+	ImageOriginal string `json:"image_original"`
 }
 
 type ResponseUserPhotoUpload struct {
@@ -252,6 +261,16 @@ func (s *SlackAPI) UsersSetActive() Response {
 	return response
 }
 
+func (s *SlackAPI) UsersSetAvatar(image string) ResponseUserAvatar {
+	var response ResponseUserAvatar
+	upload := s.UsersPreparePhoto(image)
+	result := s.UsersSetPhoto(upload.ID)
+	response.UploadID = upload.ID
+	response.UploadURL = upload.URL
+	response.Profile = result.Profile
+	return response
+}
+
 func (s *SlackAPI) UsersSetPhoto(imageid string) ResponseUserPhoto {
 	var response ResponseUserPhoto
 	s.GetRequest(&response,
@@ -259,7 +278,7 @@ func (s *SlackAPI) UsersSetPhoto(imageid string) ResponseUserPhoto {
 		"token",
 		"crop_x=0",
 		"crop_y=0",
-		"crop_w=300",
+		"crop_w=1000",
 		"id="+imageid)
 	return response
 }
