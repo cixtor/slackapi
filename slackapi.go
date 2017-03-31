@@ -166,35 +166,33 @@ func (s *SlackAPI) PostRequest(data interface{}, action string, params ...string
 
 		parts = strings.SplitN(keyvalue, "=", 2)
 
-		if len(parts) == 2 {
-			if len(parts[1]) > 0 && parts[1][0] == '@' {
-				// Get real filepath.
-				var filepath string = parts[1]
-				filepath = filepath[1:len(filepath)]
-
-				// Get short filename.
-				fileParts := strings.Split(filepath, "/")
-				filename := fileParts[len(fileParts)-1]
-
-				// Read local file data.
-				resource, err := os.Open(filepath)
-				if err != nil {
-					s.ReportError(err)
-				}
-				defer resource.Close()
-
-				// Attach the data read from the local file.
-				fwriter, _ := writer.CreateFormFile(parts[0], filepath)
-				io.Copy(fwriter, resource)
-
-				// Append another HTTP parameter with the filename.
-				fwriter, _ = writer.CreateFormField("filename")
-				fwriter.Write([]byte(filename))
-			} else {
-				fwriter, _ := writer.CreateFormField(parts[0])
-				fwriter.Write([]byte(parts[1]))
-			}
+		/* Ignore empty parameters */
+		if len(parts) != 2 {
+			continue
 		}
+
+		/* Check if the parameter is referencing a file */
+		isfile, fpath, fname := s.CheckFileReference(parts[1])
+
+		if !isfile {
+			fwriter, _ := writer.CreateFormField(parts[0])
+			fwriter.Write([]byte(parts[1]))
+			continue
+		}
+
+		if len(parts[1]) > 0 && parts[1][0] == '@' {
+		}
+
+		/* Read referenced file and attach to the request */
+		resource, err := os.Open(fpath)
+		if err != nil {
+			s.ReportError(err)
+		}
+		defer resource.Close()
+		fwriter, _ := writer.CreateFormFile(parts[0], fpath)
+		io.Copy(fwriter, resource) /* attach file data */
+		fwriter, _ = writer.CreateFormField("filename")
+		fwriter.Write([]byte(fname))
 	}
 
 	writer.Close()
@@ -204,6 +202,24 @@ func (s *SlackAPI) PostRequest(data interface{}, action string, params ...string
 	req.Header.Set("Content-Type", writer.FormDataContentType())
 
 	s.ExecuteRequest(req, &data)
+}
+
+func (s *SlackAPI) CheckFileReference(text string) (bool, string, string) {
+	if len(text) < 2 || text[0] != '@' {
+		return false, "", ""
+	}
+
+	fpath := text[1:len(text)]
+
+	/* Check if the file actually exists */
+	if _, err := os.Stat(fpath); os.IsNotExist(err) {
+		return false, "", ""
+	}
+
+	parts := strings.Split(fpath, "/")
+	fname := parts[len(parts)-1]
+
+	return true, fpath, fname
 }
 
 func (s *SlackAPI) PrintFormattedJson(data interface{}) {
