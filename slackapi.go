@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"mime/multipart"
 	"net/http"
 	"net/url"
@@ -127,9 +128,16 @@ func (s *SlackAPI) ExecuteRequest(req *http.Request, data interface{}) {
 
 	defer resp.Body.Close()
 
-	err = json.NewDecoder(resp.Body).Decode(&data)
-
-	if err != nil {
+	var buf bytes.Buffer
+	tee := io.TeeReader(resp.Body, &buf)
+	if err := json.NewDecoder(tee).Decode(&data); err != nil {
+		out, _ := ioutil.ReadAll(&buf)
+		if strings.Contains(string(out), "too many requests") {
+			fake := "{\"ok\":false, \"error\":\"RATELIMIT\"}"
+			read := bytes.NewReader([]byte(fake))
+			json.NewDecoder(read).Decode(&data)
+			return
+		}
 		s.ReportError(err)
 	}
 }
