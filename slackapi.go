@@ -118,8 +118,6 @@ func (s *SlackAPI) AddRequestParam(param string, value string) {
 }
 
 func (s *SlackAPI) ExecuteRequest(req *http.Request, data interface{}) {
-	s.PrintCurlCommand(req)
-
 	client := &http.Client{}
 	resp, err := client.Do(req)
 
@@ -136,20 +134,30 @@ func (s *SlackAPI) ExecuteRequest(req *http.Request, data interface{}) {
 	}
 }
 
-func (s *SlackAPI) PrintCurlCommand(req *http.Request) {
+func (s *SlackAPI) PrintCurlCommand(req *http.Request, params []string) {
 	if os.Getenv("SLACK_VERBOSE") == "true" {
-		fmt.Printf("curl -X %s '%s'", req.Method, req.URL)
+		fmt.Printf("curl -X %s \"%s\"", req.Method, req.URL)
 
 		for header, values := range req.Header {
-			fmt.Printf("\x20\x5c\x0a-H '%s: %s'", header, values[0])
+			fmt.Printf(" \x5c\n-H \"%s: %s\"", header, values[0])
 		}
 
-		fmt.Printf("\x20\x5c\x0a-H 'Host: %s'\n", req.Host)
+		fmt.Printf(" \x5c\n-H \"Host: %s\"", req.Host)
+
+		for _, param := range params {
+			if param == "token" {
+				param = "token=" + s.Token
+			}
+			fmt.Printf(" \x5c\n-d \"%s\"", param)
+		}
+
+		fmt.Println()
 	}
 }
 
 func (s *SlackAPI) GetRequest(data interface{}, action string, params ...string) {
 	req := s.HttpRequest("GET", nil, action, params)
+	s.PrintCurlCommand(req, params)
 	s.ExecuteRequest(req, &data)
 }
 
@@ -201,6 +209,7 @@ func (s *SlackAPI) PostRequest(data interface{}, action string, params ...string
 	req := s.HttpRequest("POST", &buffer, action, nil)
 	req.Header.Set("Content-Type", writer.FormDataContentType())
 
+	s.PrintCurlCommand(req, params)
 	s.ExecuteRequest(req, &data)
 }
 
