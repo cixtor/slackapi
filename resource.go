@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
 
 func (s *SlackAPI) ResourceArchive(action string, channel string) Response {
@@ -124,6 +125,10 @@ func (s *SlackAPI) ResourcePurgeHistory(action string, channel string, latest st
 
 				if verbose {
 					fmt.Printf("\u2718 %s\n", result.Error)
+				}
+
+				if result.Error == "RATELIMIT" {
+					time.Sleep(10 * time.Second)
 				}
 			}
 

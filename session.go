@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"time"
 )
 
 type ChatSession struct {
@@ -201,6 +202,10 @@ func (s *ChatSession) ProcessCommandFlush() {
 		} else {
 			shortHistory = append(shortHistory, message)
 			fmt.Printf("\u2718 %s\n", response.Error)
+
+			if response.Error == "RATELIMIT" {
+				time.Sleep(10 * time.Second)
+			}
 		}
 	}
 
