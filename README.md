@@ -181,6 +181,7 @@ Also, you can pass an environment variable `SLACK_VERBOSE=true` to print additio
 - [ ] `users.identity` - Get a user's identity.
 - [x] `users.info` - Gets information about a user.
 - [x] `users.list` - Lists all users in a Slack team.
+- [x] `users.prefs.set` - Set user account preferences.
 - [x] `users.preparePhoto` - Upload a picture to use as the avatar.
 - [x] `users.profile.get` - Retrieves a user's profile information.
 - [x] `users.profile.set` - Set the profile information for a user.

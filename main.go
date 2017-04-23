@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.5.39"
+const version = "1.5.40"
 
 func main() {
 	var client SlackAPI
@@ -119,6 +119,7 @@ func main() {
 		fmt.Println("  slackapi users.id [user]                                 Gets user identifier from username")
 		fmt.Println("  slackapi users.info [user]                               Gets information about a user")
 		fmt.Println("  slackapi users.list                                      Lists all users in a Slack team")
+		fmt.Println("  slackapi users.prefs.set [name] [value]                  Set user account preferences.")
 		fmt.Println("  slackapi users.preparePhoto [image]                      Upload a picture to use as the avatar.")
 		fmt.Println("  slackapi users.profile.get [user]                        Retrieves a user's profile information")
 		fmt.Println("  slackapi users.profile.set [user] [name] [value]         Set the profile information for a user")
@@ -360,6 +361,8 @@ func main() {
 		client.PrintAndExit(client.UsersInfo(flag.Arg(1)))
 	case "users.list":
 		client.PrintAndExit(client.UsersList())
+	case "users.prefs.set":
+		client.PrintAndExit(client.UsersPrefsSet(flag.Arg(1), flag.Arg(2)))
 	case "users.preparePhoto":
 		client.PrintAndExit(client.UsersPreparePhoto(flag.Arg(1)))
 	case "users.profile.get":
