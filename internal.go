@@ -1,5 +1,6 @@
 package main
 
+// ResponseEventlogs defines the JSON-encoded output for Eventlogs.
 type ResponseEventlogs struct {
 	Response
 	Events  []ResponseEvent `json:"events"`
@@ -7,6 +8,7 @@ type ResponseEventlogs struct {
 	Total   int             `json:"total"`
 }
 
+// ResponseEvent defines the JSON-encoded output for Event.
 type ResponseEvent struct {
 	Type     string  `json:"type"`
 	Channel  string  `json:"channel"`
@@ -27,23 +29,27 @@ type ResponseEvent struct {
 	Item ResponseEventItem `json:"item"`
 }
 
+// ResponseEventItem defines the JSON-encoded output for EventItem.
 type ResponseEventItem struct {
 	Type    string `json:"type"`
 	Channel string `json:"channel"`
 	Ts      string `json:"ts"`
 }
 
+// ResponseIssues defines the JSON-encoded output for Issues.
 type ResponseIssues struct {
 	Response
 	Issues []string `json:"issues"`
 }
 
+// EventlogHistory lists all the events since the specified time.
 func (s *SlackAPI) EventlogHistory(timestamp string) ResponseEventlogs {
 	var response ResponseEventlogs
 	s.GetRequest(&response, "eventlog.history", "token", "start="+timestamp)
 	return response
 }
 
+// HelpIssuesList list issues reported by the current user.
 func (s *SlackAPI) HelpIssuesList() ResponseIssues {
 	var response ResponseIssues
 	s.GetRequest(&response, "help.issues.list", "token")

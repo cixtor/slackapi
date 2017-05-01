@@ -1,16 +1,19 @@
 package main
 
+// ResponseReactionsGet defines the JSON-encoded output for ReactionsGet.
 type ResponseReactionsGet struct {
 	Response
 	ReactionItem
 }
 
+// ResponseReactionsList defines the JSON-encoded output for ReactionsList.
 type ResponseReactionsList struct {
 	Response
 	Items  []ReactionItem `json:"items"`
 	Paging Pagination     `json:"paging"`
 }
 
+// ReactionItem defines the expected data from the JSON-encoded API response.
 type ReactionItem struct {
 	Channel string          `json:"channel"`
 	File    ReactionFile    `json:"file"`
@@ -18,6 +21,7 @@ type ReactionItem struct {
 	Type    string          `json:"type"`
 }
 
+// ReactionMessage defines the expected data from the JSON-encoded API response.
 type ReactionMessage struct {
 	Reactions []Reaction `json:"reactions"`
 	Text      string     `json:"text"`
@@ -26,17 +30,20 @@ type ReactionMessage struct {
 	User      string     `json:"user"`
 }
 
+// ReactionFile defines the expected data from the JSON-encoded API response.
 type ReactionFile struct {
 	File
 	Reactions []Reaction `json:"reactions"`
 }
 
+// Reaction defines the expected data from the JSON-encoded API response.
 type Reaction struct {
 	Count int      `json:"count"`
 	Name  string   `json:"name"`
 	Users []string `json:"users"`
 }
 
+// ReactionsAdd adds a reaction to an item.
 func (s *SlackAPI) ReactionsAdd(name string, resource string, unique string) Response {
 	var response Response
 
@@ -66,6 +73,7 @@ func (s *SlackAPI) ReactionsAdd(name string, resource string, unique string) Res
 	return response
 }
 
+// ReactionsGet gets reactions for an item.
 func (s *SlackAPI) ReactionsGet(resource string, unique string) ResponseReactionsGet {
 	var response ResponseReactionsGet
 
@@ -92,6 +100,7 @@ func (s *SlackAPI) ReactionsGet(resource string, unique string) ResponseReaction
 	return response
 }
 
+// ReactionsList lists reactions made by a user.
 func (s *SlackAPI) ReactionsList(userid string) ResponseReactionsList {
 	var response ResponseReactionsList
 	s.GetRequest(&response,
@@ -103,6 +112,7 @@ func (s *SlackAPI) ReactionsList(userid string) ResponseReactionsList {
 	return response
 }
 
+// ReactionsRemove removes a reaction from an item.
 func (s *SlackAPI) ReactionsRemove(name string, resource string, unique string) Response {
 	var response Response
 

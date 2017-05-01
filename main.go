@@ -6,7 +6,16 @@ import (
 	"os"
 )
 
-const version = "1.5.41"
+const version = "1.5.42"
+
+// TOKEN defines the name for the token HTTP request parameter.
+const TOKEN = "token"
+
+// EMOJI defines the name for the emoji HTTP request parameter.
+const EMOJI = "emoji"
+
+// ICONURL defines the name for the icon_url HTTP request parameter.
+const ICONURL = "icon_url"
 
 func main() {
 	var client SlackAPI
@@ -183,7 +192,7 @@ func main() {
 
 	switch command {
 	case "api.test":
-		client.PrintAndExit(client.ApiTest())
+		client.PrintAndExit(client.APITest())
 	case "apps.list":
 		client.PrintAndExit(client.AppsList())
 	case "auth.revoke":
@@ -201,7 +210,7 @@ func main() {
 	case "channels.history":
 		client.PrintAndExit(client.ChannelsHistory(flag.Arg(1), flag.Arg(2)))
 	case "channels.id":
-		client.PrintAndExit(client.ChannelsId(flag.Arg(1)))
+		client.PrintAndExit(client.ChannelsID(flag.Arg(1)))
 	case "channels.info":
 		client.PrintAndExit(client.ChannelsInfo(flag.Arg(1)))
 	case "channels.invite":
@@ -281,7 +290,7 @@ func main() {
 	case "groups.history":
 		client.PrintAndExit(client.GroupsHistory(flag.Arg(1), flag.Arg(2)))
 	case "groups.id":
-		client.PrintAndExit(client.GroupsId(flag.Arg(1)))
+		client.PrintAndExit(client.GroupsID(flag.Arg(1)))
 	case "groups.info":
 		client.PrintAndExit(client.GroupsInfo(flag.Arg(1)))
 	case "groups.invite":
@@ -313,29 +322,29 @@ func main() {
 	case "help.issues.list":
 		client.PrintAndExit(client.HelpIssuesList())
 	case "im.close":
-		client.PrintAndExit(client.InstantMessagingClose(flag.Arg(1)))
+		client.PrintAndExit(client.InstantMessageClose(flag.Arg(1)))
 	case "im.history":
-		client.PrintAndExit(client.InstantMessagingHistory(flag.Arg(1), flag.Arg(2)))
+		client.PrintAndExit(client.InstantMessageHistory(flag.Arg(1), flag.Arg(2)))
 	case "im.list":
-		client.PrintAndExit(client.InstantMessagingList())
+		client.PrintAndExit(client.InstantMessageList())
 	case "im.mark":
-		client.PrintAndExit(client.InstantMessagingMark(flag.Arg(1), flag.Arg(2)))
+		client.PrintAndExit(client.InstantMessageMark(flag.Arg(1), flag.Arg(2)))
 	case "im.myHistory":
-		client.PrintAndExit(client.InstantMessagingMyHistory(flag.Arg(1), flag.Arg(2)))
+		client.PrintAndExit(client.InstantMessageMyHistory(flag.Arg(1), flag.Arg(2)))
 	case "im.open":
-		client.PrintAndExit(client.InstantMessagingOpen(flag.Arg(1)))
+		client.PrintAndExit(client.InstantMessageOpen(flag.Arg(1)))
 	case "im.purgeHistory":
-		client.InstantMessagingPurgeHistory(flag.Arg(1), flag.Arg(2), true)
+		client.InstantMessagePurgeHistory(flag.Arg(1), flag.Arg(2), true)
 	case "mpim.history":
-		client.PrintAndExit(client.MultiPartyInstantMessagingHistory(flag.Arg(1), flag.Arg(2)))
+		client.PrintAndExit(client.MultiPartyInstantMessageHistory(flag.Arg(1), flag.Arg(2)))
 	case "mpim.list":
-		client.PrintAndExit(client.MultiPartyInstantMessagingList())
+		client.PrintAndExit(client.MultiPartyInstantMessageList())
 	case "mpim.listSimple":
-		client.PrintAndExit(client.MultiPartyInstantMessagingListSimple())
+		client.PrintAndExit(client.MultiPartyInstantMessageListSimple())
 	case "mpim.myHistory":
-		client.PrintAndExit(client.MultiPartyInstantMessagingMyHistory(flag.Arg(1), flag.Arg(2)))
+		client.PrintAndExit(client.MultiPartyInstantMessageMyHistory(flag.Arg(1), flag.Arg(2)))
 	case "mpim.purgeHistory":
-		client.MultiPartyInstantMessagingPurgeHistory(flag.Arg(1), flag.Arg(2), true)
+		client.MultiPartyInstantMessagePurgeHistory(flag.Arg(1), flag.Arg(2), true)
 	case "reactions.add":
 		client.PrintAndExit(client.ReactionsAdd(flag.Arg(1), flag.Arg(2), flag.Arg(3)))
 	case "reactions.get":
@@ -359,7 +368,7 @@ func main() {
 	case "users.getPresence":
 		client.PrintAndExit(client.UsersGetPresence(flag.Arg(1)))
 	case "users.id":
-		client.PrintAndExit(client.UsersId(flag.Arg(1)))
+		client.PrintAndExit(client.UsersID(flag.Arg(1)))
 	case "users.info":
 		client.PrintAndExit(client.UsersInfo(flag.Arg(1)))
 	case "users.list":

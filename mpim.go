@@ -1,36 +1,43 @@
 package main
 
-type ResponseMPIMList struct {
+// ResponseMultiPartyInstantMessageList defines the JSON-encoded output for MultiPartyInstantMessageList.
+type ResponseMultiPartyInstantMessageList struct {
 	Response
 	Groups []Channel `json:"groups"`
 }
 
-type ResponseMPIMListSimple map[string]string
+// ResponseMultiPartyInstantMessageListSimple defines the JSON-encoded output for MultiPartyInstantMessageListSimple.
+type ResponseMultiPartyInstantMessageListSimple map[string]string
 
-func (s *SlackAPI) MultiPartyInstantMessagingHistory(channel string, latest string) History {
+// MultiPartyInstantMessageHistory fetches history of messages and events from a multiparty direct message.
+func (s *SlackAPI) MultiPartyInstantMessageHistory(channel string, latest string) History {
 	return s.ResourceHistory("mpim.history", channel, latest)
 }
 
-func (s *SlackAPI) MultiPartyInstantMessagingList() ResponseMPIMList {
-	var response ResponseMPIMList
+// MultiPartyInstantMessageList lists multiparty direct message channels for the calling user.
+func (s *SlackAPI) MultiPartyInstantMessageList() ResponseMultiPartyInstantMessageList {
+	var response ResponseMultiPartyInstantMessageList
 	s.GetRequest(&response, "mpim.list", "token")
 	return response
 }
 
-func (s *SlackAPI) MultiPartyInstantMessagingListSimple() ResponseMPIMListSimple {
-	var response ResponseMPIMList
+// MultiPartyInstantMessageListSimple lists ID and members in a multiparty direct message channels.
+func (s *SlackAPI) MultiPartyInstantMessageListSimple() ResponseMultiPartyInstantMessageListSimple {
+	var response ResponseMultiPartyInstantMessageList
 	output := make(map[string]string)
 	s.GetRequest(&response, "mpim.list", "token")
 	for _, data := range response.Groups {
-		output[data.Id] = data.Purpose.Value
+		output[data.ID] = data.Purpose.Value
 	}
 	return output
 }
 
-func (s *SlackAPI) MultiPartyInstantMessagingMyHistory(channel string, latest string) MyHistory {
+// MultiPartyInstantMessageMyHistory displays messages of the current user from multiparty direct message channel.
+func (s *SlackAPI) MultiPartyInstantMessageMyHistory(channel string, latest string) MyHistory {
 	return s.ResourceMyHistory("mpim.history", channel, latest)
 }
 
-func (s *SlackAPI) MultiPartyInstantMessagingPurgeHistory(channel string, latest string, verbose bool) DeletedHistory {
+// MultiPartyInstantMessagePurgeHistory deletes history of messages and events from multiparty direct message channel.
+func (s *SlackAPI) MultiPartyInstantMessagePurgeHistory(channel string, latest string, verbose bool) DeletedHistory {
 	return s.ResourcePurgeHistory("mpim.history", channel, latest, verbose)
 }

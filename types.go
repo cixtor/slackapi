@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 )
 
+// Response defines the expected data from the JSON-encoded API response.
 type Response struct {
 	Ok       bool   `json:"ok"`
 	Error    string `json:"error,omitempty"`
@@ -11,24 +12,27 @@ type Response struct {
 	Provided string `json:"provided,omitempty"`
 }
 
+// Session defines the expected data from the JSON-encoded API response.
 type Session struct {
 	Response
 	AlreadyOpen bool `json:"already_open"`
 	NoOp        bool `json:"no_op"`
 	Channel     struct {
-		Id string `json:"id"`
+		ID string `json:"id"`
 	} `json:"channel"`
 }
 
+// Owner defines the expected data from the JSON-encoded API response.
 type Owner struct {
 	Response
 	Team   string `json:"team"`
-	TeamId string `json:"team_id"`
-	Url    string `json:"url"`
+	TeamID string `json:"team_id"`
+	URL    string `json:"url"`
 	User   string `json:"user"`
-	UserId string `json:"user_id"`
+	UserID string `json:"user_id"`
 }
 
+// History defines the expected data from the JSON-encoded API response.
 type History struct {
 	Response
 	HasMore            bool      `json:"has_more"`
@@ -36,6 +40,7 @@ type History struct {
 	UnreadCountDisplay int       `json:"unread_count_display"`
 }
 
+// MyHistory defines the expected data from the JSON-encoded API response.
 type MyHistory struct {
 	Filtered int
 	Latest   string
@@ -45,12 +50,14 @@ type MyHistory struct {
 	Username string
 }
 
+// DeletedHistory defines the expected data from the JSON-encoded API response.
 type DeletedHistory struct {
 	Deleted    int
 	NotDeleted int
 	Messages   []DeletedMessage
 }
 
+// Post defines the expected data from the JSON-encoded API response.
 type Post struct {
 	Response
 	Channel string  `json:"channel"`
@@ -59,9 +66,10 @@ type Post struct {
 	Ts      string  `json:"ts"`
 }
 
+// Message defines the expected data from the JSON-encoded API response.
 type Message struct {
 	Attachments  []Attachment `json:"attachments"`
-	BotId        string       `json:"bot_id"`
+	BotID        string       `json:"bot_id"`
 	Channel      string       `json:"channel"`
 	DisplayAsBot bool         `json:"display_as_bot"`
 	File         File         `json:"file"`
@@ -74,6 +82,7 @@ type Message struct {
 	Username     string       `json:"username"`
 }
 
+// ModifiedMessage defines the expected data from the JSON-encoded API response.
 type ModifiedMessage struct {
 	Response
 	Channel string `json:"channel"`
@@ -81,34 +90,37 @@ type ModifiedMessage struct {
 	Ts      string `json:"ts"`
 }
 
+// Attachment defines the expected data from the JSON-encoded API response.
 type Attachment struct {
 	Fallback    string      `json:"fallback"`
-	FromUrl     string      `json:"from_url"`
-	Id          int         `json:"id"`
+	FromURL     string      `json:"from_url"`
+	ID          int         `json:"id"`
 	ImageBytes  int         `json:"image_bytes"`
 	ImageHeight int         `json:"image_height"`
-	ImageUrl    string      `json:"image_url"`
+	ImageURL    string      `json:"image_url"`
 	ImageWidth  int         `json:"image_width"`
 	ServiceName string      `json:"service_name"`
 	Text        string      `json:"text"`
 	ThumbHeight int         `json:"thumb_height"`
-	ThumbUrl    string      `json:"thumb_url"`
+	ThumbURL    string      `json:"thumb_url"`
 	ThumbWidth  int         `json:"thumb_width"`
 	Title       string      `json:"title"`
 	TitleLink   string      `json:"title_link"`
 	Ts          json.Number `json:"ts"`
 }
 
+// DeletedMessage defines the expected data from the JSON-encoded API response.
 type DeletedMessage struct {
 	Deleted bool
 	Text    string
 	Ts      string
 }
 
+// Channel defines the expected data from the JSON-encoded API response.
 type Channel struct {
 	Created            int            `json:"created"`
 	Creator            string         `json:"creator"`
-	Id                 string         `json:"id"`
+	ID                 string         `json:"id"`
 	IsArchived         bool           `json:"is_archived"`
 	IsChannel          bool           `json:"is_channel"`
 	IsGeneral          bool           `json:"is_general"`
@@ -127,6 +139,7 @@ type Channel struct {
 	UnreadCountDisplay int            `json:"unread_count_display"`
 }
 
+// ChannelLatest defines the expected data from the JSON-encoded API response.
 type ChannelLatest struct {
 	Text string `json:"text"`
 	Ts   string `json:"ts"`
@@ -134,12 +147,14 @@ type ChannelLatest struct {
 	User string `json:"user"`
 }
 
+// ChannelPurpose defines the expected data from the JSON-encoded API response.
 type ChannelPurpose struct {
 	Creator string `json:"creator"`
 	LastSet int    `json:"last_set"`
 	Value   string `json:"value"`
 }
 
+// ChannelRename defines the expected data from the JSON-encoded API response.
 type ChannelRename struct {
 	Response
 	Channel struct {
@@ -151,34 +166,40 @@ type ChannelRename struct {
 	} `json:"channel"`
 }
 
+// ChannelTopic defines the expected data from the JSON-encoded API response.
 type ChannelTopic struct {
 	Creator string `json:"creator"`
 	LastSet int    `json:"last_set"`
 	Value   string `json:"value"`
 }
 
+// ChannelPurposeNow defines the expected data from the JSON-encoded API response.
 type ChannelPurposeNow struct {
 	Response
 	Purpose string `json:"purpose"`
 }
 
+// ChannelTopicNow defines the expected data from the JSON-encoded API response.
 type ChannelTopicNow struct {
 	Response
 	Topic string `json:"topic"`
 }
 
+// AppsList defines the expected data from the JSON-encoded API response.
 type AppsList struct {
 	Response
 	Apps    []AppsListApps `json:"apps"`
 	CacheTs string         `json:"cache_ts"`
 }
 
+// AppsListApps defines the expected data from the JSON-encoded API response.
 type AppsListApps struct {
-	Id    string            `json:"id"`
+	ID    string            `json:"id"`
 	Name  string            `json:"name"`
 	Icons AppsListAppsIcons `json:"icons"`
 }
 
+// AppsListAppsIcons defines the expected data from the JSON-encoded API response.
 type AppsListAppsIcons struct {
 	Image1024 string `json:"image_1024"`
 	Image128  string `json:"image_128"`
@@ -192,6 +213,7 @@ type AppsListAppsIcons struct {
 	Image96   string `json:"image_96"`
 }
 
+// Pagination defines the expected data from the JSON-encoded API response.
 type Pagination struct {
 	Count int `json:"count"`
 	Page  int `json:"page"`

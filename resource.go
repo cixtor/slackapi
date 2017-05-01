@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+// ResourceArchive archives a channel.
 func (s *SlackAPI) ResourceArchive(action string, channel string) Response {
 	var response Response
 	s.GetRequest(&response,
@@ -14,6 +15,7 @@ func (s *SlackAPI) ResourceArchive(action string, channel string) Response {
 	return response
 }
 
+// ResourceHistory fetches history of messages and events from a channel.
 func (s *SlackAPI) ResourceHistory(action string, channel string, latest string) History {
 	var response History
 	s.GetRequest(&response,
@@ -27,6 +29,7 @@ func (s *SlackAPI) ResourceHistory(action string, channel string, latest string)
 	return response
 }
 
+// ResourceInvite invites a user to a channel.
 func (s *SlackAPI) ResourceInvite(action string, channel string, user string) Response {
 	var response Response
 	s.GetRequest(&response,
@@ -37,6 +40,7 @@ func (s *SlackAPI) ResourceInvite(action string, channel string, user string) Re
 	return response
 }
 
+// ResourceKick removes a user from a channel.
 func (s *SlackAPI) ResourceKick(action string, channel string, user string) Response {
 	var response Response
 	s.GetRequest(&response,
@@ -47,6 +51,7 @@ func (s *SlackAPI) ResourceKick(action string, channel string, user string) Resp
 	return response
 }
 
+// ResourceLeave leaves a channel.
 func (s *SlackAPI) ResourceLeave(action string, channel string) Response {
 	var response Response
 	s.GetRequest(&response,
@@ -56,6 +61,7 @@ func (s *SlackAPI) ResourceLeave(action string, channel string) Response {
 	return response
 }
 
+// ResourceMark sets the read cursor in a channel.
 func (s *SlackAPI) ResourceMark(action string, channel string, timestamp string) Response {
 	var response Response
 	s.GetRequest(&response,
@@ -66,23 +72,24 @@ func (s *SlackAPI) ResourceMark(action string, channel string, timestamp string)
 	return response
 }
 
+// ResourceMyHistory displays messages of the current user from a channel.
 func (s *SlackAPI) ResourceMyHistory(action string, channel string, latest string) MyHistory {
-	var owner Owner = s.AuthTest()
 	var rhistory MyHistory
 
+	owner := s.AuthTest()
 	response := s.ResourceHistory(action, channel, latest)
 
 	for _, message := range response.Messages {
-		rhistory.Total += 1
+		rhistory.Total++
 
-		if message.User == owner.UserId {
+		if message.User == owner.UserID {
 			rhistory.Messages = append(rhistory.Messages, message)
-			rhistory.Filtered += 1
+			rhistory.Filtered++
 		}
 	}
 
 	if rhistory.Total > 0 {
-		var offset int = len(response.Messages) - 1
+		offset := len(response.Messages) - 1
 
 		rhistory.Username = owner.User
 		rhistory.Latest = response.Messages[0].Ts
@@ -92,6 +99,7 @@ func (s *SlackAPI) ResourceMyHistory(action string, channel string, latest strin
 	return rhistory
 }
 
+// ResourcePurgeHistory deletes history of messages and events from a channel.
 func (s *SlackAPI) ResourcePurgeHistory(action string, channel string, latest string, verbose bool) DeletedHistory {
 	var delhist DeletedHistory
 	var delmsg DeletedMessage
@@ -139,6 +147,7 @@ func (s *SlackAPI) ResourcePurgeHistory(action string, channel string, latest st
 	return delhist
 }
 
+// ResourceRename renames a channel.
 func (s *SlackAPI) ResourceRename(action string, channel string, name string) ChannelRename {
 	var response ChannelRename
 	s.GetRequest(&response,
@@ -149,6 +158,7 @@ func (s *SlackAPI) ResourceRename(action string, channel string, name string) Ch
 	return response
 }
 
+// ResourceSetPurpose sets the purpose for a channel.
 func (s *SlackAPI) ResourceSetPurpose(action string, channel string, purpose string) ChannelPurposeNow {
 	var response ChannelPurposeNow
 	s.GetRequest(&response,
@@ -159,6 +169,7 @@ func (s *SlackAPI) ResourceSetPurpose(action string, channel string, purpose str
 	return response
 }
 
+// ResourceSetRetention sets the retention time of the messages.
 func (s *SlackAPI) ResourceSetRetention(action string, channel string, duration string) Response {
 	var response Response
 	s.GetRequest(&response,
@@ -170,6 +181,7 @@ func (s *SlackAPI) ResourceSetRetention(action string, channel string, duration 
 	return response
 }
 
+// ResourceSetTopic sets the topic for a channel.
 func (s *SlackAPI) ResourceSetTopic(action string, channel string, topic string) ChannelTopicNow {
 	var response ChannelTopicNow
 	s.GetRequest(&response,
@@ -180,6 +192,7 @@ func (s *SlackAPI) ResourceSetTopic(action string, channel string, topic string)
 	return response
 }
 
+// ResourceUnarchive unarchives a channel.
 func (s *SlackAPI) ResourceUnarchive(action string, channel string) Response {
 	var response Response
 	s.GetRequest(&response,

@@ -5,6 +5,7 @@ import (
 	"os"
 )
 
+// ChatDelete deletes a message.
 func (s *SlackAPI) ChatDelete(channel string, timestamp string) ModifiedMessage {
 	var response ModifiedMessage
 	s.GetRequest(&response,
@@ -15,6 +16,7 @@ func (s *SlackAPI) ChatDelete(channel string, timestamp string) ModifiedMessage 
 	return response
 }
 
+// ChatMeMessage share a me message into a channel.
 func (s *SlackAPI) ChatMeMessage(channel string, message string) ModifiedMessage {
 	var response ModifiedMessage
 	s.GetRequest(&response,
@@ -25,16 +27,17 @@ func (s *SlackAPI) ChatMeMessage(channel string, message string) ModifiedMessage
 	return response
 }
 
+// ChatPostMessage sends a message to a channel.
 func (s *SlackAPI) ChatPostMessage(channel string, message string) Post {
 	var response Post
 
 	if s.RobotIsActive == true {
 		var imageType string
 
-		if s.RobotImageType == "emoji" {
+		if s.RobotImageType == EMOJI {
 			imageType = "icon_emoji"
 		} else {
-			imageType = "icon_url"
+			imageType = ICONURL
 		}
 
 		s.GetRequest(&response,
@@ -61,6 +64,7 @@ func (s *SlackAPI) ChatPostMessage(channel string, message string) Post {
 	return response
 }
 
+// ChatRobotMessage sends a message to a channel as a robot.
 func (s *SlackAPI) ChatRobotMessage(channel string, message string) Post {
 	s.RobotIsActive = true
 	s.RobotName = os.Getenv("SLACK_ROBOT_NAME")
@@ -75,14 +79,15 @@ func (s *SlackAPI) ChatRobotMessage(channel string, message string) Post {
 	}
 
 	if s.RobotImage[0] == ':' {
-		s.RobotImageType = "emoji"
+		s.RobotImageType = EMOJI
 	} else {
-		s.RobotImageType = "icon_url"
+		s.RobotImageType = ICONURL
 	}
 
 	return s.ChatPostMessage(channel, message)
 }
 
+// ChatUpdate updates a message.
 func (s *SlackAPI) ChatUpdate(channel string, timestamp string, message string) Post {
 	var response Post
 	s.GetRequest(&response,

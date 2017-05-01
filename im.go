@@ -1,49 +1,58 @@
 package main
 
-type IMList struct {
+// InstantMessageList defines the expected data from the JSON-encoded API response.
+type InstantMessageList struct {
 	Response
-	Ims []IMObject `json:"ims"`
+	InstantMessages []InstantMessageObject `json:"ims"`
 }
 
-type IMObject struct {
-	Created       int    `json:"created"`
-	Id            string `json:"id"`
-	IsIm          bool   `json:"is_im"`
-	IsUserDeleted bool   `json:"is_user_deleted"`
-	User          string `json:"user"`
+// InstantMessageObject defines the expected data from the JSON-encoded API response.
+type InstantMessageObject struct {
+	Created          int    `json:"created"`
+	ID               string `json:"id"`
+	IsInstantMessage bool   `json:"is_im"`
+	IsUserDeleted    bool   `json:"is_user_deleted"`
+	User             string `json:"user"`
 }
 
-func (s *SlackAPI) InstantMessagingClose(channel string) Response {
+// InstantMessageClose close a direct message channel.
+func (s *SlackAPI) InstantMessageClose(channel string) Response {
 	var response Response
 	s.GetRequest(&response, "im.close", "token", "channel="+channel)
 	return response
 }
 
-func (s *SlackAPI) InstantMessagingHistory(channel string, latest string) History {
+// InstantMessageHistory fetches history of messages and events from direct message channel.
+func (s *SlackAPI) InstantMessageHistory(channel string, latest string) History {
 	return s.ResourceHistory("im.history", channel, latest)
 }
 
-func (s *SlackAPI) InstantMessagingList() IMList {
-	var response IMList
+// InstantMessageList lists direct message channels for the calling user.
+func (s *SlackAPI) InstantMessageList() InstantMessageList {
+	var response InstantMessageList
 	s.GetRequest(&response, "im.list", "token")
 	return response
 }
 
-func (s *SlackAPI) InstantMessagingMark(channel string, timestamp string) Response {
+// InstantMessageMark sets the read cursor in a direct message channel.
+func (s *SlackAPI) InstantMessageMark(channel string, timestamp string) Response {
 	return s.ResourceMark("im.mark", channel, timestamp)
 }
 
-func (s *SlackAPI) InstantMessagingMyHistory(channel string, latest string) MyHistory {
+// InstantMessageMyHistory displays messages of the current user from direct message channel.
+func (s *SlackAPI) InstantMessageMyHistory(channel string, latest string) MyHistory {
 	return s.ResourceMyHistory("im.history", channel, latest)
 }
 
-func (s *SlackAPI) InstantMessagingOpen(userid string) Session {
+// InstantMessageOpen opens a direct message channel.
+func (s *SlackAPI) InstantMessageOpen(userid string) Session {
 	var response Session
-	userid = s.UsersId(userid)
+	userid = s.UsersID(userid)
 	s.GetRequest(&response, "im.open", "token", "user="+userid)
 	return response
 }
 
-func (s *SlackAPI) InstantMessagingPurgeHistory(channel string, latest string, verbose bool) DeletedHistory {
+// InstantMessagePurgeHistory deletes history of messages and events from direct message channel.
+func (s *SlackAPI) InstantMessagePurgeHistory(channel string, latest string, verbose bool) DeletedHistory {
 	return s.ResourcePurgeHistory("im.history", channel, latest, verbose)
 }

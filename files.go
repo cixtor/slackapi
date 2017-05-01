@@ -1,5 +1,6 @@
 package main
 
+// ResponseFilesInfo defines the JSON-encoded output for FilesInfo.
 type ResponseFilesInfo struct {
 	Response
 	File     File          `json:"file"`
@@ -7,22 +8,26 @@ type ResponseFilesInfo struct {
 	Paging   Pagination    `json:"paging"`
 }
 
+// ResponseFilesList defines the JSON-encoded output for FilesList.
 type ResponseFilesList struct {
 	Response
 	Files  []File     `json:"files"`
 	Paging Pagination `json:"paging"`
 }
 
+// ResponseFilesUpload defines the JSON-encoded output for FilesUpload.
 type ResponseFilesUpload struct {
 	Response
 	File File `json:"file"`
 }
 
+// ResponseFilesComments defines the JSON-encoded output for FilesComments.
 type ResponseFilesComments struct {
 	Response
 	Comment FileComment `json:"comment"`
 }
 
+// File defines the expected data from the JSON-encoded API response.
 type File struct {
 	Channels           []string    `json:"channels"`
 	CommentsCount      int         `json:"comments_count"`
@@ -33,9 +38,9 @@ type File struct {
 	ExternalType       string      `json:"external_type"`
 	Filetype           string      `json:"filetype"`
 	Groups             []string    `json:"groups"`
-	Id                 string      `json:"id"`
+	ID                 string      `json:"id"`
 	ImageExifRotation  int         `json:"image_exif_rotation"`
-	Ims                []string    `json:"ims"`
+	InstantMessages    []string    `json:"ims"`
 	InitialComment     FileComment `json:"initial_comment"`
 	IsExternal         bool        `json:"is_external"`
 	IsPublic           bool        `json:"is_public"`
@@ -52,7 +57,7 @@ type File struct {
 	PrettyType         string      `json:"pretty_type"`
 	Preview            string      `json:"preview"`
 	PreviewHighlight   string      `json:"preview_highlight"`
-	PublicUrlShared    bool        `json:"public_url_shared"`
+	PublicURLShared    bool        `json:"public_url_shared"`
 	Size               int         `json:"size"`
 	Thumb160           string      `json:"thumb_160"`
 	Thumb360           string      `json:"thumb_360"`
@@ -66,22 +71,24 @@ type File struct {
 	Thumb80            string      `json:"thumb_80"`
 	Timestamp          int         `json:"timestamp"`
 	Title              string      `json:"title"`
-	Url                string      `json:"url"`
-	UrlDownload        string      `json:"url_download"`
-	UrlPrivate         string      `json:"url_private"`
-	UrlPrivateDownload string      `json:"url_private_download"`
+	URL                string      `json:"url"`
+	URLDownload        string      `json:"url_download"`
+	URLPrivate         string      `json:"url_private"`
+	URLPrivateDownload string      `json:"url_private_download"`
 	User               string      `json:"user"`
 	Username           string      `json:"username"`
 }
 
+// FileComment defines the expected data from the JSON-encoded API response.
 type FileComment struct {
 	Comment   string `json:"comment"`
 	Created   int    `json:"created"`
-	Id        string `json:"id"`
+	ID        string `json:"id"`
 	Timestamp int    `json:"timestamp"`
 	User      string `json:"user"`
 }
 
+// FilesCommentsAdd add a comment to an existing file.
 func (s *SlackAPI) FilesCommentsAdd(file string, text string) ResponseFilesComments {
 	var response ResponseFilesComments
 	s.GetRequest(&response,
@@ -92,6 +99,7 @@ func (s *SlackAPI) FilesCommentsAdd(file string, text string) ResponseFilesComme
 	return response
 }
 
+// FilesCommentsDelete deletes an existing comment on a file.
 func (s *SlackAPI) FilesCommentsDelete(file string, textid string) Response {
 	var response Response
 	s.GetRequest(&response,
@@ -102,6 +110,7 @@ func (s *SlackAPI) FilesCommentsDelete(file string, textid string) Response {
 	return response
 }
 
+// FilesCommentsEdit edit an existing file comment.
 func (s *SlackAPI) FilesCommentsEdit(file string, textid string, text string) ResponseFilesComments {
 	var response ResponseFilesComments
 	s.GetRequest(&response,
@@ -113,6 +122,7 @@ func (s *SlackAPI) FilesCommentsEdit(file string, textid string, text string) Re
 	return response
 }
 
+// FilesDelete deletes a file.
 func (s *SlackAPI) FilesDelete(file string) Response {
 	var response Response
 	s.GetRequest(&response,
@@ -122,6 +132,7 @@ func (s *SlackAPI) FilesDelete(file string) Response {
 	return response
 }
 
+// FilesInfo gets information about a team file.
 func (s *SlackAPI) FilesInfo(file string, count string, page string) ResponseFilesInfo {
 	var response ResponseFilesInfo
 	s.GetRequest(&response,
@@ -133,6 +144,12 @@ func (s *SlackAPI) FilesInfo(file string, count string, page string) ResponseFil
 	return response
 }
 
+// FilesList lists and filters team files.
+// FilesListAfterTime lists and filters team files after this timestamp (inclusive).
+// FilesListBeforeTime lists and filters team files before this timestamp (inclusive).
+// FilesListByChannel lists and filters team files in a specific channel.
+// FilesListByType lists and filters team files by type: all, posts, snippets, images, gdocs, zips, pdfs.
+// FilesListByUser lists and filters team files created by a single user.
 func (s *SlackAPI) FilesList(action string, filter string, count string, page string) ResponseFilesList {
 	if action != "" && action != "none" {
 		s.AddRequestParam(action, filter)
@@ -151,6 +168,7 @@ func (s *SlackAPI) FilesList(action string, filter string, count string, page st
 	return response
 }
 
+// FilesUpload uploads or creates a file.
 func (s *SlackAPI) FilesUpload(channel string, file string) ResponseFilesUpload {
 	var response ResponseFilesUpload
 	s.PostRequest(&response,

@@ -15,6 +15,11 @@ import (
 	"strings"
 )
 
+// SlackAPI defines the base object. It holds the API token, the information of
+// the user account associated to such API token, the information for the robot
+// session (if the user decides has activated it), a list of all the available
+// public channels, a list of all the accessible private groups, and a list of
+// the users registered into the Slack team.
 type SlackAPI struct {
 	Owner          Owner
 	RequestParams  []string
@@ -28,19 +33,22 @@ type SlackAPI struct {
 	Token          string
 }
 
+// SetToken sets the API token for the session.
 func (s *SlackAPI) SetToken(token string) {
 	s.Token = token
 }
 
+// AutoConfigure sets the API token from an environment variable.
 func (s *SlackAPI) AutoConfigure() {
 	s.Token = os.Getenv("SLACK_TOKEN")
 
 	s.RobotName = "bender"
 	s.RobotImage = ":robot_face:"
-	s.RobotImageType = "emoji"
+	s.RobotImageType = EMOJI
 	s.RobotIsActive = false
 }
 
+// System executes an external command and returns its output.
 func (s *SlackAPI) System(kommand string) []byte {
 	var binary string
 	var parts []string
@@ -63,14 +71,15 @@ func (s *SlackAPI) System(kommand string) []byte {
 	return bytes.Trim(response, "\n")
 }
 
-func (s *SlackAPI) Url(action string, params []string) string {
+// URL builds and returns the URL to send the HTTP requests.
+func (s *SlackAPI) URL(action string, params []string) string {
 	data := url.Values{}
 	var parts []string
 	var encoded string
 	var url string = fmt.Sprintf("https://slack.com/api/%s", action)
 
 	for _, keyvalue := range params {
-		if keyvalue == "token" {
+		if keyvalue == TOKEN {
 			keyvalue += "=" + s.Token
 		}
 
@@ -90,13 +99,14 @@ func (s *SlackAPI) Url(action string, params []string) string {
 	return url
 }
 
-func (s *SlackAPI) HttpRequest(method string, body io.Reader, action string, params []string) *http.Request {
+// HTTPRequest builds an HTTP request object and attaches the action parameters.
+func (s *SlackAPI) HTTPRequest(method string, body io.Reader, action string, params []string) *http.Request {
 	if len(s.RequestParams) > 0 {
 		params = append(params, s.RequestParams...)
 		s.RequestParams = s.RequestParams[:0]
 	}
 
-	var url string = s.Url(action, params)
+	url := s.URL(action, params)
 	req, err := http.NewRequest(method, url, body)
 
 	req.Header.Add("DNT", "1")
@@ -113,11 +123,13 @@ func (s *SlackAPI) HttpRequest(method string, body io.Reader, action string, par
 	return req
 }
 
+// AddRequestParam adds an additional parameter to the HTTP request.
 func (s *SlackAPI) AddRequestParam(param string, value string) {
 	var parameter string = fmt.Sprintf("%s=%s", param, value)
 	s.RequestParams = append(s.RequestParams, parameter)
 }
 
+// ExecuteRequest sends the HTTP request and decodes the JSON response.
 func (s *SlackAPI) ExecuteRequest(req *http.Request, data interface{}) {
 	client := &http.Client{}
 	resp, err := client.Do(req)
@@ -142,6 +154,7 @@ func (s *SlackAPI) ExecuteRequest(req *http.Request, data interface{}) {
 	}
 }
 
+// PrintCurlCommand prints the HTTP request object into the console.
 func (s *SlackAPI) PrintCurlCommand(req *http.Request, params []string) {
 	if os.Getenv("SLACK_VERBOSE") == "true" {
 		fmt.Printf("curl -X %s \"%s\"", req.Method, req.URL)
@@ -153,8 +166,8 @@ func (s *SlackAPI) PrintCurlCommand(req *http.Request, params []string) {
 		fmt.Printf(" \x5c\n-H \"Host: %s\"", req.Host)
 
 		for _, param := range params {
-			if param == "token" {
-				param = "token=" + s.Token
+			if param == TOKEN {
+				param = TOKEN + "=" + s.Token
 			}
 			fmt.Printf(" \x5c\n-d \"%s\"", param)
 		}
@@ -163,12 +176,20 @@ func (s *SlackAPI) PrintCurlCommand(req *http.Request, params []string) {
 	}
 }
 
+// GetRequest sends a HTTP GET request to the API and returns the response.
 func (s *SlackAPI) GetRequest(data interface{}, action string, params ...string) {
-	req := s.HttpRequest("GET", nil, action, params)
+	req := s.HTTPRequest("GET", nil, action, params)
 	s.PrintCurlCommand(req, params)
 	s.ExecuteRequest(req, &data)
 }
 
+// PostRequest sends a HTTP POST request to the API and returns the response. If
+// one of the request parameters is prefixed with an AT symbol the method will
+// assume that the user is trying to load a local file, it will proceed to check
+// this by locating such file in the disk, then will attach the data into the
+// HTTP request object and upload it to the API. Alternatively, if the file does
+// not exists, the method will send the parameter with the apparent filename as
+// a string value.
 func (s *SlackAPI) PostRequest(data interface{}, action string, params ...string) {
 	var parts []string
 	var buffer bytes.Buffer
@@ -176,7 +197,7 @@ func (s *SlackAPI) PostRequest(data interface{}, action string, params ...string
 
 	// Append more HTTP request params.
 	for _, keyvalue := range params {
-		if keyvalue == "token" {
+		if keyvalue == TOKEN {
 			keyvalue += "=" + s.Token
 		}
 
@@ -214,13 +235,14 @@ func (s *SlackAPI) PostRequest(data interface{}, action string, params ...string
 	writer.Close()
 
 	// Now that you have a form, you can submit it to your handler.
-	req := s.HttpRequest("POST", &buffer, action, nil)
+	req := s.HTTPRequest("POST", &buffer, action, nil)
 	req.Header.Set("Content-Type", writer.FormDataContentType())
 
 	s.PrintCurlCommand(req, params)
 	s.ExecuteRequest(req, &data)
 }
 
+// CheckFileReference checks if a HTTP request parameter is a file reference.
 func (s *SlackAPI) CheckFileReference(text string) (bool, string, string) {
 	if len(text) < 2 || text[0] != '@' {
 		return false, "", ""
@@ -239,7 +261,8 @@ func (s *SlackAPI) CheckFileReference(text string) (bool, string, string) {
 	return true, fpath, fname
 }
 
-func (s *SlackAPI) PrintFormattedJson(data interface{}) {
+// PrintFormattedJSON prints the JSON-encoded data as a string.
+func (s *SlackAPI) PrintFormattedJSON(data interface{}) {
 	response, err := json.MarshalIndent(data, "", "\x20\x20")
 
 	if err != nil {
@@ -249,7 +272,8 @@ func (s *SlackAPI) PrintFormattedJson(data interface{}) {
 	fmt.Printf("%s\n", response)
 }
 
-func (s *SlackAPI) PrintInlineJson(data interface{}) {
+// PrintInlineJSON prints the JSON-encoded data as a formatted string.
+func (s *SlackAPI) PrintInlineJSON(data interface{}) {
 	response, err := json.Marshal(data)
 
 	if err != nil {
@@ -259,11 +283,13 @@ func (s *SlackAPI) PrintInlineJson(data interface{}) {
 	fmt.Printf("%s\n", response)
 }
 
+// PrintAndExit prints the JSON-encoded data as a string and exits.
 func (s *SlackAPI) PrintAndExit(data interface{}) {
-	s.PrintFormattedJson(data)
+	s.PrintFormattedJSON(data)
 	os.Exit(0)
 }
 
+// ReportError prints an error message and exits.
 func (s *SlackAPI) ReportError(err error) {
 	fmt.Printf("Error: %s\n", err)
 	os.Exit(1)

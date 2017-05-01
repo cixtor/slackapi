@@ -1,5 +1,12 @@
 package main
 
+// ResponseBot defines the JSON-encoded output for Bot.
+type ResponseBot struct {
+	Response
+	Bot BotEntity `json:"bot"`
+}
+
+// BotEntity defines the expected data from the JSON-encoded API response.
 type BotEntity struct {
 	ID      string            `json:"id"`
 	Deleted bool              `json:"deleted"`
@@ -7,13 +14,9 @@ type BotEntity struct {
 	Icons   map[string]string `json:"icons"`
 }
 
-type ResponseBot struct {
-	Response
-	Bot BotEntity `json:"bot"`
-}
-
+// BotsInfo gets information about a bot user.
 func (s *SlackAPI) BotsInfo(bot string) ResponseBot {
 	var response ResponseBot
-	s.GetRequest(&response, "bots.info", "token", "bot="+s.UsersId(bot))
+	s.GetRequest(&response, "bots.info", "token", "bot="+s.UsersID(bot))
 	return response
 }

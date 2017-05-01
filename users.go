@@ -4,21 +4,79 @@ import (
 	"strings"
 )
 
+// ResponseUsersInfo defines the JSON-encoded output for UsersInfo.
 type ResponseUsersInfo struct {
 	Response
 	User UserData `json:"user"`
 }
 
+// ResponseUsersGetPresence defines the JSON-encoded output for UsersGetPresence.
 type ResponseUsersGetPresence struct {
 	Response
 	UserPresence
 }
 
+// ResponseUsersList defines the JSON-encoded output for UsersList.
 type ResponseUsersList struct {
 	Response
 	Members []UserData `json:"members"`
 }
 
+// ResponseUserPrefs defines the JSON-encoded output for UserPrefs.
+type ResponseUserPrefs struct {
+	Response
+	Prefs UserPrefs `json:"prefs"`
+}
+
+// ResponseUserIdentity defines the JSON-encoded output for UserIdentity.
+type ResponseUserIdentity struct {
+	Response
+	Profile UserProfile `json:"profile"`
+}
+
+// ResponseUserAvatar defines the JSON-encoded output for UserAvatar.
+type ResponseUserAvatar struct {
+	Response
+	UploadID  string                   `json:"upload_id"`
+	UploadURL string                   `json:"upload_url"`
+	Profile   ResponseUserPhotoProfile `json:"profile"`
+}
+
+// ResponseUserPhoto defines the JSON-encoded output for UserPhoto.
+type ResponseUserPhoto struct {
+	Response
+	Profile ResponseUserPhotoProfile `json:"profile"`
+}
+
+// ResponseUserPhotoProfile defines the JSON-encoded output for UserPhotoProfile.
+type ResponseUserPhotoProfile struct {
+	AvatarHash    string `json:"avatar_hash"`
+	Image1024     string `json:"image_1024"`
+	Image192      string `json:"image_192"`
+	Image24       string `json:"image_24"`
+	Image32       string `json:"image_32"`
+	Image48       string `json:"image_48"`
+	Image512      string `json:"image_512"`
+	Image72       string `json:"image_72"`
+	ImageOriginal string `json:"image_original"`
+}
+
+// ResponseUserPhotoUpload defines the JSON-encoded output for UserPhotoUpload.
+type ResponseUserPhotoUpload struct {
+	Response
+	ID  string `json:"id"`
+	URL string `json:"url"`
+}
+
+// ResponseUsersCounts defines the JSON-encoded output for UsersCounts.
+type ResponseUsersCounts struct {
+	Response
+	Channels        []CountChannel        `json:"channels"`
+	Groups          []CountGroup          `json:"groups"`
+	InstantMessages []CountInstantMessage `json:"ims"`
+}
+
+// UserPresence defines the expected data from the JSON-encoded API response.
 type UserPresence struct {
 	AutoAway        bool   `json:"auto_away"`
 	ConnectionCount int    `json:"connection_count"`
@@ -28,11 +86,12 @@ type UserPresence struct {
 	Presence        string `json:"presence"`
 }
 
+// UserData defines the expected data from the JSON-encoded API response.
 type UserData struct {
 	Color             string      `json:"color"`
 	Deleted           bool        `json:"deleted"`
 	Has2fa            bool        `json:"has_2fa"`
-	Id                string      `json:"id"`
+	ID                string      `json:"id"`
 	IsAdmin           bool        `json:"is_admin"`
 	IsBot             bool        `json:"is_bot"`
 	IsOwner           bool        `json:"is_owner"`
@@ -44,15 +103,16 @@ type UserData struct {
 	Profile           UserProfile `json:"profile"`
 	RealName          string      `json:"real_name"`
 	Status            string      `json:"status"`
-	TeamId            string      `json:"team_id"`
+	TeamID            string      `json:"team_id"`
 	TwoFactorType     string      `json:"two_factor_type"`
 	Tz                string      `json:"tz"`
 	TzLabel           string      `json:"tz_label"`
 	TzOffset          int         `json:"tz_offset"`
 }
 
+// UserProfile defines the expected data from the JSON-encoded API response.
 type UserProfile struct {
-	ApiAppID           string      `json:"api_app_id"`
+	APIAppID           string      `json:"api_app_id"`
 	BotID              string      `json:"bot_id"`
 	AvatarHash         string      `json:"avatar_hash"`
 	Email              string      `json:"email"`
@@ -76,53 +136,7 @@ type UserProfile struct {
 	Title              string      `json:"title"`
 }
 
-type ResponseUserPrefs struct {
-	Response
-	Prefs UserPrefs `json:"prefs"`
-}
-
-type ResponseUserIdentity struct {
-	Response
-	Profile UserProfile `json:"profile"`
-}
-
-type ResponseUserAvatar struct {
-	Response
-	UploadID  string                   `json:"upload_id"`
-	UploadURL string                   `json:"upload_url"`
-	Profile   ResponseUserPhotoProfile `json:"profile"`
-}
-
-type ResponseUserPhoto struct {
-	Response
-	Profile ResponseUserPhotoProfile `json:"profile"`
-}
-
-type ResponseUserPhotoProfile struct {
-	AvatarHash    string `json:"avatar_hash"`
-	Image1024     string `json:"image_1024"`
-	Image192      string `json:"image_192"`
-	Image24       string `json:"image_24"`
-	Image32       string `json:"image_32"`
-	Image48       string `json:"image_48"`
-	Image512      string `json:"image_512"`
-	Image72       string `json:"image_72"`
-	ImageOriginal string `json:"image_original"`
-}
-
-type ResponseUserPhotoUpload struct {
-	Response
-	ID  string `json:"id"`
-	URL string `json:"url"`
-}
-
-type ResponseUsersCounts struct {
-	Response
-	Channels []CountChannel `json:"channels"`
-	Groups   []CountGroup   `json:"groups"`
-	Ims      []CountIm      `json:"ims"`
-}
-
+// CountChannel defines the expected data from the JSON-encoded API response.
 type CountChannel struct {
 	ID                  string `json:"id"`
 	IsArchived          bool   `json:"is_archived"`
@@ -138,6 +152,7 @@ type CountChannel struct {
 	UnreadCountDisplay  int    `json:"unread_count_display"`
 }
 
+// CountGroup defines the expected data from the JSON-encoded API response.
 type CountGroup struct {
 	ID                  string `json:"id"`
 	IsArchived          bool   `json:"is_archived"`
@@ -153,7 +168,8 @@ type CountGroup struct {
 	UnreadCountDisplay  int    `json:"unread_count_display"`
 }
 
-type CountIm struct {
+// CountInstantMessage defines the expected data from the JSON-encoded API response.
+type CountInstantMessage struct {
 	DmCount   int    `json:"dm_count"`
 	ID        string `json:"id"`
 	IsOpen    bool   `json:"is_open"`
@@ -162,6 +178,7 @@ type CountIm struct {
 	UserID    string `json:"user_id"`
 }
 
+// UserPrefs defines the expected data from the JSON-encoded API response.
 type UserPrefs struct {
 	A11yAnimations                     bool        `json:"a11y_animations"`
 	A11yFontSize                       string      `json:"a11y_font_size"`
@@ -197,8 +214,8 @@ type UserPrefs struct {
 	EnhancedDebugging                  bool        `json:"enhanced_debugging"`
 	EnterIsSpecialInTbt                bool        `json:"enter_is_special_in_tbt"`
 	EnterpriseMigrationSeen            bool        `json:"enterprise_migration_seen"`
-	ExpandInlineImgs                   bool        `json:"expand_inline_imgs"`
-	ExpandInternalInlineImgs           bool        `json:"expand_internal_inline_imgs"`
+	ExpandInlineImages                 bool        `json:"expand_inline_imgs"`
+	ExpandInternalInlineImages         bool        `json:"expand_internal_inline_imgs"`
 	ExpandNonMediaAttachments          bool        `json:"expand_non_media_attachments"`
 	ExpandSnippets                     bool        `json:"expand_snippets"`
 	FKeySearch                         bool        `json:"f_key_search"`
@@ -259,7 +276,7 @@ type UserPrefs struct {
 	NoOmniboxInChannels                bool        `json:"no_omnibox_in_channels"`
 	NoTextInNotifications              bool        `json:"no_text_in_notifications"`
 	NoWinssb1Banner                    bool        `json:"no_winssb1_banner"`
-	ObeyInlineImgLimit                 bool        `json:"obey_inline_img_limit"`
+	ObeyInlineImageLimit               bool        `json:"obey_inline_img_limit"`
 	OnboardingCancelled                bool        `json:"onboarding_cancelled"`
 	OnboardingSlackbotConversationStep int         `json:"onboarding_slackbot_conversation_step"`
 	OverloadedMessageEnabled           bool        `json:"overloaded_message_enabled"`
@@ -272,7 +289,7 @@ type UserPrefs struct {
 	PushAtChannelSuppressedChannels    string      `json:"push_at_channel_suppressed_channels"`
 	PushDmAlert                        bool        `json:"push_dm_alert"`
 	PushEverything                     bool        `json:"push_everything"`
-	PushIdleWait                       int         `json:"push_idle_wait"`
+	PushIDleWait                       int         `json:"push_idle_wait"`
 	PushLoudChannels                   string      `json:"push_loud_channels"`
 	PushLoudChannelsSet                string      `json:"push_loud_channels_set"`
 	PushMentionAlert                   bool        `json:"push_mention_alert"`
@@ -342,31 +359,35 @@ type UserPrefs struct {
 	WinssbWindowFlashBehavior          string      `json:"winssb_window_flash_behavior"`
 }
 
+// UsersCounts count number of users in the team.
 func (s *SlackAPI) UsersCounts() ResponseUsersCounts {
 	var response ResponseUsersCounts
 	s.GetRequest(&response, "users.counts", "token")
 	return response
 }
 
+// UsersDeletePhoto delete the user avatar.
 func (s *SlackAPI) UsersDeletePhoto() Response {
 	var response Response
 	s.GetRequest(&response, "users.deletePhoto", "token")
 	return response
 }
 
+// UsersGetPresence gets user presence information.
 func (s *SlackAPI) UsersGetPresence(query string) ResponseUsersGetPresence {
 	var response ResponseUsersGetPresence
 	s.GetRequest(&response, "users.getPresence", "token", "user="+query)
 	return response
 }
 
-func (s *SlackAPI) UsersId(query string) string {
+// UsersID gets user identifier from username.
+func (s *SlackAPI) UsersID(query string) string {
 	response := s.UsersList()
 
 	if response.Ok {
 		for _, user := range response.Members {
 			if user.Name == query {
-				return user.Id
+				return user.ID
 			}
 		}
 	}
@@ -374,13 +395,15 @@ func (s *SlackAPI) UsersId(query string) string {
 	return query
 }
 
+// UsersInfo gets information about a user.
 func (s *SlackAPI) UsersInfo(query string) ResponseUsersInfo {
-	query = s.UsersId(query)
+	query = s.UsersID(query)
 	var response ResponseUsersInfo
 	s.GetRequest(&response, "users.info", "token", "user="+query)
 	return response
 }
 
+// UsersList lists all users in a Slack team.
 func (s *SlackAPI) UsersList() ResponseUsersList {
 	if s.TeamUsers.Ok == true {
 		return s.TeamUsers
@@ -393,6 +416,7 @@ func (s *SlackAPI) UsersList() ResponseUsersList {
 	return response
 }
 
+// UsersPrefsSet set user account preferences.
 func (s *SlackAPI) UsersPrefsSet(name string, value string) ResponseUserPrefs {
 	var response ResponseUserPrefs
 	s.GetRequest(&response,
@@ -403,6 +427,7 @@ func (s *SlackAPI) UsersPrefsSet(name string, value string) ResponseUserPrefs {
 	return response
 }
 
+// UsersPreparePhoto upload a picture to use as the avatar.
 func (s *SlackAPI) UsersPreparePhoto(image string) ResponseUserPhotoUpload {
 	var response ResponseUserPhotoUpload
 	s.PostRequest(&response,
@@ -412,27 +437,30 @@ func (s *SlackAPI) UsersPreparePhoto(image string) ResponseUserPhotoUpload {
 	return response
 }
 
+// UsersProfileGet retrieves a user's profile information.
 func (s *SlackAPI) UsersProfileGet(user string) ResponseUserIdentity {
 	var response ResponseUserIdentity
 	s.GetRequest(&response,
 		"users.profile.get",
 		"token",
-		"user="+s.UsersId(user),
+		"user="+s.UsersID(user),
 		"include_labels=1")
 	return response
 }
 
+// UsersProfileSet set the profile information for a user.
 func (s *SlackAPI) UsersProfileSet(user string, name string, value string) ResponseUserIdentity {
 	var response ResponseUserIdentity
 	s.GetRequest(&response,
 		"users.profile.set",
 		"token",
-		"user="+s.UsersId(user),
+		"user="+s.UsersID(user),
 		"name="+name,
 		"value="+value)
 	return response
 }
 
+// UsersSearch search users by name or email address.
 func (s *SlackAPI) UsersSearch(query string) []UserData {
 	var matches []UserData
 	response := s.UsersList()
@@ -450,12 +478,14 @@ func (s *SlackAPI) UsersSearch(query string) []UserData {
 	return matches
 }
 
+// UsersSetActive marks a user as active.
 func (s *SlackAPI) UsersSetActive() Response {
 	var response Response
 	s.GetRequest(&response, "users.setActive", "token")
 	return response
 }
 
+// UsersSetAvatar upload a picture and set it as the avatar.
 func (s *SlackAPI) UsersSetAvatar(image string) ResponseUserAvatar {
 	var response ResponseUserAvatar
 	upload := s.UsersPreparePhoto(image)
@@ -466,6 +496,7 @@ func (s *SlackAPI) UsersSetAvatar(image string) ResponseUserAvatar {
 	return response
 }
 
+// UsersSetPhoto define which picture will be the avatar.
 func (s *SlackAPI) UsersSetPhoto(imageid string) ResponseUserPhoto {
 	var response ResponseUserPhoto
 	s.GetRequest(&response,
@@ -478,6 +509,7 @@ func (s *SlackAPI) UsersSetPhoto(imageid string) ResponseUserPhoto {
 	return response
 }
 
+// UsersSetPresence manually sets user presence.
 func (s *SlackAPI) UsersSetPresence(value string) Response {
 	var response Response
 	s.GetRequest(&response, "users.setPresence", "token", "presence="+value)
