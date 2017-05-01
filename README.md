@@ -166,7 +166,7 @@ Also, you can pass an environment variable `SLACK_VERBOSE=true` to print additio
 - [x] `team.billableInfo` - Gets billable users information for the current team.
 - [x] `team.info` - Gets information about the current team.
 - [ ] `team.integrationLogs` - Gets the integration logs for the current team.
-- [ ] `team.profile.get` - Retrieve a team's profile.
+- [x] `team.profile.get` - Retrieve a team's profile.
 - [ ] `usergroups.create` - Create a User Group.
 - [ ] `usergroups.disable` - Disable an existing User Group.
 - [ ] `usergroups.enable` - Enable a User Group.

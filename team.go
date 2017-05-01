@@ -16,6 +16,11 @@ type ResponseTeamInfo struct {
 	Team Team `json:"team"`
 }
 
+type ResponseTeamProfile struct {
+	Response
+	Profile TeamProfile `json:"profile"`
+}
+
 type AccessLog struct {
 	UserId    string      `json:"user_id"`
 	Username  string      `json:"username"`
@@ -35,6 +40,22 @@ type Team struct {
 	Icon        TeamIcon `json:"icon"`
 	Id          string   `json:"id"`
 	Name        string   `json:"name"`
+}
+
+type TeamProfile struct {
+	Fields []TeamProfileField `json:"fields"`
+}
+
+type TeamProfileField struct {
+	ID             string      `json:"id"`
+	Ordering       int         `json:"ordering"`
+	FieldName      string      `json:"field_name"`
+	Label          string      `json:"label"`
+	Hint           string      `json:"hint"`
+	Type           string      `json:"type"`
+	PossibleValues interface{} `json:"possible_values"`
+	Options        interface{} `json:"options"`
+	IsHidden       bool        `json:"is_hidden"`
 }
 
 type TeamIcon struct {
@@ -81,5 +102,11 @@ func (s *SlackAPI) TeamBillableInfo(user string) ResponseBillableInfo {
 func (s *SlackAPI) TeamInfo() ResponseTeamInfo {
 	var response ResponseTeamInfo
 	s.GetRequest(&response, "team.info", "token")
+	return response
+}
+
+func (s *SlackAPI) TeamProfileGet() ResponseTeamProfile {
+	var response ResponseTeamProfile
+	s.GetRequest(&response, "team.profile.get", "token")
 	return response
 }
