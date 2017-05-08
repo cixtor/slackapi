@@ -417,6 +417,13 @@ func (s *SlackAPI) UsersList() ResponseUsersList {
 	return response
 }
 
+// UsersPrefsGet get user account preferences.
+func (s *SlackAPI) UsersPrefsGet() ResponseUserPrefs {
+	var response ResponseUserPrefs
+	s.GetRequest(&response, "users.prefs.get", "token")
+	return response
+}
+
 // UsersPrefsSet set user account preferences.
 func (s *SlackAPI) UsersPrefsSet(name string, value string) ResponseUserPrefs {
 	var response ResponseUserPrefs

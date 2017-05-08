@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.5.43"
+const version = "1.5.44"
 
 // TOKEN defines the name for the token HTTP request parameter.
 const TOKEN = "token"
@@ -129,6 +129,7 @@ func main() {
 		fmt.Println("  slackapi users.id [user]                                 Gets user identifier from username")
 		fmt.Println("  slackapi users.info [user]                               Gets information about a user")
 		fmt.Println("  slackapi users.list                                      Lists all users in a Slack team")
+		fmt.Println("  slackapi users.prefs.get                                 Get user account preferences.")
 		fmt.Println("  slackapi users.prefs.set [name] [value]                  Set user account preferences.")
 		fmt.Println("  slackapi users.preparePhoto [image]                      Upload a picture to use as the avatar.")
 		fmt.Println("  slackapi users.profile.get [user]                        Retrieves a user's profile information")
@@ -374,6 +375,8 @@ func main() {
 		client.PrintAndExit(client.UsersInfo(flag.Arg(1)))
 	case "users.list":
 		client.PrintAndExit(client.UsersList())
+	case "users.prefs.get":
+		client.PrintAndExit(client.UsersPrefsGet())
 	case "users.prefs.set":
 		client.PrintAndExit(client.UsersPrefsSet(flag.Arg(1), flag.Arg(2)))
 	case "users.preparePhoto":
