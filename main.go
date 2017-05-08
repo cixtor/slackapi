@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const version = "1.5.42"
+const version = "1.5.43"
 
 // TOKEN defines the name for the token HTTP request parameter.
 const TOKEN = "token"
@@ -138,6 +138,7 @@ func main() {
 		fmt.Println("  slackapi users.setAvatar [image]                         Upload a picture and set it as the avatar.")
 		fmt.Println("  slackapi users.setPhoto [image_id]                       Define which picture will be the avatar.")
 		fmt.Println("  slackapi users.setPresence [presence]                    Manually sets user presence")
+		fmt.Println("  slackapi users.setStatus [emoji] [text]                  Set the status message and emoji")
 		fmt.Println("  slackapi version                                         Displays the program version number")
 		fmt.Println("  slackapi help                                            Displays usage and program options")
 		fmt.Println()
@@ -391,6 +392,8 @@ func main() {
 		client.PrintAndExit(client.UsersSetPhoto(flag.Arg(1)))
 	case "users.setPresence":
 		client.PrintAndExit(client.UsersSetPresence(flag.Arg(1)))
+	case "users.setStatus":
+		client.PrintAndExit(client.UsersSetStatus(flag.Arg(1), flag.Arg(2)))
 	case "version":
 		fmt.Println(version)
 	case "help":

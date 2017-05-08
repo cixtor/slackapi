@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"strings"
 )
 
@@ -513,5 +514,22 @@ func (s *SlackAPI) UsersSetPhoto(imageid string) ResponseUserPhoto {
 func (s *SlackAPI) UsersSetPresence(value string) Response {
 	var response Response
 	s.GetRequest(&response, "users.setPresence", "token", "presence="+value)
+	return response
+}
+
+// UsersSetStatus set the status message and emoji.
+func (s *SlackAPI) UsersSetStatus(emoji string, text string) ResponseUserIdentity {
+	var response ResponseUserIdentity
+	profile, err := json.Marshal(map[string]string{
+		"status_emoji": emoji,
+		"status_text":  text,
+	})
+	if err != nil {
+		s.ReportError(err)
+	}
+	s.GetRequest(&response,
+		"users.profile.set",
+		"token",
+		"profile="+string(profile))
 	return response
 }
