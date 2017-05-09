@@ -165,11 +165,13 @@ func (s *SlackAPI) PrintCurlCommand(req *http.Request, params []string) {
 
 		fmt.Printf(" \x5c\n-H \"Host: %s\"", req.Host)
 
-		for _, param := range params {
-			if param == TOKEN {
-				param = TOKEN + "=" + s.Token
+		if req.Method == "POST" {
+			for _, param := range params {
+				if param == TOKEN {
+					param = TOKEN + "=" + s.Token
+				}
+				fmt.Printf(" \x5c\n-d \"%s\"", param)
 			}
-			fmt.Printf(" \x5c\n-d \"%s\"", param)
 		}
 
 		fmt.Println()
