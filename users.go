@@ -386,6 +386,11 @@ func (s *SlackAPI) UsersID(query string) string {
 	response := s.UsersList()
 
 	if response.Ok {
+		/* allow user references: @username */
+		if len(query) > 1 && query[0] == '@' {
+			query = query[1:]
+		}
+
 		for _, user := range response.Members {
 			if user.Name == query {
 				return user.ID
