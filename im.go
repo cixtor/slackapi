@@ -1,4 +1,4 @@
-package main
+package slackapi
 
 // InstantMessageList defines the expected data from the JSON-encoded API response.
 type InstantMessageList struct {

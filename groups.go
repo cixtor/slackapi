@@ -1,4 +1,4 @@
-package main
+package slackapi
 
 // ResponseGroupsInfo defines the JSON-encoded output for GroupsInfo.
 type ResponseGroupsInfo struct {

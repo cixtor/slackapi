@@ -1,4 +1,4 @@
-package main
+package slackapi
 
 // ResponseReactionsGet defines the JSON-encoded output for ReactionsGet.
 type ResponseReactionsGet struct {

@@ -1,4 +1,4 @@
-package main
+package slackapi
 
 // ResponseFilesInfo defines the JSON-encoded output for FilesInfo.
 type ResponseFilesInfo struct {

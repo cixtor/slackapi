@@ -1,4 +1,4 @@
-package main
+package slackapi
 
 // ResponseRevocation defines the JSON-encoded output for Revocation.
 type ResponseRevocation struct {

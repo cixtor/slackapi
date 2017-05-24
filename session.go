@@ -1,4 +1,4 @@
-package main
+package slackapi
 
 import (
 	"bufio"
@@ -24,6 +24,11 @@ type ChatSession struct {
 	MethodName    string
 	UserInput     string
 	Username      string
+}
+
+// NewSession instantiates a new object.
+func NewSession() *ChatSession {
+	return &ChatSession{}
 }
 
 // StartChatSession initiates a loop to pass user input to the API.

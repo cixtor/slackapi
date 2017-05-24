@@ -1,4 +1,4 @@
-package main
+package slackapi
 
 import (
 	"encoding/json"

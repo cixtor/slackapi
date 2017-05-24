@@ -1,6 +1,30 @@
-### SlackAPI Client
+### SlackAPI (Go Package / CLI Client)
 
 Slack, the _"messaging app for teams"_ offers an API that has been used to build multiple projects around it, from bots to independent clients as well as integrations with other external services. This project aims to offer a low level experience for advanced users that want to either drop the web client or interact with the API for testing purpose.
+
+### Installation
+
+Install the CLI with this command:
+
+```
+go get -u github.com/cixtor/slackapi/cmd
+```
+
+Import the package into your project with this:
+
+```
+package main
+
+import (
+    "fmt"
+    "github.com/cixtor/slackapi"
+)
+
+func main() {
+    client := slackapi.New()
+    fmt.Println(client.Version())
+}
+```
 
 ### Features
 

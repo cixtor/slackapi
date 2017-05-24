@@ -4,29 +4,21 @@ import (
 	"flag"
 	"fmt"
 	"os"
+
+	"github.com/cixtor/slackapi"
 )
 
-const version = "1.5.44"
-
-// TOKEN defines the name for the token HTTP request parameter.
-const TOKEN = "token"
-
-// EMOJI defines the name for the emoji HTTP request parameter.
-const EMOJI = "emoji"
-
-// ICONURL defines the name for the icon_url HTTP request parameter.
-const ICONURL = "icon_url"
-
 func main() {
-	var client SlackAPI
 	var command string
+
+	client := slackapi.New()
 
 	flag.Usage = func() {
 		fmt.Println("Slack API Client")
 		fmt.Println("  http://cixtor.com/")
 		fmt.Println("  https://api.slack.com/")
 		fmt.Println("  https://github.com/cixtor/slackapi")
-		fmt.Println("  version", version)
+		fmt.Println("  version", client.Version())
 		fmt.Println()
 		fmt.Println("Description:")
 		fmt.Println("  Low level Slack API client with custom commands. Slack, the 'messaging app for")
@@ -186,7 +178,7 @@ func main() {
 	}
 
 	if command == "chat.session" {
-		var session ChatSession
+		session := slackapi.NewSession()
 		session.AutoConfigure()
 		session.StartChatSession()
 		os.Exit(0)
@@ -398,7 +390,7 @@ func main() {
 	case "users.setStatus":
 		client.PrintAndExit(client.UsersSetStatus(flag.Arg(1), flag.Arg(2)))
 	case "version":
-		fmt.Println(version)
+		fmt.Println(client.Version())
 	case "help":
 		flag.Usage()
 	}

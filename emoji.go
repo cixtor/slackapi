@@ -1,4 +1,4 @@
-package main
+package slackapi
 
 // ResponseEmojiList defines the JSON-encoded output for EmojiList.
 type ResponseEmojiList struct {

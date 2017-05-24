@@ -1,4 +1,4 @@
-package main
+package slackapi
 
 // ResponseBot defines the JSON-encoded output for Bot.
 type ResponseBot struct {

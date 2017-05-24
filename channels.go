@@ -1,4 +1,4 @@
-package main
+package slackapi
 
 // ResponseChannelsInfo defines the JSON-encoded output for ChannelsInfo.
 type ResponseChannelsInfo struct {

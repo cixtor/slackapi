@@ -1,4 +1,4 @@
-package main
+package slackapi
 
 // ResponseEventlogs defines the JSON-encoded output for Eventlogs.
 type ResponseEventlogs struct {

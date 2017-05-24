@@ -1,4 +1,4 @@
-package main
+package slackapi
 
 // ResponseMultiPartyInstantMessageList defines the JSON-encoded output for MultiPartyInstantMessageList.
 type ResponseMultiPartyInstantMessageList struct {

@@ -1,4 +1,4 @@
-package main
+package slackapi
 
 import (
 	"bytes"
@@ -14,6 +14,17 @@ import (
 	"os/exec"
 	"strings"
 )
+
+const version = "1.5.44"
+
+// TOKEN defines the name for the token HTTP request parameter.
+const TOKEN = "token"
+
+// EMOJI defines the name for the emoji HTTP request parameter.
+const EMOJI = "emoji"
+
+// ICONURL defines the name for the icon_url HTTP request parameter.
+const ICONURL = "icon_url"
 
 // SlackAPI defines the base object. It holds the API token, the information of
 // the user account associated to such API token, the information for the robot
@@ -31,6 +42,16 @@ type SlackAPI struct {
 	TeamGroups     ResponseGroupsList
 	TeamUsers      ResponseUsersList
 	Token          string
+}
+
+// New instantiates a new object.
+func New() *SlackAPI {
+	return &SlackAPI{}
+}
+
+// Version returns the package version number.
+func (s *SlackAPI) Version() string {
+	return version
 }
 
 // SetToken sets the API token for the session.
