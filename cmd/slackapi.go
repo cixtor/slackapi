@@ -111,6 +111,7 @@ func main() {
 		fmt.Println("  slackapi reactions.get [channel] [time]                  Gets reactions for an item")
 		fmt.Println("  slackapi reactions.list [user]                           Lists reactions made by a user")
 		fmt.Println("  slackapi reactions.remove [name] [channel] [time]        Removes a reaction from an item")
+		fmt.Println("  slackapi rtm.events                                      Prints the API events in real time")
 		fmt.Println("  slackapi team.accessLogs [count] [page]                  Gets the access logs for the current team")
 		fmt.Println("  slackapi team.billableInfo [user]                        Gets billable users information for the current team")
 		fmt.Println("  slackapi team.info                                       Gets information about the current team")
@@ -347,6 +348,8 @@ func main() {
 		client.PrintAndExit(client.ReactionsList(flag.Arg(1)))
 	case "reactions.remove":
 		client.PrintAndExit(client.ReactionsRemove(flag.Arg(1), flag.Arg(2), flag.Arg(3)))
+	case "rtm.events":
+		client.RTMEvents()
 	case "team.accessLogs":
 		client.PrintAndExit(client.TeamAccessLogs(flag.Arg(1), flag.Arg(2)))
 	case "team.billableInfo":
