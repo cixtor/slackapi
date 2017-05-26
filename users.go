@@ -8,7 +8,7 @@ import (
 // ResponseUsersInfo defines the JSON-encoded output for UsersInfo.
 type ResponseUsersInfo struct {
 	Response
-	User UserData `json:"user"`
+	User User `json:"user"`
 }
 
 // ResponseUsersGetPresence defines the JSON-encoded output for UsersGetPresence.
@@ -20,7 +20,7 @@ type ResponseUsersGetPresence struct {
 // ResponseUsersList defines the JSON-encoded output for UsersList.
 type ResponseUsersList struct {
 	Response
-	Members []UserData `json:"members"`
+	Members []User `json:"members"`
 }
 
 // ResponseUserPrefs defines the JSON-encoded output for UserPrefs.
@@ -87,8 +87,8 @@ type UserPresence struct {
 	Presence        string `json:"presence"`
 }
 
-// UserData defines the expected data from the JSON-encoded API response.
-type UserData struct {
+// User defines the expected data from the JSON-encoded API response.
+type User struct {
 	Color             string      `json:"color"`
 	Deleted           bool        `json:"deleted"`
 	Has2fa            bool        `json:"has_2fa"`
@@ -474,8 +474,8 @@ func (s *SlackAPI) UsersProfileSet(user string, name string, value string) Respo
 }
 
 // UsersSearch search users by name or email address.
-func (s *SlackAPI) UsersSearch(query string) []UserData {
-	var matches []UserData
+func (s *SlackAPI) UsersSearch(query string) []User {
+	var matches []User
 	response := s.UsersList()
 
 	if response.Ok {
