@@ -3,11 +3,11 @@ package slackapi
 // ResponseBot defines the JSON-encoded output for Bot.
 type ResponseBot struct {
 	Response
-	Bot BotEntity `json:"bot"`
+	Bot Bot `json:"bot"`
 }
 
-// BotEntity defines the expected data from the JSON-encoded API response.
-type BotEntity struct {
+// Bot defines the expected data from the JSON-encoded API response.
+type Bot struct {
 	ID      string            `json:"id"`
 	Deleted bool              `json:"deleted"`
 	Name    string            `json:"name"`
