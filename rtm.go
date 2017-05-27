@@ -2,10 +2,21 @@ package slackapi
 
 import (
 	"encoding/json"
-	"golang.org/x/net/websocket"
+	"fmt"
+	"io"
 	"log"
-	"os"
+	"reflect"
+
+	"golang.org/x/net/websocket"
 )
+
+// RTM is the real time messaging.
+type RTM struct {
+	conn      *websocket.Conn
+	connURL   string
+	Events    chan Event
+	rawEvents chan json.RawMessage
+}
 
 // RTMResponse defines the JSON-encoded output for RTM connection.
 type RTMResponse struct {
@@ -28,46 +39,115 @@ type RTMResponse struct {
 	URL string `json:"url"`
 }
 
-// NewRTM connects to the real time messaging websocket.
-func (s *SlackAPI) NewRTM() (*websocket.Conn, error) {
-	resp := s.RTMStart()
-
-	return websocket.Dial(resp.URL, "", "https://api.slack.com")
+// ACKMessage is used for messages received in reply to other messages
+type ACKMessage struct {
+	Response
+	ReplyTo   int    `json:"reply_to"`
+	Text      string `json:"text"`
+	Timestamp string `json:"ts"`
 }
 
-// RTMStart Starts a Real Time Messaging session.
-func (s *SlackAPI) RTMStart() RTMResponse {
+// EventTypes represents the data type for each websocket event.
+var EventTypes = map[string]interface{}{}
+
+// NewRTM connects to the real time messaging websocket.
+func (s *SlackAPI) NewRTM() (*RTM, error) {
 	var response RTMResponse
 	s.GetRequest(&response, "rtm.start", "token")
-	return response
-}
 
-// RTMMessage reads and returns a message from the websocket connection.
-func (s *SlackAPI) RTMMessage(ws *websocket.Conn, res interface{}) error {
-	return websocket.JSON.Receive(ws, &res)
-}
-
-// RTMEvents prints all the websocket events.
-func (s *SlackAPI) RTMEvents() {
-	ws, err := s.NewRTM()
+	ws, err := websocket.Dial(response.URL, "", "https://api.slack.com")
 
 	if err != nil {
-		log.Fatal(err)
+		return &RTM{}, err
+	}
+
+	return &RTM{
+		conn:      ws,
+		connURL:   response.URL,
+		Events:    make(chan Event, 50),
+		rawEvents: make(chan json.RawMessage),
+	}, nil
+}
+
+// ManageEvents controls the websocket events.
+func (rtm *RTM) ManageEvents() {
+	keepalive := make(chan bool)
+
+	go rtm.handleIncomingEvents(keepalive)
+
+	rtm.handleEvents(keepalive)
+}
+
+func (rtm *RTM) handleEvents(keepRunning chan bool) {
+	for {
+		select {
+		case rawEvent := <-rtm.rawEvents:
+			rtm.handleRawEvent(rawEvent)
+		}
+	}
+}
+
+func (rtm *RTM) handleIncomingEvents(keepalive <-chan bool) {
+	for {
+		select {
+		case <-keepalive:
+			return
+		default:
+			rtm.receiveIncomingEvent()
+		}
+	}
+}
+
+// receiveIncomingEvent inserts the websocket events into a queue.
+func (rtm *RTM) receiveIncomingEvent() {
+	event := json.RawMessage{}
+
+	if err := websocket.JSON.Receive(rtm.conn, &event); err != nil {
+		if err == io.EOF {
+			log.Fatal("Connection dropped")
+			return
+		}
+
+		rtm.Events <- Event{Type: "error", Data: &ErrorEvent{err.Error()}}
 		return
 	}
 
-	var data interface{}
-
-	for {
-		if err := s.RTMMessage(ws, &data); err != nil {
-			log.Println(err)
-			continue
-		}
-
-		if err := json.NewEncoder(os.Stdout).Encode(data); err != nil {
-			log.Println("JSON encode;", err)
-			continue
-		}
+	if len(event) == 0 {
+		err := fmt.Errorf("invalid event; %s", event)
+		rtm.Events <- Event{Type: "error", Data: &ErrorEvent{err.Error()}}
+		return
 	}
 
+	rtm.rawEvents <- event
+}
+
+func (rtm *RTM) handleRawEvent(rawEvent json.RawMessage) {
+	event := &Event{}
+
+	if err := json.Unmarshal(rawEvent, event); err != nil {
+		rtm.Events <- Event{Type: "error", Data: &ErrorEvent{err.Error()}}
+		return
+	}
+
+	rtm.handleEvent(event.Type, rawEvent)
+}
+
+func (rtm *RTM) handleEvent(_type string, event json.RawMessage) {
+	v, exists := EventTypes[_type]
+
+	if !exists {
+		err := fmt.Errorf("unsupported event %q: %s", _type, string(event))
+		rtm.Events <- Event{Type: "error", Data: &ErrorEvent{err.Error()}}
+		return
+	}
+
+	t := reflect.TypeOf(v)
+	recvEvent := reflect.New(t).Interface()
+
+	if err := json.Unmarshal(event, recvEvent); err != nil {
+		err = fmt.Errorf("unmarshall event %q: %s", _type, string(event))
+		rtm.Events <- Event{Type: "error", Data: &ErrorEvent{err.Error()}}
+		return
+	}
+	rtm.Events <- Event{_type, recvEvent}
 }
