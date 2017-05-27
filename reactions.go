@@ -15,10 +15,12 @@ type ResponseReactionsList struct {
 
 // ReactionItem defines the expected data from the JSON-encoded API response.
 type ReactionItem struct {
-	Channel string          `json:"channel"`
-	File    ReactionFile    `json:"file"`
-	Message ReactionMessage `json:"message"`
-	Type    string          `json:"type"`
+	Channel     string          `json:"channel"`
+	File        ReactionFile    `json:"file"`
+	FileComment string          `json:"file_comment"`
+	Message     ReactionMessage `json:"message"`
+	Type        string          `json:"type"`
+	Ts          string          `json:"ts"`
 }
 
 // ReactionMessage defines the expected data from the JSON-encoded API response.

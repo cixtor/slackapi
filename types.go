@@ -66,6 +66,16 @@ type Post struct {
 	Ts      string  `json:"ts"`
 }
 
+// Item defines the expected data for: message, file, or file comment.
+type Item struct {
+	Type      string   `json:"type"`
+	Channel   string   `json:"channel,omitempty"`
+	Message   *Message `json:"message,omitempty"`
+	File      *File    `json:"file,omitempty"`
+	Comment   *Comment `json:"comment,omitempty"`
+	Timestamp string   `json:"ts,omitempty"`
+}
+
 // Message defines the expected data from the JSON-encoded API response.
 type Message struct {
 	Attachments  []Attachment `json:"attachments"`
@@ -88,6 +98,15 @@ type ModifiedMessage struct {
 	Channel string `json:"channel"`
 	Text    string `json:"text"`
 	Ts      string `json:"ts"`
+}
+
+// Comment defines the expected data from the JSON-encoded API response.
+type Comment struct {
+	ID        string `json:"id,omitempty"`
+	Created   int64  `json:"created,omitempty"`
+	Timestamp int64  `json:"timestamp,omitempty"`
+	User      string `json:"user,omitempty"`
+	Comment   string `json:"comment,omitempty"`
 }
 
 // Attachment defines the expected data from the JSON-encoded API response.
