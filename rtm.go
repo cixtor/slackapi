@@ -129,7 +129,14 @@ func (rtm *RTM) handleRawEvent(rawEvent json.RawMessage) {
 		return
 	}
 
-	rtm.handleEvent(event.Type, rawEvent)
+	switch event.Type {
+	case "":
+		rtm.handleACK(rawEvent)
+	case "hello":
+		rtm.Events <- Event{Type: "hello", Data: &HelloEvent{}}
+	default:
+		rtm.handleEvent(event.Type, rawEvent)
+	}
 }
 
 func (rtm *RTM) handleEvent(_type string, event json.RawMessage) {
@@ -150,4 +157,21 @@ func (rtm *RTM) handleEvent(_type string, event json.RawMessage) {
 		return
 	}
 	rtm.Events <- Event{_type, recvEvent}
+}
+
+func (rtm *RTM) handleACK(event json.RawMessage) {
+	ack := &ACKMessage{}
+
+	if err := json.Unmarshal(event, ack); err != nil {
+		err = fmt.Errorf("ack unmarshal; %s: %s", err.Error(), string(event))
+		rtm.Events <- Event{Type: "error", Data: &ErrorEvent{err.Error()}}
+		return
+	}
+
+	if !ack.Ok {
+		rtm.Events <- Event{Type: "error", Data: &ErrorEvent{ack.Error}}
+		return
+	}
+
+	rtm.Events <- Event{Type: "ack", Data: ack}
 }
