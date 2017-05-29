@@ -111,6 +111,7 @@ func main() {
 		fmt.Println("  slackapi reactions.get [channel] [time]                  Gets reactions for an item")
 		fmt.Println("  slackapi reactions.list [user]                           Lists reactions made by a user")
 		fmt.Println("  slackapi reactions.remove [name] [channel] [time]        Removes a reaction from an item")
+		fmt.Println("  slackapi rtm.start                                       Starts a Real Time Messaging session")
 		fmt.Println("  slackapi rtm.events                                      Prints the API events in real time")
 		fmt.Println("  slackapi team.accessLogs [count] [page]                  Gets the access logs for the current team")
 		fmt.Println("  slackapi team.billableInfo [user]                        Gets billable users information for the current team")
@@ -349,7 +350,7 @@ func main() {
 	case "reactions.remove":
 		client.PrintAndExit(client.ReactionsRemove(flag.Arg(1), flag.Arg(2), flag.Arg(3)))
 	case "rtm.events":
-		client.RTMEvents()
+		printRealTimeMessages(client)
 	case "team.accessLogs":
 		client.PrintAndExit(client.TeamAccessLogs(flag.Arg(1), flag.Arg(2)))
 	case "team.billableInfo":
@@ -399,4 +400,37 @@ func main() {
 	}
 
 	os.Exit(0)
+}
+
+func printRealTimeMessages(client *slackapi.SlackAPI) {
+	rtm, err := client.NewRTM()
+
+	if err != nil {
+		fmt.Println("RTM error;", err)
+		return
+	}
+
+	go rtm.ManageEvents()
+
+	for msg := range rtm.Events {
+		switch event := msg.Data.(type) {
+		case *slackapi.HelloEvent:
+			fmt.Println("hello; connection established")
+
+		case *slackapi.PresenceChangeEvent:
+			fmt.Println("presence;", event.User, "=>", event.Presence)
+
+		case *slackapi.MessageEvent:
+			fmt.Printf("message; %s@%s: %#v\n", event.User, event.Channel, event.Text)
+
+		case *slackapi.ErrorEvent:
+			fmt.Println("error;", event.Text)
+
+		case *slackapi.ReconnectURLEvent:
+			fmt.Println("reconnect;", event.URL)
+
+		default:
+			fmt.Printf("%s; %#v\n", msg.Type, msg.Data)
+		}
+	}
 }

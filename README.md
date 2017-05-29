@@ -179,8 +179,8 @@ Also, you can pass an environment variable `SLACK_VERBOSE=true` to print additio
 - [ ] `reminders.delete` - Deletes a reminder.
 - [ ] `reminders.info` - Gets information about a reminder.
 - [ ] `reminders.list` - Lists all reminders created by or for a given user.
-- [ ] `rtm.start` - Starts a Real Time Messaging session.
-- [x] `rtm.events` - 
+- [x] `rtm.start` - Starts a Real Time Messaging session.
+- [x] `rtm.events` - Prints the API events in real time
 - [ ] `search.all` - Searches for messages and files matching a query.
 - [ ] `search.files` - Searches for files matching a query.
 - [ ] `search.messages` - Searches for messages matching a query.
