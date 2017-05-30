@@ -239,3 +239,13 @@ type Pagination struct {
 	Pages int `json:"pages"`
 	Total int `json:"total"`
 }
+
+// Fields defines the expected data from the JSON-encoded API response.
+type Fields map[string]Field
+
+// Field defines the expected data from the JSON-encoded API response.
+type Field struct {
+	Label string `json:"label"`
+	Value string `json:"value"`
+	Alt   string `json:"alt"`
+}
