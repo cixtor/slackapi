@@ -168,7 +168,6 @@ func main() {
 		fmt.Println("  SLACK_ROBOT_IMAGE  Avatar to identify user with chat.robotMessage")
 
 		flag.PrintDefaults()
-		os.Exit(2)
 	}
 
 	flag.Parse()
@@ -180,9 +179,9 @@ func main() {
 	}
 
 	if command == "chat.session" {
-		session := slackapi.NewSession()
+		session := NewSession()
 		session.AutoConfigure()
-		session.StartChatSession()
+		session.StartSession()
 		os.Exit(0)
 	}
 
