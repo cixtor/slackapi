@@ -92,8 +92,8 @@ func (s *SlackAPI) ResourceMyHistory(action string, channel string, latest strin
 		offset := len(response.Messages) - 1
 
 		rhistory.Username = owner.User
-		rhistory.Latest = response.Messages[0].Ts
-		rhistory.Oldest = response.Messages[offset].Ts
+		rhistory.Latest = response.Messages[0].Timestamp
+		rhistory.Oldest = response.Messages[offset].Timestamp
 	}
 
 	return rhistory
@@ -112,15 +112,15 @@ func (s *SlackAPI) ResourcePurgeHistory(action string, channel string, latest st
 		}
 
 		for _, message := range response.Messages {
-			result := s.ChatDelete(channel, message.Ts)
+			result := s.ChatDelete(channel, message.Timestamp)
 			delmsg.Text = message.Text
-			delmsg.Ts = message.Ts
+			delmsg.Timestamp = message.Timestamp
 
 			if verbose {
-				fmt.Printf("\x20 %s from %s ", message.Ts, channel)
+				fmt.Printf("\x20 %s from %s ", message.Timestamp, channel)
 			}
 
-			if result.Ok == true {
+			if result.Ok {
 				delhist.Deleted++
 				delmsg.Deleted = true
 

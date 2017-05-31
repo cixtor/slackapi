@@ -3,8 +3,8 @@ package slackapi
 // ResponseEmojiList defines the JSON-encoded output for EmojiList.
 type ResponseEmojiList struct {
 	Response
-	CacheTs string            `json:"cache_ts"`
-	Emoji   map[string]string `json:"emoji"`
+	CacheTimestamp string            `json:"cache_ts"`
+	Emoji          map[string]string `json:"emoji"`
 }
 
 // EmojiList lists custom emoji for a team.

@@ -90,7 +90,7 @@ func (s *SlackAPI) ChannelsLeave(channel string) Response {
 
 // ChannelsList lists all channels in a Slack team.
 func (s *SlackAPI) ChannelsList() ResponseChannelsList {
-	if s.TeamChannels.Ok == true {
+	if s.TeamChannels.Ok {
 		return s.TeamChannels
 	}
 

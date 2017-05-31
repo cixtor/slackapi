@@ -411,7 +411,7 @@ func (s *SlackAPI) UsersInfo(query string) ResponseUsersInfo {
 
 // UsersList lists all users in a Slack team.
 func (s *SlackAPI) UsersList() ResponseUsersList {
-	if s.TeamUsers.Ok == true {
+	if s.TeamUsers.Ok {
 		return s.TeamUsers
 	}
 

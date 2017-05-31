@@ -81,7 +81,7 @@ func (s *SlackAPI) System(kommand string) []byte {
 
 	parts = strings.Fields(kommand)
 	binary = parts[0]
-	arguments = parts[1:len(parts)]
+	arguments = parts[1:]
 
 	response, err := exec.Command(binary, arguments...).Output()
 
@@ -240,9 +240,6 @@ func (s *SlackAPI) PostRequest(data interface{}, action string, params ...string
 			continue
 		}
 
-		if len(parts[1]) > 0 && parts[1][0] == '@' {
-		}
-
 		/* Read referenced file and attach to the request */
 		resource, err := os.Open(fpath)
 		if err != nil {
@@ -271,7 +268,7 @@ func (s *SlackAPI) CheckFileReference(text string) (bool, string, string) {
 		return false, "", ""
 	}
 
-	fpath := text[1:len(text)]
+	fpath := text[1:]
 
 	/* Check if the file actually exists */
 	if _, err := os.Stat(fpath); os.IsNotExist(err) {

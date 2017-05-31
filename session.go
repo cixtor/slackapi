@@ -141,10 +141,10 @@ func (s *ChatSession) SendUserMessage() {
 		response := s.ChatPostMessage(s.Channel, s.UserInput)
 		s.History = append(s.History, response)
 
-		if response.Ok == true {
+		if response.Ok {
 			fmt.Printf("{\"ok\":true,\"channel\":\"%s\",\"ts\":\"%s\"}\n",
 				response.Channel,
-				response.Ts)
+				response.Timestamp)
 		} else {
 			s.PrintInlineJSON(response)
 		}
@@ -176,11 +176,11 @@ func (s *ChatSession) ProcessCommandDelete() {
 
 		forDeletion := totalHistory - 1
 		latestMsg := s.History[forDeletion]
-		response := s.ChatDelete(latestMsg.Channel, latestMsg.Ts)
+		response := s.ChatDelete(latestMsg.Channel, latestMsg.Timestamp)
 
 		s.PrintInlineJSON(response)
 
-		if response.Ok == true {
+		if response.Ok {
 			for key := 0; key < forDeletion; key++ {
 				shortHistory = append(shortHistory, s.History[key])
 			}
@@ -216,10 +216,10 @@ func (s *ChatSession) ProcessCommandFlush() {
 
 	for key := offset; key >= 0; key-- {
 		message = s.History[key]
-		fmt.Printf("\x20 %s from %s ", message.Ts, message.Channel)
-		response := s.ChatDelete(message.Channel, message.Ts)
+		fmt.Printf("\x20 %s from %s ", message.Timestamp, message.Channel)
+		response := s.ChatDelete(message.Channel, message.Timestamp)
 
-		if response.Ok == true {
+		if response.Ok {
 			fmt.Println("\u2714")
 		} else {
 			shortHistory = append(shortHistory, message)
@@ -297,7 +297,7 @@ func (s *ChatSession) ProcessCommandOpen() {
 			}
 		}
 
-		if response.Ok == true {
+		if response.Ok {
 			s.Username = s.UserInput
 			s.Channel = response.Channel.ID
 			s.IsConnected = response.Ok
@@ -347,7 +347,7 @@ func (s *ChatSession) ProcessCommandRobotInfo() {
 	fmt.Printf("  Robot type: %s\n", s.RobotImageType)
 	fmt.Printf("  Robot image: %s\n", s.RobotImage)
 
-	if s.RobotIsActive == true {
+	if s.RobotIsActive {
 		fmt.Println("  Robot active: true")
 	} else {
 		fmt.Println("  Robot active: false")
@@ -388,7 +388,7 @@ func (s *ChatSession) ProcessCommandUpdate() {
 
 	if s.UserInput != "" && totalHistory > 0 {
 		latest := s.History[totalHistory-1]
-		response := s.ChatUpdate(latest.Channel, latest.Ts, s.UserInput)
+		response := s.ChatUpdate(latest.Channel, latest.Timestamp, s.UserInput)
 		s.PrintInlineJSON(response)
 	}
 }

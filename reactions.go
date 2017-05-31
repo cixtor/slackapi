@@ -20,14 +20,14 @@ type ReactionItem struct {
 	FileComment string          `json:"file_comment"`
 	Message     ReactionMessage `json:"message"`
 	Type        string          `json:"type"`
-	Ts          string          `json:"ts"`
+	Timestamp   string          `json:"ts"`
 }
 
 // ReactionMessage defines the expected data from the JSON-encoded API response.
 type ReactionMessage struct {
 	Reactions []Reaction `json:"reactions"`
 	Text      string     `json:"text"`
-	Ts        string     `json:"ts"`
+	Timestamp string     `json:"ts"`
 	Type      string     `json:"type"`
 	User      string     `json:"user"`
 }

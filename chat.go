@@ -31,7 +31,7 @@ func (s *SlackAPI) ChatMeMessage(channel string, message string) ModifiedMessage
 func (s *SlackAPI) ChatPostMessage(channel string, message string) Post {
 	var response Post
 
-	if s.RobotIsActive == true {
+	if s.RobotIsActive {
 		var imageType string
 
 		if s.RobotImageType == EMOJI {
@@ -47,7 +47,7 @@ func (s *SlackAPI) ChatPostMessage(channel string, message string) Post {
 			"channel="+channel,
 			"text="+message,
 			"as_user=false",
-			"link_names=1",
+			"link_names=true",
 			"username="+s.RobotName,
 			imageType+"="+s.RobotImage)
 	} else {
@@ -58,7 +58,7 @@ func (s *SlackAPI) ChatPostMessage(channel string, message string) Post {
 			"channel="+channel,
 			"text="+message,
 			"as_user=true",
-			"link_names=1")
+			"link_names=true")
 	}
 
 	return response
@@ -97,6 +97,6 @@ func (s *SlackAPI) ChatUpdate(channel string, timestamp string, message string) 
 		"channel="+channel,
 		"text="+message,
 		"ts="+timestamp,
-		"link_names=1")
+		"link_names=true")
 	return response
 }

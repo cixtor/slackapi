@@ -36,7 +36,7 @@ func (s *SlackAPI) AuthRevokeTest() ResponseRevocation {
 
 // AuthTest checks authentication and identity.
 func (s *SlackAPI) AuthTest() Owner {
-	if s.Owner.Ok == true {
+	if s.Owner.Ok {
 		return s.Owner
 	}
 

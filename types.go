@@ -60,10 +60,10 @@ type DeletedHistory struct {
 // Post defines the expected data from the JSON-encoded API response.
 type Post struct {
 	Response
-	Channel string  `json:"channel"`
-	Message Message `json:"message"`
-	Text    string  `json:"text"`
-	Ts      string  `json:"ts"`
+	Channel   string  `json:"channel"`
+	Message   Message `json:"message"`
+	Text      string  `json:"text"`
+	Timestamp string  `json:"ts"`
 }
 
 // Item defines the expected data for: message, file, or file comment.
@@ -85,7 +85,7 @@ type Message struct {
 	File         File         `json:"file"`
 	Subtype      string       `json:"subtype"`
 	Text         string       `json:"text"`
-	Ts           string       `json:"ts"`
+	Timestamp    string       `json:"ts"`
 	Type         string       `json:"type"`
 	Upload       bool         `json:"upload"`
 	User         string       `json:"user"`
@@ -95,9 +95,9 @@ type Message struct {
 // ModifiedMessage defines the expected data from the JSON-encoded API response.
 type ModifiedMessage struct {
 	Response
-	Channel string `json:"channel"`
-	Text    string `json:"text"`
-	Ts      string `json:"ts"`
+	Channel   string `json:"channel"`
+	Text      string `json:"text"`
+	Timestamp string `json:"ts"`
 }
 
 // Comment defines the expected data from the JSON-encoded API response.
@@ -125,14 +125,14 @@ type Attachment struct {
 	ThumbWidth  int         `json:"thumb_width"`
 	Title       string      `json:"title"`
 	TitleLink   string      `json:"title_link"`
-	Ts          json.Number `json:"ts"`
+	Timestamp   json.Number `json:"ts"`
 }
 
 // DeletedMessage defines the expected data from the JSON-encoded API response.
 type DeletedMessage struct {
-	Deleted bool
-	Text    string
-	Ts      string
+	Deleted   bool
+	Text      string
+	Timestamp string
 }
 
 // Channel defines the expected data from the JSON-encoded API response.
@@ -160,10 +160,10 @@ type Channel struct {
 
 // ChannelLatest defines the expected data from the JSON-encoded API response.
 type ChannelLatest struct {
-	Text string `json:"text"`
-	Ts   string `json:"ts"`
-	Type string `json:"type"`
-	User string `json:"user"`
+	Text      string `json:"text"`
+	Timestamp string `json:"ts"`
+	Type      string `json:"type"`
+	User      string `json:"user"`
 }
 
 // ChannelPurpose defines the expected data from the JSON-encoded API response.
@@ -207,8 +207,8 @@ type ChannelTopicNow struct {
 // AppsList defines the expected data from the JSON-encoded API response.
 type AppsList struct {
 	Response
-	Apps    []AppsListApps `json:"apps"`
-	CacheTs string         `json:"cache_ts"`
+	Apps           []AppsListApps `json:"apps"`
+	CacheTimestamp string         `json:"cache_ts"`
 }
 
 // AppsListApps defines the expected data from the JSON-encoded API response.
