@@ -7,41 +7,28 @@ import (
 	"github.com/cixtor/slackapi"
 )
 
-// SendUserMessage sends the user input to the API as a chat message.
-func (s *ChatSession) SendUserMessage() {
-	// Send the message to the remote service.
-	if s.IsConnected {
-		response := s.ChatPostMessage(s.Channel, s.UserInput)
-		s.History = append(s.History, response)
-
-		if response.Ok {
-			fmt.Printf("{\"ok\":true,\"channel\":\"%s\",\"ts\":\"%s\"}\n",
-				response.Channel,
-				response.Timestamp)
-		} else {
-			s.PrintInlineJSON(response)
-		}
-	} else {
-		fmt.Println("{\"ok\":false,\"error\":\"not_connected\"}")
-	}
-}
-
 // ProcessCommandClose closes a private user chat.
-func (s *ChatSession) ProcessCommandClose() {
-	if s.IsConnected {
-		response := s.InstantMessageClose(s.Channel)
-		s.PrintInlineJSON(response)
+func (s *ChatSession) ProcessCommandClose(command string) {
+	if !s.IsConnected || command != ":close" {
+		return
+	}
 
-		if response.Ok {
-			s.IsConnected = false
-			s.Username = "username"
-			s.Channel = "channel"
-		}
+	response := s.InstantMessageClose(s.Channel)
+	PrintInlineJSON(response)
+
+	if response.Ok {
+		s.IsConnected = false
+		s.Username = "username"
+		s.Channel = "channel"
 	}
 }
 
 // ProcessCommandDelete deletes the latest message sent from this session.
-func (s *ChatSession) ProcessCommandDelete() {
+func (s *ChatSession) ProcessCommandDelete(command string) {
+	if !s.IsConnected || command != ":delete" {
+		return
+	}
+
 	totalHistory := len(s.History)
 
 	if totalHistory > 0 {
@@ -51,7 +38,7 @@ func (s *ChatSession) ProcessCommandDelete() {
 		latestMsg := s.History[forDeletion]
 		response := s.ChatDelete(latestMsg.Channel, latestMsg.Timestamp)
 
-		s.PrintInlineJSON(response)
+		PrintInlineJSON(response)
 
 		if response.Ok {
 			for key := 0; key < forDeletion; key++ {
@@ -64,21 +51,33 @@ func (s *ChatSession) ProcessCommandDelete() {
 }
 
 // ProcessCommandExec sends the output of a command executed locally.
-func (s *ChatSession) ProcessCommandExec() {
-	response := s.System(s.UserInput)
+func (s *ChatSession) ProcessCommandExec(command string) {
+	if !s.IsConnected || command != ":exec" {
+		return
+	}
+
+	response := ShellExec(s.UserInput)
 	s.UserInput = fmt.Sprintf("```%s```", response)
 	s.SendUserMessage()
 }
 
 // ProcessCommandExecv sends the output of a command with the command itself.
-func (s *ChatSession) ProcessCommandExecv() {
-	response := s.System(s.UserInput)
+func (s *ChatSession) ProcessCommandExecv(command string) {
+	if !s.IsConnected || command != ":execv" {
+		return
+	}
+
+	response := ShellExec(s.UserInput)
 	s.UserInput = fmt.Sprintf("```$ %s\n%s```", s.UserInput, response)
 	s.SendUserMessage()
 }
 
 // ProcessCommandFlush deletes all the messages sent from this session.
-func (s *ChatSession) ProcessCommandFlush() {
+func (s *ChatSession) ProcessCommandFlush(command string) {
+	if !s.IsConnected || command != ":flush" {
+		return
+	}
+
 	var message slackapi.Post
 	var shortHistory []slackapi.Post
 
@@ -108,40 +107,56 @@ func (s *ChatSession) ProcessCommandFlush() {
 }
 
 // ProcessCommandHistory prints the entire history in the API service.
-func (s *ChatSession) ProcessCommandHistory() {
+func (s *ChatSession) ProcessCommandHistory(command string) {
+	if !s.IsConnected || command != ":history" {
+		return
+	}
+
 	if s.IsChannelConn || s.IsGroupConn || s.IsUserConn {
 		var action string = fmt.Sprintf("%s.history", s.MethodName)
 		response := s.ResourceHistory(action, s.Channel, s.UserInput)
-		s.PrintFormattedJSON(response)
+		PrintFormattedJSON(response)
 	} else {
 		fmt.Println("{\"ok\":false,\"error\":\"not_connected\"}")
 	}
 }
 
 // ProcessCommandMessages prints all the messages sent from this session.
-func (s *ChatSession) ProcessCommandMessages() {
-	s.PrintFormattedJSON(s.History)
+func (s *ChatSession) ProcessCommandMessages(command string) {
+	if !s.IsConnected || command != ":messages" {
+		return
+	}
+
+	PrintFormattedJSON(s.History)
 }
 
 // ProcessCommandMyHistory prints all messages sent by this user account.
-func (s *ChatSession) ProcessCommandMyHistory() {
+func (s *ChatSession) ProcessCommandMyHistory(command string) {
+	if !s.IsConnected || command != ":myhistory" {
+		return
+	}
+
 	if s.IsChannelConn || s.IsGroupConn || s.IsUserConn {
 		var action string = fmt.Sprintf("%s.history", s.MethodName)
 		response := s.ResourceMyHistory(action, s.Channel, s.UserInput)
-		s.PrintFormattedJSON(response)
+		PrintFormattedJSON(response)
 	} else {
 		fmt.Println("{\"ok\":false,\"error\":\"not_connected\"}")
 	}
 }
 
 // ProcessCommandOpen opens a new chat with a channel, group or user.
-func (s *ChatSession) ProcessCommandOpen() {
+func (s *ChatSession) ProcessCommandOpen(command string) {
+	if !s.IsConnected || command != ":open" {
+		return
+	}
+
 	if s.UserInput != "" {
 		uniqueid := s.UsersID(s.UserInput)
 		response := s.InstantMessageOpen(uniqueid)
 
 		if response.Error == "user_not_found" {
-			s.PrintInlineJSON(response)
+			PrintInlineJSON(response)
 			uniqueid = s.ChannelsID(s.UserInput)
 
 			if uniqueid != s.UserInput {
@@ -156,7 +171,7 @@ func (s *ChatSession) ProcessCommandOpen() {
 		}
 
 		if response.Error == "channel_not_found" {
-			s.PrintInlineJSON(response)
+			PrintInlineJSON(response)
 			uniqueid = s.GroupsID(s.UserInput)
 
 			if uniqueid != s.UserInput {
@@ -181,17 +196,25 @@ func (s *ChatSession) ProcessCommandOpen() {
 			}
 		}
 
-		s.PrintInlineJSON(response)
+		PrintInlineJSON(response)
 	}
 }
 
 // ProcessCommandOwner prints information about this session.
-func (s *ChatSession) ProcessCommandOwner() {
-	s.PrintFormattedJSON(s.Owner)
+func (s *ChatSession) ProcessCommandOwner(command string) {
+	if !s.IsConnected || command != ":owner" {
+		return
+	}
+
+	PrintFormattedJSON(s.Owner)
 }
 
 // ProcessCommandPurge deletes the entire history from the API service.
-func (s *ChatSession) ProcessCommandPurge() {
+func (s *ChatSession) ProcessCommandPurge(command string) {
+	if !s.IsConnected || command != ":purge" {
+		return
+	}
+
 	if s.IsChannelConn || s.IsGroupConn || s.IsUserConn {
 		var action string = fmt.Sprintf("%s.history", s.MethodName)
 		s.ResourcePurgeHistory(action, s.Channel, s.UserInput, true)
@@ -201,7 +224,11 @@ func (s *ChatSession) ProcessCommandPurge() {
 }
 
 // ProcessCommandRobotImage sets the emoji or URL to use as the avatar.
-func (s *ChatSession) ProcessCommandRobotImage() {
+func (s *ChatSession) ProcessCommandRobotImage(command string) {
+	if !s.IsConnected || command != ":robotimage" {
+		return
+	}
+
 	if s.UserInput != "" {
 		s.RobotImage = s.UserInput
 
@@ -214,7 +241,11 @@ func (s *ChatSession) ProcessCommandRobotImage() {
 }
 
 // ProcessCommandRobotInfo prints information about the robot session.
-func (s *ChatSession) ProcessCommandRobotInfo() {
+func (s *ChatSession) ProcessCommandRobotInfo(command string) {
+	if !s.IsConnected || command != ":robotinfo" {
+		return
+	}
+
 	fmt.Printf("@ Robot info:\n")
 	fmt.Printf("  Robot name: %s\n", s.RobotName)
 	fmt.Printf("  Robot type: %s\n", s.RobotImageType)
@@ -228,24 +259,40 @@ func (s *ChatSession) ProcessCommandRobotInfo() {
 }
 
 // ProcessCommandRobotName sets the name for the robot session.
-func (s *ChatSession) ProcessCommandRobotName() {
+func (s *ChatSession) ProcessCommandRobotName(command string) {
+	if !s.IsConnected || command != ":robotname" {
+		return
+	}
+
 	if s.UserInput != "" {
 		s.RobotName = s.UserInput
 	}
 }
 
 // ProcessCommandRobotOff turns the robot session off.
-func (s *ChatSession) ProcessCommandRobotOff() {
+func (s *ChatSession) ProcessCommandRobotOff(command string) {
+	if !s.IsConnected || command != ":robotoff" {
+		return
+	}
+
 	s.RobotIsActive = false
 }
 
 // ProcessCommandRobotOn turns the robot session on.
-func (s *ChatSession) ProcessCommandRobotOn() {
+func (s *ChatSession) ProcessCommandRobotOn(command string) {
+	if !s.IsConnected || command != ":roboton" {
+		return
+	}
+
 	s.RobotIsActive = true
 }
 
 // ProcessCommandToken sets the API token for this session.
-func (s *ChatSession) ProcessCommandToken() {
+func (s *ChatSession) ProcessCommandToken(command string) {
+	if !s.IsConnected || command != ":token" {
+		return
+	}
+
 	s.Token = s.UserInput
 
 	author := s.AuthTest()
@@ -256,30 +303,46 @@ func (s *ChatSession) ProcessCommandToken() {
 }
 
 // ProcessCommandUpdate modifies the latest message sent from this session.
-func (s *ChatSession) ProcessCommandUpdate() {
+func (s *ChatSession) ProcessCommandUpdate(command string) {
+	if !s.IsConnected || command != ":update" {
+		return
+	}
+
 	totalHistory := len(s.History)
 
 	if s.UserInput != "" && totalHistory > 0 {
 		latest := s.History[totalHistory-1]
 		response := s.ChatUpdate(latest.Channel, latest.Timestamp, s.UserInput)
-		s.PrintInlineJSON(response)
+		PrintInlineJSON(response)
 	}
 }
 
 // ProcessCommandUserID searches the ID of certain user account.
-func (s *ChatSession) ProcessCommandUserID() {
+func (s *ChatSession) ProcessCommandUserID(command string) {
+	if !s.IsConnected || command != ":userid" {
+		return
+	}
+
 	uniqueid := s.UsersID(s.UserInput)
 	fmt.Printf("@ User identifier: %s\n", uniqueid)
 }
 
 // ProcessCommandUserList prints all the users in the API service.
-func (s *ChatSession) ProcessCommandUserList() {
+func (s *ChatSession) ProcessCommandUserList(command string) {
+	if !s.IsConnected || command != ":userlist" {
+		return
+	}
+
 	response := s.UsersList()
-	s.PrintFormattedJSON(response)
+	PrintFormattedJSON(response)
 }
 
 // ProcessCommandUserSearch searches an user account in the API service.
-func (s *ChatSession) ProcessCommandUserSearch() {
+func (s *ChatSession) ProcessCommandUserSearch(command string) {
+	if !s.IsConnected || command != ":usersearch" {
+		return
+	}
+
 	response := s.UsersSearch(s.UserInput)
-	s.PrintFormattedJSON(response)
+	PrintFormattedJSON(response)
 }

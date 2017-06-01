@@ -531,14 +531,16 @@ func (s *SlackAPI) UsersSetPresence(value string) Response {
 
 // UsersSetStatus set the status message and emoji.
 func (s *SlackAPI) UsersSetStatus(emoji string, text string) ResponseUserIdentity {
-	var response ResponseUserIdentity
 	profile, err := json.Marshal(map[string]string{
 		"status_emoji": emoji,
 		"status_text":  text,
 	})
+
 	if err != nil {
-		s.ReportError(err)
+		return ResponseUserIdentity{}
 	}
+
+	var response ResponseUserIdentity
 	s.GetRequest(&response,
 		"users.profile.set",
 		"token",

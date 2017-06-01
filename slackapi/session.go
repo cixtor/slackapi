@@ -15,16 +15,16 @@ import (
 // the session is currently in a public channel, a group or a private user chat.
 type ChatSession struct {
 	slackapi.SlackAPI
-	Channel       string
 	Command       string
+	Channel       string
+	Username      string
+	UserInput     string
+	MethodName    string
 	History       []slackapi.Post
-	IsChannelConn bool
+	IsUserConn    bool
 	IsConnected   bool
 	IsGroupConn   bool
-	IsUserConn    bool
-	MethodName    string
-	UserInput     string
-	Username      string
+	IsChannelConn bool
 }
 
 // NewSession instantiates a new object.
@@ -36,8 +36,8 @@ func NewSession() *ChatSession {
 func (s *ChatSession) StartSession() {
 	reader := bufio.NewReader(os.Stdin)
 
-	s.Username = "username"
 	s.Channel = "channel"
+	s.Username = "username"
 
 	if s.Token != "" {
 		author := s.AuthTest()
@@ -51,16 +51,18 @@ func (s *ChatSession) StartSession() {
 		message, err := reader.ReadString('\n')
 
 		if err != nil {
-			s.ReportError(err)
+			fmt.Println("input;", err)
+			break
 		}
 
 		s.UserInput = strings.TrimSpace(message)
 
+		/* stop infinite loop */
 		if s.UserInput == ":exit" {
 			break
-		} else {
-			s.ProcessMessage()
 		}
+
+		s.ProcessMessage()
 	}
 }
 
@@ -68,11 +70,13 @@ func (s *ChatSession) StartSession() {
 // message is prefixed with a colon character the method will execute one of the
 // supported custom commands with the rest of the message as its input.
 func (s *ChatSession) ProcessMessage() {
-	var parts []string
-
+	// Ignore empty messages.
 	if s.UserInput == "" {
-		// Ignore empty messages.
-	} else if s.UserInput[0] == ':' {
+		return
+	}
+
+	if s.UserInput[0] == ':' {
+		var parts []string
 		parts = strings.SplitN(s.UserInput, "\x20", 2)
 		s.Command = parts[0]
 		s.UserInput = ""
@@ -81,56 +85,51 @@ func (s *ChatSession) ProcessMessage() {
 			s.UserInput = parts[1]
 		}
 
-		s.ProcessCommand()
-	} else {
-		s.SendUserMessage()
+		s.ProcessCommandClose(s.Command)
+		s.ProcessCommandDelete(s.Command)
+		s.ProcessCommandExec(s.Command)
+		s.ProcessCommandExecv(s.Command)
+		s.ProcessCommandFlush(s.Command)
+		s.ProcessCommandHistory(s.Command)
+		s.ProcessCommandMessages(s.Command)
+		s.ProcessCommandMyHistory(s.Command)
+		s.ProcessCommandOpen(s.Command)
+		s.ProcessCommandOwner(s.Command)
+		s.ProcessCommandPurge(s.Command)
+		s.ProcessCommandRobotImage(s.Command)
+		s.ProcessCommandRobotInfo(s.Command)
+		s.ProcessCommandRobotName(s.Command)
+		s.ProcessCommandRobotOff(s.Command)
+		s.ProcessCommandRobotOn(s.Command)
+		s.ProcessCommandToken(s.Command)
+		s.ProcessCommandUpdate(s.Command)
+		s.ProcessCommandUserID(s.Command)
+		s.ProcessCommandUserList(s.Command)
+		s.ProcessCommandUserSearch(s.Command)
+		return
 	}
+
+	s.SendUserMessage()
 }
 
-// ProcessCommand executes the corresponding custom command.
-func (s *ChatSession) ProcessCommand() {
-	switch s.Command {
-	case ":close":
-		s.ProcessCommandClose()
-	case ":delete":
-		s.ProcessCommandDelete()
-	case ":exec":
-		s.ProcessCommandExec()
-	case ":execv":
-		s.ProcessCommandExecv()
-	case ":flush":
-		s.ProcessCommandFlush()
-	case ":history":
-		s.ProcessCommandHistory()
-	case ":messages":
-		s.ProcessCommandMessages()
-	case ":myhistory":
-		s.ProcessCommandMyHistory()
-	case ":open":
-		s.ProcessCommandOpen()
-	case ":owner":
-		s.ProcessCommandOwner()
-	case ":purge":
-		s.ProcessCommandPurge()
-	case ":robotimage":
-		s.ProcessCommandRobotImage()
-	case ":robotinfo":
-		s.ProcessCommandRobotInfo()
-	case ":robotname":
-		s.ProcessCommandRobotName()
-	case ":robotoff":
-		s.ProcessCommandRobotOff()
-	case ":roboton":
-		s.ProcessCommandRobotOn()
-	case ":token":
-		s.ProcessCommandToken()
-	case ":update":
-		s.ProcessCommandUpdate()
-	case ":userid":
-		s.ProcessCommandUserID()
-	case ":userlist":
-		s.ProcessCommandUserList()
-	case ":usersearch":
-		s.ProcessCommandUserSearch()
+// SendUserMessage sends the user input to the API as a chat message.
+func (s *ChatSession) SendUserMessage() {
+	// Send the message to the remote service.
+	if !s.IsConnected {
+		fmt.Println("{\"ok\":false,\"error\":\"not_connected\"}")
+		return
 	}
+
+	response := s.ChatPostMessage(s.Channel, s.UserInput)
+	s.History = append(s.History, response)
+
+	if !response.Ok {
+		PrintInlineJSON(response)
+		return
+	}
+
+	fmt.Printf(
+		"{\"ok\":true,\"channel\":\"%s\",\"ts\":\"%s\"}\n",
+		response.Channel,
+		response.Timestamp)
 }

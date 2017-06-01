@@ -187,211 +187,211 @@ func main() {
 
 	switch command {
 	case "api.test":
-		client.PrintAndExit(client.APITest())
+		PrintAndExit(client.APITest())
 	case "apps.list":
-		client.PrintAndExit(client.AppsList())
+		PrintAndExit(client.AppsList())
 	case "auth.revoke":
-		client.PrintAndExit(client.AuthRevoke())
+		PrintAndExit(client.AuthRevoke())
 	case "auth.revokeTest":
-		client.PrintAndExit(client.AuthRevokeTest())
+		PrintAndExit(client.AuthRevokeTest())
 	case "auth.test":
-		client.PrintAndExit(client.AuthTest())
+		PrintAndExit(client.AuthTest())
 	case "bots.info":
-		client.PrintAndExit(client.BotsInfo(flag.Arg(1)))
+		PrintAndExit(client.BotsInfo(flag.Arg(1)))
 	case "channels.archive":
-		client.PrintAndExit(client.ChannelsArchive(flag.Arg(1)))
+		PrintAndExit(client.ChannelsArchive(flag.Arg(1)))
 	case "channels.create":
-		client.PrintAndExit(client.ChannelsCreate(flag.Arg(1)))
+		PrintAndExit(client.ChannelsCreate(flag.Arg(1)))
 	case "channels.history":
-		client.PrintAndExit(client.ChannelsHistory(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.ChannelsHistory(flag.Arg(1), flag.Arg(2)))
 	case "channels.id":
-		client.PrintAndExit(client.ChannelsID(flag.Arg(1)))
+		PrintAndExit(client.ChannelsID(flag.Arg(1)))
 	case "channels.info":
-		client.PrintAndExit(client.ChannelsInfo(flag.Arg(1)))
+		PrintAndExit(client.ChannelsInfo(flag.Arg(1)))
 	case "channels.invite":
-		client.PrintAndExit(client.ChannelsInvite(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.ChannelsInvite(flag.Arg(1), flag.Arg(2)))
 	case "channels.join":
-		client.PrintAndExit(client.ChannelsJoin(flag.Arg(1)))
+		PrintAndExit(client.ChannelsJoin(flag.Arg(1)))
 	case "channels.kick":
-		client.PrintAndExit(client.ChannelsKick(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.ChannelsKick(flag.Arg(1), flag.Arg(2)))
 	case "channels.leave":
-		client.PrintAndExit(client.ChannelsLeave(flag.Arg(1)))
+		PrintAndExit(client.ChannelsLeave(flag.Arg(1)))
 	case "channels.list":
-		client.PrintAndExit(client.ChannelsList())
+		PrintAndExit(client.ChannelsList())
 	case "channels.mark":
-		client.PrintAndExit(client.ChannelsMark(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.ChannelsMark(flag.Arg(1), flag.Arg(2)))
 	case "channels.myHistory":
-		client.PrintAndExit(client.ChannelsMyHistory(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.ChannelsMyHistory(flag.Arg(1), flag.Arg(2)))
 	case "channels.purgeHistory":
 		client.ChannelsPurgeHistory(flag.Arg(1), flag.Arg(2), true)
 	case "channels.rename":
-		client.PrintAndExit(client.ChannelsRename(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.ChannelsRename(flag.Arg(1), flag.Arg(2)))
 	case "channels.setPurpose":
-		client.PrintAndExit(client.ChannelsSetPurpose(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.ChannelsSetPurpose(flag.Arg(1), flag.Arg(2)))
 	case "channels.setRetention":
-		client.PrintAndExit(client.ChannelsSetRetention(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.ChannelsSetRetention(flag.Arg(1), flag.Arg(2)))
 	case "channels.setTopic":
-		client.PrintAndExit(client.ChannelsSetTopic(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.ChannelsSetTopic(flag.Arg(1), flag.Arg(2)))
 	case "channels.suggestions":
-		client.PrintAndExit(client.ChannelsSuggestions())
+		PrintAndExit(client.ChannelsSuggestions())
 	case "channels.unarchive":
-		client.PrintAndExit(client.ChannelsUnarchive(flag.Arg(1)))
+		PrintAndExit(client.ChannelsUnarchive(flag.Arg(1)))
 	case "chat.delete":
-		client.PrintAndExit(client.ChatDelete(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.ChatDelete(flag.Arg(1), flag.Arg(2)))
 	case "chat.meMessage":
-		client.PrintAndExit(client.ChatMeMessage(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.ChatMeMessage(flag.Arg(1), flag.Arg(2)))
 	case "chat.postMessage":
-		client.PrintAndExit(client.ChatPostMessage(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.ChatPostMessage(flag.Arg(1), flag.Arg(2)))
 	case "chat.robotMessage":
-		client.PrintAndExit(client.ChatRobotMessage(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.ChatRobotMessage(flag.Arg(1), flag.Arg(2)))
 	case "chat.update":
-		client.PrintAndExit(client.ChatUpdate(flag.Arg(1), flag.Arg(2), flag.Arg(3)))
+		PrintAndExit(client.ChatUpdate(flag.Arg(1), flag.Arg(2), flag.Arg(3)))
 	case "emoji.list":
-		client.PrintAndExit(client.EmojiList())
+		PrintAndExit(client.EmojiList())
 	case "eventlog.history":
-		client.PrintAndExit(client.EventlogHistory(flag.Arg(1)))
+		PrintAndExit(client.EventlogHistory(flag.Arg(1)))
 	case "files.comments.add":
-		client.PrintAndExit(client.FilesCommentsAdd(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.FilesCommentsAdd(flag.Arg(1), flag.Arg(2)))
 	case "files.comments.delete":
-		client.PrintAndExit(client.FilesCommentsDelete(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.FilesCommentsDelete(flag.Arg(1), flag.Arg(2)))
 	case "files.comments.edit":
-		client.PrintAndExit(client.FilesCommentsEdit(flag.Arg(1), flag.Arg(2), flag.Arg(3)))
+		PrintAndExit(client.FilesCommentsEdit(flag.Arg(1), flag.Arg(2), flag.Arg(3)))
 	case "files.delete":
-		client.PrintAndExit(client.FilesDelete(flag.Arg(1)))
+		PrintAndExit(client.FilesDelete(flag.Arg(1)))
 	case "files.info":
-		client.PrintAndExit(client.FilesInfo(flag.Arg(1), flag.Arg(2), flag.Arg(3)))
+		PrintAndExit(client.FilesInfo(flag.Arg(1), flag.Arg(2), flag.Arg(3)))
 	case "files.list":
-		client.PrintAndExit(client.FilesList("none", "", flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.FilesList("none", "", flag.Arg(1), flag.Arg(2)))
 	case "files.listAfterTime":
-		client.PrintAndExit(client.FilesList("ts_from", flag.Arg(1), flag.Arg(2), flag.Arg(3)))
+		PrintAndExit(client.FilesList("ts_from", flag.Arg(1), flag.Arg(2), flag.Arg(3)))
 	case "files.listBeforeTime":
-		client.PrintAndExit(client.FilesList("ts_to", flag.Arg(1), flag.Arg(2), flag.Arg(3)))
+		PrintAndExit(client.FilesList("ts_to", flag.Arg(1), flag.Arg(2), flag.Arg(3)))
 	case "files.listByChannel":
-		client.PrintAndExit(client.FilesList("channel", flag.Arg(1), flag.Arg(2), flag.Arg(3)))
+		PrintAndExit(client.FilesList("channel", flag.Arg(1), flag.Arg(2), flag.Arg(3)))
 	case "files.listByType":
-		client.PrintAndExit(client.FilesList("types", flag.Arg(1), flag.Arg(2), flag.Arg(3)))
+		PrintAndExit(client.FilesList("types", flag.Arg(1), flag.Arg(2), flag.Arg(3)))
 	case "files.listByUser":
-		client.PrintAndExit(client.FilesList("user", flag.Arg(1), flag.Arg(2), flag.Arg(3)))
+		PrintAndExit(client.FilesList("user", flag.Arg(1), flag.Arg(2), flag.Arg(3)))
 	case "files.upload":
-		client.PrintAndExit(client.FilesUpload(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.FilesUpload(flag.Arg(1), flag.Arg(2)))
 	case "groups.archive":
-		client.PrintAndExit(client.GroupsArchive(flag.Arg(1)))
+		PrintAndExit(client.GroupsArchive(flag.Arg(1)))
 	case "groups.close":
-		client.PrintAndExit(client.GroupsClose(flag.Arg(1)))
+		PrintAndExit(client.GroupsClose(flag.Arg(1)))
 	case "groups.create":
-		client.PrintAndExit(client.GroupsCreate(flag.Arg(1)))
+		PrintAndExit(client.GroupsCreate(flag.Arg(1)))
 	case "groups.createChild":
-		client.PrintAndExit(client.GroupsCreateChild(flag.Arg(1)))
+		PrintAndExit(client.GroupsCreateChild(flag.Arg(1)))
 	case "groups.history":
-		client.PrintAndExit(client.GroupsHistory(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.GroupsHistory(flag.Arg(1), flag.Arg(2)))
 	case "groups.id":
-		client.PrintAndExit(client.GroupsID(flag.Arg(1)))
+		PrintAndExit(client.GroupsID(flag.Arg(1)))
 	case "groups.info":
-		client.PrintAndExit(client.GroupsInfo(flag.Arg(1)))
+		PrintAndExit(client.GroupsInfo(flag.Arg(1)))
 	case "groups.invite":
-		client.PrintAndExit(client.GroupsInvite(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.GroupsInvite(flag.Arg(1), flag.Arg(2)))
 	case "groups.kick":
-		client.PrintAndExit(client.GroupsKick(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.GroupsKick(flag.Arg(1), flag.Arg(2)))
 	case "groups.leave":
-		client.PrintAndExit(client.GroupsLeave(flag.Arg(1)))
+		PrintAndExit(client.GroupsLeave(flag.Arg(1)))
 	case "groups.list":
-		client.PrintAndExit(client.GroupsList())
+		PrintAndExit(client.GroupsList())
 	case "groups.mark":
-		client.PrintAndExit(client.GroupsMark(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.GroupsMark(flag.Arg(1), flag.Arg(2)))
 	case "groups.myHistory":
-		client.PrintAndExit(client.GroupsMyHistory(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.GroupsMyHistory(flag.Arg(1), flag.Arg(2)))
 	case "groups.open":
-		client.PrintAndExit(client.GroupsOpen(flag.Arg(1)))
+		PrintAndExit(client.GroupsOpen(flag.Arg(1)))
 	case "groups.rename":
-		client.PrintAndExit(client.GroupsRename(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.GroupsRename(flag.Arg(1), flag.Arg(2)))
 	case "groups.purgeHistory":
 		client.GroupsPurgeHistory(flag.Arg(1), flag.Arg(2), true)
 	case "groups.setPurpose":
-		client.PrintAndExit(client.GroupsSetPurpose(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.GroupsSetPurpose(flag.Arg(1), flag.Arg(2)))
 	case "groups.setRetention":
-		client.PrintAndExit(client.GroupsSetRetention(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.GroupsSetRetention(flag.Arg(1), flag.Arg(2)))
 	case "groups.setTopic":
-		client.PrintAndExit(client.GroupsSetTopic(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.GroupsSetTopic(flag.Arg(1), flag.Arg(2)))
 	case "groups.unarchive":
-		client.PrintAndExit(client.GroupsUnarchive(flag.Arg(1)))
+		PrintAndExit(client.GroupsUnarchive(flag.Arg(1)))
 	case "help.issues.list":
-		client.PrintAndExit(client.HelpIssuesList())
+		PrintAndExit(client.HelpIssuesList())
 	case "im.close":
-		client.PrintAndExit(client.InstantMessageClose(flag.Arg(1)))
+		PrintAndExit(client.InstantMessageClose(flag.Arg(1)))
 	case "im.history":
-		client.PrintAndExit(client.InstantMessageHistory(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.InstantMessageHistory(flag.Arg(1), flag.Arg(2)))
 	case "im.list":
-		client.PrintAndExit(client.InstantMessageList())
+		PrintAndExit(client.InstantMessageList())
 	case "im.mark":
-		client.PrintAndExit(client.InstantMessageMark(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.InstantMessageMark(flag.Arg(1), flag.Arg(2)))
 	case "im.myHistory":
-		client.PrintAndExit(client.InstantMessageMyHistory(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.InstantMessageMyHistory(flag.Arg(1), flag.Arg(2)))
 	case "im.open":
-		client.PrintAndExit(client.InstantMessageOpen(flag.Arg(1)))
+		PrintAndExit(client.InstantMessageOpen(flag.Arg(1)))
 	case "im.purgeHistory":
 		client.InstantMessagePurgeHistory(flag.Arg(1), flag.Arg(2), true)
 	case "mpim.history":
-		client.PrintAndExit(client.MultiPartyInstantMessageHistory(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.MultiPartyInstantMessageHistory(flag.Arg(1), flag.Arg(2)))
 	case "mpim.list":
-		client.PrintAndExit(client.MultiPartyInstantMessageList())
+		PrintAndExit(client.MultiPartyInstantMessageList())
 	case "mpim.listSimple":
-		client.PrintAndExit(client.MultiPartyInstantMessageListSimple())
+		PrintAndExit(client.MultiPartyInstantMessageListSimple())
 	case "mpim.myHistory":
-		client.PrintAndExit(client.MultiPartyInstantMessageMyHistory(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.MultiPartyInstantMessageMyHistory(flag.Arg(1), flag.Arg(2)))
 	case "mpim.purgeHistory":
 		client.MultiPartyInstantMessagePurgeHistory(flag.Arg(1), flag.Arg(2), true)
 	case "reactions.add":
-		client.PrintAndExit(client.ReactionsAdd(flag.Arg(1), flag.Arg(2), flag.Arg(3)))
+		PrintAndExit(client.ReactionsAdd(flag.Arg(1), flag.Arg(2), flag.Arg(3)))
 	case "reactions.get":
-		client.PrintAndExit(client.ReactionsGet(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.ReactionsGet(flag.Arg(1), flag.Arg(2)))
 	case "reactions.list":
-		client.PrintAndExit(client.ReactionsList(flag.Arg(1)))
+		PrintAndExit(client.ReactionsList(flag.Arg(1)))
 	case "reactions.remove":
-		client.PrintAndExit(client.ReactionsRemove(flag.Arg(1), flag.Arg(2), flag.Arg(3)))
+		PrintAndExit(client.ReactionsRemove(flag.Arg(1), flag.Arg(2), flag.Arg(3)))
 	case "rtm.events":
-		printRealTimeMessages(client)
+		MonitorRealTimeMessages(client)
 	case "team.accessLogs":
-		client.PrintAndExit(client.TeamAccessLogs(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.TeamAccessLogs(flag.Arg(1), flag.Arg(2)))
 	case "team.billableInfo":
-		client.PrintAndExit(client.TeamBillableInfo(flag.Arg(1)))
+		PrintAndExit(client.TeamBillableInfo(flag.Arg(1)))
 	case "team.info":
-		client.PrintAndExit(client.TeamInfo())
+		PrintAndExit(client.TeamInfo())
 	case "team.profile.get":
-		client.PrintAndExit(client.TeamProfileGet())
+		PrintAndExit(client.TeamProfileGet())
 	case "users.counts":
-		client.PrintAndExit(client.UsersCounts())
+		PrintAndExit(client.UsersCounts())
 	case "users.deletePhoto":
-		client.PrintAndExit(client.UsersDeletePhoto())
+		PrintAndExit(client.UsersDeletePhoto())
 	case "users.getPresence":
-		client.PrintAndExit(client.UsersGetPresence(flag.Arg(1)))
+		PrintAndExit(client.UsersGetPresence(flag.Arg(1)))
 	case "users.id":
-		client.PrintAndExit(client.UsersID(flag.Arg(1)))
+		PrintAndExit(client.UsersID(flag.Arg(1)))
 	case "users.info":
-		client.PrintAndExit(client.UsersInfo(flag.Arg(1)))
+		PrintAndExit(client.UsersInfo(flag.Arg(1)))
 	case "users.list":
-		client.PrintAndExit(client.UsersList())
+		PrintAndExit(client.UsersList())
 	case "users.prefs.get":
-		client.PrintAndExit(client.UsersPrefsGet())
+		PrintAndExit(client.UsersPrefsGet())
 	case "users.prefs.set":
-		client.PrintAndExit(client.UsersPrefsSet(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.UsersPrefsSet(flag.Arg(1), flag.Arg(2)))
 	case "users.preparePhoto":
-		client.PrintAndExit(client.UsersPreparePhoto(flag.Arg(1)))
+		PrintAndExit(client.UsersPreparePhoto(flag.Arg(1)))
 	case "users.profile.get":
-		client.PrintAndExit(client.UsersProfileGet(flag.Arg(1)))
+		PrintAndExit(client.UsersProfileGet(flag.Arg(1)))
 	case "users.profile.set":
-		client.PrintAndExit(client.UsersProfileSet(flag.Arg(1), flag.Arg(2), flag.Arg(3)))
+		PrintAndExit(client.UsersProfileSet(flag.Arg(1), flag.Arg(2), flag.Arg(3)))
 	case "users.search":
-		client.PrintAndExit(client.UsersSearch(flag.Arg(1)))
+		PrintAndExit(client.UsersSearch(flag.Arg(1)))
 	case "users.setActive":
-		client.PrintAndExit(client.UsersSetActive())
+		PrintAndExit(client.UsersSetActive())
 	case "users.setAvatar":
-		client.PrintAndExit(client.UsersSetAvatar(flag.Arg(1)))
+		PrintAndExit(client.UsersSetAvatar(flag.Arg(1)))
 	case "users.setPhoto":
-		client.PrintAndExit(client.UsersSetPhoto(flag.Arg(1)))
+		PrintAndExit(client.UsersSetPhoto(flag.Arg(1)))
 	case "users.setPresence":
-		client.PrintAndExit(client.UsersSetPresence(flag.Arg(1)))
+		PrintAndExit(client.UsersSetPresence(flag.Arg(1)))
 	case "users.setStatus":
-		client.PrintAndExit(client.UsersSetStatus(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.UsersSetStatus(flag.Arg(1), flag.Arg(2)))
 	case "version":
 		fmt.Println(client.Version())
 	case "help":
@@ -399,37 +399,4 @@ func main() {
 	}
 
 	os.Exit(0)
-}
-
-func printRealTimeMessages(client *slackapi.SlackAPI) {
-	rtm, err := client.NewRTM()
-
-	if err != nil {
-		fmt.Println("RTM error;", err)
-		return
-	}
-
-	go rtm.ManageEvents()
-
-	for msg := range rtm.Events {
-		switch event := msg.Data.(type) {
-		case *slackapi.HelloEvent:
-			fmt.Println("hello; connection established")
-
-		case *slackapi.PresenceChangeEvent:
-			fmt.Println("presence;", event.User, "=>", event.Presence)
-
-		case *slackapi.MessageEvent:
-			fmt.Printf("message; %s@%s: %#v\n", event.User, event.Channel, event.Text)
-
-		case *slackapi.ErrorEvent:
-			fmt.Println("error;", event.Text)
-
-		case *slackapi.ReconnectURLEvent:
-			fmt.Println("reconnect;", event.URL)
-
-		default:
-			fmt.Printf("%s; %#v\n", msg.Type, msg.Data)
-		}
-	}
 }
