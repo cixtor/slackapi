@@ -14,7 +14,7 @@ import (
 	"strings"
 )
 
-const version = "1.5.46"
+const version = "1.5.47"
 
 // TOKEN defines the name for the token HTTP request parameter.
 const TOKEN = "token"

@@ -165,6 +165,11 @@ func (s *ChatSession) ProcessMessage() {
 			return
 		}
 
+		if s.Command == ":status" {
+			s.ProcessCommandStatus()
+			return
+		}
+
 		if s.Command == ":token" {
 			s.ProcessCommandToken()
 			return

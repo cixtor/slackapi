@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/cixtor/slackapi"
@@ -221,6 +222,12 @@ func (s *ChatSession) ProcessCommandRobotOff() {
 // ProcessCommandRobotOn turns the robot session on.
 func (s *ChatSession) ProcessCommandRobotOn() {
 	s.RobotIsActive = true
+}
+
+// ProcessCommandStatus sets the user profile status message.
+func (s *ChatSession) ProcessCommandStatus() {
+	parts := strings.SplitN(s.UserInput, "\x20", 2)
+	s.UsersSetStatus(parts[0], parts[1])
 }
 
 // ProcessCommandToken sets the API token for this session.
