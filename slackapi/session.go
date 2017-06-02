@@ -85,29 +85,114 @@ func (s *ChatSession) ProcessMessage() {
 			s.UserInput = parts[1]
 		}
 
-		s.ProcessCommandClose(s.Command)
-		s.ProcessCommandDelete(s.Command)
-		s.ProcessCommandExec(s.Command)
-		s.ProcessCommandExecv(s.Command)
-		s.ProcessCommandFlush(s.Command)
-		s.ProcessCommandHistory(s.Command)
-		s.ProcessCommandMessages(s.Command)
-		s.ProcessCommandMyHistory(s.Command)
-		s.ProcessCommandOpen(s.Command)
-		s.ProcessCommandOwner(s.Command)
-		s.ProcessCommandPurge(s.Command)
-		s.ProcessCommandRobotImage(s.Command)
-		s.ProcessCommandRobotInfo(s.Command)
-		s.ProcessCommandRobotName(s.Command)
-		s.ProcessCommandRobotOff(s.Command)
-		s.ProcessCommandRobotOn(s.Command)
-		s.ProcessCommandToken(s.Command)
-		s.ProcessCommandUpdate(s.Command)
-		s.ProcessCommandUserID(s.Command)
-		s.ProcessCommandUserList(s.Command)
-		s.ProcessCommandUserSearch(s.Command)
-		return
+		if s.Command == ":close" {
+			s.ProcessCommandClose()
+			return
+		}
+
+		if s.Command == ":delete" {
+			s.ProcessCommandDelete()
+			return
+		}
+
+		if s.Command == ":exec" {
+			s.ProcessCommandExec()
+			return
+		}
+
+		if s.Command == ":execv" {
+			s.ProcessCommandExecv()
+			return
+		}
+
+		if s.Command == ":flush" {
+			s.ProcessCommandFlush()
+			return
+		}
+
+		if s.Command == ":history" {
+			s.ProcessCommandHistory()
+			return
+		}
+
+		if s.Command == ":messages" {
+			s.ProcessCommandMessages()
+			return
+		}
+
+		if s.Command == ":myhistory" {
+			s.ProcessCommandMyHistory()
+			return
+		}
+
+		if s.Command == ":open" {
+			s.ProcessCommandOpen()
+			return
+		}
+
+		if s.Command == ":owner" {
+			s.ProcessCommandOwner()
+			return
+		}
+
+		if s.Command == ":purge" {
+			s.ProcessCommandPurge()
+			return
+		}
+
+		if s.Command == ":robotimage" {
+			s.ProcessCommandRobotImage()
+			return
+		}
+
+		if s.Command == ":robotinfo" {
+			s.ProcessCommandRobotInfo()
+			return
+		}
+
+		if s.Command == ":robotname" {
+			s.ProcessCommandRobotName()
+			return
+		}
+
+		if s.Command == ":robotoff" {
+			s.ProcessCommandRobotOff()
+			return
+		}
+
+		if s.Command == ":roboton" {
+			s.ProcessCommandRobotOn()
+			return
+		}
+
+		if s.Command == ":token" {
+			s.ProcessCommandToken()
+			return
+		}
+
+		if s.Command == ":update" {
+			s.ProcessCommandUpdate()
+			return
+		}
+
+		if s.Command == ":userid" {
+			s.ProcessCommandUserID()
+			return
+		}
+
+		if s.Command == ":userlist" {
+			s.ProcessCommandUserList()
+			return
+		}
+
+		if s.Command == ":usersearch" {
+			s.ProcessCommandUserSearch()
+			return
+		}
 	}
+
+	/* re-construct the original session message */
+	s.UserInput = s.Command + "\x20" + s.UserInput
 
 	s.SendUserMessage()
 }
