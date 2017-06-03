@@ -64,6 +64,21 @@ func (s *SlackAPI) ChatPostMessage(channel string, message string) Post {
 	return response
 }
 
+// ChatReplyMessage sends a message to a channel.
+func (s *SlackAPI) ChatReplyMessage(channel string, timestamp string, message string) Post {
+	var response Post
+	s.GetRequest(&response,
+		"chat.postMessage",
+		"token",
+		"parse=none",
+		"channel="+channel,
+		"thread_ts="+timestamp,
+		"text="+message,
+		"as_user=true",
+		"link_names=true")
+	return response
+}
+
 // ChatRobotMessage sends a message to a channel as a robot.
 func (s *SlackAPI) ChatRobotMessage(channel string, message string) Post {
 	s.RobotIsActive = true
