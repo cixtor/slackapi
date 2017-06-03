@@ -12,10 +12,12 @@ import (
 
 // RTM is the real time messaging.
 type RTM struct {
-	conn      *websocket.Conn
-	connURL   string
-	Events    chan Event
-	rawEvents chan json.RawMessage
+	conn         *websocket.Conn
+	connURL      string
+	Events       chan Event
+	rawEvents    chan json.RawMessage
+	stopEvents   chan bool
+	stopListener chan bool
 }
 
 // RTMResponse defines the JSON-encoded output for RTM connection.
@@ -123,35 +125,46 @@ func (s *SlackAPI) NewRTM() (*RTM, error) {
 	}
 
 	return &RTM{
-		conn:      ws,
-		connURL:   response.URL,
-		Events:    make(chan Event, 50),
-		rawEvents: make(chan json.RawMessage),
+		conn:         ws,
+		connURL:      response.URL,
+		Events:       make(chan Event),
+		rawEvents:    make(chan json.RawMessage),
+		stopEvents:   make(chan bool, 1),
+		stopListener: make(chan bool, 1),
 	}, nil
+}
+
+// Stop kills the connection.
+func (rtm *RTM) Stop() {
+	close(rtm.Events)
+	close(rtm.rawEvents)
+
+	rtm.stopEvents <- true
+	rtm.stopListener <- true
 }
 
 // ManageEvents controls the websocket events.
 func (rtm *RTM) ManageEvents() {
-	keepalive := make(chan bool)
+	go rtm.handleEvents()
 
-	go rtm.handleIncomingEvents(keepalive)
-
-	rtm.handleEvents(keepalive)
+	go rtm.handleIncomingEvents()
 }
 
-func (rtm *RTM) handleEvents(keepRunning chan bool) {
+func (rtm *RTM) handleEvents() {
 	for {
 		select {
+		case <-rtm.stopEvents:
+			return
 		case rawEvent := <-rtm.rawEvents:
 			rtm.handleRawEvent(rawEvent)
 		}
 	}
 }
 
-func (rtm *RTM) handleIncomingEvents(keepalive <-chan bool) {
+func (rtm *RTM) handleIncomingEvents() {
 	for {
 		select {
-		case <-keepalive:
+		case <-rtm.stopListener:
 			return
 		default:
 			rtm.receiveIncomingEvent()
