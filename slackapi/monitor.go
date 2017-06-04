@@ -25,7 +25,15 @@ func MonitorRealTimeMessages(client *slackapi.SlackAPI) {
 			fmt.Println("presence;", event.User, "=>", event.Presence)
 
 		case *slackapi.MessageEvent:
-			fmt.Printf("message; %s@%s: %#v\n", event.User, event.Channel, event.Text)
+			if event.Text == "stop" {
+				rtm.Stop()
+			} else {
+				fmt.Printf(
+					"message; %s@%s: %#v\n",
+					event.User,
+					event.Channel,
+					event.Text)
+			}
 
 		case *slackapi.ErrorEvent:
 			fmt.Println("error;", event.Text)
@@ -37,4 +45,6 @@ func MonitorRealTimeMessages(client *slackapi.SlackAPI) {
 			fmt.Printf("%s; %#v\n", msg.Type, msg.Data)
 		}
 	}
+
+	fmt.Println("stopped")
 }
