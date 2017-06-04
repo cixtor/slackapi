@@ -7,7 +7,7 @@ Slack, the _"messaging app for teams"_ offers an API that has been used to build
 Install the CLI with this command:
 
 ```
-go get -u github.com/cixtor/slackapi/cmd
+go get -u github.com/cixtor/slackapi/slackapi
 ```
 
 Import the package into your project with this:

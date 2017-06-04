@@ -517,7 +517,7 @@ func (s *SlackAPI) UsersSetPhoto(imageid string) ResponseUserPhoto {
 		"token",
 		"crop_x=0",
 		"crop_y=0",
-		"crop_w=1000",
+		"crop_w=1024",
 		"id="+imageid)
 	return response
 }
