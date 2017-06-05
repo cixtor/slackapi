@@ -3,8 +3,6 @@ package slackapi
 import (
 	"encoding/json"
 	"fmt"
-	"io"
-	"log"
 	"reflect"
 
 	"golang.org/x/net/websocket"
@@ -16,7 +14,7 @@ type RTM struct {
 	connURL      string
 	Events       chan Event
 	rawEvents    chan json.RawMessage
-	stopEvents   chan bool
+	stopCaptured chan bool
 	stopListener chan bool
 }
 
@@ -129,45 +127,46 @@ func (s *SlackAPI) NewRTM() (*RTM, error) {
 		connURL:      response.URL,
 		Events:       make(chan Event),
 		rawEvents:    make(chan json.RawMessage),
-		stopEvents:   make(chan bool, 1),
 		stopListener: make(chan bool, 1),
+		stopCaptured: make(chan bool, 1),
 	}, nil
 }
 
-// Stop kills the connection.
-func (rtm *RTM) Stop() {
-	close(rtm.Events)
-	close(rtm.rawEvents)
-
-	rtm.stopEvents <- true
+// Disconnect kills the connection.
+func (rtm *RTM) Disconnect() {
+	rtm.conn.Close()
 	rtm.stopListener <- true
+	rtm.stopCaptured <- true
 }
 
 // ManageEvents controls the websocket events.
 func (rtm *RTM) ManageEvents() {
-	go rtm.handleEvents()
-
 	go rtm.handleIncomingEvents()
+	go rtm.handleCapturedEvents()
 }
 
-func (rtm *RTM) handleEvents() {
+func (rtm *RTM) handleIncomingEvents() {
+LOOP:
 	for {
 		select {
-		case <-rtm.stopEvents:
-			return
-		case rawEvent := <-rtm.rawEvents:
-			rtm.handleRawEvent(rawEvent)
+		case <-rtm.stopListener:
+			close(rtm.rawEvents)
+			break LOOP
+		default:
+			rtm.receiveIncomingEvent()
 		}
 	}
 }
 
-func (rtm *RTM) handleIncomingEvents() {
+func (rtm *RTM) handleCapturedEvents() {
+LOOP:
 	for {
 		select {
-		case <-rtm.stopListener:
-			return
-		default:
-			rtm.receiveIncomingEvent()
+		case <-rtm.stopCaptured:
+			close(rtm.Events)
+			break LOOP
+		case rawEvent := <-rtm.rawEvents:
+			rtm.handleRawEvent(rawEvent)
 		}
 	}
 }
@@ -177,12 +176,6 @@ func (rtm *RTM) receiveIncomingEvent() {
 	event := json.RawMessage{}
 
 	if err := websocket.JSON.Receive(rtm.conn, &event); err != nil {
-		if err == io.EOF {
-			log.Fatal("Connection dropped")
-			return
-		}
-
-		rtm.Events <- Event{Type: "error", Data: &ErrorEvent{err.Error()}}
 		return
 	}
 

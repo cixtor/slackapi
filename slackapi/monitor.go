@@ -25,8 +25,8 @@ func MonitorRealTimeMessages(client *slackapi.SlackAPI) {
 			fmt.Println("presence;", event.User, "=>", event.Presence)
 
 		case *slackapi.MessageEvent:
-			if event.Text == "stop" {
-				rtm.Stop()
+			if event.Text == "disconnect" {
+				rtm.Disconnect()
 			} else {
 				fmt.Printf(
 					"message; %s@%s: %#v\n",
