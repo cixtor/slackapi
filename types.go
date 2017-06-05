@@ -1,9 +1,5 @@
 package slackapi
 
-import (
-	"encoding/json"
-)
-
 // Response defines the expected data from the JSON-encoded API response.
 type Response struct {
 	Ok       bool   `json:"ok"`
@@ -61,9 +57,8 @@ type DeletedHistory struct {
 type Post struct {
 	Response
 	Channel   string  `json:"channel"`
-	Message   Message `json:"message"`
-	Text      string  `json:"text"`
 	Timestamp string  `json:"ts"`
+	Message   Message `json:"message"`
 }
 
 // Item defines the expected data for: message, file, or file comment.
@@ -74,65 +69,6 @@ type Item struct {
 	File      *File    `json:"file,omitempty"`
 	Comment   *Comment `json:"comment,omitempty"`
 	Timestamp string   `json:"ts,omitempty"`
-}
-
-// Message defines the expected data from the JSON-encoded API response.
-type Message struct {
-	Attachments  []Attachment `json:"attachments"`
-	BotID        string       `json:"bot_id"`
-	Channel      string       `json:"channel"`
-	DisplayAsBot bool         `json:"display_as_bot"`
-	File         File         `json:"file"`
-	Subtype      string       `json:"subtype"`
-	Text         string       `json:"text"`
-	Timestamp    string       `json:"ts"`
-	Type         string       `json:"type"`
-	Upload       bool         `json:"upload"`
-	User         string       `json:"user"`
-	Username     string       `json:"username"`
-}
-
-// ModifiedMessage defines the expected data from the JSON-encoded API response.
-type ModifiedMessage struct {
-	Response
-	Channel   string `json:"channel"`
-	Text      string `json:"text"`
-	Timestamp string `json:"ts"`
-}
-
-// Comment defines the expected data from the JSON-encoded API response.
-type Comment struct {
-	ID        string `json:"id,omitempty"`
-	Created   int64  `json:"created,omitempty"`
-	Timestamp int64  `json:"timestamp,omitempty"`
-	User      string `json:"user,omitempty"`
-	Comment   string `json:"comment,omitempty"`
-}
-
-// Attachment defines the expected data from the JSON-encoded API response.
-type Attachment struct {
-	Fallback    string      `json:"fallback"`
-	FromURL     string      `json:"from_url"`
-	ID          int         `json:"id"`
-	ImageBytes  int         `json:"image_bytes"`
-	ImageHeight int         `json:"image_height"`
-	ImageURL    string      `json:"image_url"`
-	ImageWidth  int         `json:"image_width"`
-	ServiceName string      `json:"service_name"`
-	Text        string      `json:"text"`
-	ThumbHeight int         `json:"thumb_height"`
-	ThumbURL    string      `json:"thumb_url"`
-	ThumbWidth  int         `json:"thumb_width"`
-	Title       string      `json:"title"`
-	TitleLink   string      `json:"title_link"`
-	Timestamp   json.Number `json:"ts"`
-}
-
-// DeletedMessage defines the expected data from the JSON-encoded API response.
-type DeletedMessage struct {
-	Deleted   bool
-	Text      string
-	Timestamp string
 }
 
 // Channel defines the expected data from the JSON-encoded API response.

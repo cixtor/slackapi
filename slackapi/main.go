@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"os"
@@ -56,6 +57,7 @@ func main() {
 		fmt.Println("  slackapi channels.unarchive [channel]                    Unarchives a channel")
 		fmt.Println("  slackapi chat.delete [channel] [time]                    Deletes a message")
 		fmt.Println("  slackapi chat.meMessage [channel] [text]                 Share a me message into a channel")
+		fmt.Println("  slackapi chat.postAttachment [channel] [json]            Sends an attachment to a channel")
 		fmt.Println("  slackapi chat.postMessage [channel] [text]               Sends a message to a channel")
 		fmt.Println("  slackapi chat.robotMessage [channel] [text]              Sends a message to a channel as a robot")
 		fmt.Println("  slackapi chat.session                                    Starts a new chat session")
@@ -240,6 +242,16 @@ func main() {
 		PrintAndExit(client.ChatDelete(flag.Arg(1), flag.Arg(2)))
 	case "chat.meMessage":
 		PrintAndExit(client.ChatMeMessage(flag.Arg(1), flag.Arg(2)))
+	case "chat.postAttachment":
+		var data slackapi.Attachment
+		if err := json.Unmarshal([]byte(flag.Arg(2)), &data); err != nil {
+			fmt.Printf("json unmarshal; %s\n", err.Error())
+			os.Exit(1)
+		}
+		PrintAndExit(client.SendMessage(map[string]interface{}{
+			"channel":     flag.Arg(1),
+			"attachments": []slackapi.Attachment{data},
+		}))
 	case "chat.postMessage":
 		PrintAndExit(client.ChatPostMessage(flag.Arg(1), flag.Arg(2)))
 	case "chat.robotMessage":
