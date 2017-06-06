@@ -120,8 +120,6 @@ func (s *SlackAPI) SendMessage(data map[string]interface{}) Post {
 		}
 	}
 
-	log.Printf("%#v\n", params)
-
 	s.PostRequest(&response, "chat.postMessage", params...)
 
 	return response
