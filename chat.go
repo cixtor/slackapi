@@ -2,7 +2,6 @@ package slackapi
 
 import (
 	"encoding/json"
-	"log"
 	"os"
 )
 
