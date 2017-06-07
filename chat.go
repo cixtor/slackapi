@@ -70,6 +70,7 @@ func (s *SlackAPI) ChatRobotMessage(channel string, text string) Post {
 		"text":     text,
 		"channel":  channel,
 		"username": s.RobotName,
+		"as_user":  "false",
 	}
 
 	if s.RobotImage[0] == ':' {
@@ -101,11 +102,18 @@ func (s *SlackAPI) ChatUpdate(channel string, timestamp string, message string) 
 func (s *SlackAPI) SendMessage(data map[string]interface{}) Post {
 	var response Post
 
-	params := []string{
-		"token",
-		"parse=none",
-		"as_user=true",
-		"link_names=true",
+	params := []string{"token"}
+
+	if _, exists := data["parse"]; !exists {
+		params = append(params, "parse=none")
+	}
+
+	if _, exists := data["as_user"]; !exists {
+		params = append(params, "as_user=true")
+	}
+
+	if _, exists := data["link_names"]; !exists {
+		params = append(params, "link_names=true")
 	}
 
 	for name, value := range data {
