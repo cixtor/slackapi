@@ -4,34 +4,33 @@ import "encoding/json"
 
 // Attachment defines the expected data from the JSON-encoded API response.
 type Attachment struct {
-	Color         string             `json:"color,omitempty"`
-	CallbackID    string             `json:"callback_id,omitempty"`
+	Actions       []AttachmentAction `json:"actions,omitempty"`
+	AuthorIcon    string             `json:"author_icon,omitempty"`
+	AuthorLink    string             `json:"author_link,omitempty"`
 	AuthorName    string             `json:"author_name,omitempty"`
 	AuthorSubname string             `json:"author_subname,omitempty"`
-	AuthorLink    string             `json:"author_link,omitempty"`
-	AuthorIcon    string             `json:"author_icon,omitempty"`
+	CallbackID    string             `json:"callback_id,omitempty"`
+	Color         string             `json:"color,omitempty"`
+	Fallback      string             `json:"fallback"`
 	Fields        []AttachmentField  `json:"fields,omitempty"`
-	Actions       []AttachmentAction `json:"actions,omitempty"`
-	MarkdownIn    []string           `json:"mrkdwn_in,omitempty"`
 	Footer        string             `json:"footer,omitempty"`
 	FooterIcon    string             `json:"footer_icon,omitempty"`
-
-	Fallback    string      `json:"fallback"`
-	FromURL     string      `json:"from_url"`
-	ID          int         `json:"id"`
-	ImageBytes  int         `json:"image_bytes"`
-	ImageHeight int         `json:"image_height"`
-	ImageURL    string      `json:"image_url,omitempty"`
-	ImageWidth  int         `json:"image_width"`
-	ServiceName string      `json:"service_name"`
-	Pretext     string      `json:"pretext,omitempty"`
-	Text        string      `json:"text"`
-	ThumbHeight int         `json:"thumb_height"`
-	ThumbURL    string      `json:"thumb_url,omitempty"`
-	ThumbWidth  int         `json:"thumb_width"`
-	Title       string      `json:"title,omitempty"`
-	TitleLink   string      `json:"title_link,omitempty"`
-	Timestamp   json.Number `json:"ts,omitempty"`
+	FromURL       string             `json:"from_url"`
+	ID            int                `json:"id"`
+	ImageBytes    int                `json:"image_bytes"`
+	ImageHeight   int                `json:"image_height"`
+	ImageURL      string             `json:"image_url,omitempty"`
+	ImageWidth    int                `json:"image_width"`
+	MarkdownIn    []string           `json:"mrkdwn_in,omitempty"`
+	Pretext       string             `json:"pretext,omitempty"`
+	ServiceName   string             `json:"service_name"`
+	Text          string             `json:"text"`
+	ThumbHeight   int                `json:"thumb_height"`
+	ThumbURL      string             `json:"thumb_url,omitempty"`
+	ThumbWidth    int                `json:"thumb_width"`
+	Timestamp     json.Number        `json:"ts,omitempty"`
+	Title         string             `json:"title,omitempty"`
+	TitleLink     string             `json:"title_link,omitempty"`
 }
 
 // AttachmentField defines one single message attachment field.
