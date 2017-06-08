@@ -102,6 +102,7 @@ var EventTypes = map[string]interface{}{
 	"reconnect_url":           ReconnectURLEvent{},
 	"star_added":              StarAddedEvent{},
 	"star_removed":            StarRemovedEvent{},
+	"subteam_updated":         SubteamUpdated{},
 	"team_domain_change":      TeamDomainChangeEvent{},
 	"team_join":               TeamJoinEvent{},
 	"team_migration_started":  TeamMigrationStartedEvent{},

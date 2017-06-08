@@ -6,8 +6,9 @@ import "encoding/json"
 
 // Event defines the JSON-encoded output for RTM events.
 type Event struct {
-	Type string `json:"type,omitempty"`
-	Data interface{}
+	Type    string      `json:"type"`
+	EventTs json.Number `json:"event_ts"`
+	Data    interface{}
 }
 
 // ErrorEvent represents the websocket errors.
@@ -322,6 +323,30 @@ type StarAddedEvent starEvent
 
 // StarRemovedEvent represents the Star removed event.
 type StarRemovedEvent starEvent
+
+// SubteamUpdated represents the changes in team metadata.
+type SubteamUpdated struct {
+	ID                  string              `json:"id"`
+	TeamID              string              `json:"team_id"`
+	IsUserGroup         bool                `json:"is_usergroup"`
+	IsSubteam           bool                `json:"is_subteam"`
+	Name                string              `json:"name"`
+	Description         string              `json:"description"`
+	Handle              string              `json:"handle"`
+	IsExternal          bool                `json:"is_external"`
+	DateCreate          int64               `json:"date_create"`
+	DateUpdate          int64               `json:"date_update"`
+	DateDelete          int64               `json:"date_delete"`
+	AutoType            interface{}         `json:"auto_type"`
+	AutoProvision       bool                `json:"auto_provision"`
+	EnterpriseSubteamID string              `json:"enterprise_subteam_id"`
+	CreatedBy           string              `json:"created_by"`
+	UpdatedBy           string              `json:"updated_by"`
+	DeletedBy           string              `json:"deleted_by"`
+	UserCount           int                 `json:"user_count"`
+	Users               []string            `json:"users"`
+	Prefs               map[string][]string `json:"prefs"`
+}
 
 // TeamDomainChangeEvent represents the Team domain change event.
 type TeamDomainChangeEvent struct {
