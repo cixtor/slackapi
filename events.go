@@ -6,9 +6,8 @@ import "encoding/json"
 
 // Event defines the JSON-encoded output for RTM events.
 type Event struct {
-	Type    string      `json:"type"`
-	EventTs json.Number `json:"event_ts"`
-	Data    interface{}
+	Type string `json:"type"`
+	Data interface{}
 }
 
 // ErrorEvent represents the websocket errors.
@@ -108,6 +107,22 @@ type ChannelUnarchiveEvent ChannelInfoEvent
 type CommandsChangedEvent struct {
 	Type           string `json:"type"`
 	EventTimestamp string `json:"event_ts"`
+}
+
+// DesktopNotification represents the structure of an app alert.
+type DesktopNotification struct {
+	Type           string `json:"type"`
+	Title          string `json:"title"`
+	Subtitle       string `json:"subtitle"`
+	Msg            string `json:"msg"`
+	Content        string `json:"content"`
+	Channel        string `json:"channel"`
+	LaunchURI      string `json:"launchUri"`
+	AvatarImage    string `json:"avatarImage"`
+	SsbFilename    string `json:"ssbFilename"`
+	ImageURI       string `json:"imageUri"`
+	EventTimestamp string `json:"event_ts"`
+	IsShared       bool   `json:"is_shared"`
 }
 
 // DNDUpdatedEvent represents the update event for Do Not Disturb
@@ -324,8 +339,8 @@ type StarAddedEvent starEvent
 // StarRemovedEvent represents the Star removed event.
 type StarRemovedEvent starEvent
 
-// SubteamUpdated represents the changes in team metadata.
-type SubteamUpdated struct {
+// Subteam represents the subteam metadata.
+type Subteam struct {
 	ID                  string              `json:"id"`
 	TeamID              string              `json:"team_id"`
 	IsUserGroup         bool                `json:"is_usergroup"`
@@ -346,6 +361,13 @@ type SubteamUpdated struct {
 	UserCount           int                 `json:"user_count"`
 	Users               []string            `json:"users"`
 	Prefs               map[string][]string `json:"prefs"`
+}
+
+// SubteamUpdated represents the changes in team metadata.
+type SubteamUpdated struct {
+	Type           string  `json:"type"`
+	Subteam        Subteam `json:"subteam"`
+	EventTimestamp string  `json:"event_ts"`
 }
 
 // TeamDomainChangeEvent represents the Team domain change event.

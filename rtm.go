@@ -62,6 +62,7 @@ var EventTypes = map[string]interface{}{
 	"channel_rename":          ChannelRenameEvent{},
 	"channel_unarchive":       ChannelUnarchiveEvent{},
 	"commands_changed":        CommandsChangedEvent{},
+	"desktop_notification":    DesktopNotification{},
 	"dnd_updated":             DNDUpdatedEvent{},
 	"dnd_updated_user":        DNDUpdatedEvent{},
 	"email_domain_changed":    EmailDomainChangedEvent{},
