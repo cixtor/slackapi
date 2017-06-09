@@ -133,6 +133,7 @@ func main() {
 		fmt.Println("  slackapi users.search [user]                             Search users by name or email address")
 		fmt.Println("  slackapi users.setActive                                 Marks a user as active")
 		fmt.Println("  slackapi users.setAvatar [image]                         Upload a picture and set it as the avatar")
+		fmt.Println("  slackapi users.setEmail [email]                          Changes the email address without confirmation")
 		fmt.Println("  slackapi users.setPhoto [image_id]                       Define which picture will be the avatar")
 		fmt.Println("  slackapi users.setPresence [presence]                    Manually sets user presence")
 		fmt.Println("  slackapi users.setStatus [emoji] [text]                  Set the status message and emoji")
@@ -398,6 +399,8 @@ func main() {
 		PrintAndExit(client.UsersSetActive())
 	case "users.setAvatar":
 		PrintAndExit(client.UsersSetAvatar(flag.Arg(1)))
+	case "users.setEmail":
+		PrintAndExit(client.UsersProfileSet("", "email", flag.Arg(1)))
 	case "users.setPhoto":
 		PrintAndExit(client.UsersSetPhoto(flag.Arg(1)))
 	case "users.setPresence":

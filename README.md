@@ -214,6 +214,7 @@ Also, you can pass an environment variable `SLACK_VERBOSE=true` to print additio
 - [x] `users.search` - Search users by name or email address.
 - [x] `users.setActive` - Marks a user as active.
 - [x] `users.setAvatar` - Upload a picture and set it as the avatar.
+- [x] `users.setEmail` - Changes the email address without confirmation.
 - [x] `users.setPhoto` - Define which picture will be the avatar.
 - [x] `users.setPresence` - Manually sets user presence.
 - [x] `users.setStatus` - Set the status message and emoji.

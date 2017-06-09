@@ -96,6 +96,7 @@ type AttachmentActionCallback struct {
 	AttachmentID     string             `json:"attachment_id"`
 	ActionTimestamp  string             `json:"action_ts"`
 	MessageTimestamp string             `json:"message_ts"`
+	IsAppUnfurl      bool               `json:"is_app_unfurl"`
 	Actions          []AttachmentAction `json:"actions"`
 	OriginalMessage  Message            `json:"original_message"`
 	Channel          Channel            `json:"channel"`
