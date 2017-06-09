@@ -218,4 +218,5 @@ Also, you can pass an environment variable `SLACK_VERBOSE=true` to print additio
 - [x] `users.setPhoto` - Define which picture will be the avatar.
 - [x] `users.setPresence` - Manually sets user presence.
 - [x] `users.setStatus` - Set the status message and emoji.
+- [x] `users.setUsername` - Changes the username without admin privileges.
 - [x] `version` - Displays the program version number.

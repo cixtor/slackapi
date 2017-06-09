@@ -137,6 +137,7 @@ func main() {
 		fmt.Println("  slackapi users.setPhoto [image_id]                       Define which picture will be the avatar")
 		fmt.Println("  slackapi users.setPresence [presence]                    Manually sets user presence")
 		fmt.Println("  slackapi users.setStatus [emoji] [text]                  Set the status message and emoji")
+		fmt.Println("  slackapi users.setUsername [username]                    Changes the username without admin privileges")
 		fmt.Println("  slackapi version                                         Displays the program version number")
 		fmt.Println("  slackapi help                                            Displays usage and program options")
 		fmt.Println()
@@ -407,6 +408,8 @@ func main() {
 		PrintAndExit(client.UsersSetPresence(flag.Arg(1)))
 	case "users.setStatus":
 		PrintAndExit(client.UsersSetStatus(flag.Arg(1), flag.Arg(2)))
+	case "users.setUsername":
+		PrintAndExit(client.UsersProfileSet("", "username", flag.Arg(1)))
 	case "version":
 		fmt.Println(client.Version())
 	case "help":
