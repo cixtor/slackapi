@@ -1,5 +1,23 @@
 package slackapi
 
+// ReactionArgs defines the data to send to the API service.
+type ReactionArgs struct {
+	Name        string `json:"name"`
+	Channel     string `json:"channel"`
+	File        string `json:"file"`
+	FileComment string `json:"file_comment"`
+	Full        bool   `json:"full"`
+	Timestamp   string `json:"timestamp"`
+}
+
+// ReactionListArgs defines the data to send to the API service.
+type ReactionListArgs struct {
+	Count int    `json:"count"`
+	Full  bool   `json:"full"`
+	Page  int    `json:"page"`
+	User  string `json:"user"`
+}
+
 // ResponseReactionsGet defines the JSON-encoded output for ReactionsGet.
 type ResponseReactionsGet struct {
 	Response
@@ -46,100 +64,32 @@ type Reaction struct {
 }
 
 // ReactionsAdd adds a reaction to an item.
-func (s *SlackAPI) ReactionsAdd(name string, resource string, unique string) Response {
+func (s *SlackAPI) ReactionsAdd(data ReactionArgs) Response {
 	var response Response
-
-	if resource[0] == 'F' {
-		if unique == "" {
-			s.GetRequest(&response,
-				"reactions.add",
-				"token",
-				"name="+name,
-				"file="+resource)
-		} else {
-			s.GetRequest(&response,
-				"reactions.add",
-				"token",
-				"name="+name,
-				"file_comment="+unique)
-		}
-	} else {
-		s.GetRequest(&response,
-			"reactions.add",
-			"token",
-			"name="+name,
-			"channel="+resource,
-			"timestamp="+unique)
-	}
-
+	s.PostRequest(&response, "reactions.add", data)
 	return response
 }
 
 // ReactionsGet gets reactions for an item.
-func (s *SlackAPI) ReactionsGet(resource string, unique string) ResponseReactionsGet {
+func (s *SlackAPI) ReactionsGet(data ReactionArgs) ResponseReactionsGet {
 	var response ResponseReactionsGet
-
-	if resource[0] == 'F' {
-		if unique == "" {
-			s.GetRequest(&response,
-				"reactions.get",
-				"token",
-				"file="+resource)
-		} else {
-			s.GetRequest(&response,
-				"reactions.get",
-				"token",
-				"file_comment="+unique)
-		}
-	} else {
-		s.GetRequest(&response,
-			"reactions.get",
-			"token",
-			"channel="+resource,
-			"timestamp="+unique)
-	}
-
+	s.PostRequest(&response, "reactions.get", data)
 	return response
 }
 
 // ReactionsList lists reactions made by a user.
-func (s *SlackAPI) ReactionsList(userid string) ResponseReactionsList {
+func (s *SlackAPI) ReactionsList(data ReactionListArgs) ResponseReactionsList {
+	if data.Count == 0 {
+		data.Count = 100
+	}
 	var response ResponseReactionsList
-	s.GetRequest(&response,
-		"reactions.list",
-		"token",
-		"full=true",
-		"count=100",
-		"user="+userid)
+	s.GetRequest(&response, "reactions.list", data)
 	return response
 }
 
 // ReactionsRemove removes a reaction from an item.
-func (s *SlackAPI) ReactionsRemove(name string, resource string, unique string) Response {
+func (s *SlackAPI) ReactionsRemove(data ReactionArgs) Response {
 	var response Response
-
-	if resource[0] == 'F' {
-		if unique == "" {
-			s.GetRequest(&response,
-				"reactions.remove",
-				"token",
-				"name="+name,
-				"file="+resource)
-		} else {
-			s.GetRequest(&response,
-				"reactions.remove",
-				"token",
-				"name="+name,
-				"file_comment="+unique)
-		}
-	} else {
-		s.GetRequest(&response,
-			"reactions.remove",
-			"token",
-			"name="+name,
-			"channel="+resource,
-			"timestamp="+unique)
-	}
-
+	s.PostRequest(&response, "reactions.remove", data)
 	return response
 }

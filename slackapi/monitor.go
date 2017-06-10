@@ -7,7 +7,7 @@ import (
 
 // MonitorRealTimeMessages prints all the supported websocket events.
 func MonitorRealTimeMessages(client *slackapi.SlackAPI) {
-	rtm, err := client.NewRTM()
+	rtm, err := client.NewRTM(slackapi.RTMArgs{})
 
 	if err != nil {
 		fmt.Println("RTM error;", err)

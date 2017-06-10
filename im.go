@@ -18,19 +18,24 @@ type InstantMessageObject struct {
 // InstantMessageClose close a direct message channel.
 func (s *SlackAPI) InstantMessageClose(channel string) Response {
 	var response Response
-	s.GetRequest(&response, "im.close", "token", "channel="+channel)
+	s.GetRequest(&response, "im.close", struct {
+		Channel string `json:"channel"`
+	}{channel})
 	return response
 }
 
 // InstantMessageHistory fetches history of messages and events from direct message channel.
 func (s *SlackAPI) InstantMessageHistory(channel string, latest string) History {
-	return s.ResourceHistory("im.history", channel, latest)
+	return s.ResourceHistory("im.history", HistoryArgs{
+		Channel: channel,
+		Latest:  latest,
+	})
 }
 
 // InstantMessageList lists direct message channels for the calling user.
 func (s *SlackAPI) InstantMessageList() InstantMessageList {
 	var response InstantMessageList
-	s.GetRequest(&response, "im.list", "token")
+	s.GetRequest(&response, "im.list", nil)
 	return response
 }
 
@@ -45,10 +50,12 @@ func (s *SlackAPI) InstantMessageMyHistory(channel string, latest string) MyHist
 }
 
 // InstantMessageOpen opens a direct message channel.
-func (s *SlackAPI) InstantMessageOpen(userid string) Session {
+func (s *SlackAPI) InstantMessageOpen(user string) Session {
 	var response Session
-	userid = s.UsersID(userid)
-	s.GetRequest(&response, "im.open", "token", "user="+userid)
+	s.GetRequest(&response, "im.open", struct {
+		User     string `json:"user"`
+		ReturnIM bool   `json:"return_im"`
+	}{s.UsersID(user), true})
 	return response
 }
 

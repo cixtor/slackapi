@@ -32,15 +32,21 @@ func (s *SlackAPI) ChannelsArchive(channel string) Response {
 }
 
 // ChannelsCreate creates a channel.
-func (s *SlackAPI) ChannelsCreate(channel string) ResponseChannelsInfo {
+func (s *SlackAPI) ChannelsCreate(name string) ResponseChannelsInfo {
 	var response ResponseChannelsInfo
-	s.GetRequest(&response, "channels.create", "token", "name="+channel)
+	s.PostRequest(&response, "channels.create", struct {
+		Name     string `json:"name"`
+		Validate bool   `json:"validate"`
+	}{name, true})
 	return response
 }
 
 // ChannelsHistory fetches history of messages and events from a channel.
 func (s *SlackAPI) ChannelsHistory(channel string, latest string) History {
-	return s.ResourceHistory("channels.history", channel, latest)
+	return s.ResourceHistory("channels.history", HistoryArgs{
+		Channel: channel,
+		Latest:  latest,
+	})
 }
 
 // ChannelsID gets channel identifier from readable name.
@@ -61,8 +67,9 @@ func (s *SlackAPI) ChannelsID(query string) string {
 // ChannelsInfo gets information about a channel.
 func (s *SlackAPI) ChannelsInfo(channel string) ResponseChannelsInfo {
 	var response ResponseChannelsInfo
-	channel = s.ChannelsID(channel)
-	s.GetRequest(&response, "channels.info", "token", "channel="+channel)
+	s.GetRequest(&response, "channels.info", struct {
+		Channel string `json:"channel"`
+	}{s.ChannelsID(channel)})
 	return response
 }
 
@@ -72,9 +79,12 @@ func (s *SlackAPI) ChannelsInvite(channel string, user string) Response {
 }
 
 // ChannelsJoin joins a channel, creating it if needed.
-func (s *SlackAPI) ChannelsJoin(channel string) ResponseChannelsJoin {
+func (s *SlackAPI) ChannelsJoin(name string) ResponseChannelsJoin {
 	var response ResponseChannelsJoin
-	s.GetRequest(&response, "channels.join", "token", "name="+channel)
+	s.PostRequest(&response, "channels.join", struct {
+		Name     string `json:"name"`
+		Validate bool   `json:"validate"`
+	}{name, true})
 	return response
 }
 
@@ -95,7 +105,9 @@ func (s *SlackAPI) ChannelsList() ResponseChannelsList {
 	}
 
 	var response ResponseChannelsList
-	s.GetRequest(&response, "channels.list", "token", "exclude_archived=0")
+	s.GetRequest(&response, "channels.list", struct {
+		ExcludeArchived bool `json:"exclude_archived"`
+	}{false})
 	s.TeamChannels = response
 
 	return response
@@ -127,7 +139,7 @@ func (s *SlackAPI) ChannelsSetPurpose(channel string, purpose string) ChannelPur
 }
 
 // ChannelsSetRetention sets the retention time of the messages.
-func (s *SlackAPI) ChannelsSetRetention(channel string, duration string) Response {
+func (s *SlackAPI) ChannelsSetRetention(channel string, duration int) Response {
 	return s.ResourceSetRetention("channels.setRetention", channel, duration)
 }
 
@@ -139,7 +151,7 @@ func (s *SlackAPI) ChannelsSetTopic(channel string, topic string) ChannelTopicNo
 // ChannelsSuggestions prints a list of suggested channels to join.
 func (s *SlackAPI) ChannelsSuggestions() ChannelSuggestions {
 	var response ChannelSuggestions
-	s.GetRequest(&response, "channels.suggestions", "token")
+	s.GetRequest(&response, "channels.suggestions", nil)
 	return response
 }
 

@@ -363,21 +363,23 @@ type UserPrefs struct {
 // UsersCounts count number of users in the team.
 func (s *SlackAPI) UsersCounts() ResponseUsersCounts {
 	var response ResponseUsersCounts
-	s.GetRequest(&response, "users.counts", "token")
+	s.GetRequest(&response, "users.counts", nil)
 	return response
 }
 
 // UsersDeletePhoto delete the user avatar.
 func (s *SlackAPI) UsersDeletePhoto() Response {
 	var response Response
-	s.GetRequest(&response, "users.deletePhoto", "token")
+	s.GetRequest(&response, "users.deletePhoto", nil)
 	return response
 }
 
 // UsersGetPresence gets user presence information.
 func (s *SlackAPI) UsersGetPresence(query string) ResponseUsersGetPresence {
 	var response ResponseUsersGetPresence
-	s.GetRequest(&response, "users.getPresence", "token", "user="+query)
+	s.GetRequest(&response, "users.getPresence", struct {
+		User string `json:"user"`
+	}{query})
 	return response
 }
 
@@ -405,7 +407,9 @@ func (s *SlackAPI) UsersID(query string) string {
 func (s *SlackAPI) UsersInfo(query string) ResponseUsersInfo {
 	query = s.UsersID(query)
 	var response ResponseUsersInfo
-	s.GetRequest(&response, "users.info", "token", "user="+query)
+	s.GetRequest(&response, "users.info", struct {
+		User string `json:"user"`
+	}{query})
 	return response
 }
 
@@ -416,7 +420,22 @@ func (s *SlackAPI) UsersList() ResponseUsersList {
 	}
 
 	var response ResponseUsersList
-	s.GetRequest(&response, "users.list", "token", "presence=1")
+	s.GetRequest(&response, "users.list", nil)
+	s.TeamUsers = response
+
+	return response
+}
+
+// UsersListWithPresence lists all users in a Slack team.
+func (s *SlackAPI) UsersListWithPresence() ResponseUsersList {
+	if s.TeamUsers.Ok {
+		return s.TeamUsers
+	}
+
+	var response ResponseUsersList
+	s.GetRequest(&response, "users.list", struct {
+		Presence bool `json:"presence"`
+	}{true})
 	s.TeamUsers = response
 
 	return response
@@ -425,51 +444,65 @@ func (s *SlackAPI) UsersList() ResponseUsersList {
 // UsersPrefsGet get user account preferences.
 func (s *SlackAPI) UsersPrefsGet() ResponseUserPrefs {
 	var response ResponseUserPrefs
-	s.GetRequest(&response, "users.prefs.get", "token")
+	s.GetRequest(&response, "users.prefs.get", nil)
 	return response
 }
 
 // UsersPrefsSet set user account preferences.
 func (s *SlackAPI) UsersPrefsSet(name string, value string) ResponseUserPrefs {
 	var response ResponseUserPrefs
-	s.GetRequest(&response,
-		"users.prefs.set",
-		"token",
-		"name="+name,
-		"value="+value)
+	s.PostRequest(&response, "users.prefs.set", struct {
+		Name  string `json:"name"`
+		Value string `json:"value"`
+	}{name, value})
 	return response
 }
 
 // UsersPreparePhoto upload a picture to use as the avatar.
 func (s *SlackAPI) UsersPreparePhoto(image string) ResponseUserPhotoUpload {
 	var response ResponseUserPhotoUpload
-	s.PostRequest(&response,
-		"users.preparePhoto",
-		"token",
-		"image=@"+image)
+	s.PostRequest(&response, "users.preparePhoto", struct {
+		Image string `json:"image"`
+	}{"@" + image})
 	return response
 }
 
 // UsersProfileGet retrieves a user's profile information.
-func (s *SlackAPI) UsersProfileGet(user string) ResponseUserIdentity {
+func (s *SlackAPI) UsersProfileGet(query string) ResponseUserIdentity {
 	var response ResponseUserIdentity
-	s.GetRequest(&response,
-		"users.profile.get",
-		"token",
-		"user="+s.UsersID(user),
-		"include_labels=1")
+	s.GetRequest(&response, "users.profile.get", struct {
+		User          string `json:"user"`
+		IncludeLabels bool   `json:"include_labels"`
+	}{s.UsersID(query), false})
+	return response
+}
+
+// UsersProfileGetWithLabels retrieves a user's profile information.
+func (s *SlackAPI) UsersProfileGetWithLabels(query string) ResponseUserIdentity {
+	var response ResponseUserIdentity
+	s.GetRequest(&response, "users.profile.get", struct {
+		User          string `json:"user"`
+		IncludeLabels bool   `json:"include_labels"`
+	}{s.UsersID(query), true})
 	return response
 }
 
 // UsersProfileSet set the profile information for a user.
-func (s *SlackAPI) UsersProfileSet(user string, name string, value string) ResponseUserIdentity {
+func (s *SlackAPI) UsersProfileSet(name string, value string) ResponseUserIdentity {
 	var response ResponseUserIdentity
-	s.GetRequest(&response,
-		"users.profile.set",
-		"token",
-		"user="+s.UsersID(user),
-		"name="+name,
-		"value="+value)
+	s.PostRequest(&response, "users.profile.set", struct {
+		Name  string `json:"name"`
+		Value string `json:"value"`
+	}{name, value})
+	return response
+}
+
+// UsersProfileSetMultiple set the profile information for a user.
+func (s *SlackAPI) UsersProfileSetMultiple(profile string) ResponseUserIdentity {
+	var response ResponseUserIdentity
+	s.PostRequest(&response, "users.profile.set", struct {
+		Profile string `json:"profile"`
+	}{profile})
 	return response
 }
 
@@ -494,7 +527,7 @@ func (s *SlackAPI) UsersSearch(query string) []User {
 // UsersSetActive marks a user as active.
 func (s *SlackAPI) UsersSetActive() Response {
 	var response Response
-	s.GetRequest(&response, "users.setActive", "token")
+	s.GetRequest(&response, "users.setActive", nil)
 	return response
 }
 
@@ -512,20 +545,21 @@ func (s *SlackAPI) UsersSetAvatar(image string) ResponseUserAvatar {
 // UsersSetPhoto define which picture will be the avatar.
 func (s *SlackAPI) UsersSetPhoto(imageid string) ResponseUserPhoto {
 	var response ResponseUserPhoto
-	s.GetRequest(&response,
-		"users.setPhoto",
-		"token",
-		"crop_x=0",
-		"crop_y=0",
-		"crop_w=1024",
-		"id="+imageid)
+	s.PostRequest(&response, "users.setPhoto", struct {
+		CropX int    `json:"crop_x"`
+		CropY int    `json:"crop_y"`
+		CropW int    `json:"crop_w"`
+		ID    string `json:"id"`
+	}{0, 0, 1024, imageid})
 	return response
 }
 
 // UsersSetPresence manually sets user presence.
 func (s *SlackAPI) UsersSetPresence(value string) Response {
 	var response Response
-	s.GetRequest(&response, "users.setPresence", "token", "presence="+value)
+	s.PostRequest(&response, "users.setPresence", struct {
+		Presence string `json:"presence"`
+	}{value})
 	return response
 }
 
@@ -540,10 +574,5 @@ func (s *SlackAPI) UsersSetStatus(emoji string, text string) ResponseUserIdentit
 		return ResponseUserIdentity{}
 	}
 
-	var response ResponseUserIdentity
-	s.GetRequest(&response,
-		"users.profile.set",
-		"token",
-		"profile="+string(profile))
-	return response
+	return s.UsersProfileSetMultiple(string(profile))
 }

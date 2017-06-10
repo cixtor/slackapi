@@ -4,6 +4,13 @@ import (
 	"encoding/json"
 )
 
+// AccessLogArgs defines the data to send to the API service.
+type AccessLogArgs struct {
+	Before string `json:"before"`
+	Count  int    `json:"count"`
+	Page   int    `json:"page"`
+}
+
 // ResponseTeamAccessLogs defines the JSON-encoded output for TeamAccessLogs.
 type ResponseTeamAccessLogs struct {
 	Response
@@ -88,39 +95,31 @@ type BillableInfo struct {
 }
 
 // TeamAccessLogs gets the access logs for the current team.
-func (s *SlackAPI) TeamAccessLogs(count string, page string) ResponseTeamAccessLogs {
+func (s *SlackAPI) TeamAccessLogs(data AccessLogArgs) ResponseTeamAccessLogs {
 	var response ResponseTeamAccessLogs
-	s.GetRequest(&response,
-		"team.accessLogs",
-		"token",
-		"count="+count,
-		"page="+page)
+	s.GetRequest(&response, "team.accessLogs", data)
 	return response
 }
 
 // TeamBillableInfo gets billable users information for the current team.
 func (s *SlackAPI) TeamBillableInfo(user string) ResponseBillableInfo {
 	var response ResponseBillableInfo
-
-	if user == "" {
-		s.GetRequest(&response, "team.billableInfo", "token")
-	} else {
-		s.GetRequest(&response, "team.billableInfo", "token", "user="+s.UsersID(user))
-	}
-
+	s.GetRequest(&response, "team.billableInfo", struct {
+		User string `json:"user"`
+	}{s.UsersID(user)})
 	return response
 }
 
 // TeamInfo gets information about the current team.
 func (s *SlackAPI) TeamInfo() ResponseTeamInfo {
 	var response ResponseTeamInfo
-	s.GetRequest(&response, "team.info", "token")
+	s.GetRequest(&response, "team.info", nil)
 	return response
 }
 
 // TeamProfileGet retrieve a team's profile.
 func (s *SlackAPI) TeamProfileGet() ResponseTeamProfile {
 	var response ResponseTeamProfile
-	s.GetRequest(&response, "team.profile.get", "token")
+	s.GetRequest(&response, "team.profile.get", nil)
 	return response
 }

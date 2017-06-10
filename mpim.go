@@ -11,13 +11,16 @@ type ResponseMultiPartyInstantMessageListSimple map[string]string
 
 // MultiPartyInstantMessageHistory fetches history of messages and events from a multiparty direct message.
 func (s *SlackAPI) MultiPartyInstantMessageHistory(channel string, latest string) History {
-	return s.ResourceHistory("mpim.history", channel, latest)
+	return s.ResourceHistory("mpim.history", HistoryArgs{
+		Channel: channel,
+		Latest:  latest,
+	})
 }
 
 // MultiPartyInstantMessageList lists multiparty direct message channels for the calling user.
 func (s *SlackAPI) MultiPartyInstantMessageList() ResponseMultiPartyInstantMessageList {
 	var response ResponseMultiPartyInstantMessageList
-	s.GetRequest(&response, "mpim.list", "token")
+	s.GetRequest(&response, "mpim.list", nil)
 	return response
 }
 
@@ -25,7 +28,7 @@ func (s *SlackAPI) MultiPartyInstantMessageList() ResponseMultiPartyInstantMessa
 func (s *SlackAPI) MultiPartyInstantMessageListSimple() ResponseMultiPartyInstantMessageListSimple {
 	var response ResponseMultiPartyInstantMessageList
 	output := make(map[string]string)
-	s.GetRequest(&response, "mpim.list", "token")
+	s.GetRequest(&response, "mpim.list", nil)
 	for _, data := range response.Groups {
 		output[data.ID] = data.Purpose.Value
 	}

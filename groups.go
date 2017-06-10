@@ -20,27 +20,37 @@ func (s *SlackAPI) GroupsArchive(channel string) Response {
 // GroupsClose closes a private channel.
 func (s *SlackAPI) GroupsClose(channel string) Response {
 	var response Response
-	s.GetRequest(&response, "groups.close", "token", "channel="+channel)
+	s.GetRequest(&response, "groups.close", struct {
+		Channel string `json:"channel"`
+	}{channel})
 	return response
 }
 
 // GroupsCreate creates a private channel.
-func (s *SlackAPI) GroupsCreate(channel string) ResponseGroupsInfo {
+func (s *SlackAPI) GroupsCreate(name string) ResponseGroupsInfo {
 	var response ResponseGroupsInfo
-	s.GetRequest(&response, "groups.create", "token", "name="+channel)
+	s.GetRequest(&response, "groups.create", struct {
+		Name     string `json:"name"`
+		Validate bool   `json:"validate"`
+	}{name, true})
 	return response
 }
 
 // GroupsCreateChild clones and archives a private channel.
 func (s *SlackAPI) GroupsCreateChild(channel string) ResponseGroupsInfo {
 	var response ResponseGroupsInfo
-	s.GetRequest(&response, "groups.createChild", "token", "name="+s.GroupsID(channel))
+	s.GetRequest(&response, "groups.createChild", struct {
+		Channel string `json:"channel"`
+	}{s.GroupsID(channel)})
 	return response
 }
 
 // GroupsHistory fetches history of messages and events from a private channel.
 func (s *SlackAPI) GroupsHistory(channel string, latest string) History {
-	return s.ResourceHistory("groups.history", channel, latest)
+	return s.ResourceHistory("groups.history", HistoryArgs{
+		Channel: channel,
+		Latest:  latest,
+	})
 }
 
 // GroupsID gets private channel identifier from readable name.
@@ -61,8 +71,9 @@ func (s *SlackAPI) GroupsID(query string) string {
 // GroupsInfo gets information about a private channel.
 func (s *SlackAPI) GroupsInfo(channel string) ResponseGroupsInfo {
 	var response ResponseGroupsInfo
-	channel = s.GroupsID(channel)
-	s.GetRequest(&response, "groups.info", "token", "channel="+channel)
+	s.GetRequest(&response, "groups.info", struct {
+		Channel string `json:"channel"`
+	}{s.GroupsID(channel)})
 	return response
 }
 
@@ -88,7 +99,9 @@ func (s *SlackAPI) GroupsList() ResponseGroupsList {
 	}
 
 	var response ResponseGroupsList
-	s.GetRequest(&response, "groups.list", "token", "exclude_archived=0")
+	s.GetRequest(&response, "groups.list", struct {
+		ExcludeArchived bool `json:"exclude_archived"`
+	}{false})
 	s.TeamGroups = response
 
 	return response
@@ -108,7 +121,9 @@ func (s *SlackAPI) GroupsMyHistory(channel string, latest string) MyHistory {
 func (s *SlackAPI) GroupsOpen(channel string) Session {
 	var response Session
 	channel = s.GroupsID(channel)
-	s.GetRequest(&response, "groups.open", "token", "channel="+channel)
+	s.GetRequest(&response, "groups.open", struct {
+		Channel string `json:"channel"`
+	}{channel})
 	return response
 }
 
@@ -128,7 +143,7 @@ func (s *SlackAPI) GroupsSetPurpose(channel string, purpose string) ChannelPurpo
 }
 
 // GroupsSetRetention sets the retention time of the messages.
-func (s *SlackAPI) GroupsSetRetention(channel string, duration string) Response {
+func (s *SlackAPI) GroupsSetRetention(channel string, duration int) Response {
 	return s.ResourceSetRetention("groups.setRetention", channel, duration)
 }
 

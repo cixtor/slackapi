@@ -1,5 +1,27 @@
 package slackapi
 
+// FileListArgs defines the data to send to the API service.
+type FileListArgs struct {
+	Channel string `json:"channel"`
+	Count   int    `json:"count"`
+	Page    int    `json:"page"`
+	TsFrom  string `json:"ts_from"`
+	TsTo    string `json:"ts_to"`
+	Types   string `json:"types"`
+	User    string `json:"user"`
+}
+
+// FileUploadArgs defines the data to send to the API service.
+type FileUploadArgs struct {
+	Channels       string `json:"channels"`
+	Content        string `json:"content"`
+	File           string `json:"file"`
+	Filename       string `json:"filename"`
+	Filetype       string `json:"filetype"`
+	InitialComment string `json:"initial_comment"`
+	Title          string `json:"title"`
+}
+
 // ResponseFilesInfo defines the JSON-encoded output for FilesInfo.
 type ResponseFilesInfo struct {
 	Response
@@ -89,58 +111,53 @@ type FileComment struct {
 }
 
 // FilesCommentsAdd add a comment to an existing file.
-func (s *SlackAPI) FilesCommentsAdd(file string, text string) ResponseFilesComments {
+func (s *SlackAPI) FilesCommentsAdd(file string, comment string) ResponseFilesComments {
 	var response ResponseFilesComments
-	s.GetRequest(&response,
-		"files.comments.add",
-		"token",
-		"file="+file,
-		"comment="+text)
+	s.PostRequest(&response, "files.comments.add", struct {
+		File    string `json:"file"`
+		Comment string `json:"comment"`
+	}{file, comment})
 	return response
 }
 
 // FilesCommentsDelete deletes an existing comment on a file.
-func (s *SlackAPI) FilesCommentsDelete(file string, textid string) Response {
+func (s *SlackAPI) FilesCommentsDelete(file string, commentid string) Response {
 	var response Response
-	s.GetRequest(&response,
-		"files.comments.delete",
-		"token",
-		"file="+file,
-		"id="+textid)
+	s.PostRequest(&response, "files.comments.delete", struct {
+		File string `json:"file"`
+		ID   string `json:"id"`
+	}{file, commentid})
 	return response
 }
 
 // FilesCommentsEdit edit an existing file comment.
-func (s *SlackAPI) FilesCommentsEdit(file string, textid string, text string) ResponseFilesComments {
+func (s *SlackAPI) FilesCommentsEdit(file string, commentid string, comment string) ResponseFilesComments {
 	var response ResponseFilesComments
-	s.GetRequest(&response,
-		"files.comments.edit",
-		"token",
-		"file="+file,
-		"id="+textid,
-		"comment="+text)
+	s.PostRequest(&response, "files.comments.edit", struct {
+		File    string `json:"file"`
+		ID      string `json:"id"`
+		Comment string `json:"comment"`
+	}{file, commentid, comment})
 	return response
 }
 
 // FilesDelete deletes a file.
 func (s *SlackAPI) FilesDelete(file string) Response {
 	var response Response
-	s.GetRequest(&response,
-		"files.delete",
-		"token",
-		"file="+file)
+	s.PostRequest(&response, "files.delete", struct {
+		File string `json:"file"`
+	}{file})
 	return response
 }
 
 // FilesInfo gets information about a team file.
-func (s *SlackAPI) FilesInfo(file string, count string, page string) ResponseFilesInfo {
+func (s *SlackAPI) FilesInfo(file string, count int, page int) ResponseFilesInfo {
 	var response ResponseFilesInfo
-	s.GetRequest(&response,
-		"files.info",
-		"token",
-		"file="+file,
-		"count="+count,
-		"page="+page)
+	s.GetRequest(&response, "files.info", struct {
+		File  string `json:"file"`
+		Count int    `json:"count"`
+		Page  int    `json:"page"`
+	}{file, count, page})
 	return response
 }
 
@@ -150,31 +167,19 @@ func (s *SlackAPI) FilesInfo(file string, count string, page string) ResponseFil
 // FilesListByChannel lists and filters team files in a specific channel.
 // FilesListByType lists and filters team files by type: all, posts, snippets, images, gdocs, zips, pdfs.
 // FilesListByUser lists and filters team files created by a single user.
-func (s *SlackAPI) FilesList(action string, filter string, count string, page string) ResponseFilesList {
-	if action != "" && action != "none" {
-		s.AddRequestParam(action, filter)
-	}
-
-	if count == "" {
-		count = "100"
+func (s *SlackAPI) FilesList(data FileListArgs) ResponseFilesList {
+	if data.Count == 0 {
+		data.Count = 100
 	}
 
 	var response ResponseFilesList
-	s.GetRequest(&response,
-		"files.list",
-		"token",
-		"count="+count,
-		"page="+page)
+	s.GetRequest(&response, "files.list", data)
 	return response
 }
 
 // FilesUpload uploads or creates a file.
-func (s *SlackAPI) FilesUpload(channel string, file string) ResponseFilesUpload {
+func (s *SlackAPI) FilesUpload(data FileUploadArgs) ResponseFilesUpload {
 	var response ResponseFilesUpload
-	s.PostRequest(&response,
-		"files.upload",
-		"token",
-		"file=@"+file,
-		"channels="+channel)
+	s.PostRequest(&response, "files.upload", data)
 	return response
 }

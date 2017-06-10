@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strconv"
 
 	"github.com/cixtor/slackapi"
 )
@@ -33,7 +34,6 @@ func main() {
 		fmt.Println("  slackapi api.test                                        Checks API calling code")
 		fmt.Println("  slackapi apps.list                                       Lists associated applications")
 		fmt.Println("  slackapi auth.revoke                                     Revokes a token")
-		fmt.Println("  slackapi auth.revokeTest                                 Test the token revocation")
 		fmt.Println("  slackapi auth.test                                       Checks authentication and identity")
 		fmt.Println("  slackapi bots.info [bot]                                 Gets information about a bot user")
 		fmt.Println("  slackapi channels.archive [channel]                      Archives a channel")
@@ -75,7 +75,7 @@ func main() {
 		fmt.Println("  slackapi files.listByChannel [channel] [count] [page]    Lists and filters team files in a specific channel")
 		fmt.Println("  slackapi files.listByType [type] [count] [page]          Lists and filters team files by type: all, posts, snippets, images, gdocs, zips, pdfs")
 		fmt.Println("  slackapi files.listByUser [user] [count] [page]          Lists and filters team files created by a single user")
-		fmt.Println("  slackapi files.upload [channel] [fpath]                  Uploads or creates a file from local data")
+		fmt.Println("  slackapi files.upload [channel] [filename]               Uploads or creates a file from local data")
 		fmt.Println("  slackapi groups.archive [channel]                        Archives a private channel")
 		fmt.Println("  slackapi groups.close [channel]                          Closes a private channel")
 		fmt.Println("  slackapi groups.create [channel]                         Creates a private channel")
@@ -109,10 +109,10 @@ func main() {
 		fmt.Println("  slackapi mpim.listSimple                                 Lists ID and members in a multiparty direct message channels")
 		fmt.Println("  slackapi mpim.myHistory [channel] [time]                 Displays messages of the current user from multiparty direct message channel")
 		fmt.Println("  slackapi mpim.purgeHistory [channel] [time]              Deletes history of messages and events from multiparty direct message channel")
-		fmt.Println("  slackapi reactions.add [name] [channel] [time]           Adds a reaction to an item")
+		fmt.Println("  slackapi reactions.add [channel] [time] [name]           Adds a reaction to an item")
 		fmt.Println("  slackapi reactions.get [channel] [time]                  Gets reactions for an item")
 		fmt.Println("  slackapi reactions.list [user]                           Lists reactions made by a user")
-		fmt.Println("  slackapi reactions.remove [name] [channel] [time]        Removes a reaction from an item")
+		fmt.Println("  slackapi reactions.remove [channel] [time] [name]        Removes a reaction from an item")
 		fmt.Println("  slackapi rtm.start                                       Starts a Real Time Messaging session")
 		fmt.Println("  slackapi rtm.events                                      Prints the API events in real time")
 		fmt.Println("  slackapi team.accessLogs [count] [page]                  Gets the access logs for the current team")
@@ -129,7 +129,7 @@ func main() {
 		fmt.Println("  slackapi users.prefs.set [name] [value]                  Set user account preferences")
 		fmt.Println("  slackapi users.preparePhoto [image]                      Upload a picture to use as the avatar")
 		fmt.Println("  slackapi users.profile.get [user]                        Retrieves a user's profile information")
-		fmt.Println("  slackapi users.profile.set [user] [name] [value]         Set the profile information for a user")
+		fmt.Println("  slackapi users.profile.set [name] [value]                Set the profile information for a user")
 		fmt.Println("  slackapi users.search [user]                             Search users by name or email address")
 		fmt.Println("  slackapi users.setActive                                 Marks a user as active")
 		fmt.Println("  slackapi users.setAvatar [image]                         Upload a picture and set it as the avatar")
@@ -154,11 +154,6 @@ func main() {
 		fmt.Println("  :open        Opens a new session with a user, channel, or group")
 		fmt.Println("  :owner       Displays account information of the user in session")
 		fmt.Println("  :purge       Deletes the messages in the current session")
-		fmt.Println("  :robotimage  Sets the avatar for the robot")
-		fmt.Println("  :robotinfo   Displays the configuration of the robot")
-		fmt.Println("  :robotname   Sets the user name of the robot")
-		fmt.Println("  :robotoff    Deactivates the robot to send normal messages")
-		fmt.Println("  :roboton     Activates the robot to send 3rd-party messages")
 		fmt.Println("  :token       Sets the token for the chat session")
 		fmt.Println("  :update      Updates the latest chat session message")
 		fmt.Println("  :userid      Displays the unique identifier of an user")
@@ -190,228 +185,497 @@ func main() {
 	}
 
 	switch command {
+
 	case "api.test":
 		PrintAndExit(client.APITest())
+
 	case "apps.list":
 		PrintAndExit(client.AppsList())
+
 	case "auth.revoke":
 		PrintAndExit(client.AuthRevoke())
-	case "auth.revokeTest":
-		PrintAndExit(client.AuthRevokeTest())
+
 	case "auth.test":
 		PrintAndExit(client.AuthTest())
+
 	case "bots.info":
 		PrintAndExit(client.BotsInfo(flag.Arg(1)))
+
 	case "channels.archive":
 		PrintAndExit(client.ChannelsArchive(flag.Arg(1)))
+
 	case "channels.create":
 		PrintAndExit(client.ChannelsCreate(flag.Arg(1)))
+
 	case "channels.history":
 		PrintAndExit(client.ChannelsHistory(flag.Arg(1), flag.Arg(2)))
+
 	case "channels.id":
 		PrintAndExit(client.ChannelsID(flag.Arg(1)))
+
 	case "channels.info":
 		PrintAndExit(client.ChannelsInfo(flag.Arg(1)))
+
 	case "channels.invite":
 		PrintAndExit(client.ChannelsInvite(flag.Arg(1), flag.Arg(2)))
+
 	case "channels.join":
 		PrintAndExit(client.ChannelsJoin(flag.Arg(1)))
+
 	case "channels.kick":
 		PrintAndExit(client.ChannelsKick(flag.Arg(1), flag.Arg(2)))
+
 	case "channels.leave":
 		PrintAndExit(client.ChannelsLeave(flag.Arg(1)))
+
 	case "channels.list":
 		PrintAndExit(client.ChannelsList())
+
 	case "channels.mark":
 		PrintAndExit(client.ChannelsMark(flag.Arg(1), flag.Arg(2)))
+
 	case "channels.myHistory":
 		PrintAndExit(client.ChannelsMyHistory(flag.Arg(1), flag.Arg(2)))
+
 	case "channels.purgeHistory":
 		client.ChannelsPurgeHistory(flag.Arg(1), flag.Arg(2), true)
+
 	case "channels.rename":
 		PrintAndExit(client.ChannelsRename(flag.Arg(1), flag.Arg(2)))
+
 	case "channels.setPurpose":
 		PrintAndExit(client.ChannelsSetPurpose(flag.Arg(1), flag.Arg(2)))
+
 	case "channels.setRetention":
-		PrintAndExit(client.ChannelsSetRetention(flag.Arg(1), flag.Arg(2)))
+		num, err := strconv.Atoi(flag.Arg(2))
+		if err != nil {
+			fmt.Println("duration format;", err)
+			os.Exit(1)
+		}
+		PrintAndExit(client.ChannelsSetRetention(flag.Arg(1), num))
+
 	case "channels.setTopic":
 		PrintAndExit(client.ChannelsSetTopic(flag.Arg(1), flag.Arg(2)))
+
 	case "channels.suggestions":
 		PrintAndExit(client.ChannelsSuggestions())
+
 	case "channels.unarchive":
 		PrintAndExit(client.ChannelsUnarchive(flag.Arg(1)))
+
 	case "chat.delete":
-		PrintAndExit(client.ChatDelete(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.ChatDelete(slackapi.MessageArgs{
+			Channel: flag.Arg(1),
+			Ts:      flag.Arg(2),
+		}))
+
 	case "chat.meMessage":
-		PrintAndExit(client.ChatMeMessage(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.ChatMeMessage(slackapi.MessageArgs{
+			Channel: flag.Arg(1),
+			Text:    flag.Arg(2),
+		}))
+
 	case "chat.postAttachment":
 		var data slackapi.Attachment
 		if err := json.Unmarshal([]byte(flag.Arg(2)), &data); err != nil {
 			fmt.Printf("json unmarshal; %s\n", err.Error())
 			os.Exit(1)
 		}
-		PrintAndExit(client.SendMessage(map[string]interface{}{
-			"channel":     flag.Arg(1),
-			"attachments": []slackapi.Attachment{data},
+		PrintAndExit(client.ChatPostMessage(slackapi.MessageArgs{
+			Channel:     flag.Arg(1),
+			Attachments: []slackapi.Attachment{data},
 		}))
+
 	case "chat.postMessage":
-		PrintAndExit(client.ChatPostMessage(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.ChatPostMessage(slackapi.MessageArgs{
+			Channel: flag.Arg(1),
+			Text:    flag.Arg(2),
+		}))
+
 	case "chat.robotMessage":
-		PrintAndExit(client.ChatRobotMessage(flag.Arg(1), flag.Arg(2)))
+		robotName := os.Getenv("SLACK_ROBOT_NAME")
+		robotImage := os.Getenv("SLACK_ROBOT_IMAGE")
+		data := slackapi.MessageArgs{
+			Channel: flag.Arg(1),
+			Text:    flag.Arg(2),
+			AsUser:  false,
+		}
+		if robotName == "" {
+			robotName = "foobar"
+		}
+		if robotImage == "" {
+			robotImage = ":slack:"
+		}
+		data.Username = robotName
+		if robotImage[0] == ':' {
+			data.IconEmoji = robotImage
+		} else {
+			data.IconURL = robotImage
+		}
+		PrintAndExit(client.ChatPostMessage(data))
+
 	case "chat.update":
-		PrintAndExit(client.ChatUpdate(flag.Arg(1), flag.Arg(2), flag.Arg(3)))
+		PrintAndExit(client.ChatUpdate(slackapi.MessageArgs{
+			Channel: flag.Arg(1),
+			Ts:      flag.Arg(2),
+			Text:    flag.Arg(3),
+		}))
+
 	case "emoji.list":
 		PrintAndExit(client.EmojiList())
+
 	case "eventlog.history":
 		PrintAndExit(client.EventlogHistory(flag.Arg(1)))
+
 	case "files.comments.add":
 		PrintAndExit(client.FilesCommentsAdd(flag.Arg(1), flag.Arg(2)))
+
 	case "files.comments.delete":
 		PrintAndExit(client.FilesCommentsDelete(flag.Arg(1), flag.Arg(2)))
+
 	case "files.comments.edit":
 		PrintAndExit(client.FilesCommentsEdit(flag.Arg(1), flag.Arg(2), flag.Arg(3)))
+
 	case "files.delete":
 		PrintAndExit(client.FilesDelete(flag.Arg(1)))
+
 	case "files.info":
-		PrintAndExit(client.FilesInfo(flag.Arg(1), flag.Arg(2), flag.Arg(3)))
+		numc, err := strconv.Atoi(flag.Arg(2))
+		if err != nil {
+			fmt.Println("count format;", err)
+			os.Exit(1)
+		}
+		nump, err := strconv.Atoi(flag.Arg(3))
+		if err != nil {
+			fmt.Println("page format;", err)
+			os.Exit(1)
+		}
+		PrintAndExit(client.FilesInfo(flag.Arg(1), numc, nump))
+
 	case "files.list":
-		PrintAndExit(client.FilesList("none", "", flag.Arg(1), flag.Arg(2)))
+		numc, err := strconv.Atoi(flag.Arg(1))
+		if err != nil {
+			fmt.Println("count format;", err)
+			os.Exit(1)
+		}
+		nump, err := strconv.Atoi(flag.Arg(2))
+		if err != nil {
+			fmt.Println("page format;", err)
+			os.Exit(1)
+		}
+		PrintAndExit(client.FilesList(slackapi.FileListArgs{
+			Count: numc,
+			Page:  nump,
+		}))
+
 	case "files.listAfterTime":
-		PrintAndExit(client.FilesList("ts_from", flag.Arg(1), flag.Arg(2), flag.Arg(3)))
+		numc, err := strconv.Atoi(flag.Arg(2))
+		if err != nil {
+			fmt.Println("count format;", err)
+			os.Exit(1)
+		}
+		nump, err := strconv.Atoi(flag.Arg(3))
+		if err != nil {
+			fmt.Println("page format;", err)
+			os.Exit(1)
+		}
+		PrintAndExit(client.FilesList(slackapi.FileListArgs{
+			TsFrom: flag.Arg(1),
+			Count:  numc,
+			Page:   nump,
+		}))
+
 	case "files.listBeforeTime":
-		PrintAndExit(client.FilesList("ts_to", flag.Arg(1), flag.Arg(2), flag.Arg(3)))
+		numc, err := strconv.Atoi(flag.Arg(2))
+		if err != nil {
+			fmt.Println("count format;", err)
+			os.Exit(1)
+		}
+		nump, err := strconv.Atoi(flag.Arg(3))
+		if err != nil {
+			fmt.Println("page format;", err)
+			os.Exit(1)
+		}
+		PrintAndExit(client.FilesList(slackapi.FileListArgs{
+			TsTo:  flag.Arg(1),
+			Count: numc,
+			Page:  nump,
+		}))
+
 	case "files.listByChannel":
-		PrintAndExit(client.FilesList("channel", flag.Arg(1), flag.Arg(2), flag.Arg(3)))
+		numc, err := strconv.Atoi(flag.Arg(2))
+		if err != nil {
+			fmt.Println("count format;", err)
+			os.Exit(1)
+		}
+		nump, err := strconv.Atoi(flag.Arg(3))
+		if err != nil {
+			fmt.Println("page format;", err)
+			os.Exit(1)
+		}
+		PrintAndExit(client.FilesList(slackapi.FileListArgs{
+			Channel: flag.Arg(1),
+			Count:   numc,
+			Page:    nump,
+		}))
+
 	case "files.listByType":
-		PrintAndExit(client.FilesList("types", flag.Arg(1), flag.Arg(2), flag.Arg(3)))
+		numc, err := strconv.Atoi(flag.Arg(2))
+		if err != nil {
+			fmt.Println("count format;", err)
+			os.Exit(1)
+		}
+		nump, err := strconv.Atoi(flag.Arg(3))
+		if err != nil {
+			fmt.Println("page format;", err)
+			os.Exit(1)
+		}
+		PrintAndExit(client.FilesList(slackapi.FileListArgs{
+			Types: flag.Arg(1),
+			Count: numc,
+			Page:  nump,
+		}))
+
 	case "files.listByUser":
-		PrintAndExit(client.FilesList("user", flag.Arg(1), flag.Arg(2), flag.Arg(3)))
+		numc, err := strconv.Atoi(flag.Arg(2))
+		if err != nil {
+			fmt.Println("count format;", err)
+			os.Exit(1)
+		}
+		nump, err := strconv.Atoi(flag.Arg(3))
+		if err != nil {
+			fmt.Println("page format;", err)
+			os.Exit(1)
+		}
+		PrintAndExit(client.FilesList(slackapi.FileListArgs{
+			User:  flag.Arg(1),
+			Count: numc,
+			Page:  nump,
+		}))
+
 	case "files.upload":
-		PrintAndExit(client.FilesUpload(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.FilesUpload(slackapi.FileUploadArgs{
+			Channels: flag.Arg(1),
+			File:     flag.Arg(2),
+		}))
+
 	case "groups.archive":
 		PrintAndExit(client.GroupsArchive(flag.Arg(1)))
+
 	case "groups.close":
 		PrintAndExit(client.GroupsClose(flag.Arg(1)))
+
 	case "groups.create":
 		PrintAndExit(client.GroupsCreate(flag.Arg(1)))
+
 	case "groups.createChild":
 		PrintAndExit(client.GroupsCreateChild(flag.Arg(1)))
+
 	case "groups.history":
 		PrintAndExit(client.GroupsHistory(flag.Arg(1), flag.Arg(2)))
+
 	case "groups.id":
 		PrintAndExit(client.GroupsID(flag.Arg(1)))
+
 	case "groups.info":
 		PrintAndExit(client.GroupsInfo(flag.Arg(1)))
+
 	case "groups.invite":
 		PrintAndExit(client.GroupsInvite(flag.Arg(1), flag.Arg(2)))
+
 	case "groups.kick":
 		PrintAndExit(client.GroupsKick(flag.Arg(1), flag.Arg(2)))
+
 	case "groups.leave":
 		PrintAndExit(client.GroupsLeave(flag.Arg(1)))
+
 	case "groups.list":
 		PrintAndExit(client.GroupsList())
+
 	case "groups.mark":
 		PrintAndExit(client.GroupsMark(flag.Arg(1), flag.Arg(2)))
+
 	case "groups.myHistory":
 		PrintAndExit(client.GroupsMyHistory(flag.Arg(1), flag.Arg(2)))
+
 	case "groups.open":
 		PrintAndExit(client.GroupsOpen(flag.Arg(1)))
+
 	case "groups.rename":
 		PrintAndExit(client.GroupsRename(flag.Arg(1), flag.Arg(2)))
+
 	case "groups.purgeHistory":
 		client.GroupsPurgeHistory(flag.Arg(1), flag.Arg(2), true)
+
 	case "groups.setPurpose":
 		PrintAndExit(client.GroupsSetPurpose(flag.Arg(1), flag.Arg(2)))
+
 	case "groups.setRetention":
-		PrintAndExit(client.GroupsSetRetention(flag.Arg(1), flag.Arg(2)))
+		num, err := strconv.Atoi(flag.Arg(2))
+		if err != nil {
+			fmt.Println("duration format;", err)
+			os.Exit(1)
+		}
+		PrintAndExit(client.GroupsSetRetention(flag.Arg(1), num))
+
 	case "groups.setTopic":
 		PrintAndExit(client.GroupsSetTopic(flag.Arg(1), flag.Arg(2)))
+
 	case "groups.unarchive":
 		PrintAndExit(client.GroupsUnarchive(flag.Arg(1)))
+
 	case "help.issues.list":
 		PrintAndExit(client.HelpIssuesList())
+
 	case "im.close":
 		PrintAndExit(client.InstantMessageClose(flag.Arg(1)))
+
 	case "im.history":
 		PrintAndExit(client.InstantMessageHistory(flag.Arg(1), flag.Arg(2)))
+
 	case "im.list":
 		PrintAndExit(client.InstantMessageList())
+
 	case "im.mark":
 		PrintAndExit(client.InstantMessageMark(flag.Arg(1), flag.Arg(2)))
+
 	case "im.myHistory":
 		PrintAndExit(client.InstantMessageMyHistory(flag.Arg(1), flag.Arg(2)))
+
 	case "im.open":
 		PrintAndExit(client.InstantMessageOpen(flag.Arg(1)))
+
 	case "im.purgeHistory":
 		client.InstantMessagePurgeHistory(flag.Arg(1), flag.Arg(2), true)
+
 	case "mpim.history":
 		PrintAndExit(client.MultiPartyInstantMessageHistory(flag.Arg(1), flag.Arg(2)))
+
 	case "mpim.list":
 		PrintAndExit(client.MultiPartyInstantMessageList())
+
 	case "mpim.listSimple":
 		PrintAndExit(client.MultiPartyInstantMessageListSimple())
+
 	case "mpim.myHistory":
 		PrintAndExit(client.MultiPartyInstantMessageMyHistory(flag.Arg(1), flag.Arg(2)))
+
 	case "mpim.purgeHistory":
 		client.MultiPartyInstantMessagePurgeHistory(flag.Arg(1), flag.Arg(2), true)
+
 	case "reactions.add":
-		PrintAndExit(client.ReactionsAdd(flag.Arg(1), flag.Arg(2), flag.Arg(3)))
+		PrintAndExit(client.ReactionsAdd(slackapi.ReactionArgs{
+			Channel:   flag.Arg(1),
+			Timestamp: flag.Arg(2),
+			Name:      flag.Arg(3),
+		}))
+
 	case "reactions.get":
-		PrintAndExit(client.ReactionsGet(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.ReactionsGet(slackapi.ReactionArgs{
+			Channel:   flag.Arg(1),
+			Timestamp: flag.Arg(2),
+		}))
+
 	case "reactions.list":
-		PrintAndExit(client.ReactionsList(flag.Arg(1)))
+		PrintAndExit(client.ReactionsList(slackapi.ReactionListArgs{
+			User: flag.Arg(1),
+		}))
+
 	case "reactions.remove":
-		PrintAndExit(client.ReactionsRemove(flag.Arg(1), flag.Arg(2), flag.Arg(3)))
+		PrintAndExit(client.ReactionsRemove(slackapi.ReactionArgs{
+			Channel:   flag.Arg(1),
+			Timestamp: flag.Arg(2),
+			Name:      flag.Arg(3),
+		}))
+
 	case "rtm.events":
 		MonitorRealTimeMessages(client)
+
 	case "team.accessLogs":
-		PrintAndExit(client.TeamAccessLogs(flag.Arg(1), flag.Arg(2)))
+		numc, err := strconv.Atoi(flag.Arg(2))
+		if err != nil {
+			fmt.Println("count format;", err)
+			os.Exit(1)
+		}
+		nump, err := strconv.Atoi(flag.Arg(3))
+		if err != nil {
+			fmt.Println("page format;", err)
+			os.Exit(1)
+		}
+		PrintAndExit(client.TeamAccessLogs(slackapi.AccessLogArgs{
+			Count: numc,
+			Page:  nump,
+		}))
+
 	case "team.billableInfo":
 		PrintAndExit(client.TeamBillableInfo(flag.Arg(1)))
+
 	case "team.info":
 		PrintAndExit(client.TeamInfo())
+
 	case "team.profile.get":
 		PrintAndExit(client.TeamProfileGet())
+
 	case "users.counts":
 		PrintAndExit(client.UsersCounts())
+
 	case "users.deletePhoto":
 		PrintAndExit(client.UsersDeletePhoto())
+
 	case "users.getPresence":
 		PrintAndExit(client.UsersGetPresence(flag.Arg(1)))
+
 	case "users.id":
 		PrintAndExit(client.UsersID(flag.Arg(1)))
+
 	case "users.info":
 		PrintAndExit(client.UsersInfo(flag.Arg(1)))
+
 	case "users.list":
 		PrintAndExit(client.UsersList())
+
 	case "users.prefs.get":
 		PrintAndExit(client.UsersPrefsGet())
+
 	case "users.prefs.set":
 		PrintAndExit(client.UsersPrefsSet(flag.Arg(1), flag.Arg(2)))
+
 	case "users.preparePhoto":
 		PrintAndExit(client.UsersPreparePhoto(flag.Arg(1)))
+
 	case "users.profile.get":
 		PrintAndExit(client.UsersProfileGet(flag.Arg(1)))
+
 	case "users.profile.set":
-		PrintAndExit(client.UsersProfileSet(flag.Arg(1), flag.Arg(2), flag.Arg(3)))
+		PrintAndExit(client.UsersProfileSet(flag.Arg(1), flag.Arg(2)))
+
 	case "users.search":
 		PrintAndExit(client.UsersSearch(flag.Arg(1)))
+
 	case "users.setActive":
 		PrintAndExit(client.UsersSetActive())
+
 	case "users.setAvatar":
 		PrintAndExit(client.UsersSetAvatar(flag.Arg(1)))
+
 	case "users.setEmail":
-		PrintAndExit(client.UsersProfileSet("", "email", flag.Arg(1)))
+		PrintAndExit(client.UsersProfileSet("email", flag.Arg(1)))
+
 	case "users.setPhoto":
 		PrintAndExit(client.UsersSetPhoto(flag.Arg(1)))
+
 	case "users.setPresence":
 		PrintAndExit(client.UsersSetPresence(flag.Arg(1)))
+
 	case "users.setStatus":
 		PrintAndExit(client.UsersSetStatus(flag.Arg(1), flag.Arg(2)))
+
 	case "users.setUsername":
-		PrintAndExit(client.UsersProfileSet("", "username", flag.Arg(1)))
+		PrintAndExit(client.UsersProfileSet("username", flag.Arg(1)))
+
 	case "version":
 		fmt.Println(client.Version())
+
 	case "help":
 		flag.Usage()
 	}

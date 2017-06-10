@@ -2,6 +2,7 @@ package slackapi
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"reflect"
 
@@ -16,6 +17,16 @@ type RTM struct {
 	rawEvents    chan json.RawMessage
 	stopCaptured chan bool
 	stopListener chan bool
+}
+
+// RTMArgs defines the data to send to the API service.
+type RTMArgs struct {
+	BatchPresenceAware bool `json:"batch_presence_aware"`
+	MpimAware          bool `json:"mpim_aware"`
+	NoLatest           bool `json:"no_latest"`
+	NoUnreads          bool `json:"no_unreads"`
+	PresenceSub        bool `json:"presence_sub"`
+	// SimpleLatest       bool `json:"simple_latest"`
 }
 
 // RTMResponse defines the JSON-encoded output for RTM connection.
@@ -114,9 +125,13 @@ var EventTypes = map[string]interface{}{
 }
 
 // NewRTM connects to the real time messaging websocket.
-func (s *SlackAPI) NewRTM() (*RTM, error) {
+func (s *SlackAPI) NewRTM(data RTMArgs) (*RTM, error) {
 	var response RTMResponse
-	s.GetRequest(&response, "rtm.start", "token")
+	s.GetRequest(&response, "rtm.start", data)
+
+	if !response.Ok {
+		return &RTM{}, errors.New(response.Error)
+	}
 
 	ws, err := websocket.Dial(response.URL, "", "https://api.slack.com")
 
@@ -154,6 +169,7 @@ LOOP:
 		case <-rtm.stopListener:
 			close(rtm.rawEvents)
 			break LOOP
+
 		default:
 			rtm.receiveIncomingEvent()
 		}
@@ -167,6 +183,7 @@ LOOP:
 		case <-rtm.stopCaptured:
 			close(rtm.Events)
 			break LOOP
+
 		case rawEvent := <-rtm.rawEvents:
 			rtm.handleRawEvent(rawEvent)
 		}
@@ -201,8 +218,10 @@ func (rtm *RTM) handleRawEvent(rawEvent json.RawMessage) {
 	switch event.Type {
 	case "":
 		rtm.handleACK(rawEvent)
+
 	case "hello":
 		rtm.Events <- Event{Type: "hello", Data: &HelloEvent{}}
+
 	default:
 		rtm.handleEvent(event.Type, rawEvent)
 	}
@@ -225,6 +244,7 @@ func (rtm *RTM) handleEvent(_type string, event json.RawMessage) {
 		rtm.Events <- Event{Type: "error", Data: &ErrorEvent{err.Error()}}
 		return
 	}
+
 	rtm.Events <- Event{_type, recvEvent}
 }
 

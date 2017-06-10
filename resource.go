@@ -5,70 +5,74 @@ import (
 	"time"
 )
 
+// HistoryArgs defines the data to send to the API service.
+type HistoryArgs struct {
+	Channel   string `json:"channel"`
+	Count     int    `json:"count"`
+	Inclusive bool   `json:"inclusive"`
+	Latest    string `json:"latest"`
+	Oldest    string `json:"oldest"`
+	Unreads   bool   `json:"unreads"`
+}
+
 // ResourceArchive archives a channel.
 func (s *SlackAPI) ResourceArchive(action string, channel string) Response {
 	var response Response
-	s.GetRequest(&response,
-		action,
-		"token",
-		"channel="+channel)
+	s.PostRequest(&response, action, struct {
+		Channel string `json:"channel"`
+	}{channel})
 	return response
 }
 
 // ResourceHistory fetches history of messages and events from a channel.
-func (s *SlackAPI) ResourceHistory(action string, channel string, latest string) History {
+func (s *SlackAPI) ResourceHistory(action string, data HistoryArgs) History {
 	var response History
-	s.GetRequest(&response,
-		action,
-		"token",
-		"channel="+channel,
-		"latest="+latest,
-		"inclusive=1",
-		"count=1000",
-		"unreads=1")
+	if data.Count == 0 {
+		data.Count = 100
+	}
+	if data.Latest == "" {
+		data.Latest = fmt.Sprintf("%d", time.Now().Unix())
+	}
+	s.GetRequest(&response, action, data)
 	return response
 }
 
 // ResourceInvite invites a user to a channel.
 func (s *SlackAPI) ResourceInvite(action string, channel string, user string) Response {
 	var response Response
-	s.GetRequest(&response,
-		action,
-		"token",
-		"channel="+channel,
-		"user="+user)
+	s.PostRequest(&response, action, struct {
+		Channel string `json:"channel"`
+		User    string `json:"user"`
+	}{channel, user})
 	return response
 }
 
 // ResourceKick removes a user from a channel.
 func (s *SlackAPI) ResourceKick(action string, channel string, user string) Response {
 	var response Response
-	s.GetRequest(&response,
-		action,
-		"token",
-		"channel="+channel,
-		"user="+user)
+	s.PostRequest(&response, action, struct {
+		Channel string `json:"channel"`
+		User    string `json:"user"`
+	}{channel, user})
 	return response
 }
 
 // ResourceLeave leaves a channel.
 func (s *SlackAPI) ResourceLeave(action string, channel string) Response {
 	var response Response
-	s.GetRequest(&response,
-		action,
-		"token",
-		"channel="+channel)
+	s.PostRequest(&response, action, struct {
+		Channel string `json:"channel"`
+	}{channel})
 	return response
 }
 
 // ResourceMark sets the read cursor in a channel.
-func (s *SlackAPI) ResourceMark(action string, channel string, timestamp string) Response {
+func (s *SlackAPI) ResourceMark(action string, channel string, ts string) Response {
 	var response Response
-	s.GetRequest(&response,
-		action,
-		"token",
-		"channel="+channel,
-		"ts="+timestamp)
+	s.PostRequest(&response, action, struct {
+		Channel string `json:"channel"`
+		Ts      string `json:"ts"`
+	}{channel, ts})
 	return response
 }
 
@@ -77,7 +81,10 @@ func (s *SlackAPI) ResourceMyHistory(action string, channel string, latest strin
 	var rhistory MyHistory
 
 	owner := s.AuthTest()
-	response := s.ResourceHistory(action, channel, latest)
+	response := s.ResourceHistory(action, HistoryArgs{
+		Channel: channel,
+		Latest:  latest,
+	})
 
 	for _, message := range response.Messages {
 		rhistory.Total++
@@ -112,7 +119,11 @@ func (s *SlackAPI) ResourcePurgeHistory(action string, channel string, latest st
 		}
 
 		for _, message := range response.Messages {
-			result := s.ChatDelete(channel, message.Timestamp)
+			result := s.ChatDelete(MessageArgs{
+				Channel: channel,
+				Ts:      message.Timestamp,
+			})
+
 			delmsg.Text = message.Text
 			delmsg.Timestamp = message.Timestamp
 
@@ -150,54 +161,50 @@ func (s *SlackAPI) ResourcePurgeHistory(action string, channel string, latest st
 // ResourceRename renames a channel.
 func (s *SlackAPI) ResourceRename(action string, channel string, name string) ChannelRename {
 	var response ChannelRename
-	s.GetRequest(&response,
-		action,
-		"token",
-		"channel="+channel,
-		"name="+name)
+	s.PostRequest(&response, action, struct {
+		Name     string `json:"name"`
+		Channel  string `json:"channel"`
+		Validate bool   `json:"validate"`
+	}{name, channel, true})
 	return response
 }
 
 // ResourceSetPurpose sets the purpose for a channel.
 func (s *SlackAPI) ResourceSetPurpose(action string, channel string, purpose string) ChannelPurposeNow {
 	var response ChannelPurposeNow
-	s.GetRequest(&response,
-		action,
-		"token",
-		"channel="+channel,
-		"purpose="+purpose)
+	s.PostRequest(&response, action, struct {
+		Channel string `json:"channel"`
+		Purpose string `json:"purpose"`
+	}{channel, purpose})
 	return response
 }
 
 // ResourceSetRetention sets the retention time of the messages.
-func (s *SlackAPI) ResourceSetRetention(action string, channel string, duration string) Response {
+func (s *SlackAPI) ResourceSetRetention(action string, channel string, duration int) Response {
 	var response Response
-	s.GetRequest(&response,
-		action,
-		"token",
-		"channel="+channel,
-		"retention_type=1",
-		"retention_duration="+duration)
+	s.PostRequest(&response, action, struct {
+		Channel           string `json:"channel"`
+		RetentionType     bool   `json:"retention_type"`
+		RetentionDuration int    `json:"retention_duration"`
+	}{channel, true, duration})
 	return response
 }
 
 // ResourceSetTopic sets the topic for a channel.
 func (s *SlackAPI) ResourceSetTopic(action string, channel string, topic string) ChannelTopicNow {
 	var response ChannelTopicNow
-	s.GetRequest(&response,
-		action,
-		"token",
-		"channel="+channel,
-		"topic="+topic)
+	s.PostRequest(&response, action, struct {
+		Channel string `json:"channel"`
+		Topic   string `json:"topic"`
+	}{channel, topic})
 	return response
 }
 
 // ResourceUnarchive unarchives a channel.
 func (s *SlackAPI) ResourceUnarchive(action string, channel string) Response {
 	var response Response
-	s.GetRequest(&response,
-		action,
-		"token",
-		"channel="+channel)
+	s.PostRequest(&response, action, struct {
+		Channel string `json:"channel"`
+	}{channel})
 	return response
 }

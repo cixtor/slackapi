@@ -1,5 +1,23 @@
 package slackapi
 
+// MessageArgs defines the data to send to the API service.
+type MessageArgs struct {
+	AsUser         bool         `json:"as_user"`
+	Attachments    []Attachment `json:"attachments"`
+	Channel        string       `json:"channel"`
+	IconEmoji      string       `json:"icon_emoji"`
+	IconURL        string       `json:"icon_url"`
+	LinkNames      bool         `json:"link_names"`
+	Parse          string       `json:"parse"`
+	ReplyBroadcast bool         `json:"reply_broadcast"`
+	Text           string       `json:"text"`
+	ThreadTs       string       `json:"thread_ts"`
+	Ts             string       `json:"ts"`
+	UnfurlLinks    bool         `json:"unfurl_links"`
+	UnfurlMedia    bool         `json:"unfurl_media"`
+	Username       string       `json:"username"`
+}
+
 // Message defines the expected data from the JSON-encoded API response.
 type Message struct {
 	Attachments      []Attachment   `json:"attachments,omitempty"`

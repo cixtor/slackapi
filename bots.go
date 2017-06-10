@@ -17,6 +17,8 @@ type Bot struct {
 // BotsInfo gets information about a bot user.
 func (s *SlackAPI) BotsInfo(bot string) ResponseBot {
 	var response ResponseBot
-	s.GetRequest(&response, "bots.info", "token", "bot="+s.UsersID(bot))
+	s.GetRequest(&response, "bots.info", struct {
+		Bot string `json:"bot"`
+	}{s.UsersID(bot)})
 	return response
 }

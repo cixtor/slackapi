@@ -9,28 +9,21 @@ type ResponseRevocation struct {
 // APITest checks API calling code.
 func (s *SlackAPI) APITest() Response {
 	var response Response
-	s.GetRequest(&response, "api.test")
+	s.GetRequest(&response, "api.test", nil)
 	return response
 }
 
 // AppsList lists associated applications.
 func (s *SlackAPI) AppsList() AppsList {
 	var response AppsList
-	s.GetRequest(&response, "apps.list", "token")
+	s.GetRequest(&response, "apps.list", nil)
 	return response
 }
 
 // AuthRevoke revokes a token.
 func (s *SlackAPI) AuthRevoke() ResponseRevocation {
 	var response ResponseRevocation
-	s.GetRequest(&response, "auth.revoke", "token")
-	return response
-}
-
-// AuthRevokeTest rest the token revocation.
-func (s *SlackAPI) AuthRevokeTest() ResponseRevocation {
-	var response ResponseRevocation
-	s.GetRequest(&response, "auth.revoke", "token", "test=true")
+	s.GetRequest(&response, "auth.revoke", nil)
 	return response
 }
 
@@ -41,7 +34,7 @@ func (s *SlackAPI) AuthTest() Owner {
 	}
 
 	var response Owner
-	s.GetRequest(&response, "auth.test", "token")
+	s.GetRequest(&response, "auth.test", nil)
 	s.Owner = response
 
 	return response

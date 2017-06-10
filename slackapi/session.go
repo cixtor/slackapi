@@ -140,31 +140,6 @@ func (s *ChatSession) ProcessMessage() {
 			return
 		}
 
-		if s.Command == ":robotimage" {
-			s.ProcessCommandRobotImage()
-			return
-		}
-
-		if s.Command == ":robotinfo" {
-			s.ProcessCommandRobotInfo()
-			return
-		}
-
-		if s.Command == ":robotname" {
-			s.ProcessCommandRobotName()
-			return
-		}
-
-		if s.Command == ":robotoff" {
-			s.ProcessCommandRobotOff()
-			return
-		}
-
-		if s.Command == ":roboton" {
-			s.ProcessCommandRobotOn()
-			return
-		}
-
 		if s.Command == ":status" {
 			s.ProcessCommandStatus()
 			return
@@ -210,7 +185,10 @@ func (s *ChatSession) SendUserMessage() {
 		return
 	}
 
-	response := s.ChatPostMessage(s.Channel, s.UserInput)
+	response := s.ChatPostMessage(slackapi.MessageArgs{
+		Channel: s.Channel,
+		Text:    s.UserInput,
+	})
 	s.History = append(s.History, response)
 
 	if !response.Ok {

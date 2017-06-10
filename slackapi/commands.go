@@ -29,7 +29,10 @@ func (s *ChatSession) ProcessCommandDelete() {
 
 		forDeletion := totalHistory - 1
 		latestMsg := s.History[forDeletion]
-		response := s.ChatDelete(latestMsg.Channel, latestMsg.Timestamp)
+		response := s.ChatDelete(slackapi.MessageArgs{
+			Channel: latestMsg.Channel,
+			Ts:      latestMsg.Timestamp,
+		})
 
 		PrintInlineJSON(response)
 
@@ -70,7 +73,10 @@ func (s *ChatSession) ProcessCommandFlush() {
 	for key := offset; key >= 0; key-- {
 		message = s.History[key]
 		fmt.Printf("\x20 %s from %s ", message.Timestamp, message.Channel)
-		response := s.ChatDelete(message.Channel, message.Timestamp)
+		response := s.ChatDelete(slackapi.MessageArgs{
+			Channel: message.Channel,
+			Ts:      message.Timestamp,
+		})
 
 		if response.Ok {
 			fmt.Println("\u2714")
@@ -90,9 +96,12 @@ func (s *ChatSession) ProcessCommandFlush() {
 // ProcessCommandHistory prints the entire history in the API service.
 func (s *ChatSession) ProcessCommandHistory() {
 	if s.IsChannelConn || s.IsGroupConn || s.IsUserConn {
-		var action string = fmt.Sprintf("%s.history", s.MethodName)
-		response := s.ResourceHistory(action, s.Channel, s.UserInput)
-		PrintFormattedJSON(response)
+		PrintFormattedJSON(s.ResourceHistory(
+			s.MethodName+".history",
+			slackapi.HistoryArgs{
+				Channel: s.Channel,
+				Latest:  s.UserInput,
+			}))
 	} else {
 		fmt.Println("{\"ok\":false,\"error\":\"not_connected\"}")
 	}
@@ -106,9 +115,10 @@ func (s *ChatSession) ProcessCommandMessages() {
 // ProcessCommandMyHistory prints all messages sent by this user account.
 func (s *ChatSession) ProcessCommandMyHistory() {
 	if s.IsChannelConn || s.IsGroupConn || s.IsUserConn {
-		var action string = fmt.Sprintf("%s.history", s.MethodName)
-		response := s.ResourceMyHistory(action, s.Channel, s.UserInput)
-		PrintFormattedJSON(response)
+		PrintFormattedJSON(s.ResourceMyHistory(
+			s.MethodName+".history",
+			s.Channel,
+			s.UserInput))
 	} else {
 		fmt.Println("{\"ok\":false,\"error\":\"not_connected\"}")
 	}
@@ -173,55 +183,14 @@ func (s *ChatSession) ProcessCommandOwner() {
 // ProcessCommandPurge deletes the entire history from the API service.
 func (s *ChatSession) ProcessCommandPurge() {
 	if s.IsChannelConn || s.IsGroupConn || s.IsUserConn {
-		var action string = fmt.Sprintf("%s.history", s.MethodName)
-		s.ResourcePurgeHistory(action, s.Channel, s.UserInput, true)
+		s.ResourcePurgeHistory(
+			s.MethodName+".history",
+			s.Channel,
+			s.UserInput,
+			true)
 	} else {
 		fmt.Println("{\"ok\":false,\"error\":\"not_connected\"}")
 	}
-}
-
-// ProcessCommandRobotImage sets the emoji or URL to use as the avatar.
-func (s *ChatSession) ProcessCommandRobotImage() {
-	if s.UserInput != "" {
-		s.RobotImage = s.UserInput
-
-		if s.UserInput[0] == ':' {
-			s.RobotImageType = slackapi.EMOJI
-		} else {
-			s.RobotImageType = slackapi.ICONURL
-		}
-	}
-}
-
-// ProcessCommandRobotInfo prints information about the robot session.
-func (s *ChatSession) ProcessCommandRobotInfo() {
-	fmt.Printf("@ Robot info:\n")
-	fmt.Printf("  Robot name: %s\n", s.RobotName)
-	fmt.Printf("  Robot type: %s\n", s.RobotImageType)
-	fmt.Printf("  Robot image: %s\n", s.RobotImage)
-
-	if s.RobotIsActive {
-		fmt.Println("  Robot active: true")
-	} else {
-		fmt.Println("  Robot active: false")
-	}
-}
-
-// ProcessCommandRobotName sets the name for the robot session.
-func (s *ChatSession) ProcessCommandRobotName() {
-	if s.UserInput != "" {
-		s.RobotName = s.UserInput
-	}
-}
-
-// ProcessCommandRobotOff turns the robot session off.
-func (s *ChatSession) ProcessCommandRobotOff() {
-	s.RobotIsActive = false
-}
-
-// ProcessCommandRobotOn turns the robot session on.
-func (s *ChatSession) ProcessCommandRobotOn() {
-	s.RobotIsActive = true
 }
 
 // ProcessCommandStatus sets the user profile status message.
@@ -247,15 +216,18 @@ func (s *ChatSession) ProcessCommandUpdate() {
 
 	if s.UserInput != "" && totalHistory > 0 {
 		latest := s.History[totalHistory-1]
-		response := s.ChatUpdate(latest.Channel, latest.Timestamp, s.UserInput)
+		response := s.ChatUpdate(slackapi.MessageArgs{
+			Channel: latest.Channel,
+			Ts:      latest.Timestamp,
+			Text:    s.UserInput,
+		})
 		PrintInlineJSON(response)
 	}
 }
 
 // ProcessCommandUserID searches the ID of certain user account.
 func (s *ChatSession) ProcessCommandUserID() {
-	uniqueid := s.UsersID(s.UserInput)
-	fmt.Printf("@ User identifier: %s\n", uniqueid)
+	fmt.Printf("@ User identifier: %s\n", s.UsersID(s.UserInput))
 }
 
 // ProcessCommandUserList prints all the users in the API service.

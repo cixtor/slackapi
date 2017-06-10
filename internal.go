@@ -43,15 +43,17 @@ type ResponseIssues struct {
 }
 
 // EventlogHistory lists all the events since the specified time.
-func (s *SlackAPI) EventlogHistory(timestamp string) ResponseEventlogs {
+func (s *SlackAPI) EventlogHistory(start string) ResponseEventlogs {
 	var response ResponseEventlogs
-	s.GetRequest(&response, "eventlog.history", "token", "start="+timestamp)
+	s.GetRequest(&response, "eventlog.history", struct {
+		Start string `json:"start"`
+	}{start})
 	return response
 }
 
 // HelpIssuesList list issues reported by the current user.
 func (s *SlackAPI) HelpIssuesList() ResponseIssues {
 	var response ResponseIssues
-	s.GetRequest(&response, "help.issues.list", "token")
+	s.GetRequest(&response, "help.issues.list", nil)
 	return response
 }

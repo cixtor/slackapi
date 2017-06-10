@@ -26,29 +26,27 @@ func main() {
 }
 ```
 
-### Features
-
-The client is built on top of the [Bot Users](https://api.slack.com/bot-users) documentation. Most if not all the methods available in the API are implemented and can be executed placing a colon character as the suffix of each method.
-
-Note that the client runs with the same chat session of the user that is using the program, but technically speaking the interaction is similar to that of a bot. This offers some advantages, for example, like other APIs and integrations, bot users are free. Unlike regular users, the actions they can perform are somewhat limited. For teams on the Free Plan, each bot user counts as a separate integration.
-
 ### Usage
 
-Since this is a client you will need to give access to the perform HTTP requests against the API service, for that you will need to specify your [chat session token](https://api.slack.com/web#authentication). Alternatively, instead of generate a new token for the client you can use the same token issue for your user account when you log into the web interface, this key is not intended to be used as an external token because it expires once you logout, but if you keep the session alive you can work with it.
-
-1. Open the messages board of your team [here](https://slack.com/messages/)
-2. Press `Ctrl + Shift + J` and enter the code `boot_data.api_token`
-3. Copy the token and use the terminal to interact with the service
+Use a [session token](https://api.slack.com/web#authentication) to authenticate the HTTP requests against the API service. Slack automatically generates a token for your when you open a new session [here](https://slack.com/messages/); you can see this token in the JavaScript console of your web browser if you type `boot_data.api_token` but be aware that it will expire once you close the session, consider to use a [legacy token](https://api.slack.com/custom-integrations/legacy-tokens) instead.
 
 ```
-$ SLACK_TOKEN=xoxs-token slackapi auth.test
+$ export SLACK_TOKEN=xoxs-token
+$ slackapi help
+$ slackapi auth.test
 $ slackapi chat.session
 username:channel> :token xoxs-token
 username:channel> :owner
 username:channel> :exit
 ```
 
-Also, you can pass an environment variable `SLACK_VERBOSE=true` to print additional information during the execution of certain operations to troubleshoot issues with either the communication with the Slack API service or the program in itself.
+You can also export an environment variable `SLACK_VERBOSE=true` to print additional information during the execution of certain operations to troubleshoot issues with either the communication with th API or the program in itself.
+
+### Features
+
+The client is built on top of the [Bot Users](https://api.slack.com/bot-users) documentation. Most if not all the methods available in the API are implemented and can be executed placing a colon character as the suffix of each method.
+
+Note that the client runs with the same chat session of the user that is using the program, but technically speaking the interaction is similar to that of a bot. This offers some advantages, for example, like other APIs and integrations, bot users are free. Unlike regular users, the actions they can perform are somewhat limited. For teams on the Free Plan, each bot user counts as a separate integration.
 
 ### Chat Session Commands
 
@@ -64,11 +62,6 @@ Also, you can pass an environment variable `SLACK_VERBOSE=true` to print additio
 - [x] `:open` - Opens a new session with a user, channel, or group.
 - [x] `:owner` - Displays account information of the user in session.
 - [x] `:purge` - Deletes the messages in the current session.
-- [x] `:robotimage` - Sets the avatar for the robot.
-- [x] `:robotinfo` - Displays the configuration of the robot.
-- [x] `:robotname` - Sets the user name of the robot.
-- [x] `:robotoff` - Deactivates the robot to send normal messages.
-- [x] `:roboton` - Activates the robot to send 3rd-party messages.
 - [x] `:token` - Sets the token for the chat session.
 - [x] `:update` - Updates the latest chat session message.
 - [x] `:userid` - Displays the unique identifier of an user.
@@ -80,7 +73,6 @@ Also, you can pass an environment variable `SLACK_VERBOSE=true` to print additio
 - [x] `api.test` - Checks API calling code.
 - [x] `apps.list` - Lists associated applications.
 - [x] `auth.revoke` - Revokes a token.
-- [x] `auth.revokeTest` - Test the token revocation.
 - [x] `auth.test` - Checks authentication and identity.
 - [x] `bots.info` - Gets information about a bot user.
 - [x] `channels.archive` - Archives a channel.
@@ -107,6 +99,7 @@ Also, you can pass an environment variable `SLACK_VERBOSE=true` to print additio
 - [x] `chat.postMessage` - Sends a message to a channel.
 - [x] `chat.robotMessage` - Sends a message to a channel as a robot.
 - [x] `chat.session` - Starts a new chat session.
+- [ ] `chat.unfurl` - Unfurl a specified message.
 - [x] `chat.update` - Updates a message.
 - [ ] `dnd.endDnd` - Ends the current user's _"Do Not Disturb"_ session immediately.
 - [ ] `dnd.endSnooze` - Ends the current user's snooze mode immediately.
