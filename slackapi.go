@@ -15,7 +15,7 @@ import (
 	"strings"
 )
 
-const version = "2.0.1"
+const version = "2.0.2"
 
 // SlackAPI defines the base object. It holds the API token, the information of
 // the user account associated to such API token, the information for the robot
@@ -83,7 +83,6 @@ func (s *SlackAPI) HTTPRequest(method string, body io.Reader, action string, par
 		return nil, err
 	}
 
-	req.Header.Add("DNT", "1")
 	req.Header.Add("Connection", "keep-alive")
 	req.Header.Add("Accept", "application/json")
 	req.Header.Add("Accept-Language", "en-US,en")
@@ -96,7 +95,8 @@ func (s *SlackAPI) HTTPRequest(method string, body io.Reader, action string, par
 // DataToParams converts a template into a HTTP request parameter map.
 func (s *SlackAPI) DataToParams(data interface{}) map[string]string {
 	if data == nil {
-		return map[string]string{}
+		/* no params except for the API token */
+		return map[string]string{"token": s.Token}
 	}
 
 	var name string
