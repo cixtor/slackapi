@@ -62,6 +62,7 @@ func main() {
 		fmt.Println("  slackapi chat.robotMessage [channel] [text]              Sends a message to a channel as a robot")
 		fmt.Println("  slackapi chat.session                                    Starts a new chat session")
 		fmt.Println("  slackapi chat.update [channel] [time] [text]             Updates a message")
+		fmt.Println("  slackapi dnd.endDnd                                      Ends the current user's \"Do Not Disturb\" session immediately")
 		fmt.Println("  slackapi emoji.list                                      Lists custom emoji for a team")
 		fmt.Println("  slackapi eventlog.history [time]                         Lists all the events since the specified time")
 		fmt.Println("  slackapi files.comments.add [file] [text]                Add a comment to an existing file")
@@ -320,6 +321,9 @@ func main() {
 			Ts:      flag.Arg(2),
 			Text:    flag.Arg(3),
 		}))
+
+	case "dnd.endDnd":
+		PrintAndExit(client.DNDEndDnd())
 
 	case "emoji.list":
 		PrintAndExit(client.EmojiList())

@@ -20,3 +20,10 @@ type DNDStatus struct {
 	NextEndTimestamp   int  `json:"next_dnd_end_ts"`
 	SnoozeInfo
 }
+
+// DNDEndDnd ends the current user's "Do Not Disturb" session immediately.
+func (s *SlackAPI) DNDEndDnd() Response {
+	var response Response
+	s.PostRequest(&response, "dnd.endDnd", nil)
+	return response
+}
