@@ -2,7 +2,7 @@ package slackapi
 
 // SnoozeDebug defines the JSON-encoded output for SnoozeDebug.
 type SnoozeDebug struct {
-	SnoozeEndDate string `json:"snooze_end_date"`
+	SnoozeEndDate string `json:"snooze_end_date,omitempty"`
 }
 
 // SnoozeInfo defines the JSON-encoded output for SnoozeInfo.
@@ -21,7 +21,13 @@ type DNDStatus struct {
 	SnoozeInfo
 }
 
-// ResponseSetSnooze defines the JSON-encoded output for Snooze.
+// ResponseEndSnooze defines the JSON-encoded output for end Snooze.
+type ResponseEndSnooze struct {
+	Response
+	DNDStatus
+}
+
+// ResponseSetSnooze defines the JSON-encoded output for set Snooze.
 type ResponseSetSnooze struct {
 	Response
 	SnoozeInfo
@@ -31,6 +37,13 @@ type ResponseSetSnooze struct {
 func (s *SlackAPI) DNDEndDnd() Response {
 	var response Response
 	s.PostRequest(&response, "dnd.endDnd", nil)
+	return response
+}
+
+// DNDEndSnooze ends the current user's snooze mode immediately.
+func (s *SlackAPI) DNDEndSnooze() ResponseEndSnooze {
+	var response ResponseEndSnooze
+	s.PostRequest(&response, "dnd.endSnooze", nil)
 	return response
 }
 
