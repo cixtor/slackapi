@@ -15,7 +15,7 @@ import (
 	"strings"
 )
 
-const version = "2.0.3"
+const version = "2.0.4"
 
 // SlackAPI defines the base object. It holds the API token, the information of
 // the user account associated to such API token, the information for the robot

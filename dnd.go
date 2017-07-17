@@ -21,9 +21,24 @@ type DNDStatus struct {
 	SnoozeInfo
 }
 
+// ResponseSetSnooze defines the JSON-encoded output for Snooze.
+type ResponseSetSnooze struct {
+	Response
+	SnoozeInfo
+}
+
 // DNDEndDnd ends the current user's "Do Not Disturb" session immediately.
 func (s *SlackAPI) DNDEndDnd() Response {
 	var response Response
 	s.PostRequest(&response, "dnd.endDnd", nil)
+	return response
+}
+
+// DNDSetSnooze turns on "Do Not Disturb" mode for the current user.
+func (s *SlackAPI) DNDSetSnooze(minutes int) ResponseSetSnooze {
+	var response ResponseSetSnooze
+	s.PostRequest(&response, "dnd.setSnooze", struct {
+		NumMinutes int `json:"num_minutes"`
+	}{minutes})
 	return response
 }

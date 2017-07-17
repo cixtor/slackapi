@@ -63,6 +63,7 @@ func main() {
 		fmt.Println("  slackapi chat.session                                    Starts a new chat session")
 		fmt.Println("  slackapi chat.update [channel] [time] [text]             Updates a message")
 		fmt.Println("  slackapi dnd.endDnd                                      Ends the current user's \"Do Not Disturb\" session immediately")
+		fmt.Println("  slackapi dnd.setSnooze                                   Ends the current user's snooze mode immediately")
 		fmt.Println("  slackapi emoji.list                                      Lists custom emoji for a team")
 		fmt.Println("  slackapi eventlog.history [time]                         Lists all the events since the specified time")
 		fmt.Println("  slackapi files.comments.add [file] [text]                Add a comment to an existing file")
@@ -324,6 +325,14 @@ func main() {
 
 	case "dnd.endDnd":
 		PrintAndExit(client.DNDEndDnd())
+
+	case "dnd.setSnooze":
+		num, err := strconv.Atoi(flag.Arg(1))
+		if err != nil {
+			fmt.Println("minutes format;", err)
+			os.Exit(1)
+		}
+		PrintAndExit(client.DNDSetSnooze(num))
 
 	case "emoji.list":
 		PrintAndExit(client.EmojiList())
