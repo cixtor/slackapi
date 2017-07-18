@@ -21,14 +21,14 @@ type DNDStatus struct {
 	SnoozeInfo
 }
 
-// ResponseEndSnooze defines the JSON-encoded output for end Snooze.
-type ResponseEndSnooze struct {
+// ResponseDNDStatus defines the JSON-encoded output for end Snooze.
+type ResponseDNDStatus struct {
 	Response
 	DNDStatus
 }
 
-// ResponseSetSnooze defines the JSON-encoded output for set Snooze.
-type ResponseSetSnooze struct {
+// ResponseSnoozeStatus defines the JSON-encoded output for set Snooze.
+type ResponseSnoozeStatus struct {
 	Response
 	SnoozeInfo
 }
@@ -41,15 +41,24 @@ func (s *SlackAPI) DNDEndDnd() Response {
 }
 
 // DNDEndSnooze ends the current user's snooze mode immediately.
-func (s *SlackAPI) DNDEndSnooze() ResponseEndSnooze {
-	var response ResponseEndSnooze
+func (s *SlackAPI) DNDEndSnooze() ResponseDNDStatus {
+	var response ResponseDNDStatus
 	s.PostRequest(&response, "dnd.endSnooze", nil)
 	return response
 }
 
+// DNDInfo retrieves a user's current "Do Not Disturb" status
+func (s *SlackAPI) DNDInfo(user string) ResponseDNDStatus {
+	var response ResponseDNDStatus
+	s.PostRequest(&response, "dnd.info", struct {
+		User string `json:"user"`
+	}{user})
+	return response
+}
+
 // DNDSetSnooze turns on "Do Not Disturb" mode for the current user.
-func (s *SlackAPI) DNDSetSnooze(minutes int) ResponseSetSnooze {
-	var response ResponseSetSnooze
+func (s *SlackAPI) DNDSetSnooze(minutes int) ResponseSnoozeStatus {
+	var response ResponseSnoozeStatus
 	s.PostRequest(&response, "dnd.setSnooze", struct {
 		NumMinutes int `json:"num_minutes"`
 	}{minutes})

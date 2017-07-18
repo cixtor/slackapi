@@ -103,7 +103,7 @@ Note that the client runs with the same chat session of the user that is using t
 - [x] `chat.update` - Updates a message.
 - [x] `dnd.endDnd` - Ends the current user's _"Do Not Disturb"_ session immediately.
 - [x] `dnd.endSnooze` - Ends the current user's snooze mode immediately.
-- [ ] `dnd.info` - Retrieves a user's current _"Do Not Disturb"_ status.
+- [x] `dnd.info` - Retrieves a user's current _"Do Not Disturb"_ status.
 - [x] `dnd.setSnooze` - Turns on _"Do Not Disturb"_ mode for the current user, or changes its duration.
 - [ ] `dnd.teamInfo` - Retrieves the _"Do Not Disturb"_ status for users on a team.
 - [x] `emoji.list` - Lists custom emoji for a team.
