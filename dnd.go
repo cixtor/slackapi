@@ -21,10 +21,17 @@ type DNDStatus struct {
 	SnoozeInfo
 }
 
-// ResponseDNDStatus defines the JSON-encoded output for end Snooze.
+// ResponseDNDStatus defines the JSON-encoded output for DND status.
 type ResponseDNDStatus struct {
 	Response
 	DNDStatus
+}
+
+// ResponseDNDTeam defines the JSON-encoded output for DND team status.
+type ResponseDNDTeam struct {
+	Response
+	Cached bool                 `json:"cached"`
+	Users  map[string]DNDStatus `json:"users"`
 }
 
 // ResponseSnoozeStatus defines the JSON-encoded output for set Snooze.
@@ -62,5 +69,14 @@ func (s *SlackAPI) DNDSetSnooze(minutes int) ResponseSnoozeStatus {
 	s.PostRequest(&response, "dnd.setSnooze", struct {
 		NumMinutes int `json:"num_minutes"`
 	}{minutes})
+	return response
+}
+
+// DNDTeamInfo retrieves the "Do Not Disturb" status for users on a team.
+func (s *SlackAPI) DNDTeamInfo(users string) ResponseDNDTeam {
+	var response ResponseDNDTeam
+	s.PostRequest(&response, "dnd.teamInfo", struct {
+		Users string `json:"users"`
+	}{users})
 	return response
 }

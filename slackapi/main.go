@@ -64,8 +64,9 @@ func main() {
 		fmt.Println("  slackapi chat.update [channel] [time] [text]             Updates a message")
 		fmt.Println("  slackapi dnd.endDnd                                      Ends the current user's \"Do Not Disturb\" session immediately")
 		fmt.Println("  slackapi dnd.endSnooze                                   Ends the current user's snooze mode immediately")
-		fmt.Println("  slackapi dnd.info                                        Retrieves a user's current \"Do Not Disturb\" status")
+		fmt.Println("  slackapi dnd.info [user]                                 Retrieves a user's current \"Do Not Disturb\" status")
 		fmt.Println("  slackapi dnd.setSnooze                                   Ends the current user's snooze mode immediately")
+		fmt.Println("  slackapi dnd.teamInfo [users]                            Retrieves the \"Do Not Disturb\" status for users on a team")
 		fmt.Println("  slackapi emoji.list                                      Lists custom emoji for a team")
 		fmt.Println("  slackapi eventlog.history [time]                         Lists all the events since the specified time")
 		fmt.Println("  slackapi files.comments.add [file] [text]                Add a comment to an existing file")
@@ -341,6 +342,9 @@ func main() {
 			os.Exit(1)
 		}
 		PrintAndExit(client.DNDSetSnooze(num))
+
+	case "dnd.teamInfo":
+		PrintAndExit(client.DNDTeamInfo(flag.Arg(1)))
 
 	case "emoji.list":
 		PrintAndExit(client.EmojiList())

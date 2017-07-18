@@ -105,7 +105,7 @@ Note that the client runs with the same chat session of the user that is using t
 - [x] `dnd.endSnooze` - Ends the current user's snooze mode immediately.
 - [x] `dnd.info` - Retrieves a user's current _"Do Not Disturb"_ status.
 - [x] `dnd.setSnooze` - Turns on _"Do Not Disturb"_ mode for the current user, or changes its duration.
-- [ ] `dnd.teamInfo` - Retrieves the _"Do Not Disturb"_ status for users on a team.
+- [x] `dnd.teamInfo` - Retrieves the _"Do Not Disturb"_ status for users on a team.
 - [x] `emoji.list` - Lists custom emoji for a team.
 - [x] `eventlog.history` - Lists all the events since the specified time.
 - [x] `files.comments.add` - Add a comment to an existing file.
