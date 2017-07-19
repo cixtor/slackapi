@@ -151,7 +151,7 @@ Note that the client runs with the same chat session of the user that is using t
 - [x] `im.myHistory` - Displays messages of the current user from direct message channel.
 - [x] `im.open` - Opens a direct message channel.
 - [x] `im.purgeHistory` - Deletes history of messages and events from direct message channel.
-- [ ] `mpim.close` - Closes a multiparty direct message channel.
+- [x] `mpim.close` - Closes a multiparty direct message channel.
 - [x] `mpim.history` - Fetches history of messages and events from a multiparty direct message.
 - [x] `mpim.list` - Lists multiparty direct message channels for the calling user.
 - [x] `mpim.listSimple` - Lists ID and members in a multiparty direct message channels.

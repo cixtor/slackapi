@@ -9,6 +9,15 @@ type ResponseMultiPartyInstantMessageList struct {
 // ResponseMultiPartyInstantMessageListSimple defines the JSON-encoded output for MultiPartyInstantMessageListSimple.
 type ResponseMultiPartyInstantMessageListSimple map[string]string
 
+// MultiPartyInstantMessageClose closes a multiparty direct message channel.
+func (s *SlackAPI) MultiPartyInstantMessageClose(channel string) Response {
+	var response Response
+	s.PostRequest(&response, "mpim.close", struct {
+		Channel string `json:"channel"`
+	}{channel})
+	return response
+}
+
 // MultiPartyInstantMessageHistory fetches history of messages and events from a multiparty direct message.
 func (s *SlackAPI) MultiPartyInstantMessageHistory(channel string, latest string) History {
 	return s.ResourceHistory("mpim.history", HistoryArgs{

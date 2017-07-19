@@ -18,7 +18,7 @@ type InstantMessageObject struct {
 // InstantMessageClose close a direct message channel.
 func (s *SlackAPI) InstantMessageClose(channel string) Response {
 	var response Response
-	s.GetRequest(&response, "im.close", struct {
+	s.PostRequest(&response, "im.close", struct {
 		Channel string `json:"channel"`
 	}{channel})
 	return response
