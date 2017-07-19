@@ -113,6 +113,7 @@ func main() {
 		fmt.Println("  slackapi mpim.history [channel] [time]                   Fetches history of messages and events from a multiparty direct message")
 		fmt.Println("  slackapi mpim.list                                       Lists multiparty direct message channels for the calling user")
 		fmt.Println("  slackapi mpim.listSimple                                 Lists ID and members in a multiparty direct message channels")
+		fmt.Println("  slackapi mpim.mark [channel] [time]                      Sets the read cursor in a multiparty direct message channel")
 		fmt.Println("  slackapi mpim.myHistory [channel] [time]                 Displays messages of the current user from multiparty direct message channel")
 		fmt.Println("  slackapi mpim.purgeHistory [channel] [time]              Deletes history of messages and events from multiparty direct message channel")
 		fmt.Println("  slackapi reactions.add [channel] [time] [name]           Adds a reaction to an item")
@@ -585,6 +586,9 @@ func main() {
 
 	case "mpim.listSimple":
 		PrintAndExit(client.MultiPartyInstantMessageListSimple())
+
+	case "mpim.mark":
+		PrintAndExit(client.MultiPartyInstantMessageMark(flag.Arg(1), flag.Arg(2)))
 
 	case "mpim.myHistory":
 		PrintAndExit(client.MultiPartyInstantMessageMyHistory(flag.Arg(1), flag.Arg(2)))

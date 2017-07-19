@@ -44,6 +44,11 @@ func (s *SlackAPI) MultiPartyInstantMessageListSimple() ResponseMultiPartyInstan
 	return output
 }
 
+// MultiPartyInstantMessageMark sets the read cursor in a multiparty direct message channel.
+func (s *SlackAPI) MultiPartyInstantMessageMark(channel string, latest string) Response {
+	return s.ResourceMark("mpim.mark", channel, latest)
+}
+
 // MultiPartyInstantMessageMyHistory displays messages of the current user from multiparty direct message channel.
 func (s *SlackAPI) MultiPartyInstantMessageMyHistory(channel string, latest string) MyHistory {
 	return s.ResourceMyHistory("mpim.history", channel, latest)

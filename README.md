@@ -155,7 +155,7 @@ Note that the client runs with the same chat session of the user that is using t
 - [x] `mpim.history` - Fetches history of messages and events from a multiparty direct message.
 - [x] `mpim.list` - Lists multiparty direct message channels for the calling user.
 - [x] `mpim.listSimple` - Lists ID and members in a multiparty direct message channels.
-- [ ] `mpim.mark` - Sets the read cursor in a multiparty direct message channel.
+- [x] `mpim.mark` - Sets the read cursor in a multiparty direct message channel.
 - [x] `mpim.myHistory` - Displays messages of the current user from multiparty direct message channel.
 - [ ] `mpim.open` - This method opens a multiparty direct message.
 - [x] `mpim.purgeHistory` - Deletes history of messages and events from multiparty direct message channel.
