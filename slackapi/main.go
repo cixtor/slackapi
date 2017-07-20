@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"strings"
 
 	"github.com/cixtor/slackapi"
 )
@@ -115,6 +116,7 @@ func main() {
 		fmt.Println("  slackapi mpim.listSimple                                 Lists ID and members in a multiparty direct message channels")
 		fmt.Println("  slackapi mpim.mark [channel] [time]                      Sets the read cursor in a multiparty direct message channel")
 		fmt.Println("  slackapi mpim.myHistory [channel] [time]                 Displays messages of the current user from multiparty direct message channel")
+		fmt.Println("  slackapi mpim.open [user1,user2,etc]                     This method opens a multiparty direct message")
 		fmt.Println("  slackapi mpim.purgeHistory [channel] [time]              Deletes history of messages and events from multiparty direct message channel")
 		fmt.Println("  slackapi reactions.add [channel] [time] [name]           Adds a reaction to an item")
 		fmt.Println("  slackapi reactions.get [channel] [time]                  Gets reactions for an item")
@@ -592,6 +594,9 @@ func main() {
 
 	case "mpim.myHistory":
 		PrintAndExit(client.MultiPartyInstantMessageMyHistory(flag.Arg(1), flag.Arg(2)))
+
+	case "mpim.open":
+		PrintAndExit(client.MultiPartyInstantMessageOpen(strings.Split(flag.Arg(1), ",")))
 
 	case "mpim.purgeHistory":
 		client.MultiPartyInstantMessagePurgeHistory(flag.Arg(1), flag.Arg(2), true)

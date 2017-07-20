@@ -9,6 +9,12 @@ type ResponseMultiPartyInstantMessageList struct {
 // ResponseMultiPartyInstantMessageListSimple defines the JSON-encoded output for MultiPartyInstantMessageListSimple.
 type ResponseMultiPartyInstantMessageListSimple map[string]string
 
+// ResponseMultiPartyInstantMessageOpen defines the JSON-encoded output for ResponseMultiPartyInstantMessageOpen.
+type ResponseMultiPartyInstantMessageOpen struct {
+	Response
+	Group Channel `json:"group"`
+}
+
 // MultiPartyInstantMessageClose closes a multiparty direct message channel.
 func (s *SlackAPI) MultiPartyInstantMessageClose(channel string) Response {
 	var response Response
@@ -52,6 +58,15 @@ func (s *SlackAPI) MultiPartyInstantMessageMark(channel string, latest string) R
 // MultiPartyInstantMessageMyHistory displays messages of the current user from multiparty direct message channel.
 func (s *SlackAPI) MultiPartyInstantMessageMyHistory(channel string, latest string) MyHistory {
 	return s.ResourceMyHistory("mpim.history", channel, latest)
+}
+
+// MultiPartyInstantMessageOpen this method opens a multiparty direct message.
+func (s *SlackAPI) MultiPartyInstantMessageOpen(users []string) ResponseMultiPartyInstantMessageOpen {
+	var response ResponseMultiPartyInstantMessageOpen
+	s.GetRequest(&response, "mpim.open", struct {
+		Users []string `json:"users"`
+	}{users})
+	return response
 }
 
 // MultiPartyInstantMessagePurgeHistory deletes history of messages and events from multiparty direct message channel.

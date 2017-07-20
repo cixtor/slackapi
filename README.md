@@ -157,7 +157,7 @@ Note that the client runs with the same chat session of the user that is using t
 - [x] `mpim.listSimple` - Lists ID and members in a multiparty direct message channels.
 - [x] `mpim.mark` - Sets the read cursor in a multiparty direct message channel.
 - [x] `mpim.myHistory` - Displays messages of the current user from multiparty direct message channel.
-- [ ] `mpim.open` - This method opens a multiparty direct message.
+- [x] `mpim.open` - This method opens a multiparty direct message.
 - [x] `mpim.purgeHistory` - Deletes history of messages and events from multiparty direct message channel.
 - [ ] `oauth.access` - Exchanges a temporary OAuth code for an API token.
 - [ ] `pins.add` - Pins an item to a channel.

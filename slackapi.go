@@ -15,7 +15,7 @@ import (
 	"strings"
 )
 
-const version = "2.0.9"
+const version = "2.0.10"
 
 // SlackAPI defines the base object. It holds the API token, the information of
 // the user account associated to such API token, the information for the robot
@@ -126,6 +126,9 @@ func (s *SlackAPI) DataToParams(data interface{}) map[string]string {
 
 		case string:
 			params[name] = value.(string)
+
+		case []string:
+			params[name] = strings.Join(value.([]string), ",")
 
 		case []Attachment:
 			if out, err := json.Marshal(value); err == nil {

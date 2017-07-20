@@ -87,6 +87,7 @@ type Channel struct {
 	Latest             ChannelLatest  `json:"latest"`
 	Members            []string       `json:"members"`
 	Name               string         `json:"name"`
+	NameNormalized     string         `json:"name_normalized"`
 	NumMembers         int            `json:"num_members"`
 	Purpose            ChannelPurpose `json:"purpose"`
 	Topic              ChannelTopic   `json:"topic"`
