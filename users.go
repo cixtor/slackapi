@@ -43,6 +43,13 @@ type ResponseUserAvatar struct {
 	Profile   ResponseUserPhotoProfile `json:"profile"`
 }
 
+// ResponseUsersIdentity defines the JSON-encoded output for UsersIdentity.
+type ResponseUsersIdentity struct {
+	Response
+	Team Team          `json:"team"`
+	User UsersIdentity `json:"user"`
+}
+
 // ResponseUserPhoto defines the JSON-encoded output for UserPhoto.
 type ResponseUserPhoto struct {
 	Response
@@ -109,6 +116,18 @@ type User struct {
 	Tz                string      `json:"tz"`
 	TzLabel           string      `json:"tz_label"`
 	TzOffset          int         `json:"tz_offset"`
+}
+
+// UsersIdentity defines the expected data from the JSON-encoded API response.
+type UsersIdentity struct {
+	ID       string `json:"id"`
+	Name     string `json:"name"`
+	Email    string `json:"email"`
+	Image24  string `json:"image_24"`
+	Image32  string `json:"image_32"`
+	Image48  string `json:"image_48"`
+	Image72  string `json:"image_72"`
+	Image192 string `json:"image_192"`
 }
 
 // UserProfile defines the expected data from the JSON-encoded API response.
@@ -401,6 +420,13 @@ func (s *SlackAPI) UsersID(query string) string {
 	}
 
 	return query
+}
+
+// UsersIdentity get a user's identity.
+func (s *SlackAPI) UsersIdentity() ResponseUsersIdentity {
+	var response ResponseUsersIdentity
+	s.GetRequest(&response, "users.identity", nil)
+	return response
 }
 
 // UsersInfo gets information about a user.

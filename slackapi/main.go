@@ -132,6 +132,7 @@ func main() {
 		fmt.Println("  slackapi users.deletePhoto                               Delete the user avatar")
 		fmt.Println("  slackapi users.getPresence [user]                        Gets user presence information")
 		fmt.Println("  slackapi users.id [user]                                 Gets user identifier from username")
+		fmt.Println("  slackapi users.identity                                  Get a user's identity")
 		fmt.Println("  slackapi users.info [user]                               Gets information about a user")
 		fmt.Println("  slackapi users.list                                      Lists all users in a Slack team")
 		fmt.Println("  slackapi users.prefs.get                                 Get user account preferences")
@@ -665,6 +666,9 @@ func main() {
 
 	case "users.id":
 		PrintAndExit(client.UsersID(flag.Arg(1)))
+
+	case "users.identity":
+		PrintAndExit(client.UsersIdentity())
 
 	case "users.info":
 		PrintAndExit(client.UsersInfo(flag.Arg(1)))

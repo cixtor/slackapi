@@ -196,7 +196,7 @@ Note that the client runs with the same chat session of the user that is using t
 - [x] `users.deletePhoto` - Delete the user avatar.
 - [x] `users.getPresence` - Gets user presence information.
 - [x] `users.id` - Gets user identifier from username.
-- [ ] `users.identity` - Get a user's identity.
+- [x] `users.identity` - Get a user's identity.
 - [x] `users.info` - Gets information about a user.
 - [x] `users.list` - Lists all users in a Slack team.
 - [x] `users.prefs.get` - Get user account preferences.
