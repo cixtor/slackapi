@@ -42,11 +42,8 @@ func (s *SlackAPI) ChannelsCreate(name string) ResponseChannelsInfo {
 }
 
 // ChannelsHistory fetches history of messages and events from a channel.
-func (s *SlackAPI) ChannelsHistory(channel string, latest string) History {
-	return s.ResourceHistory("channels.history", HistoryArgs{
-		Channel: channel,
-		Latest:  latest,
-	})
+func (s *SlackAPI) ChannelsHistory(data HistoryArgs) History {
+	return s.ResourceHistory("channels.history", data)
 }
 
 // ChannelsID gets channel identifier from readable name.

@@ -25,11 +25,8 @@ func (s *SlackAPI) MultiPartyInstantMessageClose(channel string) Response {
 }
 
 // MultiPartyInstantMessageHistory fetches history of messages and events from a multiparty direct message.
-func (s *SlackAPI) MultiPartyInstantMessageHistory(channel string, latest string) History {
-	return s.ResourceHistory("mpim.history", HistoryArgs{
-		Channel: channel,
-		Latest:  latest,
-	})
+func (s *SlackAPI) MultiPartyInstantMessageHistory(data HistoryArgs) History {
+	return s.ResourceHistory("mpim.history", data)
 }
 
 // MultiPartyInstantMessageList lists multiparty direct message channels for the calling user.

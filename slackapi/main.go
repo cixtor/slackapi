@@ -218,7 +218,10 @@ func main() {
 		PrintAndExit(client.ChannelsCreate(flag.Arg(1)))
 
 	case "channels.history":
-		PrintAndExit(client.ChannelsHistory(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.ChannelsHistory(slackapi.HistoryArgs{
+			Channel: flag.Arg(1),
+			Latest:  flag.Arg(2),
+		}))
 
 	case "channels.id":
 		PrintAndExit(client.ChannelsID(flag.Arg(1)))
@@ -502,7 +505,10 @@ func main() {
 		PrintAndExit(client.GroupsCreateChild(flag.Arg(1)))
 
 	case "groups.history":
-		PrintAndExit(client.GroupsHistory(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.GroupsHistory(slackapi.HistoryArgs{
+			Channel: flag.Arg(1),
+			Latest:  flag.Arg(2),
+		}))
 
 	case "groups.id":
 		PrintAndExit(client.GroupsID(flag.Arg(1)))
@@ -561,7 +567,10 @@ func main() {
 		PrintAndExit(client.InstantMessageClose(flag.Arg(1)))
 
 	case "im.history":
-		PrintAndExit(client.InstantMessageHistory(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.InstantMessageHistory(slackapi.HistoryArgs{
+			Channel: flag.Arg(1),
+			Latest:  flag.Arg(2),
+		}))
 
 	case "im.list":
 		PrintAndExit(client.InstantMessageList())
@@ -582,7 +591,10 @@ func main() {
 		PrintAndExit(client.MultiPartyInstantMessageClose(flag.Arg(1)))
 
 	case "mpim.history":
-		PrintAndExit(client.MultiPartyInstantMessageHistory(flag.Arg(1), flag.Arg(2)))
+		PrintAndExit(client.MultiPartyInstantMessageHistory(slackapi.HistoryArgs{
+			Channel: flag.Arg(1),
+			Latest:  flag.Arg(2),
+		}))
 
 	case "mpim.list":
 		PrintAndExit(client.MultiPartyInstantMessageList())

@@ -25,11 +25,8 @@ func (s *SlackAPI) InstantMessageClose(channel string) Response {
 }
 
 // InstantMessageHistory fetches history of messages and events from direct message channel.
-func (s *SlackAPI) InstantMessageHistory(channel string, latest string) History {
-	return s.ResourceHistory("im.history", HistoryArgs{
-		Channel: channel,
-		Latest:  latest,
-	})
+func (s *SlackAPI) InstantMessageHistory(data HistoryArgs) History {
+	return s.ResourceHistory("im.history", data)
 }
 
 // InstantMessageList lists direct message channels for the calling user.

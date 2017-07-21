@@ -46,11 +46,8 @@ func (s *SlackAPI) GroupsCreateChild(channel string) ResponseGroupsInfo {
 }
 
 // GroupsHistory fetches history of messages and events from a private channel.
-func (s *SlackAPI) GroupsHistory(channel string, latest string) History {
-	return s.ResourceHistory("groups.history", HistoryArgs{
-		Channel: channel,
-		Latest:  latest,
-	})
+func (s *SlackAPI) GroupsHistory(data HistoryArgs) History {
+	return s.ResourceHistory("groups.history", data)
 }
 
 // GroupsID gets private channel identifier from readable name.
