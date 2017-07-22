@@ -155,18 +155,29 @@ func (s *SlackAPI) ExecuteRequest(req *http.Request, data interface{}) {
 		return
 	}
 
-	defer resp.Body.Close()
+	defer func() {
+		if err := resp.Body.Close(); err != nil {
+			log.Println("http exec; body close;", err)
+		}
+	}()
 
 	var buf bytes.Buffer
 	tee := io.TeeReader(resp.Body, &buf)
+
 	if err := json.NewDecoder(tee).Decode(&data); err != nil {
-		out, _ := ioutil.ReadAll(&buf)
+		out, _ := ioutil.ReadAll(&buf) /* bad idea; change */
+
 		if strings.Contains(string(out), "too many requests") {
 			fake := "{\"ok\":false, \"error\":\"RATELIMIT\"}"
 			read := bytes.NewReader([]byte(fake))
-			json.NewDecoder(read).Decode(&data)
+
+			if err2 := json.NewDecoder(read).Decode(&data); err2 != nil {
+				log.Println("http exec; json decode;", err)
+			}
+
 			return
 		}
+
 		log.Println("ratelimit;", err)
 	}
 }
@@ -227,7 +238,9 @@ func (s *SlackAPI) PostRequest(v interface{}, action string, data interface{}) {
 
 		if !isfile {
 			fwriter, _ := writer.CreateFormField(name)
-			fwriter.Write([]byte(value))
+			if _, err := fwriter.Write([]byte(value)); err != nil {
+				log.Println("HTTP POST; create field;", err)
+			}
 			continue
 		}
 
@@ -237,14 +250,30 @@ func (s *SlackAPI) PostRequest(v interface{}, action string, data interface{}) {
 			log.Println("file open;", err)
 			return
 		}
-		defer resource.Close()
+
+		defer func() {
+			if err := resource.Close(); err != nil {
+				log.Println("HTTP POST; file close;", err)
+			}
+		}()
+
 		fwriter, _ := writer.CreateFormFile(name, fpath)
-		io.Copy(fwriter, resource) /* attach file data */
+		if _, err := io.Copy(fwriter, resource); err != nil {
+			log.Println("HTTP POST; copy param;", err)
+			continue
+		}
+
 		fwriter, _ = writer.CreateFormField("filename")
-		fwriter.Write([]byte(fname))
+		if _, err := fwriter.Write([]byte(fname)); err != nil {
+			log.Println("HTTP POST; write param;", err)
+			continue
+		}
 	}
 
-	writer.Close()
+	if err := writer.Close(); err != nil {
+		log.Println("HTTP POST; write close;", err)
+		return
+	}
 
 	// Now that you have a form, you can submit it to your handler.
 	req, err := s.HTTPRequest("POST", &buffer, action, nil)
