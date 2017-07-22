@@ -151,7 +151,7 @@ func (s *SlackAPI) ExecuteRequest(req *http.Request, data interface{}) {
 	resp, err := client.Do(req)
 
 	if err != nil {
-		log.Println("HTTP;", err)
+		log.Println("http;", err)
 		return
 	}
 
@@ -211,7 +211,7 @@ func (s *SlackAPI) GetRequest(v interface{}, action string, data interface{}) {
 	req, err := s.HTTPRequest("GET", nil, action, params)
 
 	if err != nil {
-		log.Println("HTTP GET;", err)
+		log.Println("http get;", err)
 		return
 	}
 
@@ -239,7 +239,7 @@ func (s *SlackAPI) PostRequest(v interface{}, action string, data interface{}) {
 		if !isfile {
 			fwriter, _ := writer.CreateFormField(name)
 			if _, err := fwriter.Write([]byte(value)); err != nil {
-				log.Println("HTTP POST; create field;", err)
+				log.Println("http post; create field;", err)
 			}
 			continue
 		}
@@ -253,25 +253,25 @@ func (s *SlackAPI) PostRequest(v interface{}, action string, data interface{}) {
 
 		defer func() {
 			if err := resource.Close(); err != nil {
-				log.Println("HTTP POST; file close;", err)
+				log.Println("http post; file close;", err)
 			}
 		}()
 
 		fwriter, _ := writer.CreateFormFile(name, fpath)
 		if _, err := io.Copy(fwriter, resource); err != nil {
-			log.Println("HTTP POST; copy param;", err)
+			log.Println("http post; copy param;", err)
 			continue
 		}
 
 		fwriter, _ = writer.CreateFormField("filename")
 		if _, err := fwriter.Write([]byte(fname)); err != nil {
-			log.Println("HTTP POST; write param;", err)
+			log.Println("http post; write param;", err)
 			continue
 		}
 	}
 
 	if err := writer.Close(); err != nil {
-		log.Println("HTTP POST; write close;", err)
+		log.Println("http post; write close;", err)
 		return
 	}
 
@@ -279,7 +279,7 @@ func (s *SlackAPI) PostRequest(v interface{}, action string, data interface{}) {
 	req, err := s.HTTPRequest("POST", &buffer, action, nil)
 
 	if err != nil {
-		log.Println("HTTP POST;", err)
+		log.Println("http post;", err)
 		return
 	}
 
