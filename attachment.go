@@ -53,6 +53,7 @@ type AttachmentAction struct {
 	Name            string                        `json:"name"`
 	Text            string                        `json:"text"`
 	Type            string                        `json:"type"`
+	URL             string                        `json:"url"`
 	Style           string                        `json:"style,omitempty"`
 	Value           string                        `json:"value,omitempty"`
 	DataSource      string                        `json:"data_source,omitempty"`
