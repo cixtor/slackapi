@@ -487,10 +487,21 @@ func main() {
 		}))
 
 	case "files.upload":
-		PrintAndExit(client.FilesUpload(slackapi.FileUploadArgs{
-			Channels: flag.Arg(1),
-			File:     flag.Arg(2),
-		}))
+		var data slackapi.FileUploadArgs
+		data.Channels = flag.Arg(1)
+		data.File = "@" + flag.Arg(2)
+		// grab last part of the file path.
+		if strings.Contains(data.File, "/") {
+			index := strings.LastIndex(data.File, "/")
+			data.Filename = data.File[index+1 : len(data.File)]
+		} else {
+			data.Filename = data.File
+		}
+		// convert file name into a human title.
+		index := strings.Index(data.Filename, ".")
+		data.Title = data.Filename[0:index]
+		data.Title = strings.Replace(data.Title, "-", "\x20", -1)
+		PrintAndExit(client.FilesUpload(data))
 
 	case "groups.archive":
 		PrintAndExit(client.GroupsArchive(flag.Arg(1)))
