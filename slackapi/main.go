@@ -386,20 +386,24 @@ func main() {
 		PrintAndExit(client.FilesInfo(flag.Arg(1), numc, nump))
 
 	case "files.list":
-		numc, err := strconv.Atoi(flag.Arg(1))
-		if err != nil {
-			fmt.Println("count format;", err)
-			os.Exit(1)
+		var data slackapi.FileListArgs
+		if count := flag.Arg(1); count != "" {
+			numc, err := strconv.Atoi(count)
+			if err != nil {
+				fmt.Println("count format;", err)
+				os.Exit(1)
+			}
+			data.Count = numc
 		}
-		nump, err := strconv.Atoi(flag.Arg(2))
-		if err != nil {
-			fmt.Println("page format;", err)
-			os.Exit(1)
+		if page := flag.Arg(2); page != "" {
+			nump, err := strconv.Atoi(page)
+			if err != nil {
+				fmt.Println("page format;", err)
+				os.Exit(1)
+			}
+			data.Page = nump
 		}
-		PrintAndExit(client.FilesList(slackapi.FileListArgs{
-			Count: numc,
-			Page:  nump,
-		}))
+		PrintAndExit(client.FilesList(data))
 
 	case "files.listAfterTime":
 		numc, err := strconv.Atoi(flag.Arg(2))
