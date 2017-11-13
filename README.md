@@ -72,6 +72,8 @@ Note that the client runs with the same chat session of the user that is using t
 
 - [x] `api.test` - Checks API calling code.
 - [x] `apps.list` - Lists associated applications.
+- [ ] `apps.permissions.info` - Returns list of permissions this app has on a team.
+- [ ] `apps.permissions.request` - Allows an app to request additional scopes
 - [x] `auth.revoke` - Revokes a token.
 - [x] `auth.test` - Checks authentication and identity.
 - [x] `bots.info` - Gets information about a bot user.
@@ -89,18 +91,39 @@ Note that the client runs with the same chat session of the user that is using t
 - [x] `channels.myHistory` - Displays messages of the current user from a channel.
 - [x] `channels.purgeHistory` - Deletes history of messages and events from a channel.
 - [x] `channels.rename` - Renames a channel.
+- [ ] `channels.replies` - Retrieve a thread of messages posted to a channel
 - [x] `channels.setPurpose` - Sets the purpose for a channel.
 - [x] `channels.setRetention` - Sets the retention time of the messages.
 - [x] `channels.setTopic` - Sets the topic for a channel.
 - [x] `channels.suggestions` - Prints a list of suggested channels to join.
 - [x] `channels.unarchive` - Unarchives a channel.
 - [x] `chat.delete` - Deletes a message.
+- [ ] `chat.getPermalink` - Retrieve a permalink URL for a specific extant message
 - [x] `chat.meMessage` - Share a me message into a channel.
+- [ ] `chat.postEphemeral` - Sends an ephemeral message to a user in a channel.
 - [x] `chat.postMessage` - Sends a message to a channel.
 - [x] `chat.robotMessage` - Sends a message to a channel as a robot.
 - [x] `chat.session` - Starts a new chat session.
-- [ ] `chat.unfurl` - Unfurl a specified message.
+- [ ] `chat.unfurl` - Provide custom unfurl behavior for user-posted URLs
 - [x] `chat.update` - Updates a message.
+- [ ] `conversations.archive` - Archives a conversation.
+- [ ] `conversations.close` - Closes a direct message or multi-person direct message.
+- [ ] `conversations.create` - Initiates a public or private channel-based conversation
+- [ ] `conversations.history` - Fetches a conversation's history of messages and events.
+- [ ] `conversations.info` - Retrieve information about a conversation.
+- [ ] `conversations.invite` - Invites users to a channel.
+- [ ] `conversations.join` - Joins an existing conversation.
+- [ ] `conversations.kick` - Removes a user from a conversation.
+- [ ] `conversations.leave` - Leaves a conversation.
+- [ ] `conversations.list` - Lists all channels in a Slack team.
+- [ ] `conversations.members` - Retrieve members of a conversation.
+- [ ] `conversations.open` - Opens or resumes a direct message or multi-person direct message.
+- [ ] `conversations.rename` - Renames a conversation.
+- [ ] `conversations.replies` - Retrieve a thread of messages posted to a conversation
+- [ ] `conversations.setPurpose` - Sets the purpose for a conversation.
+- [ ] `conversations.setTopic` - Sets the topic for a conversation.
+- [ ] `conversations.unarchive` - Reverses conversation archival.
+- [ ] `dialog.open` - Open a dialog with a user
 - [x] `dnd.endDnd` - Ends the current user's _"Do Not Disturb"_ session immediately.
 - [x] `dnd.endSnooze` - Ends the current user's snooze mode immediately.
 - [x] `dnd.info` - Retrieves a user's current _"Do Not Disturb"_ status.
@@ -138,6 +161,7 @@ Note that the client runs with the same chat session of the user that is using t
 - [x] `groups.open` - Opens a private channel.
 - [x] `groups.purgeHistory` - Deletes history of messages and events from a private channel.
 - [x] `groups.rename` - Renames a private channel.
+- [ ] `groups.replies` - Retrieve a thread of messages posted to a private channel
 - [x] `groups.setPurpose` - Sets the purpose for a private channel.
 - [x] `groups.setRetention` - Sets the retention time of the messages.
 - [x] `groups.setTopic` - Sets the topic for a private channel.
@@ -150,7 +174,9 @@ Note that the client runs with the same chat session of the user that is using t
 - [x] `im.mark` - Sets the read cursor in a direct message channel.
 - [x] `im.myHistory` - Displays messages of the current user from direct message channel.
 - [x] `im.open` - Opens a direct message channel.
+- [ ] `im.replies` - Retrieve a thread of messages posted to a direct message conversation
 - [x] `im.purgeHistory` - Deletes history of messages and events from direct message channel.
+- [ ] `migration.exchange` - For Enterprise Grid workspaces, map local user IDs to global user IDs
 - [x] `mpim.close` - Closes a multiparty direct message channel.
 - [x] `mpim.history` - Fetches history of messages and events from a multiparty direct message.
 - [x] `mpim.list` - Lists multiparty direct message channels for the calling user.
@@ -159,7 +185,9 @@ Note that the client runs with the same chat session of the user that is using t
 - [x] `mpim.myHistory` - Displays messages of the current user from multiparty direct message channel.
 - [x] `mpim.open` - This method opens a multiparty direct message.
 - [x] `mpim.purgeHistory` - Deletes history of messages and events from multiparty direct message channel.
+- [ ] `mpim.replies` - Retrieve a thread of messages posted to a direct message conversation from a multiparty direct message.
 - [ ] `oauth.access` - Exchanges a temporary OAuth code for an API token.
+- [ ] `oauth.token` - Exchanges a temporary OAuth verifier code for a workspace token.
 - [ ] `pins.add` - Pins an item to a channel.
 - [ ] `pins.list` - Lists items pinned to a channel.
 - [ ] `pins.remove` - Un-pins an item from a channel.
@@ -172,6 +200,7 @@ Note that the client runs with the same chat session of the user that is using t
 - [ ] `reminders.delete` - Deletes a reminder.
 - [ ] `reminders.info` - Gets information about a reminder.
 - [ ] `reminders.list` - Lists all reminders created by or for a given user.
+- [ ] `rtm.connect` - Starts a Real Time Messaging session.
 - [x] `rtm.start` - Starts a Real Time Messaging session.
 - [x] `rtm.events` - Prints the API events in real time
 - [ ] `search.all` - Searches for messages and files matching a query.
@@ -192,23 +221,25 @@ Note that the client runs with the same chat session of the user that is using t
 - [ ] `usergroups.update` - Update an existing User Group.
 - [ ] `usergroups.users.list` - List all users in a User Group.
 - [ ] `usergroups.users.update` - Update the list of users for a User Group.
+- [ ] `users.conversations` - List conversations the calling user may access.
 - [x] `users.counts` - Count number of users in the team.
-- [x] `users.deletePhoto` - Delete the user avatar.
+- [x] `users.deletePhoto` - Delete the user profile photo
 - [x] `users.getPresence` - Gets user presence information.
 - [x] `users.id` - Gets user identifier from username.
 - [x] `users.identity` - Get a user's identity.
 - [x] `users.info` - Gets information about a user.
 - [x] `users.list` - Lists all users in a Slack team.
+- [ ] `users.lookupByEmail` - Find a user with an email address.
 - [x] `users.prefs.get` - Get user account preferences.
 - [x] `users.prefs.set` - Set user account preferences.
 - [x] `users.preparePhoto` - Upload a picture to use as the avatar.
 - [x] `users.profile.get` - Retrieves a user's profile information.
 - [x] `users.profile.set` - Set the profile information for a user.
 - [x] `users.search` - Search users by name or email address.
-- [x] `users.setActive` - Marks a user as active.
+- [x] `users.setActive` - Marked a user as active. **Deprecated and non-functional.**
 - [x] `users.setAvatar` - Upload a picture and set it as the avatar.
 - [x] `users.setEmail` - Changes the email address without confirmation.
-- [x] `users.setPhoto` - Define which picture will be the avatar.
+- [x] `users.setPhoto` - Set the user profile photo.
 - [x] `users.setPresence` - Manually sets user presence.
 - [x] `users.setStatus` - Set the status message and emoji.
 - [x] `users.setUsername` - Changes the username without admin privileges.
