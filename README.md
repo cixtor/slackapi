@@ -189,7 +189,7 @@ Note that the client runs with the same chat session of the user that is using t
 - [ ] `oauth.access` - Exchanges a temporary OAuth code for an API token.
 - [ ] `oauth.token` - Exchanges a temporary OAuth verifier code for a workspace token.
 - [ ] `pins.add` - Pins an item to a channel.
-- [ ] `pins.list` - Lists items pinned to a channel.
+- [x] `pins.list` - Lists items pinned to a channel.
 - [ ] `pins.remove` - Un-pins an item from a channel.
 - [x] `reactions.add` - Adds a reaction to an item.
 - [x] `reactions.get` - Gets reactions for an item.
