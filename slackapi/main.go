@@ -119,6 +119,7 @@ func main() {
 		fmt.Println("  slackapi mpim.open [user1,user2,etc]                     This method opens a multiparty direct message")
 		fmt.Println("  slackapi mpim.purgeHistory [channel] [time]              Deletes history of messages and events from multiparty direct message channel")
 		fmt.Println("  slackapi pins.list [channel]                             Lists items pinned to a channel")
+		fmt.Println("  slackapi pins.remove [channel] [item_id]                 Un-pins an item from a channel")
 		fmt.Println("  slackapi reactions.add [channel] [time] [name]           Adds a reaction to an item")
 		fmt.Println("  slackapi reactions.get [channel] [time]                  Gets reactions for an item")
 		fmt.Println("  slackapi reactions.list [user]                           Lists reactions made by a user")
@@ -632,6 +633,9 @@ func main() {
 
 	case "pins.list":
 		PrintAndExit(client.PinsList(flag.Arg(1)))
+
+	case "pins.remove":
+		PrintAndExit(client.PinsRemove(flag.Arg(1), flag.Arg(2)))
 
 	case "reactions.add":
 		PrintAndExit(client.ReactionsAdd(slackapi.ReactionArgs{

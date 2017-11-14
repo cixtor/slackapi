@@ -27,3 +27,30 @@ func (s *SlackAPI) PinsList(channel string) ResponsePinsList {
 	}{s.ChannelsID(channel)})
 	return response
 }
+
+// PinsRemove lists items pinned to a channel.
+func (s *SlackAPI) PinsRemove(channel string, itemid string) Response {
+	var response Response
+
+	if len(itemid) >= 3 && itemid[0:2] == "Fc" {
+		/* remove pinned file comment */
+		s.GetRequest(&response, "pins.remove", struct {
+			Channel     string `json:"channel"`
+			FileComment string `json:"file_comment"`
+		}{s.ChannelsID(channel), itemid})
+	} else if len(itemid) >= 2 && itemid[0] == 'F' {
+		/* remove pinned file */
+		s.GetRequest(&response, "pins.remove", struct {
+			Channel string `json:"channel"`
+			File    string `json:"file"`
+		}{s.ChannelsID(channel), itemid})
+	} else {
+		/* remove pinned message */
+		s.GetRequest(&response, "pins.remove", struct {
+			Channel   string `json:"channel"`
+			Timestamp string `json:"timestamp"`
+		}{s.ChannelsID(channel), itemid})
+	}
+
+	return response
+}
