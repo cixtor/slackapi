@@ -229,7 +229,7 @@ Note that the client runs with the same chat session of the user that is using t
 - [x] `users.identity` - Get a user's identity.
 - [x] `users.info` - Gets information about a user.
 - [x] `users.list` - Lists all users in a Slack team.
-- [ ] `users.lookupByEmail` - Find a user with an email address.
+- [x] `users.lookupByEmail` - Find a user with an email address.
 - [x] `users.prefs.get` - Get user account preferences.
 - [x] `users.prefs.set` - Set user account preferences.
 - [x] `users.preparePhoto` - Upload a picture to use as the avatar.

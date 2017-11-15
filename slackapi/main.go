@@ -138,6 +138,7 @@ func main() {
 		fmt.Println("  slackapi users.identity                                  Get a user's identity")
 		fmt.Println("  slackapi users.info [user]                               Gets information about a user")
 		fmt.Println("  slackapi users.list                                      Lists all users in a Slack team")
+		fmt.Println("  slackapi users.lookupByEmail [email]                     Find a user with an email address")
 		fmt.Println("  slackapi users.prefs.get                                 Get user account preferences")
 		fmt.Println("  slackapi users.prefs.set [name] [value]                  Set user account preferences")
 		fmt.Println("  slackapi users.preparePhoto [image]                      Upload a picture to use as the avatar")
@@ -714,6 +715,9 @@ func main() {
 
 	case "users.list":
 		PrintAndExit(client.UsersList())
+
+	case "users.lookupByEmail":
+		PrintAndExit(client.UsersLookupByEmail(flag.Arg(1)))
 
 	case "users.prefs.get":
 		PrintAndExit(client.UsersPrefsGet())

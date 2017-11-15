@@ -452,6 +452,15 @@ func (s *SlackAPI) UsersList() ResponseUsersList {
 	return response
 }
 
+// UsersLookupByEmail find a user with an email address.
+func (s *SlackAPI) UsersLookupByEmail(email string) User {
+	var response User
+	s.GetRequest(&response, "users.lookupByEmail", struct {
+		Email string `json:"email"`
+	}{email})
+	return response
+}
+
 // UsersListWithPresence lists all users in a Slack team.
 func (s *SlackAPI) UsersListWithPresence() ResponseUsersList {
 	if s.TeamUsers.Ok {
