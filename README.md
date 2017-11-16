@@ -142,7 +142,7 @@ Note that the client runs with the same chat session of the user that is using t
 - [x] `files.listByChannel` - Lists and filters team files in a specific channel.
 - [x] `files.listByType` - Lists and filters team files by type: all, posts, snippets, images, gdocs, zips, pdfs.
 - [x] `files.listByUser` - Lists and filters team files created by a single user.
-- [ ] `files.revokePublicURL` - Revokes public/external sharing access for a file.
+- [x] `files.revokePublicURL` - Revokes public/external sharing access for a file.
 - [x] `files.sharedPublicURL` - Enables a file for public/external sharing.
 - [x] `files.upload` - Uploads or creates a file.
 - [x] `groups.archive` - Archives a private channel.

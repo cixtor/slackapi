@@ -81,6 +81,7 @@ func main() {
 		fmt.Println("  slackapi files.listByChannel [channel] [count] [page]    Lists and filters team files in a specific channel")
 		fmt.Println("  slackapi files.listByType [type] [count] [page]          Lists and filters team files by type: all, posts, snippets, images, gdocs, zips, pdfs")
 		fmt.Println("  slackapi files.listByUser [user] [count] [page]          Lists and filters team files created by a single user")
+		fmt.Println("  slackapi files.revokePublicURL [file]                    Revokes public/external sharing access for a file")
 		fmt.Println("  slackapi files.sharedPublicURL [file]                    Enables a file for public/external sharing")
 		fmt.Println("  slackapi files.upload [channel] [filename]               Uploads or creates a file from local data")
 		fmt.Println("  slackapi groups.archive [channel]                        Archives a private channel")
@@ -494,6 +495,9 @@ func main() {
 			Count: numc,
 			Page:  nump,
 		}))
+
+	case "files.revokePublicURL":
+		PrintAndExit(client.FilesRevokePublicURL(flag.Arg(1)))
 
 	case "files.sharedPublicURL":
 		PrintAndExit(client.FilesSharedPublicURL(flag.Arg(1)))

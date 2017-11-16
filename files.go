@@ -183,6 +183,15 @@ func (s *SlackAPI) FilesList(data FileListArgs) ResponseFilesList {
 	return response
 }
 
+// FilesRevokePublicURL revokes public/external sharing access for a file.
+func (s *SlackAPI) FilesRevokePublicURL(file string) interface{} {
+	var response interface{}
+	s.PostRequest(&response, "files.revokePublicURL", struct {
+		File string `json:"file"`
+	}{file})
+	return response
+}
+
 // FilesSharedPublicURL enables a file for public/external sharing.
 func (s *SlackAPI) FilesSharedPublicURL(file string) ResponseFilesSharedPublicURL {
 	var response ResponseFilesSharedPublicURL
