@@ -37,6 +37,12 @@ type ResponseFilesList struct {
 	Paging Pagination `json:"paging"`
 }
 
+// ResponseFilesSharedPublicURL defines the JSON-encoded output for FilesSharedPublicURL.
+type ResponseFilesSharedPublicURL struct {
+	Response
+	File File `json:"file"`
+}
+
 // ResponseFilesUpload defines the JSON-encoded output for FilesUpload.
 type ResponseFilesUpload struct {
 	Response
@@ -174,6 +180,15 @@ func (s *SlackAPI) FilesList(data FileListArgs) ResponseFilesList {
 
 	var response ResponseFilesList
 	s.GetRequest(&response, "files.list", data)
+	return response
+}
+
+// FilesSharedPublicURL enables a file for public/external sharing.
+func (s *SlackAPI) FilesSharedPublicURL(file string) ResponseFilesSharedPublicURL {
+	var response ResponseFilesSharedPublicURL
+	s.PostRequest(&response, "files.sharedPublicURL", struct {
+		File string `json:"file"`
+	}{file})
 	return response
 }
 
