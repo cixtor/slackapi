@@ -112,6 +112,7 @@ func main() {
 		fmt.Println("  slackapi im.myHistory [channel] [time]                   Displays messages of the current user from direct message channel")
 		fmt.Println("  slackapi im.open [user]                                  Opens a direct message channel")
 		fmt.Println("  slackapi im.purgeHistory [channel] [time]                Deletes history of messages and events from direct message channel")
+		fmt.Println("  slackapi migration.exchange [users] [order]              For Enterprise Grid workspaces, map local user IDs to global user IDs")
 		fmt.Println("  slackapi mpim.close [channel]                            Closes a multiparty direct message channel")
 		fmt.Println("  slackapi mpim.history [channel] [time]                   Fetches history of messages and events from a multiparty direct message")
 		fmt.Println("  slackapi mpim.list                                       Lists multiparty direct message channels for the calling user")
@@ -613,6 +614,11 @@ func main() {
 
 	case "im.purgeHistory":
 		client.InstantMessagePurgeHistory(flag.Arg(1), flag.Arg(2), true)
+
+	case "migration.exchange":
+		users := strings.Split(flag.Arg(1), ",")
+		order := flag.Arg(2) == "true"
+		PrintAndExit(client.MigrationExchange(users, order))
 
 	case "mpim.close":
 		PrintAndExit(client.MultiPartyInstantMessageClose(flag.Arg(1)))
