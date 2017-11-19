@@ -130,6 +130,7 @@ func main() {
 		fmt.Println("  slackapi reactions.remove [channel] [time] [name]        Removes a reaction from an item")
 		fmt.Println("  slackapi rtm.start                                       Starts a Real Time Messaging session")
 		fmt.Println("  slackapi rtm.events                                      Prints the API events in real time")
+		fmt.Println("  slackapi stars.add [channel] [item_id]                   Adds a star to an item")
 		fmt.Println("  slackapi stars.list [count] [page]                       Lists stars for a user")
 		fmt.Println("  slackapi stars.remove [channel] [item_id]                Removes a star from an item")
 		fmt.Println("  slackapi team.accessLogs [count] [page]                  Gets the access logs for the current team")
@@ -685,6 +686,9 @@ func main() {
 
 	case "rtm.events":
 		MonitorRealTimeMessages(client)
+
+	case "stars.add":
+		PrintAndExit(client.StarsAdd(flag.Arg(1), flag.Arg(2)))
 
 	case "stars.list":
 		numc, _ := strconv.Atoi(flag.Arg(1))

@@ -206,7 +206,7 @@ Note that the client runs with the same chat session of the user that is using t
 - [ ] `search.all` - Searches for messages and files matching a query.
 - [ ] `search.files` - Searches for files matching a query.
 - [ ] `search.messages` - Searches for messages matching a query.
-- [ ] `stars.add` - Adds a star to an item.
+- [x] `stars.add` - Adds a star to an item.
 - [x] `stars.list` - Lists stars for a user.
 - [x] `stars.remove` - Removes a star from an item.
 - [x] `team.accessLogs` - Gets the access logs for the current team.
