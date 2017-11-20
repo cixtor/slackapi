@@ -66,7 +66,7 @@ func TestChannelsCreate(t *testing.T) {
 
 func TestChannelsHistory(t *testing.T) {
 	s := New()
-	x := s.ChannelsHistory("channel", "1234567890")
+	x := s.ChannelsHistory(HistoryArgs{Channel: "channel", Latest: "1234567890"})
 	y := `{"ok":false,"error":"not_authed","has_more":false,"messages":null,"unread_count_display":0}`
 	CheckResponse(t, x, y)
 }
@@ -297,7 +297,7 @@ func TestGroupsCreateChild(t *testing.T) {
 
 func TestGroupsHistory(t *testing.T) {
 	s := New()
-	x := s.GroupsHistory("channel", "1234567890")
+	x := s.GroupsHistory(HistoryArgs{Channel: "channel", Latest: "1234567890"})
 	y := `{"ok":false,"error":"not_authed","has_more":false,"messages":null,"unread_count_display":0}`
 	CheckResponse(t, x, y)
 }
@@ -416,7 +416,7 @@ func TestInstantMessageClose(t *testing.T) {
 
 func TestInstantMessageHistory(t *testing.T) {
 	s := New()
-	x := s.InstantMessageHistory("channel", "1234567890")
+	x := s.InstantMessageHistory(HistoryArgs{Channel: "channel", Latest: "1234567890"})
 	y := `{"ok":false,"error":"not_authed","has_more":false,"messages":null,"unread_count_display":0}`
 	CheckResponse(t, x, y)
 }
@@ -472,7 +472,7 @@ func TestHelpIssuesList(t *testing.T) {
 
 func TestMultiPartyInstantMessageHistory(t *testing.T) {
 	s := New()
-	x := s.MultiPartyInstantMessageHistory("channel", "1234567890")
+	x := s.MultiPartyInstantMessageHistory(HistoryArgs{Channel: "channel", Latest: "1234567890"})
 	y := `{"ok":false,"error":"not_authed","has_more":false,"messages":null,"unread_count_display":0}`
 	CheckResponse(t, x, y)
 }
