@@ -211,6 +211,13 @@ func TestChatUpdate(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
+func TestDNDEndDnd(t *testing.T) {
+	s := New()
+	x := s.DNDEndDnd()
+	y := `{"ok":false,"error":"not_authed"}`
+	CheckResponse(t, x, y)
+}
+
 func TestEmojiList(t *testing.T) {
 	s := New()
 	x := s.EmojiList()
