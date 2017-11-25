@@ -239,6 +239,13 @@ func TestDNDSetSnooze(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
+func TestDNDTeamInfo(t *testing.T) {
+	s := New()
+	x := s.DNDTeamInfo("admin")
+	y := `{"ok":false,"error":"not_authed","cached":false,"users":null}`
+	CheckResponse(t, x, y)
+}
+
 func TestEmojiList(t *testing.T) {
 	s := New()
 	x := s.EmojiList()
