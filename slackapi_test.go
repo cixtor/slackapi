@@ -295,6 +295,13 @@ func TestFilesList(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
+func TestFilesRevokePublicURL(t *testing.T) {
+	s := New()
+	x := s.FilesRevokePublicURL("fileid")
+	y := `{"error":"not_authed","ok":false}`
+	CheckResponse(t, x, y)
+}
+
 func TestFilesUpload(t *testing.T) {
 	s := New()
 	x := s.FilesUpload(FileUploadArgs{})
