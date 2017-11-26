@@ -302,6 +302,13 @@ func TestFilesRevokePublicURL(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
+func TestFilesSharedPublicURL(t *testing.T) {
+	s := New()
+	x := s.FilesSharedPublicURL("fileid")
+	y := `{"ok":false,"error":"not_authed","file":{"channels":null,"comments_count":0,"created":0,"display_as_bot":false,"editable":false,"edit_link":"","external_type":"","filetype":"","groups":null,"id":"","image_exif_rotation":0,"ims":null,"initial_comment":{"comment":"","created":0,"id":"","timestamp":0,"user":""},"is_external":false,"is_public":false,"is_starred":false,"lines":0,"lines_more":0,"mimetype":"","mode":"","name":"","num_stars":0,"original_h":0,"original_w":0,"permalink":"","pretty_type":"","preview":"","preview_highlight":"","public_url_shared":false,"size":0,"thumb_160":"","thumb_360":"","thumb_360_gif":"","thumb_360_h":0,"thumb_360_w":0,"thumb_480":"","thumb_480_h":0,"thumb_480_w":0,"thumb_64":"","thumb_80":"","timestamp":0,"title":"","url":"","url_download":"","url_private":"","url_private_download":"","user":"","username":""}}`
+	CheckResponse(t, x, y)
+}
+
 func TestFilesUpload(t *testing.T) {
 	s := New()
 	x := s.FilesUpload(FileUploadArgs{})
