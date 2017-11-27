@@ -519,6 +519,13 @@ func TestHelpIssuesList(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
+func TestMigrationExchange(t *testing.T) {
+	s := New()
+	x := s.MigrationExchange([]string{}, false)
+	y := `{"ok":false,"error":"not_authed","team_id":"","enterprise_id":"","user_id_map":null,"invalid_user_ids":null}`
+	CheckResponse(t, x, y)
+}
+
 func TestMultiPartyInstantMessageHistory(t *testing.T) {
 	s := New()
 	x := s.MultiPartyInstantMessageHistory(HistoryArgs{Channel: "channel", Latest: "1234567890"})
