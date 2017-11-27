@@ -526,6 +526,13 @@ func TestMigrationExchange(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
+func TestMultiPartyInstantMessageClose(t *testing.T) {
+	s := New()
+	x := s.MultiPartyInstantMessageClose("1234567890")
+	y := `{"ok":false,"error":"not_authed"}`
+	CheckResponse(t, x, y)
+}
+
 func TestMultiPartyInstantMessageHistory(t *testing.T) {
 	s := New()
 	x := s.MultiPartyInstantMessageHistory(HistoryArgs{Channel: "channel", Latest: "1234567890"})
