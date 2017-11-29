@@ -582,6 +582,13 @@ func TestMultiPartyInstantMessagePurgeHistory(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
+func TestPinsAdd(t *testing.T) {
+	s := New()
+	x := s.PinsAdd("channel", "1234567890")
+	y := `{"ok":false,"error":"not_authed"}`
+	CheckResponse(t, x, y)
+}
+
 func TestReactionsAdd(t *testing.T) {
 	s := New()
 	x := s.ReactionsAdd(ReactionArgs{})
