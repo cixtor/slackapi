@@ -603,6 +603,13 @@ func TestPinsAddFileComment(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
+func TestPinsList(t *testing.T) {
+	s := New()
+	x := s.PinsList("channel")
+	y := `{"ok":false,"error":"not_authed","items":null}`
+	CheckResponse(t, x, y)
+}
+
 func TestReactionsAdd(t *testing.T) {
 	s := New()
 	x := s.ReactionsAdd(ReactionArgs{})
