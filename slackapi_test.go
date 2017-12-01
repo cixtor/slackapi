@@ -612,6 +612,13 @@ func TestPinsList(t *testing.T) {
 
 func TestPinsRemove(t *testing.T) {
 	s := New()
+	x := s.PinsRemove("channel", "1234567890")
+	y := `{"ok":false,"error":"not_authed"}`
+	CheckResponse(t, x, y)
+}
+
+func TestPinsRemoveFile(t *testing.T) {
+	s := New()
 	x := s.PinsRemove("channel", "F123456789")
 	y := `{"ok":false,"error":"not_authed"}`
 	CheckResponse(t, x, y)
