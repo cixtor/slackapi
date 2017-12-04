@@ -757,6 +757,13 @@ func TestStarsAdd(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
+func TestStarsAddFile(t *testing.T) {
+	s := New()
+	x := s.StarsAdd("channel", "F123456789")
+	y := `{"ok":false,"error":"not_authed"}`
+	CheckResponse(t, x, y)
+}
+
 func TestTeamAccessLogs(t *testing.T) {
 	s := New()
 	x := s.TeamAccessLogs(AccessLogArgs{})
