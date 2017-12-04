@@ -750,6 +750,13 @@ func TestResourceUnarchive(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
+func TestVersion(t *testing.T) {
+	s := New()
+	if s.Version() == "" {
+		t.Fatal("missing version number")
+	}
+}
+
 func TestStarsAdd(t *testing.T) {
 	s := New()
 	x := s.StarsAdd("channel", "1234567890")
