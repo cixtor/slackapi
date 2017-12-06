@@ -778,6 +778,13 @@ func TestStarsList(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
+func TestStarsRemove(t *testing.T) {
+	s := New()
+	x := s.StarsRemove("channel", "1234567890")
+	y := `{"ok":false,"error":"not_authed"}`
+	CheckResponse(t, x, y)
+}
+
 func TestTeamAccessLogs(t *testing.T) {
 	s := New()
 	x := s.TeamAccessLogs(AccessLogArgs{})
