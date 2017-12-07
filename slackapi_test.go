@@ -792,6 +792,13 @@ func TestStarsRemoveFile(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
+func TestStarsRemoveFileComment(t *testing.T) {
+	s := New()
+	x := s.StarsRemove("channel", "Fc12345678")
+	y := `{"ok":false,"error":"not_authed"}`
+	CheckResponse(t, x, y)
+}
+
 func TestTeamAccessLogs(t *testing.T) {
 	s := New()
 	x := s.TeamAccessLogs(AccessLogArgs{})
