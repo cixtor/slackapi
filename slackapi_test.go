@@ -757,6 +757,14 @@ func TestVersion(t *testing.T) {
 	}
 }
 
+func TestSetToken(t *testing.T) {
+	s := New()
+	s.SetToken("foobar")
+	if s.Token != "foobar" {
+		t.Fatal("token was not set")
+	}
+}
+
 func TestStarsAdd(t *testing.T) {
 	s := New()
 	x := s.StarsAdd("channel", "1234567890")
