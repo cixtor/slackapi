@@ -2,6 +2,7 @@ package slackapi
 
 import (
 	"encoding/json"
+	"os"
 	"testing"
 )
 
@@ -760,6 +761,15 @@ func TestVersion(t *testing.T) {
 func TestSetToken(t *testing.T) {
 	s := New()
 	s.SetToken("foobar")
+	if s.Token != "foobar" {
+		t.Fatal("token was not set")
+	}
+}
+
+func TestAutoConfigure(t *testing.T) {
+	s := New()
+	os.Setenv("SLACK_TOKEN", "foobar")
+	s.AutoConfigure()
 	if s.Token != "foobar" {
 		t.Fatal("token was not set")
 	}
