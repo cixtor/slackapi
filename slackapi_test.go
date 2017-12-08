@@ -762,7 +762,7 @@ func TestSetToken(t *testing.T) {
 	s := New()
 	s.SetToken("foobar")
 	if s.Token != "foobar" {
-		t.Fatal("token was not set")
+		t.Fatal("token was not programmatically set")
 	}
 }
 
@@ -771,7 +771,21 @@ func TestAutoConfigure(t *testing.T) {
 	os.Setenv("SLACK_TOKEN", "foobar")
 	s.AutoConfigure()
 	if s.Token != "foobar" {
-		t.Fatal("token was not set")
+		t.Fatal("token was not found in the environment variables")
+	}
+}
+
+func TestAddRequestParam(t *testing.T) {
+	s := New()
+	s.AddRequestParam("foo", "bar")
+	if len(s.RequestParams) == 0 {
+		t.Fatal("HTTP request parameter was not added (empty)")
+	}
+	if _, ok := s.RequestParams["foo"]; !ok {
+		t.Fatal("HTTP request parameter was not added (missing)")
+	}
+	if s.RequestParams["foo"] != "bar" {
+		t.Fatal("HTTP request parameter value is incorrect")
 	}
 }
 
