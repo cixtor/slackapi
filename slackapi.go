@@ -33,7 +33,11 @@ type SlackAPI struct {
 
 // New instantiates a new object.
 func New() *SlackAPI {
-	return &SlackAPI{}
+	var s SlackAPI
+
+	s.RequestParams = make(map[string]string, 0)
+
+	return &s
 }
 
 // Version returns the package version number.
