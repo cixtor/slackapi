@@ -1,16 +1,14 @@
-### SlackAPI (Go Package / CLI Client)
+### Slack API Bindings for Go (golang)
 
 Slack, the _"messaging app for teams"_ offers an API that has been used to build multiple projects around it, from bots to independent clients as well as integrations with other external services. This project aims to offer a low level experience for advanced users that want to either drop the web client or interact with the API for testing purpose.
 
-### Installation
-
-Install the CLI with this command:
+### Installation CLI
 
 ```
-go get -u github.com/cixtor/slackapi/slackapi
+go get -u github.com/cixtor/slackcli
 ```
 
-Import the package into your project with this:
+### Installation Source
 
 ```
 package main
@@ -26,49 +24,13 @@ func main() {
 }
 ```
 
-### Usage
-
-Use a [session token](https://api.slack.com/web#authentication) to authenticate the HTTP requests against the API service. Slack automatically generates a token for your when you open a new session [here](https://slack.com/messages/); you can see this token in the JavaScript console of your web browser if you type `boot_data.api_token` but be aware that it will expire once you close the session, consider to use a [legacy token](https://api.slack.com/custom-integrations/legacy-tokens) instead.
-
-```
-$ export SLACK_TOKEN=xoxs-token
-$ slackapi help
-$ slackapi auth.test
-$ slackapi chat.session
-username:channel> :token xoxs-token
-username:channel> :owner
-username:channel> :exit
-```
-
-You can also export an environment variable `SLACK_VERBOSE=true` to print additional information during the execution of certain operations to troubleshoot issues with either the communication with th API or the program in itself.
-
 ### Features
 
 The client is built on top of the [Bot Users](https://api.slack.com/bot-users) documentation. Most if not all the methods available in the API are implemented and can be executed placing a colon character as the suffix of each method.
 
 Note that the client runs with the same chat session of the user that is using the program, but technically speaking the interaction is similar to that of a bot. This offers some advantages, for example, like other APIs and integrations, bot users are free. Unlike regular users, the actions they can perform are somewhat limited. For teams on the Free Plan, each bot user counts as a separate integration.
 
-### Chat Session Commands
-
-- [x] `:close` - Close current chat session.
-- [x] `:delete` - Deletes the latest message in the session history.
-- [x] `:exec` - Executes and sends the output of a local command.
-- [x] `:execv` - Same as :exec but includes the executed command.
-- [x] `:exit` - Exits the program without closing chat sessions.
-- [x] `:flush` - Deletes all the messages in the session history.
-- [x] `:history` - Fetches messages and events in current session.
-- [x] `:messages` - Displays the messages in the current session.
-- [x] `:myhistory` - Fetches messages and events from current user.
-- [x] `:open` - Opens a new session with a user, channel, or group.
-- [x] `:owner` - Displays account information of the user in session.
-- [x] `:purge` - Deletes the messages in the current session.
-- [x] `:token` - Sets the token for the chat session.
-- [x] `:update` - Updates the latest chat session message.
-- [x] `:userid` - Displays the unique identifier of an user.
-- [x] `:userlist` - Displays the information of all the users.
-- [x] `:usersearch` - Searches the information of a specific user.
-
-### Official Client Methods
+### Implemented API Endpoints
 
 - [x] `api.test` - Checks API calling code.
 - [x] `apps.list` - Lists associated applications.
