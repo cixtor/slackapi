@@ -15,8 +15,6 @@ import (
 	"strings"
 )
 
-const version = "2.0.21"
-
 // SlackAPI defines the base object. It holds the API token, the information of
 // the user account associated to such API token, the information for the robot
 // session (if the user decides has activated it), a list of all the available
@@ -38,11 +36,6 @@ func New() *SlackAPI {
 	s.RequestParams = make(map[string]string, 0)
 
 	return &s
-}
-
-// Version returns the package version number.
-func (s *SlackAPI) Version() string {
-	return version
 }
 
 // SetToken sets the API token for the session.

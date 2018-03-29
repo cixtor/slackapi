@@ -2,7 +2,6 @@ package slackapi
 
 import (
 	"encoding/json"
-	"os"
 	"testing"
 )
 
@@ -749,13 +748,6 @@ func TestResourceUnarchive(t *testing.T) {
 	x := s.ResourceUnarchive("action", "channel")
 	y := `{"ok":false,"error":"unknown_method"}`
 	CheckResponse(t, x, y)
-}
-
-func TestVersion(t *testing.T) {
-	s := New()
-	if s.Version() == "" {
-		t.Fatal("missing version number")
-	}
 }
 
 func TestSetToken(t *testing.T) {
