@@ -50,11 +50,6 @@ func (s *SlackAPI) SetToken(token string) {
 	s.Token = token
 }
 
-// AutoConfigure sets the API token from an environment variable.
-func (s *SlackAPI) AutoConfigure() {
-	s.Token = os.Getenv("SLACK_TOKEN")
-}
-
 // URL builds and returns the URL to send the HTTP requests.
 func (s *SlackAPI) URL(action string, params map[string]string) string {
 	data := url.Values{}

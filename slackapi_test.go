@@ -766,15 +766,6 @@ func TestSetToken(t *testing.T) {
 	}
 }
 
-func TestAutoConfigure(t *testing.T) {
-	s := New()
-	os.Setenv("SLACK_TOKEN", "foobar")
-	s.AutoConfigure()
-	if s.Token != "foobar" {
-		t.Fatal("token was not found in the environment variables")
-	}
-}
-
 func TestAddRequestParam(t *testing.T) {
 	s := New()
 	s.AddRequestParam("foo", "bar")
