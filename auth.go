@@ -29,13 +29,13 @@ func (s *SlackAPI) AuthRevoke() ResponseRevocation {
 
 // AuthTest checks authentication and identity.
 func (s *SlackAPI) AuthTest() Owner {
-	if s.Owner.Ok {
-		return s.Owner
+	if s.owner.Ok {
+		return s.owner
 	}
 
 	var response Owner
 	s.GetRequest(&response, "auth.test", nil)
-	s.Owner = response
+	s.owner = response
 
 	return response
 }

@@ -91,15 +91,15 @@ func (s *SlackAPI) GroupsLeave(channel string) Response {
 
 // GroupsList lists private channels that the calling user has access to.
 func (s *SlackAPI) GroupsList() ResponseGroupsList {
-	if s.TeamGroups.Ok {
-		return s.TeamGroups
+	if s.teamGroups.Ok {
+		return s.teamGroups
 	}
 
 	var response ResponseGroupsList
 	s.GetRequest(&response, "groups.list", struct {
 		ExcludeArchived bool `json:"exclude_archived"`
 	}{false})
-	s.TeamGroups = response
+	s.teamGroups = response
 
 	return response
 }

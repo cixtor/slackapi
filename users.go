@@ -441,28 +441,28 @@ func (s *SlackAPI) UsersInfo(query string) ResponseUsersInfo {
 
 // UsersList lists all users in a Slack team.
 func (s *SlackAPI) UsersList() ResponseUsersList {
-	if s.TeamUsers.Ok {
-		return s.TeamUsers
+	if s.teamUsers.Ok {
+		return s.teamUsers
 	}
 
 	var response ResponseUsersList
 	s.GetRequest(&response, "users.list", nil)
-	s.TeamUsers = response
+	s.teamUsers = response
 
 	return response
 }
 
 // UsersListWithPresence lists all users in a Slack team.
 func (s *SlackAPI) UsersListWithPresence() ResponseUsersList {
-	if s.TeamUsers.Ok {
-		return s.TeamUsers
+	if s.teamUsers.Ok {
+		return s.teamUsers
 	}
 
 	var response ResponseUsersList
 	s.GetRequest(&response, "users.list", struct {
 		Presence bool `json:"presence"`
 	}{true})
-	s.TeamUsers = response
+	s.teamUsers = response
 
 	return response
 }

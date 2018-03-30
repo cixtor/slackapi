@@ -21,26 +21,26 @@ import (
 // public channels, a list of all the accessible private groups, and a list of
 // the users registered into the Slack team.
 type SlackAPI struct {
-	Owner         Owner
-	Token         string
-	RequestParams map[string]string
-	TeamUsers     ResponseUsersList
-	TeamGroups    ResponseGroupsList
-	TeamChannels  ResponseChannelsList
+	owner        Owner
+	token        string
+	params       map[string]string
+	teamUsers    ResponseUsersList
+	teamGroups   ResponseGroupsList
+	teamChannels ResponseChannelsList
 }
 
 // New instantiates a new object.
 func New() *SlackAPI {
 	var s SlackAPI
 
-	s.RequestParams = make(map[string]string, 0)
+	s.params = make(map[string]string, 0)
 
 	return &s
 }
 
 // SetToken sets the API token for the session.
 func (s *SlackAPI) SetToken(token string) {
-	s.Token = token
+	s.token = token
 }
 
 // URL builds and returns the URL to send the HTTP requests.
@@ -61,11 +61,11 @@ func (s *SlackAPI) URL(action string, params map[string]string) string {
 
 // HTTPRequest builds an HTTP request object and attaches the action parameters.
 func (s *SlackAPI) HTTPRequest(method string, body io.Reader, action string, params map[string]string) (*http.Request, error) {
-	if len(s.RequestParams) > 0 {
-		for name, value := range s.RequestParams {
+	if len(s.params) > 0 {
+		for name, value := range s.params {
 			params[name] = value
 		}
-		s.RequestParams = map[string]string{}
+		s.params = map[string]string{}
 	}
 
 	url := s.URL(action, params)
@@ -88,7 +88,7 @@ func (s *SlackAPI) HTTPRequest(method string, body io.Reader, action string, par
 func (s *SlackAPI) DataToParams(data interface{}) map[string]string {
 	if data == nil {
 		/* no params except for the API token */
-		return map[string]string{"token": s.Token}
+		return map[string]string{"token": s.token}
 	}
 
 	var name string
@@ -99,7 +99,7 @@ func (s *SlackAPI) DataToParams(data interface{}) map[string]string {
 
 	length := t.NumField() /* struct size */
 	params := make(map[string]string, length+1)
-	params["token"] = s.Token /* API token */
+	params["token"] = s.token /* API token */
 
 	for i := 0; i < length; i++ {
 		name = t.Field(i).Tag.Get("json")
@@ -134,7 +134,7 @@ func (s *SlackAPI) DataToParams(data interface{}) map[string]string {
 
 // AddRequestParam adds an additional parameter to the HTTP request.
 func (s *SlackAPI) AddRequestParam(name string, value string) {
-	s.RequestParams[name] = value
+	s.params[name] = value
 }
 
 // ExecuteRequest sends the HTTP request and decodes the JSON response.

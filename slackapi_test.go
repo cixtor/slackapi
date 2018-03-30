@@ -753,7 +753,7 @@ func TestResourceUnarchive(t *testing.T) {
 func TestSetToken(t *testing.T) {
 	s := New()
 	s.SetToken("foobar")
-	if s.Token != "foobar" {
+	if s.token != "foobar" {
 		t.Fatal("token was not programmatically set")
 	}
 }
@@ -761,13 +761,13 @@ func TestSetToken(t *testing.T) {
 func TestAddRequestParam(t *testing.T) {
 	s := New()
 	s.AddRequestParam("foo", "bar")
-	if len(s.RequestParams) == 0 {
+	if len(s.params) == 0 {
 		t.Fatal("HTTP request parameter was not added (empty)")
 	}
-	if _, ok := s.RequestParams["foo"]; !ok {
+	if _, ok := s.params["foo"]; !ok {
 		t.Fatal("HTTP request parameter was not added (missing)")
 	}
-	if s.RequestParams["foo"] != "bar" {
+	if s.params["foo"] != "bar" {
 		t.Fatal("HTTP request parameter value is incorrect")
 	}
 }
