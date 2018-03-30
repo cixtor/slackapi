@@ -345,15 +345,15 @@ type Subteam struct {
 	TeamID              string              `json:"team_id"`
 	IsUserGroup         bool                `json:"is_usergroup"`
 	IsSubteam           bool                `json:"is_subteam"`
+	IsExternal          bool                `json:"is_external"`
+	AutoProvision       bool                `json:"auto_provision"`
 	Name                string              `json:"name"`
 	Description         string              `json:"description"`
 	Handle              string              `json:"handle"`
-	IsExternal          bool                `json:"is_external"`
 	DateCreate          int64               `json:"date_create"`
 	DateUpdate          int64               `json:"date_update"`
 	DateDelete          int64               `json:"date_delete"`
 	AutoType            interface{}         `json:"auto_type"`
-	AutoProvision       bool                `json:"auto_provision"`
 	EnterpriseSubteamID string              `json:"enterprise_subteam_id"`
 	CreatedBy           string              `json:"created_by"`
 	UpdatedBy           string              `json:"updated_by"`
