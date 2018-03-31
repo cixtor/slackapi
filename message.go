@@ -25,14 +25,11 @@ type Message struct {
 	Channel          string         `json:"channel,omitempty"`
 	Comment          *Comment       `json:"comment,omitempty"`
 	DeletedTimestamp string         `json:"deleted_ts,omitempty"`
-	DisplayAsBot     bool           `json:"display_as_bot"`
 	Edited           *Edited        `json:"edited,omitempty"`
 	EventTimestamp   string         `json:"event_ts,omitempty"`
 	File             *File          `json:"file,omitempty"`
-	Hidden           bool           `json:"hidden,omitempty"`
 	Icons            *Icon          `json:"icons,omitempty"`
 	Inviter          string         `json:"inviter,omitempty"`
-	IsStarred        bool           `json:"is_starred,omitempty"`
 	ItemType         string         `json:"item_type,omitempty"`
 	Members          []string       `json:"members,omitempty"`
 	Name             string         `json:"name,omitempty"`
@@ -51,9 +48,12 @@ type Message struct {
 	Timestamp        string         `json:"ts,omitempty"`
 	Topic            string         `json:"topic,omitempty"`
 	Type             string         `json:"type,omitempty"`
-	Upload           bool           `json:"upload,omitempty"`
 	User             string         `json:"user,omitempty"`
 	Username         string         `json:"username,omitempty"`
+	DisplayAsBot     bool           `json:"display_as_bot"`
+	Hidden           bool           `json:"hidden,omitempty"`
+	IsStarred        bool           `json:"is_starred,omitempty"`
+	Upload           bool           `json:"upload,omitempty"`
 }
 
 // Comment defines the expected data from the JSON-encoded API response.
