@@ -60,8 +60,6 @@ type File struct {
 	Channels           []string    `json:"channels"`
 	CommentsCount      int         `json:"comments_count"`
 	Created            int         `json:"created"`
-	DisplayAsBot       bool        `json:"display_as_bot"`
-	Editable           bool        `json:"editable"`
 	EditLink           string      `json:"edit_link"`
 	ExternalType       string      `json:"external_type"`
 	Filetype           string      `json:"filetype"`
@@ -73,6 +71,9 @@ type File struct {
 	IsExternal         bool        `json:"is_external"`
 	IsPublic           bool        `json:"is_public"`
 	IsStarred          bool        `json:"is_starred"`
+	DisplayAsBot       bool        `json:"display_as_bot"`
+	Editable           bool        `json:"editable"`
+	PublicURLShared    bool        `json:"public_url_shared"`
 	Lines              int         `json:"lines"`
 	LinesMore          int         `json:"lines_more"`
 	Mimetype           string      `json:"mimetype"`
@@ -85,7 +86,6 @@ type File struct {
 	PrettyType         string      `json:"pretty_type"`
 	Preview            string      `json:"preview"`
 	PreviewHighlight   string      `json:"preview_highlight"`
-	PublicURLShared    bool        `json:"public_url_shared"`
 	Size               int         `json:"size"`
 	Thumb160           string      `json:"thumb_160"`
 	Thumb360           string      `json:"thumb_360"`
