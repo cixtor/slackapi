@@ -8,10 +8,10 @@ import (
 // HistoryArgs defines the data to send to the API service.
 type HistoryArgs struct {
 	Channel   string `json:"channel"`
-	Count     int    `json:"count"`
-	Inclusive bool   `json:"inclusive"`
 	Latest    string `json:"latest"`
 	Oldest    string `json:"oldest"`
+	Count     int    `json:"count"`
+	Inclusive bool   `json:"inclusive"`
 	Unreads   bool   `json:"unreads"`
 }
 
