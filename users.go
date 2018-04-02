@@ -86,12 +86,12 @@ type ResponseUsersCounts struct {
 
 // UserPresence defines the expected data from the JSON-encoded API response.
 type UserPresence struct {
-	AutoAway        bool   `json:"auto_away"`
+	Presence        string `json:"presence"`
 	ConnectionCount int    `json:"connection_count"`
 	LastActivity    int    `json:"last_activity"`
+	AutoAway        bool   `json:"auto_away"`
 	ManualAway      bool   `json:"manual_away"`
 	Online          bool   `json:"online"`
-	Presence        string `json:"presence"`
 }
 
 // User defines the expected data from the JSON-encoded API response.
