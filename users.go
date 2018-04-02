@@ -97,15 +97,7 @@ type UserPresence struct {
 // User defines the expected data from the JSON-encoded API response.
 type User struct {
 	Color             string      `json:"color"`
-	Deleted           bool        `json:"deleted"`
-	Has2fa            bool        `json:"has_2fa"`
 	ID                string      `json:"id"`
-	IsAdmin           bool        `json:"is_admin"`
-	IsBot             bool        `json:"is_bot"`
-	IsOwner           bool        `json:"is_owner"`
-	IsPrimaryOwner    bool        `json:"is_primary_owner"`
-	IsRestricted      bool        `json:"is_restricted"`
-	IsUltraRestricted bool        `json:"is_ultra_restricted"`
 	Name              string      `json:"name"`
 	Presence          string      `json:"presence"`
 	Profile           UserProfile `json:"profile"`
@@ -116,6 +108,14 @@ type User struct {
 	Tz                string      `json:"tz"`
 	TzLabel           string      `json:"tz_label"`
 	TzOffset          int         `json:"tz_offset"`
+	Deleted           bool        `json:"deleted"`
+	Has2fa            bool        `json:"has_2fa"`
+	IsAdmin           bool        `json:"is_admin"`
+	IsBot             bool        `json:"is_bot"`
+	IsOwner           bool        `json:"is_owner"`
+	IsPrimaryOwner    bool        `json:"is_primary_owner"`
+	IsRestricted      bool        `json:"is_restricted"`
+	IsUltraRestricted bool        `json:"is_ultra_restricted"`
 }
 
 // UsersIdentity defines the expected data from the JSON-encoded API response.
