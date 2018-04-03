@@ -33,7 +33,7 @@ type SlackAPI struct {
 func New() *SlackAPI {
 	var s SlackAPI
 
-	s.params = make(map[string]string, 0)
+	s.params = make(map[string]string)
 
 	return &s
 }
