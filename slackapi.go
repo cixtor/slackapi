@@ -43,8 +43,8 @@ func (s *SlackAPI) SetToken(token string) {
 	s.token = token
 }
 
-// URL builds and returns the URL to send the HTTP requests.
-func (s *SlackAPI) URL(action string, params map[string]string) string {
+// URLEndpoint builds and returns the URL to send the HTTP requests.
+func (s *SlackAPI) urlEndpoint(action string, params map[string]string) string {
 	data := url.Values{}
 	url := "https://slack.com/api/" + action
 
@@ -68,7 +68,7 @@ func (s *SlackAPI) HTTPRequest(method string, body io.Reader, action string, par
 		s.params = map[string]string{}
 	}
 
-	url := s.URL(action, params)
+	url := s.urlEndpoint(action, params)
 	req, err := http.NewRequest(method, url, body)
 
 	if err != nil {
