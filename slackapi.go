@@ -59,8 +59,8 @@ func (s *SlackAPI) urlEndpoint(action string, params map[string]string) string {
 	return url
 }
 
-// HTTPRequest builds an HTTP request object and attaches the action parameters.
-func (s *SlackAPI) HTTPRequest(method string, body io.Reader, action string, params map[string]string) (*http.Request, error) {
+// httpRequest builds an HTTP request object and attaches the action parameters.
+func (s *SlackAPI) httpRequest(method string, body io.Reader, action string, params map[string]string) (*http.Request, error) {
 	if len(s.params) > 0 {
 		for name, value := range s.params {
 			params[name] = value
@@ -200,7 +200,7 @@ func (s *SlackAPI) PrintCurlCommand(req *http.Request, params map[string]string)
 // GetRequest sends a HTTP GET request to the API and returns the response.
 func (s *SlackAPI) GetRequest(v interface{}, action string, data interface{}) {
 	params := s.DataToParams(data)
-	req, err := s.HTTPRequest("GET", nil, action, params)
+	req, err := s.httpRequest("GET", nil, action, params)
 
 	if err != nil {
 		log.Println("http get;", err)
@@ -268,7 +268,7 @@ func (s *SlackAPI) PostRequest(v interface{}, action string, data interface{}) {
 	}
 
 	// Now that you have a form, you can submit it to your handler.
-	req, err := s.HTTPRequest("POST", &buffer, action, nil)
+	req, err := s.httpRequest("POST", &buffer, action, nil)
 
 	if err != nil {
 		log.Println("http post;", err)
