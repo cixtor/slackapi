@@ -1,6 +1,6 @@
 package slackapi
 
-// Team defines the expected data from the JSON-encoded API response.
+// ResponseMigrationExchange defines the expected data from the JSON-encoded API response.
 type ResponseMigrationExchange struct {
 	Response
 	TeamID         string            `json:"team_id"`

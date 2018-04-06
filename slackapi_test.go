@@ -758,20 +758,6 @@ func TestSetToken(t *testing.T) {
 	}
 }
 
-func TestAddRequestParam(t *testing.T) {
-	s := New()
-	s.AddRequestParam("foo", "bar")
-	if len(s.params) == 0 {
-		t.Fatal("HTTP request parameter was not added (empty)")
-	}
-	if _, ok := s.params["foo"]; !ok {
-		t.Fatal("HTTP request parameter was not added (missing)")
-	}
-	if s.params["foo"] != "bar" {
-		t.Fatal("HTTP request parameter value is incorrect")
-	}
-}
-
 func TestStarsAdd(t *testing.T) {
 	s := New()
 	x := s.StarsAdd("channel", "1234567890")

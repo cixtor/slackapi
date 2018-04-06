@@ -132,11 +132,6 @@ func (s *SlackAPI) dataToParams(data interface{}) map[string]string {
 	return params
 }
 
-// AddRequestParam adds an additional parameter to the HTTP request.
-func (s *SlackAPI) AddRequestParam(name string, value string) {
-	s.params[name] = value
-}
-
 // ExecuteRequest sends the HTTP request and decodes the JSON response.
 func (s *SlackAPI) ExecuteRequest(req *http.Request, data interface{}) {
 	client := &http.Client{}
