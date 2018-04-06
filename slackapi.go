@@ -59,7 +59,7 @@ func (s *SlackAPI) urlEndpoint(action string, params map[string]string) string {
 	return url
 }
 
-// httpRequest builds an HTTP request object and attaches the action parameters.
+// HTTPRequest builds an HTTP request object and attaches the action parameters.
 func (s *SlackAPI) httpRequest(method string, body io.Reader, action string, params map[string]string) (*http.Request, error) {
 	if len(s.params) > 0 {
 		for name, value := range s.params {
@@ -85,7 +85,7 @@ func (s *SlackAPI) httpRequest(method string, body io.Reader, action string, par
 }
 
 // DataToParams converts a template into a HTTP request parameter map.
-func (s *SlackAPI) DataToParams(data interface{}) map[string]string {
+func (s *SlackAPI) dataToParams(data interface{}) map[string]string {
 	if data == nil {
 		/* no params except for the API token */
 		return map[string]string{"token": s.token}
@@ -199,7 +199,7 @@ func (s *SlackAPI) PrintCurlCommand(req *http.Request, params map[string]string)
 
 // GetRequest sends a HTTP GET request to the API and returns the response.
 func (s *SlackAPI) GetRequest(v interface{}, action string, data interface{}) {
-	params := s.DataToParams(data)
+	params := s.dataToParams(data)
 	req, err := s.httpRequest("GET", nil, action, params)
 
 	if err != nil {
@@ -220,7 +220,7 @@ func (s *SlackAPI) GetRequest(v interface{}, action string, data interface{}) {
 // a string value.
 func (s *SlackAPI) PostRequest(v interface{}, action string, data interface{}) {
 	var buffer bytes.Buffer
-	params := s.DataToParams(data)
+	params := s.dataToParams(data)
 	writer := multipart.NewWriter(&buffer)
 
 	// Append more HTTP request params.
