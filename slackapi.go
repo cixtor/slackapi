@@ -170,7 +170,7 @@ func (s *SlackAPI) executeRequest(req *http.Request, data interface{}) {
 }
 
 // PrintCurlCommand prints the HTTP request object into the console.
-func (s *SlackAPI) PrintCurlCommand(req *http.Request, params map[string]string) {
+func (s *SlackAPI) printCurlCommand(req *http.Request, params map[string]string) {
 	if os.Getenv("SLACK_VERBOSE") != "true" {
 		return
 	}
@@ -202,7 +202,7 @@ func (s *SlackAPI) GetRequest(v interface{}, action string, data interface{}) {
 		return
 	}
 
-	s.PrintCurlCommand(req, params)
+	s.printCurlCommand(req, params)
 	s.executeRequest(req, &v)
 }
 
@@ -272,7 +272,7 @@ func (s *SlackAPI) PostRequest(v interface{}, action string, data interface{}) {
 
 	req.Header.Set("Content-Type", writer.FormDataContentType())
 
-	s.PrintCurlCommand(req, params)
+	s.printCurlCommand(req, params)
 	s.executeRequest(req, &v)
 }
 
