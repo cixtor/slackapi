@@ -133,7 +133,7 @@ func (s *SlackAPI) dataToParams(data interface{}) map[string]string {
 }
 
 // ExecuteRequest sends the HTTP request and decodes the JSON response.
-func (s *SlackAPI) ExecuteRequest(req *http.Request, data interface{}) {
+func (s *SlackAPI) executeRequest(req *http.Request, data interface{}) {
 	client := &http.Client{}
 	resp, err := client.Do(req)
 
@@ -203,7 +203,7 @@ func (s *SlackAPI) GetRequest(v interface{}, action string, data interface{}) {
 	}
 
 	s.PrintCurlCommand(req, params)
-	s.ExecuteRequest(req, &v)
+	s.executeRequest(req, &v)
 }
 
 // PostRequest sends a HTTP POST request to the API and returns the response. If
@@ -273,7 +273,7 @@ func (s *SlackAPI) PostRequest(v interface{}, action string, data interface{}) {
 	req.Header.Set("Content-Type", writer.FormDataContentType())
 
 	s.PrintCurlCommand(req, params)
-	s.ExecuteRequest(req, &v)
+	s.executeRequest(req, &v)
 }
 
 // CheckFileReference checks if a HTTP request parameter is a file reference.
