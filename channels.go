@@ -64,7 +64,7 @@ func (s *SlackAPI) ChannelsID(query string) string {
 // ChannelsInfo gets information about a channel.
 func (s *SlackAPI) ChannelsInfo(channel string) ResponseChannelsInfo {
 	var response ResponseChannelsInfo
-	s.GetRequest(&response, "channels.info", struct {
+	s.getRequest(&response, "channels.info", struct {
 		Channel string `json:"channel"`
 	}{s.ChannelsID(channel)})
 	return response
@@ -102,7 +102,7 @@ func (s *SlackAPI) ChannelsList() ResponseChannelsList {
 	}
 
 	var response ResponseChannelsList
-	s.GetRequest(&response, "channels.list", struct {
+	s.getRequest(&response, "channels.list", struct {
 		ExcludeArchived bool `json:"exclude_archived"`
 	}{false})
 	s.teamChannels = response
@@ -148,7 +148,7 @@ func (s *SlackAPI) ChannelsSetTopic(channel string, topic string) ChannelTopicNo
 // ChannelsSuggestions prints a list of suggested channels to join.
 func (s *SlackAPI) ChannelsSuggestions() ChannelSuggestions {
 	var response ChannelSuggestions
-	s.GetRequest(&response, "channels.suggestions", nil)
+	s.getRequest(&response, "channels.suggestions", nil)
 	return response
 }
 

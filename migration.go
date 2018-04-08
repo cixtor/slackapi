@@ -12,7 +12,7 @@ type ResponseMigrationExchange struct {
 // MigrationExchange for Enterprise Grid workspaces, map local user IDs to global user IDs.
 func (s *SlackAPI) MigrationExchange(users []string, order bool) ResponseMigrationExchange {
 	var response ResponseMigrationExchange
-	s.GetRequest(&response, "migration.exchange", struct {
+	s.getRequest(&response, "migration.exchange", struct {
 		Users []string `json:"users"`
 		ToOld bool     `json:"to_old"`
 	}{users, order})

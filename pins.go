@@ -49,7 +49,7 @@ func (s *SlackAPI) PinsAdd(channel string, itemid string) Response {
 // PinsList lists items pinned to a channel.
 func (s *SlackAPI) PinsList(channel string) ResponsePinsList {
 	var response ResponsePinsList
-	s.GetRequest(&response, "pins.list", struct {
+	s.getRequest(&response, "pins.list", struct {
 		Channel string `json:"channel"`
 	}{s.ChannelsID(channel)})
 	return response

@@ -159,7 +159,7 @@ func (s *SlackAPI) FilesDelete(file string) Response {
 // FilesInfo gets information about a team file.
 func (s *SlackAPI) FilesInfo(file string, count int, page int) ResponseFilesInfo {
 	var response ResponseFilesInfo
-	s.GetRequest(&response, "files.info", struct {
+	s.getRequest(&response, "files.info", struct {
 		File  string `json:"file"`
 		Count int    `json:"count"`
 		Page  int    `json:"page"`
@@ -179,7 +179,7 @@ func (s *SlackAPI) FilesList(data FileListArgs) ResponseFilesList {
 	}
 
 	var response ResponseFilesList
-	s.GetRequest(&response, "files.list", data)
+	s.getRequest(&response, "files.list", data)
 	return response
 }
 

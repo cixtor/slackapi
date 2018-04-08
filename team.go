@@ -97,14 +97,14 @@ type BillableInfo struct {
 // TeamAccessLogs gets the access logs for the current team.
 func (s *SlackAPI) TeamAccessLogs(data AccessLogArgs) ResponseTeamAccessLogs {
 	var response ResponseTeamAccessLogs
-	s.GetRequest(&response, "team.accessLogs", data)
+	s.getRequest(&response, "team.accessLogs", data)
 	return response
 }
 
 // TeamBillableInfo gets billable users information for the current team.
 func (s *SlackAPI) TeamBillableInfo(user string) ResponseBillableInfo {
 	var response ResponseBillableInfo
-	s.GetRequest(&response, "team.billableInfo", struct {
+	s.getRequest(&response, "team.billableInfo", struct {
 		User string `json:"user"`
 	}{s.UsersID(user)})
 	return response
@@ -113,13 +113,13 @@ func (s *SlackAPI) TeamBillableInfo(user string) ResponseBillableInfo {
 // TeamInfo gets information about the current team.
 func (s *SlackAPI) TeamInfo() ResponseTeamInfo {
 	var response ResponseTeamInfo
-	s.GetRequest(&response, "team.info", nil)
+	s.getRequest(&response, "team.info", nil)
 	return response
 }
 
 // TeamProfileGet retrieve a team's profile.
 func (s *SlackAPI) TeamProfileGet() ResponseTeamProfile {
 	var response ResponseTeamProfile
-	s.GetRequest(&response, "team.profile.get", nil)
+	s.getRequest(&response, "team.profile.get", nil)
 	return response
 }

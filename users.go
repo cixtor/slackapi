@@ -382,21 +382,21 @@ type UserPrefs struct {
 // UsersCounts count number of users in the team.
 func (s *SlackAPI) UsersCounts() ResponseUsersCounts {
 	var response ResponseUsersCounts
-	s.GetRequest(&response, "users.counts", nil)
+	s.getRequest(&response, "users.counts", nil)
 	return response
 }
 
 // UsersDeletePhoto delete the user avatar.
 func (s *SlackAPI) UsersDeletePhoto() Response {
 	var response Response
-	s.GetRequest(&response, "users.deletePhoto", nil)
+	s.getRequest(&response, "users.deletePhoto", nil)
 	return response
 }
 
 // UsersGetPresence gets user presence information.
 func (s *SlackAPI) UsersGetPresence(query string) ResponseUsersGetPresence {
 	var response ResponseUsersGetPresence
-	s.GetRequest(&response, "users.getPresence", struct {
+	s.getRequest(&response, "users.getPresence", struct {
 		User string `json:"user"`
 	}{query})
 	return response
@@ -425,7 +425,7 @@ func (s *SlackAPI) UsersID(query string) string {
 // UsersIdentity get a user's identity.
 func (s *SlackAPI) UsersIdentity() ResponseUsersIdentity {
 	var response ResponseUsersIdentity
-	s.GetRequest(&response, "users.identity", nil)
+	s.getRequest(&response, "users.identity", nil)
 	return response
 }
 
@@ -433,7 +433,7 @@ func (s *SlackAPI) UsersIdentity() ResponseUsersIdentity {
 func (s *SlackAPI) UsersInfo(query string) ResponseUsersInfo {
 	query = s.UsersID(query)
 	var response ResponseUsersInfo
-	s.GetRequest(&response, "users.info", struct {
+	s.getRequest(&response, "users.info", struct {
 		User string `json:"user"`
 	}{query})
 	return response
@@ -446,7 +446,7 @@ func (s *SlackAPI) UsersList() ResponseUsersList {
 	}
 
 	var response ResponseUsersList
-	s.GetRequest(&response, "users.list", nil)
+	s.getRequest(&response, "users.list", nil)
 	s.teamUsers = response
 
 	return response
@@ -459,7 +459,7 @@ func (s *SlackAPI) UsersListWithPresence() ResponseUsersList {
 	}
 
 	var response ResponseUsersList
-	s.GetRequest(&response, "users.list", struct {
+	s.getRequest(&response, "users.list", struct {
 		Presence bool `json:"presence"`
 	}{true})
 	s.teamUsers = response
@@ -470,7 +470,7 @@ func (s *SlackAPI) UsersListWithPresence() ResponseUsersList {
 // UsersLookupByEmail find a user with an email address.
 func (s *SlackAPI) UsersLookupByEmail(email string) User {
 	var response User
-	s.GetRequest(&response, "users.lookupByEmail", struct {
+	s.getRequest(&response, "users.lookupByEmail", struct {
 		Email string `json:"email"`
 	}{email})
 	return response
@@ -479,7 +479,7 @@ func (s *SlackAPI) UsersLookupByEmail(email string) User {
 // UsersPrefsGet get user account preferences.
 func (s *SlackAPI) UsersPrefsGet() ResponseUserPrefs {
 	var response ResponseUserPrefs
-	s.GetRequest(&response, "users.prefs.get", nil)
+	s.getRequest(&response, "users.prefs.get", nil)
 	return response
 }
 
@@ -505,7 +505,7 @@ func (s *SlackAPI) UsersPreparePhoto(image string) ResponseUserPhotoUpload {
 // UsersProfileGet retrieves a user's profile information.
 func (s *SlackAPI) UsersProfileGet(query string) ResponseUserIdentity {
 	var response ResponseUserIdentity
-	s.GetRequest(&response, "users.profile.get", struct {
+	s.getRequest(&response, "users.profile.get", struct {
 		User          string `json:"user"`
 		IncludeLabels bool   `json:"include_labels"`
 	}{s.UsersID(query), false})
@@ -515,7 +515,7 @@ func (s *SlackAPI) UsersProfileGet(query string) ResponseUserIdentity {
 // UsersProfileGetWithLabels retrieves a user's profile information.
 func (s *SlackAPI) UsersProfileGetWithLabels(query string) ResponseUserIdentity {
 	var response ResponseUserIdentity
-	s.GetRequest(&response, "users.profile.get", struct {
+	s.getRequest(&response, "users.profile.get", struct {
 		User          string `json:"user"`
 		IncludeLabels bool   `json:"include_labels"`
 	}{s.UsersID(query), true})
@@ -562,7 +562,7 @@ func (s *SlackAPI) UsersSearch(query string) []User {
 // UsersSetActive marks a user as active.
 func (s *SlackAPI) UsersSetActive() Response {
 	var response Response
-	s.GetRequest(&response, "users.setActive", nil)
+	s.getRequest(&response, "users.setActive", nil)
 	return response
 }
 

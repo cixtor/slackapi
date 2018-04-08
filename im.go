@@ -32,7 +32,7 @@ func (s *SlackAPI) InstantMessageHistory(data HistoryArgs) History {
 // InstantMessageList lists direct message channels for the calling user.
 func (s *SlackAPI) InstantMessageList() InstantMessageList {
 	var response InstantMessageList
-	s.GetRequest(&response, "im.list", nil)
+	s.getRequest(&response, "im.list", nil)
 	return response
 }
 
@@ -49,7 +49,7 @@ func (s *SlackAPI) InstantMessageMyHistory(channel string, latest string) MyHist
 // InstantMessageOpen opens a direct message channel.
 func (s *SlackAPI) InstantMessageOpen(user string) Session {
 	var response Session
-	s.GetRequest(&response, "im.open", struct {
+	s.getRequest(&response, "im.open", struct {
 		User     string `json:"user"`
 		ReturnIM bool   `json:"return_im"`
 	}{s.UsersID(user), true})

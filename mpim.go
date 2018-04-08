@@ -32,7 +32,7 @@ func (s *SlackAPI) MultiPartyInstantMessageHistory(data HistoryArgs) History {
 // MultiPartyInstantMessageList lists multiparty direct message channels for the calling user.
 func (s *SlackAPI) MultiPartyInstantMessageList() ResponseMultiPartyInstantMessageList {
 	var response ResponseMultiPartyInstantMessageList
-	s.GetRequest(&response, "mpim.list", nil)
+	s.getRequest(&response, "mpim.list", nil)
 	return response
 }
 
@@ -40,7 +40,7 @@ func (s *SlackAPI) MultiPartyInstantMessageList() ResponseMultiPartyInstantMessa
 func (s *SlackAPI) MultiPartyInstantMessageListSimple() ResponseMultiPartyInstantMessageListSimple {
 	var response ResponseMultiPartyInstantMessageList
 	output := make(map[string]string)
-	s.GetRequest(&response, "mpim.list", nil)
+	s.getRequest(&response, "mpim.list", nil)
 	for _, data := range response.Groups {
 		output[data.ID] = data.Purpose.Value
 	}
@@ -60,7 +60,7 @@ func (s *SlackAPI) MultiPartyInstantMessageMyHistory(channel string, latest stri
 // MultiPartyInstantMessageOpen this method opens a multiparty direct message.
 func (s *SlackAPI) MultiPartyInstantMessageOpen(users []string) ResponseMultiPartyInstantMessageOpen {
 	var response ResponseMultiPartyInstantMessageOpen
-	s.GetRequest(&response, "mpim.open", struct {
+	s.getRequest(&response, "mpim.open", struct {
 		Users []string `json:"users"`
 	}{users})
 	return response

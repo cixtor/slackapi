@@ -33,7 +33,7 @@ func (s *SlackAPI) ResourceHistory(action string, data HistoryArgs) History {
 	if data.Latest == "" {
 		data.Latest = fmt.Sprintf("%d", time.Now().Unix())
 	}
-	s.GetRequest(&response, action, data)
+	s.getRequest(&response, action, data)
 	return response
 }
 

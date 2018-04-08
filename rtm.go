@@ -127,7 +127,7 @@ var EventTypes = map[string]interface{}{
 // NewRTM connects to the real time messaging websocket.
 func (s *SlackAPI) NewRTM(data RTMArgs) (*RTM, error) {
 	var response RTMResponse
-	s.GetRequest(&response, "rtm.start", data)
+	s.getRequest(&response, "rtm.start", data)
 
 	if !response.Ok {
 		return &RTM{}, errors.New(response.Error)

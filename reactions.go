@@ -83,7 +83,7 @@ func (s *SlackAPI) ReactionsList(data ReactionListArgs) ResponseReactionsList {
 		data.Count = 100
 	}
 	var response ResponseReactionsList
-	s.GetRequest(&response, "reactions.list", data)
+	s.getRequest(&response, "reactions.list", data)
 	return response
 }
 

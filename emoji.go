@@ -10,6 +10,6 @@ type ResponseEmojiList struct {
 // EmojiList lists custom emoji for a team.
 func (s *SlackAPI) EmojiList() ResponseEmojiList {
 	var response ResponseEmojiList
-	s.GetRequest(&response, "emoji.list", nil)
+	s.getRequest(&response, "emoji.list", nil)
 	return response
 }

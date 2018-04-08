@@ -46,7 +46,7 @@ func (s *SlackAPI) StarsAdd(channel string, itemid string) Response {
 // StarsList lists stars for a user.
 func (s *SlackAPI) StarsList(count int, page int) ResponseStarsList {
 	var response ResponseStarsList
-	s.GetRequest(&response, "stars.list", struct {
+	s.getRequest(&response, "stars.list", struct {
 		Count int `json:"count"`
 		Page  int `json:"page"`
 	}{count, page})

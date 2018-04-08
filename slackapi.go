@@ -193,7 +193,7 @@ func (s *SlackAPI) printCurlCommand(req *http.Request, params map[string]string)
 }
 
 // GetRequest sends a HTTP GET request to the API and returns the response.
-func (s *SlackAPI) GetRequest(v interface{}, action string, data interface{}) {
+func (s *SlackAPI) getRequest(v interface{}, action string, data interface{}) {
 	params := s.dataToParams(data)
 	req, err := s.httpRequest("GET", nil, action, params)
 

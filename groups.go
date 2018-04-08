@@ -20,7 +20,7 @@ func (s *SlackAPI) GroupsArchive(channel string) Response {
 // GroupsClose closes a private channel.
 func (s *SlackAPI) GroupsClose(channel string) Response {
 	var response Response
-	s.GetRequest(&response, "groups.close", struct {
+	s.getRequest(&response, "groups.close", struct {
 		Channel string `json:"channel"`
 	}{channel})
 	return response
@@ -29,7 +29,7 @@ func (s *SlackAPI) GroupsClose(channel string) Response {
 // GroupsCreate creates a private channel.
 func (s *SlackAPI) GroupsCreate(name string) ResponseGroupsInfo {
 	var response ResponseGroupsInfo
-	s.GetRequest(&response, "groups.create", struct {
+	s.getRequest(&response, "groups.create", struct {
 		Name     string `json:"name"`
 		Validate bool   `json:"validate"`
 	}{name, true})
@@ -39,7 +39,7 @@ func (s *SlackAPI) GroupsCreate(name string) ResponseGroupsInfo {
 // GroupsCreateChild clones and archives a private channel.
 func (s *SlackAPI) GroupsCreateChild(channel string) ResponseGroupsInfo {
 	var response ResponseGroupsInfo
-	s.GetRequest(&response, "groups.createChild", struct {
+	s.getRequest(&response, "groups.createChild", struct {
 		Channel string `json:"channel"`
 	}{s.GroupsID(channel)})
 	return response
@@ -68,7 +68,7 @@ func (s *SlackAPI) GroupsID(query string) string {
 // GroupsInfo gets information about a private channel.
 func (s *SlackAPI) GroupsInfo(channel string) ResponseGroupsInfo {
 	var response ResponseGroupsInfo
-	s.GetRequest(&response, "groups.info", struct {
+	s.getRequest(&response, "groups.info", struct {
 		Channel string `json:"channel"`
 	}{s.GroupsID(channel)})
 	return response
@@ -96,7 +96,7 @@ func (s *SlackAPI) GroupsList() ResponseGroupsList {
 	}
 
 	var response ResponseGroupsList
-	s.GetRequest(&response, "groups.list", struct {
+	s.getRequest(&response, "groups.list", struct {
 		ExcludeArchived bool `json:"exclude_archived"`
 	}{false})
 	s.teamGroups = response
@@ -118,7 +118,7 @@ func (s *SlackAPI) GroupsMyHistory(channel string, latest string) MyHistory {
 func (s *SlackAPI) GroupsOpen(channel string) Session {
 	var response Session
 	channel = s.GroupsID(channel)
-	s.GetRequest(&response, "groups.open", struct {
+	s.getRequest(&response, "groups.open", struct {
 		Channel string `json:"channel"`
 	}{channel})
 	return response
