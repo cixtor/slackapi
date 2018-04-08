@@ -43,21 +43,21 @@ type ResponseSnoozeStatus struct {
 // DNDEndDnd ends the current user's "Do Not Disturb" session immediately.
 func (s *SlackAPI) DNDEndDnd() Response {
 	var response Response
-	s.PostRequest(&response, "dnd.endDnd", nil)
+	s.postRequest(&response, "dnd.endDnd", nil)
 	return response
 }
 
 // DNDEndSnooze ends the current user's snooze mode immediately.
 func (s *SlackAPI) DNDEndSnooze() ResponseDNDStatus {
 	var response ResponseDNDStatus
-	s.PostRequest(&response, "dnd.endSnooze", nil)
+	s.postRequest(&response, "dnd.endSnooze", nil)
 	return response
 }
 
 // DNDInfo retrieves a user's current "Do Not Disturb" status
 func (s *SlackAPI) DNDInfo(user string) ResponseDNDStatus {
 	var response ResponseDNDStatus
-	s.PostRequest(&response, "dnd.info", struct {
+	s.postRequest(&response, "dnd.info", struct {
 		User string `json:"user"`
 	}{user})
 	return response
@@ -66,7 +66,7 @@ func (s *SlackAPI) DNDInfo(user string) ResponseDNDStatus {
 // DNDSetSnooze turns on "Do Not Disturb" mode for the current user.
 func (s *SlackAPI) DNDSetSnooze(minutes int) ResponseSnoozeStatus {
 	var response ResponseSnoozeStatus
-	s.PostRequest(&response, "dnd.setSnooze", struct {
+	s.postRequest(&response, "dnd.setSnooze", struct {
 		NumMinutes int `json:"num_minutes"`
 	}{minutes})
 	return response
@@ -75,7 +75,7 @@ func (s *SlackAPI) DNDSetSnooze(minutes int) ResponseSnoozeStatus {
 // DNDTeamInfo retrieves the "Do Not Disturb" status for users on a team.
 func (s *SlackAPI) DNDTeamInfo(users string) ResponseDNDTeam {
 	var response ResponseDNDTeam
-	s.PostRequest(&response, "dnd.teamInfo", struct {
+	s.postRequest(&response, "dnd.teamInfo", struct {
 		Users string `json:"users"`
 	}{users})
 	return response

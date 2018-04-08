@@ -486,7 +486,7 @@ func (s *SlackAPI) UsersPrefsGet() ResponseUserPrefs {
 // UsersPrefsSet set user account preferences.
 func (s *SlackAPI) UsersPrefsSet(name string, value string) ResponseUserPrefs {
 	var response ResponseUserPrefs
-	s.PostRequest(&response, "users.prefs.set", struct {
+	s.postRequest(&response, "users.prefs.set", struct {
 		Name  string `json:"name"`
 		Value string `json:"value"`
 	}{name, value})
@@ -496,7 +496,7 @@ func (s *SlackAPI) UsersPrefsSet(name string, value string) ResponseUserPrefs {
 // UsersPreparePhoto upload a picture to use as the avatar.
 func (s *SlackAPI) UsersPreparePhoto(image string) ResponseUserPhotoUpload {
 	var response ResponseUserPhotoUpload
-	s.PostRequest(&response, "users.preparePhoto", struct {
+	s.postRequest(&response, "users.preparePhoto", struct {
 		Image string `json:"image"`
 	}{"@" + image})
 	return response
@@ -525,7 +525,7 @@ func (s *SlackAPI) UsersProfileGetWithLabels(query string) ResponseUserIdentity 
 // UsersProfileSet set the profile information for a user.
 func (s *SlackAPI) UsersProfileSet(name string, value string) ResponseUserIdentity {
 	var response ResponseUserIdentity
-	s.PostRequest(&response, "users.profile.set", struct {
+	s.postRequest(&response, "users.profile.set", struct {
 		Name  string `json:"name"`
 		Value string `json:"value"`
 	}{name, value})
@@ -535,7 +535,7 @@ func (s *SlackAPI) UsersProfileSet(name string, value string) ResponseUserIdenti
 // UsersProfileSetMultiple set the profile information for a user.
 func (s *SlackAPI) UsersProfileSetMultiple(profile string) ResponseUserIdentity {
 	var response ResponseUserIdentity
-	s.PostRequest(&response, "users.profile.set", struct {
+	s.postRequest(&response, "users.profile.set", struct {
 		Profile string `json:"profile"`
 	}{profile})
 	return response
@@ -580,7 +580,7 @@ func (s *SlackAPI) UsersSetAvatar(image string) ResponseUserAvatar {
 // UsersSetPhoto define which picture will be the avatar.
 func (s *SlackAPI) UsersSetPhoto(imageid string) ResponseUserPhoto {
 	var response ResponseUserPhoto
-	s.PostRequest(&response, "users.setPhoto", struct {
+	s.postRequest(&response, "users.setPhoto", struct {
 		CropX int    `json:"crop_x"`
 		CropY int    `json:"crop_y"`
 		CropW int    `json:"crop_w"`
@@ -592,7 +592,7 @@ func (s *SlackAPI) UsersSetPhoto(imageid string) ResponseUserPhoto {
 // UsersSetPresence manually sets user presence.
 func (s *SlackAPI) UsersSetPresence(value string) Response {
 	var response Response
-	s.PostRequest(&response, "users.setPresence", struct {
+	s.postRequest(&response, "users.setPresence", struct {
 		Presence string `json:"presence"`
 	}{value})
 	return response

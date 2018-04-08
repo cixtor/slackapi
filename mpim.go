@@ -18,7 +18,7 @@ type ResponseMultiPartyInstantMessageOpen struct {
 // MultiPartyInstantMessageClose closes a multiparty direct message channel.
 func (s *SlackAPI) MultiPartyInstantMessageClose(channel string) Response {
 	var response Response
-	s.PostRequest(&response, "mpim.close", struct {
+	s.postRequest(&response, "mpim.close", struct {
 		Channel string `json:"channel"`
 	}{channel})
 	return response

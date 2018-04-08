@@ -66,14 +66,14 @@ type Reaction struct {
 // ReactionsAdd adds a reaction to an item.
 func (s *SlackAPI) ReactionsAdd(data ReactionArgs) Response {
 	var response Response
-	s.PostRequest(&response, "reactions.add", data)
+	s.postRequest(&response, "reactions.add", data)
 	return response
 }
 
 // ReactionsGet gets reactions for an item.
 func (s *SlackAPI) ReactionsGet(data ReactionArgs) ResponseReactionsGet {
 	var response ResponseReactionsGet
-	s.PostRequest(&response, "reactions.get", data)
+	s.postRequest(&response, "reactions.get", data)
 	return response
 }
 
@@ -90,6 +90,6 @@ func (s *SlackAPI) ReactionsList(data ReactionListArgs) ResponseReactionsList {
 // ReactionsRemove removes a reaction from an item.
 func (s *SlackAPI) ReactionsRemove(data ReactionArgs) Response {
 	var response Response
-	s.PostRequest(&response, "reactions.remove", data)
+	s.postRequest(&response, "reactions.remove", data)
 	return response
 }

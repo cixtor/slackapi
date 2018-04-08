@@ -34,7 +34,7 @@ func (s *SlackAPI) ChannelsArchive(channel string) Response {
 // ChannelsCreate creates a channel.
 func (s *SlackAPI) ChannelsCreate(name string) ResponseChannelsInfo {
 	var response ResponseChannelsInfo
-	s.PostRequest(&response, "channels.create", struct {
+	s.postRequest(&response, "channels.create", struct {
 		Name     string `json:"name"`
 		Validate bool   `json:"validate"`
 	}{name, true})
@@ -78,7 +78,7 @@ func (s *SlackAPI) ChannelsInvite(channel string, user string) Response {
 // ChannelsJoin joins a channel, creating it if needed.
 func (s *SlackAPI) ChannelsJoin(name string) ResponseChannelsJoin {
 	var response ResponseChannelsJoin
-	s.PostRequest(&response, "channels.join", struct {
+	s.postRequest(&response, "channels.join", struct {
 		Name     string `json:"name"`
 		Validate bool   `json:"validate"`
 	}{name, true})

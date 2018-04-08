@@ -119,7 +119,7 @@ type FileComment struct {
 // FilesCommentsAdd add a comment to an existing file.
 func (s *SlackAPI) FilesCommentsAdd(file string, comment string) ResponseFilesComments {
 	var response ResponseFilesComments
-	s.PostRequest(&response, "files.comments.add", struct {
+	s.postRequest(&response, "files.comments.add", struct {
 		File    string `json:"file"`
 		Comment string `json:"comment"`
 	}{file, comment})
@@ -129,7 +129,7 @@ func (s *SlackAPI) FilesCommentsAdd(file string, comment string) ResponseFilesCo
 // FilesCommentsDelete deletes an existing comment on a file.
 func (s *SlackAPI) FilesCommentsDelete(file string, commentid string) Response {
 	var response Response
-	s.PostRequest(&response, "files.comments.delete", struct {
+	s.postRequest(&response, "files.comments.delete", struct {
 		File string `json:"file"`
 		ID   string `json:"id"`
 	}{file, commentid})
@@ -139,7 +139,7 @@ func (s *SlackAPI) FilesCommentsDelete(file string, commentid string) Response {
 // FilesCommentsEdit edit an existing file comment.
 func (s *SlackAPI) FilesCommentsEdit(file string, commentid string, comment string) ResponseFilesComments {
 	var response ResponseFilesComments
-	s.PostRequest(&response, "files.comments.edit", struct {
+	s.postRequest(&response, "files.comments.edit", struct {
 		File    string `json:"file"`
 		ID      string `json:"id"`
 		Comment string `json:"comment"`
@@ -150,7 +150,7 @@ func (s *SlackAPI) FilesCommentsEdit(file string, commentid string, comment stri
 // FilesDelete deletes a file.
 func (s *SlackAPI) FilesDelete(file string) Response {
 	var response Response
-	s.PostRequest(&response, "files.delete", struct {
+	s.postRequest(&response, "files.delete", struct {
 		File string `json:"file"`
 	}{file})
 	return response
@@ -186,7 +186,7 @@ func (s *SlackAPI) FilesList(data FileListArgs) ResponseFilesList {
 // FilesRevokePublicURL revokes public/external sharing access for a file.
 func (s *SlackAPI) FilesRevokePublicURL(file string) interface{} {
 	var response interface{}
-	s.PostRequest(&response, "files.revokePublicURL", struct {
+	s.postRequest(&response, "files.revokePublicURL", struct {
 		File string `json:"file"`
 	}{file})
 	return response
@@ -195,7 +195,7 @@ func (s *SlackAPI) FilesRevokePublicURL(file string) interface{} {
 // FilesSharedPublicURL enables a file for public/external sharing.
 func (s *SlackAPI) FilesSharedPublicURL(file string) ResponseFilesSharedPublicURL {
 	var response ResponseFilesSharedPublicURL
-	s.PostRequest(&response, "files.sharedPublicURL", struct {
+	s.postRequest(&response, "files.sharedPublicURL", struct {
 		File string `json:"file"`
 	}{file})
 	return response
@@ -204,6 +204,6 @@ func (s *SlackAPI) FilesSharedPublicURL(file string) ResponseFilesSharedPublicUR
 // FilesUpload uploads or creates a file.
 func (s *SlackAPI) FilesUpload(data FileUploadArgs) ResponseFilesUpload {
 	var response ResponseFilesUpload
-	s.PostRequest(&response, "files.upload", data)
+	s.postRequest(&response, "files.upload", data)
 	return response
 }

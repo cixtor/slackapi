@@ -22,19 +22,19 @@ func (s *SlackAPI) StarsAdd(channel string, itemid string) Response {
 
 	if len(itemid) >= 3 && itemid[0:2] == "Fc" {
 		/* remove pinned file comment */
-		s.PostRequest(&response, "stars.add", struct {
+		s.postRequest(&response, "stars.add", struct {
 			Channel     string `json:"channel"`
 			FileComment string `json:"file_comment"`
 		}{s.ChannelsID(channel), itemid})
 	} else if len(itemid) >= 2 && itemid[0] == 'F' {
 		/* remove pinned file */
-		s.PostRequest(&response, "stars.add", struct {
+		s.postRequest(&response, "stars.add", struct {
 			Channel string `json:"channel"`
 			File    string `json:"file"`
 		}{s.ChannelsID(channel), itemid})
 	} else {
 		/* remove pinned message */
-		s.PostRequest(&response, "stars.add", struct {
+		s.postRequest(&response, "stars.add", struct {
 			Channel   string `json:"channel"`
 			Timestamp string `json:"timestamp"`
 		}{s.ChannelsID(channel), itemid})
@@ -59,19 +59,19 @@ func (s *SlackAPI) StarsRemove(channel string, itemid string) Response {
 
 	if len(itemid) >= 3 && itemid[0:2] == "Fc" {
 		/* remove pinned file comment */
-		s.PostRequest(&response, "stars.remove", struct {
+		s.postRequest(&response, "stars.remove", struct {
 			Channel     string `json:"channel"`
 			FileComment string `json:"file_comment"`
 		}{s.ChannelsID(channel), itemid})
 	} else if len(itemid) >= 2 && itemid[0] == 'F' {
 		/* remove pinned file */
-		s.PostRequest(&response, "stars.remove", struct {
+		s.postRequest(&response, "stars.remove", struct {
 			Channel string `json:"channel"`
 			File    string `json:"file"`
 		}{s.ChannelsID(channel), itemid})
 	} else {
 		/* remove pinned message */
-		s.PostRequest(&response, "stars.remove", struct {
+		s.postRequest(&response, "stars.remove", struct {
 			Channel   string `json:"channel"`
 			Timestamp string `json:"timestamp"`
 		}{s.ChannelsID(channel), itemid})

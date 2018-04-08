@@ -213,7 +213,7 @@ func (s *SlackAPI) getRequest(v interface{}, action string, data interface{}) {
 // HTTP request object and upload it to the API. Alternatively, if the file does
 // not exists, the method will send the parameter with the apparent filename as
 // a string value.
-func (s *SlackAPI) PostRequest(v interface{}, action string, data interface{}) {
+func (s *SlackAPI) postRequest(v interface{}, action string, data interface{}) {
 	var buffer bytes.Buffer
 	params := s.dataToParams(data)
 	writer := multipart.NewWriter(&buffer)
