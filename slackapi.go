@@ -221,7 +221,7 @@ func (s *SlackAPI) postRequest(v interface{}, action string, data interface{}) {
 	// Append more HTTP request params.
 	for name, value := range params {
 		/* Check if the parameter is referencing a file */
-		isfile, fpath, fname := s.CheckFileReference(value)
+		isfile, fpath, fname := s.checkFileReference(value)
 
 		if !isfile {
 			fwriter, _ := writer.CreateFormField(name)
@@ -277,7 +277,7 @@ func (s *SlackAPI) postRequest(v interface{}, action string, data interface{}) {
 }
 
 // CheckFileReference checks if a HTTP request parameter is a file reference.
-func (s *SlackAPI) CheckFileReference(text string) (bool, string, string) {
+func (s *SlackAPI) checkFileReference(text string) (bool, string, string) {
 	if len(text) < 2 || text[0] != '@' {
 		return false, "", ""
 	}
