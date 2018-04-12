@@ -852,7 +852,7 @@ func TestUsersDeletePhoto(t *testing.T) {
 func TestUsersGetPresence(t *testing.T) {
 	s := New()
 	x := s.UsersGetPresence("user")
-	y := `{"ok":false,"error":"not_authed","auto_away":false,"connection_count":0,"last_activity":0,"manual_away":false,"online":false,"presence":""}`
+	y := `{"ok":false,"error":"not_authed","presence":"","connection_count":0,"last_activity":0,"auto_away":false,"manual_away":false,"online":false}`
 	CheckResponse(t, x, y)
 }
 
