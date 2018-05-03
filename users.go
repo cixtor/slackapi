@@ -548,12 +548,17 @@ func (s *SlackAPI) UsersSearch(query string) ResponseUsersList {
 	res := s.UsersList()
 
 	if res.Ok {
-		for _, user := range res.Members {
-			if strings.Contains(user.Name, query) ||
-				strings.Contains(user.RealName, query) ||
-				strings.Contains(user.Profile.Email, query) {
-				response.Members = append(response.Members, user)
-			}
+		response.Error = res.Error
+		return response
+	}
+
+	response.Ok = true
+
+	for _, user := range res.Members {
+		if strings.Contains(user.Name, query) ||
+			strings.Contains(user.RealName, query) ||
+			strings.Contains(user.Profile.Email, query) {
+			response.Members = append(response.Members, user)
 		}
 	}
 
