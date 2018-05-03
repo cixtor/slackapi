@@ -542,21 +542,22 @@ func (s *SlackAPI) UsersProfileSetMultiple(profile string) ResponseUserIdentity 
 }
 
 // UsersSearch search users by name or email address.
-func (s *SlackAPI) UsersSearch(query string) []User {
-	var matches []User
-	response := s.UsersList()
+func (s *SlackAPI) UsersSearch(query string) ResponseUsersList {
+	var response ResponseUsersList
 
-	if response.Ok {
-		for _, user := range response.Members {
+	res := s.UsersList()
+
+	if res.Ok {
+		for _, user := range res.Members {
 			if strings.Contains(user.Name, query) ||
 				strings.Contains(user.RealName, query) ||
 				strings.Contains(user.Profile.Email, query) {
-				matches = append(matches, user)
+				response.Members = append(response.Members, user)
 			}
 		}
 	}
 
-	return matches
+	return response
 }
 
 // UsersSetActive marks a user as active.
