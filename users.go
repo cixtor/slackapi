@@ -547,7 +547,7 @@ func (s *SlackAPI) UsersSearch(query string) ResponseUsersList {
 
 	res := s.UsersList()
 
-	if res.Ok {
+	if !res.Ok {
 		response.Error = res.Error
 		return response
 	}
