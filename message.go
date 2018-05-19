@@ -35,7 +35,7 @@ type Message struct {
 	Name             string         `json:"name,omitempty"`
 	OldName          string         `json:"old_name,omitempty"`
 	ParentUserID     string         `json:"parent_user_id,omitempty"`
-	PinnedTo         []string       `json:"pinned_to, omitempty"`
+	PinnedTo         []string       `json:"pinned_to,omitempty"`
 	Purpose          string         `json:"purpose,omitempty"`
 	Reactions        []ReactionItem `json:"reactions,omitempty"`
 	Replies          []Reply        `json:"replies,omitempty"`
