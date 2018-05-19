@@ -1,4 +1,4 @@
-### Slack API Bindings for Go (golang)
+# Slack API [![GoReport](https://goreportcard.com/badge/github.com/cixtor/slackapi)](https://goreportcard.com/report/github.com/cixtor/slackapi) [![GoDoc](https://godoc.org/github.com/cixtor/slackapi?status.svg)](https://godoc.org/github.com/cixtor/slackapi)
 
 Slack, the _"messaging app for teams"_ offers an API that has been used to build multiple projects around it, from bots to independent clients as well as integrations with other external services. This project aims to offer a low level experience for advanced users that want to either drop the web client or interact with the API for testing purpose.
 
