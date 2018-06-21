@@ -168,6 +168,7 @@ Note that the client runs with the same chat session of the user that is using t
 - [ ] `search.all` - Searches for messages and files matching a query.
 - [ ] `search.files` - Searches for files matching a query.
 - [ ] `search.messages` - Searches for messages matching a query.
+- [x] `signup.checkEmail` - Checks if an email address is valid.
 - [x] `stars.add` - Adds a star to an item.
 - [x] `stars.list` - Lists stars for a user.
 - [x] `stars.remove` - Removes a star from an item.
