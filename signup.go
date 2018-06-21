@@ -17,3 +17,12 @@ func (s *SlackAPI) SignupCheckEmail(email string) ResponseEmailCheck {
 	}{email, true})
 	return response
 }
+
+// SignupConfirmEmail confirm an email address for signup.
+func (s *SlackAPI) SignupConfirmEmail(email string) Response {
+	var response Response
+	s.postRequest(&response, "signup.confirmEmail", struct {
+		Email string `json:"email"`
+	}{email})
+	return response
+}
