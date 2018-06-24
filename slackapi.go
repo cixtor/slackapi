@@ -23,7 +23,6 @@ import (
 type SlackAPI struct {
 	owner        Owner
 	token        string
-	params       map[string]string
 	teamUsers    ResponseUsersList
 	teamGroups   ResponseGroupsList
 	teamChannels ResponseChannelsList
@@ -31,11 +30,7 @@ type SlackAPI struct {
 
 // New instantiates a new object.
 func New() *SlackAPI {
-	var s SlackAPI
-
-	s.params = make(map[string]string)
-
-	return &s
+	return new(SlackAPI)
 }
 
 // SetToken sets the API token for the session.
@@ -61,15 +56,7 @@ func (s *SlackAPI) urlEndpoint(action string, params map[string]string) string {
 
 // HTTPRequest builds an HTTP request object and attaches the action parameters.
 func (s *SlackAPI) httpRequest(method string, body io.Reader, action string, params map[string]string) (*http.Request, error) {
-	if len(s.params) > 0 {
-		for name, value := range s.params {
-			params[name] = value
-		}
-		s.params = map[string]string{}
-	}
-
-	url := s.urlEndpoint(action, params)
-	req, err := http.NewRequest(method, url, body)
+	req, err := http.NewRequest(method, s.urlEndpoint(action, params), body)
 
 	if err != nil {
 		return nil, err
@@ -117,7 +104,9 @@ func (s *SlackAPI) dataToParams(data interface{}) map[string]string {
 			}
 
 		case string:
-			params[name] = value.(string)
+			if value != "" {
+				params[name] = value.(string)
+			}
 
 		case []string:
 			params[name] = strings.Join(value.([]string), ",")
@@ -218,7 +207,6 @@ func (s *SlackAPI) postRequest(v interface{}, action string, data interface{}) {
 	params := s.dataToParams(data)
 	writer := multipart.NewWriter(&buffer)
 
-	// Append more HTTP request params.
 	for name, value := range params {
 		/* Check if the parameter is referencing a file */
 		isfile, fpath, fname := s.checkFileReference(value)
