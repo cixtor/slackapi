@@ -207,7 +207,7 @@ func TestChatPostMessage(t *testing.T) {
 func TestChatUpdate(t *testing.T) {
 	s := New()
 	x := s.ChatUpdate(MessageArgs{})
-	y := `{"ok":false,"error":"not_authed","channel":"","ts":"","message":{"pinned_to":null,"display_as_bot":false}}`
+	y := `{"ok":false,"error":"not_authed","channel":"","ts":"","message":{"display_as_bot":false}}`
 	CheckResponse(t, x, y)
 }
 
