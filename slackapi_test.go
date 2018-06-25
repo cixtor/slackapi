@@ -950,7 +950,7 @@ func TestUsersProfileSetMultiple(t *testing.T) {
 func TestUsersSearch(t *testing.T) {
 	s := New()
 	x := s.UsersSearch("user")
-	y := `null`
+	y := `{"ok":false,"error":"not_authed","members":null}`
 	CheckResponse(t, x, y)
 }
 
