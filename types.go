@@ -169,8 +169,8 @@ type AppsListAppsIcons struct {
 	Image96   string `json:"image_96"`
 }
 
-// Pagination defines the expected data from the JSON-encoded API response.
-type Pagination struct {
+// Paging defines the expected data from the JSON-encoded API response.
+type Paging struct {
 	Count int `json:"count"`
 	Page  int `json:"page"`
 	Pages int `json:"pages"`

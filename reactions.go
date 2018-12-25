@@ -28,7 +28,7 @@ type ResponseReactionsGet struct {
 type ResponseReactionsList struct {
 	Response
 	Items  []ReactionItem `json:"items"`
-	Paging Pagination     `json:"paging"`
+	Paging Paging         `json:"paging"`
 }
 
 // ReactionItem defines the expected data from the JSON-encoded API response.

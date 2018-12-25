@@ -27,14 +27,14 @@ type ResponseFilesInfo struct {
 	Response
 	File     File          `json:"file"`
 	Comments []FileComment `json:"comments"`
-	Paging   Pagination    `json:"paging"`
+	Paging   Paging        `json:"paging"`
 }
 
 // ResponseFilesList defines the JSON-encoded output for FilesList.
 type ResponseFilesList struct {
 	Response
-	Files  []File     `json:"files"`
-	Paging Pagination `json:"paging"`
+	Files  []File `json:"files"`
+	Paging Paging `json:"paging"`
 }
 
 // ResponseFilesSharedPublicURL defines the JSON-encoded output for FilesSharedPublicURL.

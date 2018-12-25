@@ -750,6 +750,13 @@ func TestResourceUnarchive(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
+func TestSearchMessages(t *testing.T) {
+	s := New()
+	x := s.SearchMessages(SearchArgs{Query: "in:general"})
+	y := `{"ok":false,"error":"not_authed","query":"","messages":{"matches":null,"pagination":{"first":0,"last":0,"page":0,"page_count":0,"per_page":0,"total_count":0},"paging":{"count":0,"page":0,"pages":0,"total":0},"total":0}}`
+	CheckResponse(t, x, y)
+}
+
 func TestSetToken(t *testing.T) {
 	s := New()
 	s.SetToken("foobar")

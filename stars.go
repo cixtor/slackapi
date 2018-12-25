@@ -4,7 +4,7 @@ package slackapi
 type ResponseStarsList struct {
 	Response
 	Items  []StarsListItem `json:"items"`
-	Paging Pagination      `json:"paging"`
+	Paging Paging          `json:"paging"`
 }
 
 // StarsListItem defines the expected data from the JSON-encoded API response.
