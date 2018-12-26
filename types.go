@@ -169,6 +169,15 @@ type AppsListAppsIcons struct {
 	Image96   string `json:"image_96"`
 }
 
+type Pagination struct {
+	First      int `json:"first"`
+	Last       int `json:"last"`
+	Page       int `json:"page"`
+	PageCount  int `json:"page_count"`
+	PerPage    int `json:"per_page"`
+	TotalCount int `json:"total_count"`
+}
+
 // Paging defines the expected data from the JSON-encoded API response.
 type Paging struct {
 	Count int `json:"count"`

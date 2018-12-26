@@ -57,54 +57,60 @@ type ResponseFilesComments struct {
 
 // File defines the expected data from the JSON-encoded API response.
 type File struct {
-	Channels           []string    `json:"channels"`
-	CommentsCount      int         `json:"comments_count"`
-	Created            int         `json:"created"`
-	EditLink           string      `json:"edit_link"`
-	ExternalType       string      `json:"external_type"`
-	Filetype           string      `json:"filetype"`
-	Groups             []string    `json:"groups"`
-	ID                 string      `json:"id"`
-	ImageExifRotation  int         `json:"image_exif_rotation"`
-	InstantMessages    []string    `json:"ims"`
-	InitialComment     FileComment `json:"initial_comment"`
-	IsExternal         bool        `json:"is_external"`
-	IsPublic           bool        `json:"is_public"`
-	IsStarred          bool        `json:"is_starred"`
-	DisplayAsBot       bool        `json:"display_as_bot"`
-	Editable           bool        `json:"editable"`
-	PublicURLShared    bool        `json:"public_url_shared"`
-	Lines              int         `json:"lines"`
-	LinesMore          int         `json:"lines_more"`
-	Mimetype           string      `json:"mimetype"`
-	Mode               string      `json:"mode"`
-	Name               string      `json:"name"`
-	NumStars           int         `json:"num_stars"`
-	OriginalH          int         `json:"original_h"`
-	OriginalW          int         `json:"original_w"`
-	Permalink          string      `json:"permalink"`
-	PrettyType         string      `json:"pretty_type"`
-	Preview            string      `json:"preview"`
-	PreviewHighlight   string      `json:"preview_highlight"`
-	Size               int         `json:"size"`
-	Thumb160           string      `json:"thumb_160"`
-	Thumb360           string      `json:"thumb_360"`
-	Thumb360Gif        string      `json:"thumb_360_gif"`
-	Thumb360H          int         `json:"thumb_360_h"`
-	Thumb360W          int         `json:"thumb_360_w"`
-	Thumb480           string      `json:"thumb_480"`
-	Thumb480H          int         `json:"thumb_480_h"`
-	Thumb480W          int         `json:"thumb_480_w"`
-	Thumb64            string      `json:"thumb_64"`
-	Thumb80            string      `json:"thumb_80"`
-	Timestamp          int         `json:"timestamp"`
-	Title              string      `json:"title"`
-	URL                string      `json:"url"`
-	URLDownload        string      `json:"url_download"`
-	URLPrivate         string      `json:"url_private"`
-	URLPrivateDownload string      `json:"url_private_download"`
-	User               string      `json:"user"`
-	Username           string      `json:"username"`
+	Channels           []string        `json:"channels"`
+	CommentsCount      int             `json:"comments_count"`
+	Created            int             `json:"created"`
+	DeanimateGif       string          `json:"deanimate_gif"`
+	DisplayAsBot       bool            `json:"display_as_bot"`
+	Editable           bool            `json:"editable"`
+	EditLink           string          `json:"edit_link"`
+	ExternalType       string          `json:"external_type"`
+	Filetype           string          `json:"filetype"`
+	Groups             []string        `json:"groups"`
+	ID                 string          `json:"id"`
+	ImageExifRotation  int             `json:"image_exif_rotation"`
+	InitialComment     FileComment     `json:"initial_comment"`
+	InstantMessages    []string        `json:"ims"`
+	IsExternal         bool            `json:"is_external"`
+	IsPublic           bool            `json:"is_public"`
+	IsStarred          bool            `json:"is_starred"`
+	Lines              int             `json:"lines"`
+	LinesMore          int             `json:"lines_more"`
+	Mimetype           string          `json:"mimetype"`
+	Mode               string          `json:"mode"`
+	Name               string          `json:"name"`
+	NumStars           int             `json:"num_stars"`
+	OriginalH          int             `json:"original_h"`
+	OriginalW          int             `json:"original_w"`
+	Permalink          string          `json:"permalink"`
+	PermalinkPublic    string          `json:"permalink_public"`
+	PrettyType         string          `json:"pretty_type"`
+	Preview            string          `json:"preview"`
+	PreviewHighlight   string          `json:"preview_highlight"`
+	PublicURLShared    bool            `json:"public_url_shared"`
+	Reactions          []FileReactions `json:"reactions"`
+	Score              string          `json:"score"`
+	Size               int             `json:"size"`
+	Thumb160           string          `json:"thumb_160"`
+	Thumb360           string          `json:"thumb_360"`
+	Thumb360Gif        string          `json:"thumb_360_gif"`
+	Thumb360H          int             `json:"thumb_360_h"`
+	Thumb360W          int             `json:"thumb_360_w"`
+	Thumb480           string          `json:"thumb_480"`
+	Thumb480Gif        string          `json:"thumb_480_gif"`
+	Thumb480H          int             `json:"thumb_480_h"`
+	Thumb480W          int             `json:"thumb_480_w"`
+	Thumb64            string          `json:"thumb_64"`
+	Thumb80            string          `json:"thumb_80"`
+	Timestamp          int             `json:"timestamp"`
+	Title              string          `json:"title"`
+	TopFile            bool            `json:"top_file"`
+	URL                string          `json:"url"`
+	URLDownload        string          `json:"url_download"`
+	URLPrivate         string          `json:"url_private"`
+	URLPrivateDownload string          `json:"url_private_download"`
+	User               string          `json:"user"`
+	Username           string          `json:"username"`
 }
 
 // FileComment defines the expected data from the JSON-encoded API response.
@@ -114,6 +120,12 @@ type FileComment struct {
 	ID        string `json:"id"`
 	Timestamp int    `json:"timestamp"`
 	User      string `json:"user"`
+}
+
+type FileReactions struct {
+	Count int      `json:"count"`
+	Name  string   `json:"name"`
+	Users []string `json:"users"`
 }
 
 // FilesCommentsAdd add a comment to an existing file.

@@ -20,6 +20,7 @@ type MessageArgs struct {
 
 // Message defines the expected data from the JSON-encoded API response.
 type Message struct {
+	IID              string         `json:"iid,omitempty"`
 	Attachments      []Attachment   `json:"attachments,omitempty"`
 	BotID            string         `json:"bot_id,omitempty"`
 	Channel          string         `json:"channel,omitempty"`
@@ -35,6 +36,7 @@ type Message struct {
 	Name             string         `json:"name,omitempty"`
 	OldName          string         `json:"old_name,omitempty"`
 	ParentUserID     string         `json:"parent_user_id,omitempty"`
+	Permalink        string         `json:"permalink,omitempty"`
 	PinnedTo         []string       `json:"pinned_to,omitempty"`
 	Purpose          string         `json:"purpose,omitempty"`
 	Reactions        []ReactionItem `json:"reactions,omitempty"`
