@@ -116,10 +116,11 @@ type File struct {
 // FileComment defines the expected data from the JSON-encoded API response.
 type FileComment struct {
 	Comment   string `json:"comment"`
-	Created   int    `json:"created"`
 	ID        string `json:"id"`
-	Timestamp int    `json:"timestamp"`
 	User      string `json:"user"`
+	Created   int    `json:"created"`
+	Timestamp int    `json:"timestamp"`
+	IsIntro   bool   `json:"is_intro"`
 }
 
 type FileReactions struct {

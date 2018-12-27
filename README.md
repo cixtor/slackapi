@@ -165,7 +165,7 @@ Note that the client runs with the same chat session of the user that is using t
 - [ ] `rtm.connect` - Starts a Real Time Messaging session.
 - [x] `rtm.start` - Starts a Real Time Messaging session.
 - [x] `rtm.events` - Prints the API events in real time
-- [ ] `search.all` - Searches for messages and files matching a query.
+- [x] `search.all` - Searches for messages and files matching a query.
 - [x] `search.files` - Searches for files matching a query.
 - [x] `search.messages` - Searches for messages matching a query.
 - [x] `signup.checkEmail` - Checks if an email address is valid.

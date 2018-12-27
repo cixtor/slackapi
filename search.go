@@ -14,6 +14,7 @@ type ResponseSearch struct {
 	Response
 	Query    string         `json:"query"`
 	Files    SearchFiles    `json:"files"`
+	Posts    SearchPosts    `json:"posts"`
 	Messages SearchMessages `json:"messages"`
 }
 
@@ -29,6 +30,13 @@ type SearchFiles struct {
 	Pagination Pagination `json:"pagination"`
 	Paging     Paging     `json:"paging"`
 	Total      int        `json:"total"`
+}
+
+type SearchPosts struct {
+	Matches    []interface{} `json:"matches"`
+	Pagination Pagination    `json:"pagination"`
+	Paging     Paging        `json:"paging"`
+	Total      int           `json:"total"`
 }
 
 type SearchMatches struct {
@@ -72,6 +80,11 @@ func (s *SlackAPI) searchStuff(action string, data SearchArgs) ResponseSearch {
 	var response ResponseSearch
 	s.getRequest(&response, action, data)
 	return response
+}
+
+// SearchAll searches for messages and files matching a query.
+func (s *SlackAPI) SearchAll(data SearchArgs) ResponseSearch {
+	return s.searchStuff("search.all", data)
 }
 
 // SearchFiles searches for files matching a query.
