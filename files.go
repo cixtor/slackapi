@@ -61,8 +61,6 @@ type File struct {
 	CommentsCount      int         `json:"comments_count"`
 	Created            int         `json:"created"`
 	DeanimateGif       string      `json:"deanimate_gif"`
-	DisplayAsBot       bool        `json:"display_as_bot"`
-	Editable           bool        `json:"editable"`
 	EditLink           string      `json:"edit_link"`
 	ExternalType       string      `json:"external_type"`
 	Filetype           string      `json:"filetype"`
@@ -71,9 +69,6 @@ type File struct {
 	ImageExifRotation  int         `json:"image_exif_rotation"`
 	InitialComment     FileComment `json:"initial_comment"`
 	InstantMessages    []string    `json:"ims"`
-	IsExternal         bool        `json:"is_external"`
-	IsPublic           bool        `json:"is_public"`
-	IsStarred          bool        `json:"is_starred"`
 	Lines              int         `json:"lines"`
 	LinesMore          int         `json:"lines_more"`
 	Mimetype           string      `json:"mimetype"`
@@ -87,7 +82,6 @@ type File struct {
 	PrettyType         string      `json:"pretty_type"`
 	Preview            string      `json:"preview"`
 	PreviewHighlight   string      `json:"preview_highlight"`
-	PublicURLShared    bool        `json:"public_url_shared"`
 	Reactions          []Reaction  `json:"reactions"`
 	Score              string      `json:"score"`
 	Size               int         `json:"size"`
@@ -104,13 +98,19 @@ type File struct {
 	Thumb80            string      `json:"thumb_80"`
 	Timestamp          int         `json:"timestamp"`
 	Title              string      `json:"title"`
-	TopFile            bool        `json:"top_file"`
 	URL                string      `json:"url"`
 	URLDownload        string      `json:"url_download"`
 	URLPrivate         string      `json:"url_private"`
 	URLPrivateDownload string      `json:"url_private_download"`
 	User               string      `json:"user"`
 	Username           string      `json:"username"`
+	DisplayAsBot       bool        `json:"display_as_bot"`
+	Editable           bool        `json:"editable"`
+	IsExternal         bool        `json:"is_external"`
+	IsPublic           bool        `json:"is_public"`
+	IsStarred          bool        `json:"is_starred"`
+	PublicURLShared    bool        `json:"public_url_shared"`
+	TopFile            bool        `json:"top_file"`
 }
 
 // FileComment defines the expected data from the JSON-encoded API response.
