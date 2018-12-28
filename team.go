@@ -15,8 +15,6 @@ type AccessLogArgs struct {
 type ResponseTeamAccessLogs struct {
 	Response
 	AccessLogs []AccessLog `json:"logins"`
-	Needed     string      `json:"needed"`
-	Provided   string      `json:"provided"`
 }
 
 // ResponseTeamInfo defines the JSON-encoded output for TeamInfo.
