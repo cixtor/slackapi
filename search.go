@@ -43,15 +43,16 @@ type SearchMatches struct {
 	// TODO(cixtor): find a way to convert this into a Message. Currently, the
 	// problem is that Channel is not a string, which is what we get from the
 	// API when we get a Message.
-	Channel   SearchChannel `json:"channel"`
-	IID       string        `json:"iid"`
-	Permalink string        `json:"permalink"`
-	Team      string        `json:"team"`
-	Text      string        `json:"text"`
-	Timestamp string        `json:"ts"`
-	Type      string        `json:"type"`
-	User      string        `json:"user"`
-	Username  string        `json:"username"`
+	Attachments []Attachment  `json:"attachments"`
+	Channel     SearchChannel `json:"channel"`
+	IID         string        `json:"iid"`
+	Permalink   string        `json:"permalink"`
+	Team        string        `json:"team"`
+	Text        string        `json:"text"`
+	Timestamp   string        `json:"ts"`
+	Type        string        `json:"type"`
+	User        string        `json:"user"`
+	Username    string        `json:"username"`
 }
 
 type SearchChannel struct {
