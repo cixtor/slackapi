@@ -57,6 +57,7 @@ type SearchMatches struct {
 
 type SearchChannel struct {
 	ID                 string        `json:"id"`
+	IsChannel          bool          `json:"is_channel"`
 	IsExtShared        bool          `json:"is_ext_shared"`
 	IsMpim             bool          `json:"is_mpim"`
 	IsOrgShared        bool          `json:"is_org_shared"`
