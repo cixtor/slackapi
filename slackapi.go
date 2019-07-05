@@ -23,6 +23,7 @@ import (
 type SlackAPI struct {
 	owner        Owner
 	token        string
+	cookie       string
 	teamUsers    ResponseUsersList
 	teamGroups   ResponseGroupsList
 	teamChannels ResponseChannelsList
@@ -36,6 +37,14 @@ func New() *SlackAPI {
 // SetToken sets the API token for the session.
 func (s *SlackAPI) SetToken(token string) {
 	s.token = token
+}
+
+// SetCookie sets the API cookie for the session. Slack changed the permissions
+// of all their tokens; now if you inspect the HTTP requests from a web browser
+// session and copy the token from there without copying the cookies, the other
+// requests will fail.
+func (s *SlackAPI) SetCookie(cookie string) {
+	s.cookie = cookie
 }
 
 // URLEndpoint builds and returns the URL to send the HTTP requests.
@@ -67,6 +76,7 @@ func (s *SlackAPI) httpRequest(method string, body io.Reader, action string, par
 	req.Header.Add("Accept-Language", "en-US,en")
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	req.Header.Add("User-Agent", "Mozilla/5.0 (KHTML, like Gecko) Safari/537.36")
+	req.Header.Add("Cookie", s.cookie)
 
 	return req, nil
 }
