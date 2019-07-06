@@ -1,4 +1,4 @@
-module slackapi
+module github.com/cixtor/slackapi
 
 go 1.13
 
