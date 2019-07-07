@@ -403,8 +403,8 @@ func (s *SlackAPI) UsersGetPresence(query string) ResponseUsersGetPresence {
 }
 
 // UsersID gets user identifier from username.
-func (s *SlackAPI) UsersID(query string) string {
-	response := s.UsersList()
+func (s *SlackAPI) UsersID(query string, limit int) string {
+	response := s.UsersList(limit)
 
 	if response.Ok {
 		/* allow user references: @username */
@@ -431,7 +431,6 @@ func (s *SlackAPI) UsersIdentity() ResponseUsersIdentity {
 
 // UsersInfo gets information about a user.
 func (s *SlackAPI) UsersInfo(query string) ResponseUsersInfo {
-	query = s.UsersID(query)
 	var response ResponseUsersInfo
 	s.getRequest(&response, "users.info", struct {
 		User string `json:"user"`
@@ -440,13 +439,15 @@ func (s *SlackAPI) UsersInfo(query string) ResponseUsersInfo {
 }
 
 // UsersList lists all users in a Slack team.
-func (s *SlackAPI) UsersList() ResponseUsersList {
+func (s *SlackAPI) UsersList(limit int) ResponseUsersList {
 	if s.teamUsers.Ok {
 		return s.teamUsers
 	}
 
 	var response ResponseUsersList
-	s.getRequest(&response, "users.list", nil)
+	s.getRequest(&response, "users.list", struct {
+		Limit int `json:"limit"`
+	}{limit})
 	s.teamUsers = response
 
 	return response
@@ -508,7 +509,7 @@ func (s *SlackAPI) UsersProfileGet(query string) ResponseUserIdentity {
 	s.getRequest(&response, "users.profile.get", struct {
 		User          string `json:"user"`
 		IncludeLabels bool   `json:"include_labels"`
-	}{s.UsersID(query), false})
+	}{query, false})
 	return response
 }
 
@@ -518,7 +519,7 @@ func (s *SlackAPI) UsersProfileGetWithLabels(query string) ResponseUserIdentity 
 	s.getRequest(&response, "users.profile.get", struct {
 		User          string `json:"user"`
 		IncludeLabels bool   `json:"include_labels"`
-	}{s.UsersID(query), true})
+	}{query, true})
 	return response
 }
 
@@ -542,10 +543,10 @@ func (s *SlackAPI) UsersProfileSetMultiple(profile string) ResponseUserIdentity 
 }
 
 // UsersSearch search users by name or email address.
-func (s *SlackAPI) UsersSearch(query string) ResponseUsersList {
+func (s *SlackAPI) UsersSearch(query string, limit int) ResponseUsersList {
 	var response ResponseUsersList
 
-	res := s.UsersList()
+	res := s.UsersList(limit)
 
 	if !res.Ok {
 		response.Error = res.Error

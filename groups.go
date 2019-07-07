@@ -76,12 +76,12 @@ func (s *SlackAPI) GroupsInfo(channel string) ResponseGroupsInfo {
 
 // GroupsInvite invites a user to a private channel.
 func (s *SlackAPI) GroupsInvite(channel string, user string) Response {
-	return s.ResourceInvite("groups.invite", s.GroupsID(channel), s.UsersID(user))
+	return s.ResourceInvite("groups.invite", s.GroupsID(channel), user)
 }
 
 // GroupsKick removes a user from a private channel.
 func (s *SlackAPI) GroupsKick(channel string, user string) Response {
-	return s.ResourceKick("groups.kick", s.GroupsID(channel), s.UsersID(user))
+	return s.ResourceKick("groups.kick", s.GroupsID(channel), user)
 }
 
 // GroupsLeave leaves a private channel.

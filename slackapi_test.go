@@ -879,7 +879,7 @@ func TestUsersGetPresence(t *testing.T) {
 
 func TestUsersID(t *testing.T) {
 	s := New()
-	x := s.UsersID("user")
+	x := s.UsersID("user", 20)
 	y := `"user"`
 	CheckResponse(t, x, y)
 }
@@ -900,7 +900,7 @@ func TestUsersInfo(t *testing.T) {
 
 func TestUsersList(t *testing.T) {
 	s := New()
-	x := s.UsersList()
+	x := s.UsersList(20)
 	y := `{"ok":false,"error":"not_authed","members":null}`
 	CheckResponse(t, x, y)
 }
@@ -970,7 +970,7 @@ func TestUsersProfileSetMultiple(t *testing.T) {
 
 func TestUsersSearch(t *testing.T) {
 	s := New()
-	x := s.UsersSearch("user")
+	x := s.UsersSearch("user", 20)
 	y := `{"ok":false,"error":"not_authed","members":null}`
 	CheckResponse(t, x, y)
 }

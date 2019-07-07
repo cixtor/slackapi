@@ -104,7 +104,7 @@ func (s *SlackAPI) TeamBillableInfo(user string) ResponseBillableInfo {
 	var response ResponseBillableInfo
 	s.getRequest(&response, "team.billableInfo", struct {
 		User string `json:"user"`
-	}{s.UsersID(user)})
+	}{user})
 	return response
 }
 

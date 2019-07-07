@@ -52,7 +52,7 @@ func (s *SlackAPI) InstantMessageOpen(user string) Session {
 	s.getRequest(&response, "im.open", struct {
 		User     string `json:"user"`
 		ReturnIM bool   `json:"return_im"`
-	}{s.UsersID(user), true})
+	}{user, true})
 	return response
 }
 

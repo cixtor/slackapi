@@ -72,7 +72,7 @@ func (s *SlackAPI) ChannelsInfo(channel string) ResponseChannelsInfo {
 
 // ChannelsInvite invites a user to a channel.
 func (s *SlackAPI) ChannelsInvite(channel string, user string) Response {
-	return s.ResourceInvite("channels.invite", s.ChannelsID(channel), s.UsersID(user))
+	return s.ResourceInvite("channels.invite", s.ChannelsID(channel), user)
 }
 
 // ChannelsJoin joins a channel, creating it if needed.
@@ -87,7 +87,7 @@ func (s *SlackAPI) ChannelsJoin(name string) ResponseChannelsJoin {
 
 // ChannelsKick removes a user from a channel.
 func (s *SlackAPI) ChannelsKick(channel string, user string) Response {
-	return s.ResourceKick("channels.kick", s.ChannelsID(channel), s.UsersID(user))
+	return s.ResourceKick("channels.kick", s.ChannelsID(channel), user)
 }
 
 // ChannelsLeave leaves a channel.

@@ -19,6 +19,6 @@ func (s *SlackAPI) BotsInfo(bot string) ResponseBot {
 	var response ResponseBot
 	s.getRequest(&response, "bots.info", struct {
 		Bot string `json:"bot"`
-	}{s.UsersID(bot)})
+	}{bot})
 	return response
 }
