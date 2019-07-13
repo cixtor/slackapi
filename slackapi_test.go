@@ -270,7 +270,7 @@ func TestFilesCommentsDelete(t *testing.T) {
 func TestFilesCommentsEdit(t *testing.T) {
 	s := New()
 	x := s.FilesCommentsEdit("fileid", "commentid", "comment")
-	y := `{"ok":false,"error":"not_authed","comment":{"comment":"","created":0,"id":"","timestamp":0,"user":""}}`
+	y := `{"ok":false,"error":"unknown_method","comment":{"comment":"","id":"","user":"","created":0,"timestamp":0,"is_intro":false}}`
 	CheckResponse(t, x, y)
 }
 
