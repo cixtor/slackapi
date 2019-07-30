@@ -82,8 +82,8 @@ func (s *SlackAPI) httpRequest(method string, body io.Reader, action string, par
 }
 
 // DataToParams converts a template into a HTTP request parameter map.
-func (s *SlackAPI) dataToParams(data interface{}) map[string]string {
-	if data == nil {
+func (s *SlackAPI) dataToParams(input interface{}) map[string]string {
+	if input == nil {
 		/* no params except for the API token */
 		return map[string]string{"token": s.token}
 	}
@@ -91,8 +91,8 @@ func (s *SlackAPI) dataToParams(data interface{}) map[string]string {
 	var name string
 	var value interface{}
 
-	t := reflect.TypeOf(data)
-	v := reflect.ValueOf(data)
+	t := reflect.TypeOf(input)
+	v := reflect.ValueOf(input)
 
 	length := t.NumField() /* struct size */
 	params := make(map[string]string, length+1)
@@ -132,7 +132,7 @@ func (s *SlackAPI) dataToParams(data interface{}) map[string]string {
 }
 
 // ExecuteRequest sends the HTTP request and decodes the JSON response.
-func (s *SlackAPI) executeRequest(req *http.Request, data interface{}) {
+func (s *SlackAPI) executeRequest(req *http.Request, input interface{}) {
 	client := &http.Client{}
 	resp, err := client.Do(req)
 
@@ -150,14 +150,14 @@ func (s *SlackAPI) executeRequest(req *http.Request, data interface{}) {
 	var buf bytes.Buffer
 	tee := io.TeeReader(resp.Body, &buf)
 
-	if err := json.NewDecoder(tee).Decode(&data); err != nil {
+	if err := json.NewDecoder(tee).Decode(&input); err != nil {
 		out, _ := ioutil.ReadAll(&buf) /* bad idea; change */
 
 		if strings.Contains(string(out), "too many requests") {
 			fake := "{\"ok\":false, \"error\":\"RATELIMIT\"}"
 			read := bytes.NewReader([]byte(fake))
 
-			if err2 := json.NewDecoder(read).Decode(&data); err2 != nil {
+			if err2 := json.NewDecoder(read).Decode(&input); err2 != nil {
 				log.Println("http exec; json decode;", err)
 			}
 
@@ -192,8 +192,8 @@ func (s *SlackAPI) printCurlCommand(req *http.Request, params map[string]string)
 }
 
 // GetRequest sends a HTTP GET request to the API and returns the response.
-func (s *SlackAPI) getRequest(v interface{}, action string, data interface{}) {
-	params := s.dataToParams(data)
+func (s *SlackAPI) getRequest(input interface{}, action string, output interface{}) {
+	params := s.dataToParams(output)
 	req, err := s.httpRequest("GET", nil, action, params)
 
 	if err != nil {
@@ -202,7 +202,7 @@ func (s *SlackAPI) getRequest(v interface{}, action string, data interface{}) {
 	}
 
 	s.printCurlCommand(req, params)
-	s.executeRequest(req, &v)
+	s.executeRequest(req, &input)
 }
 
 // PostRequest sends a HTTP POST request to the API and returns the response. If
@@ -212,9 +212,9 @@ func (s *SlackAPI) getRequest(v interface{}, action string, data interface{}) {
 // HTTP request object and upload it to the API. Alternatively, if the file does
 // not exists, the method will send the parameter with the apparent filename as
 // a string value.
-func (s *SlackAPI) postRequest(v interface{}, action string, data interface{}) {
+func (s *SlackAPI) postRequest(input interface{}, action string, output interface{}) {
 	var buffer bytes.Buffer
-	params := s.dataToParams(data)
+	params := s.dataToParams(output)
 	writer := multipart.NewWriter(&buffer)
 
 	for name, value := range params {
@@ -271,7 +271,7 @@ func (s *SlackAPI) postRequest(v interface{}, action string, data interface{}) {
 	req.Header.Set("Content-Type", writer.FormDataContentType())
 
 	s.printCurlCommand(req, params)
-	s.executeRequest(req, &v)
+	s.executeRequest(req, &input)
 }
 
 // CheckFileReference checks if a HTTP request parameter is a file reference.
