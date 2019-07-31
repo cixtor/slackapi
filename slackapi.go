@@ -292,3 +292,49 @@ func (s *SlackAPI) checkFileReference(text string) (bool, string, string) {
 
 	return true, fpath, fname
 }
+
+func (s *SlackAPI) anyPOST(targetURL string, input interface{}, output interface{}) error {
+	var err error
+	var req *http.Request
+	var res *http.Response
+	var binput []byte
+
+	if binput, err = json.Marshal(input); err != nil {
+		return fmt.Errorf("cannot json.Marshal `%#v`: %s", input, err)
+	}
+
+	if req, err = http.NewRequest(http.MethodPost, targetURL, bytes.NewBuffer(binput)); err != nil {
+		return fmt.Errorf("cannot http.NewRequest: %s", err)
+	}
+
+	req.Header.Set("Accept-Language", "en-us")
+	req.Header.Set("Accept", "application/json")
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("User-Agent", "Mozilla/5.0 (KHTML, like Gecko) Safari/537.36")
+
+	if s.cookie != "" {
+		// NOTES(cixtor): some tokens are only accepted if a valid HTTP cookie
+		// is passed with the rest of the request. For example, tokens created
+		// by the web authorization flow.
+		req.Header.Set("Cookie", s.cookie)
+	}
+
+	client := &http.Client{Timeout: time.Second * 15}
+
+	if res, err = client.Do(req); err != nil {
+		return fmt.Errorf("cannot http.Client.Do: %s", err)
+	}
+
+	defer func() {
+		if err := res.Body.Close(); err != nil {
+			panic(fmt.Errorf("cannot res.Body.Close: %s", err))
+		}
+	}()
+
+	// NOTES(cixtor): output is expected to be a pointer to a variable.
+	if err = json.NewDecoder(res.Body).Decode(output); err != nil {
+		return fmt.Errorf("cannot json.Decode: %s", err)
+	}
+
+	return nil
+}
