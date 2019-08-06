@@ -340,5 +340,9 @@ func (s *SlackAPI) anyPOST(targetURL string, input interface{}, output interface
 }
 
 func (s *SlackAPI) basePOST(endpoint string, input interface{}, output interface{}) error {
-	return s.anyPOST("https://api.slack.com"+endpoint, input, output)
+	return s.anyPOST("https://slack.com"+endpoint, input, output)
+}
+
+func (s *SlackAPI) edgePOST(endpoint string, input interface{}, output interface{}) error {
+	return s.anyPOST("https://edgeapi.slack.com"+endpoint, input, output)
 }
