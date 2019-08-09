@@ -20,7 +20,14 @@ type ResponseUsersGetPresence struct {
 // ResponseUsersList defines the JSON-encoded output for UsersList.
 type ResponseUsersList struct {
 	Response
-	Members []User `json:"members"`
+	Members          []User           `json:"members"`
+	CacheTS          int              `json:"cache_ts"`
+	ResponseMetadata ResponseMetadata `json:"response_metadata"`
+}
+
+// ResponseMetadata defines the JSON-encoded output for metadata.
+type ResponseMetadata struct {
+	NextCursor string `json:"next_cursor"`
 }
 
 // ResponseUserPrefs defines the JSON-encoded output for UserPrefs.
@@ -404,7 +411,7 @@ func (s *SlackAPI) UsersGetPresence(query string) ResponseUsersGetPresence {
 
 // UsersID gets user identifier from username.
 func (s *SlackAPI) UsersID(query string, limit int) string {
-	response := s.UsersList(limit)
+	response := s.UsersList(limit, "")
 
 	if response.Ok {
 		/* allow user references: @username */
@@ -439,15 +446,19 @@ func (s *SlackAPI) UsersInfo(query string) ResponseUsersInfo {
 }
 
 // UsersList lists all users in a Slack team.
-func (s *SlackAPI) UsersList(limit int) ResponseUsersList {
+func (s *SlackAPI) UsersList(limit int, cursor string) ResponseUsersList {
 	if s.teamUsers.Ok {
 		return s.teamUsers
 	}
 
 	var response ResponseUsersList
 	s.getRequest(&response, "users.list", struct {
-		Limit int `json:"limit"`
-	}{limit})
+		Limit  int    `json:"limit"`
+		Cursor string `json:"cursor"`
+	}{
+		Limit:  limit,
+		Cursor: cursor,
+	})
 	s.teamUsers = response
 
 	return response

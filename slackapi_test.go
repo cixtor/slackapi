@@ -900,7 +900,7 @@ func TestUsersInfo(t *testing.T) {
 
 func TestUsersList(t *testing.T) {
 	s := New()
-	x := s.UsersList(20)
+	x := s.UsersList(20, "")
 	y := `{"ok":false,"error":"not_authed","members":null}`
 	CheckResponse(t, x, y)
 }
