@@ -10,12 +10,27 @@ type SearchArgs struct {
 	SortDir   string `json:"sort_dir"`
 }
 
+type SearchUsersArgs struct {
+	Token               string `json:"token"`
+	Query               string `json:"query"`
+	Count               int    `json:"count"`
+	Fuzz                int    `json:"fuzz"`
+	UAX29Tokenizer      bool   `json:"uax29_tokenizer"`
+	SearchProfileFields bool   `json:"search_profile_fields"`
+}
+
 type ResponseSearch struct {
 	Response
 	Query    string         `json:"query"`
 	Files    SearchFiles    `json:"files"`
 	Posts    SearchPosts    `json:"posts"`
 	Messages SearchMessages `json:"messages"`
+}
+
+type ResponseSearchUsers struct {
+	Response
+	Results           []User   `json:"results"`
+	PresenceActiveIds []string `json:"presence_active_ids"`
 }
 
 type SearchMessages struct {
@@ -99,4 +114,23 @@ func (s *SlackAPI) SearchFiles(data SearchArgs) ResponseSearch {
 // SearchMessages searches for messages matching a query.
 func (s *SlackAPI) SearchMessages(data SearchArgs) ResponseSearch {
 	return s.searchStuff("search.messages", data)
+}
+
+// SearchUsers searches for users matching a query.
+func (s *SlackAPI) SearchUsers(input SearchUsersArgs) (ResponseSearchUsers, error) {
+	owner := s.AuthTest()
+
+	if owner.TeamID == "" {
+		return ResponseSearchUsers{Response: owner.Response}, nil
+	}
+
+	if input.Token == "" {
+		input.Token = s.token
+	}
+
+	var response ResponseSearchUsers
+	if err := s.edgePOST("/cache/"+owner.TeamID+"/users/search", input, &response); err != nil {
+		return ResponseSearchUsers{}, err
+	}
+	return response, nil
 }

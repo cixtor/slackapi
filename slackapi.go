@@ -13,6 +13,7 @@ import (
 	"os"
 	"reflect"
 	"strings"
+	"time"
 )
 
 // SlackAPI defines the base object. It holds the API token, the information of

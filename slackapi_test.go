@@ -771,6 +771,16 @@ func TestSearchMessages(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
+func TestSearchUsers(t *testing.T) {
+	s := New()
+	x, err := s.SearchUsers(SearchUsersArgs{Query: "foobar", Count: 20})
+	if err != nil {
+		t.Fatal(err)
+	}
+	y := `{"ok":false,"error":"not_authed","results":null,"presence_active_ids":null}`
+	CheckResponse(t, x, y)
+}
+
 func TestSetToken(t *testing.T) {
 	s := New()
 	s.SetToken("foobar")
