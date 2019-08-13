@@ -2,7 +2,6 @@ package slackapi
 
 import (
 	"encoding/json"
-	"strings"
 )
 
 // ResponseUsersInfo defines the JSON-encoded output for UsersInfo.
@@ -550,30 +549,6 @@ func (s *SlackAPI) UsersProfileSetMultiple(profile string) ResponseUserIdentity 
 	s.postRequest(&response, "users.profile.set", struct {
 		Profile string `json:"profile"`
 	}{profile})
-	return response
-}
-
-// UsersSearch search users by name or email address.
-func (s *SlackAPI) UsersSearch(query string, limit int) ResponseUsersList {
-	var response ResponseUsersList
-
-	res := s.UsersList(limit)
-
-	if !res.Ok {
-		response.Error = res.Error
-		return response
-	}
-
-	response.Ok = true
-
-	for _, user := range res.Members {
-		if strings.Contains(user.Name, query) ||
-			strings.Contains(user.RealName, query) ||
-			strings.Contains(user.Profile.Email, query) {
-			response.Members = append(response.Members, user)
-		}
-	}
-
 	return response
 }
 

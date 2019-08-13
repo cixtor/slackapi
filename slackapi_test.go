@@ -978,13 +978,6 @@ func TestUsersProfileSetMultiple(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
-func TestUsersSearch(t *testing.T) {
-	s := New()
-	x := s.UsersSearch("user", 20)
-	y := `{"ok":false,"error":"not_authed","members":null}`
-	CheckResponse(t, x, y)
-}
-
 func TestUsersSetActive(t *testing.T) {
 	s := New()
 	x := s.UsersSetActive()
