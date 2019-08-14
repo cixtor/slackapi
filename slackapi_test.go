@@ -911,7 +911,7 @@ func TestUsersInfo(t *testing.T) {
 func TestUsersList(t *testing.T) {
 	s := New()
 	x := s.UsersList(20, "")
-	y := `{"ok":false,"error":"not_authed","members":null}`
+	y := `{"ok":false,"error":"not_authed","members":null,"cache_ts":0,"response_metadata":{"next_cursor":""}}`
 	CheckResponse(t, x, y)
 }
 
