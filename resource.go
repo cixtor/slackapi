@@ -146,7 +146,7 @@ func (s *SlackAPI) ResourcePurgeHistory(action string, channel string, latest st
 					fmt.Printf("\u2718 %s\n", result.Error)
 				}
 
-				if result.Error == "RATELIMIT" {
+				if result.Error == "RATELIMIT" || result.Error == "ratelimited" {
 					time.Sleep(10 * time.Second)
 				}
 			}
