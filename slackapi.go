@@ -25,6 +25,7 @@ type SlackAPI struct {
 	owner        Owner
 	token        string
 	cookie       string
+	client       *http.Client
 	teamUsers    ResponseUsersList
 	teamGroups   ResponseGroupsList
 	teamChannels ResponseChannelsList
@@ -32,7 +33,11 @@ type SlackAPI struct {
 
 // New instantiates a new object.
 func New() *SlackAPI {
-	return new(SlackAPI)
+	return &SlackAPI{
+		client: &http.Client{
+			Timeout: time.Second * 5,
+		},
+	}
 }
 
 // SetToken sets the API token for the session.
