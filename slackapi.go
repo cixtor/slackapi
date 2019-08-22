@@ -53,6 +53,11 @@ func (s *SlackAPI) SetCookie(cookie string) {
 	s.cookie = cookie
 }
 
+// SetTimeout sets the maximum amount of time to wait for the HTTP request.
+func (s *SlackAPI) SetTimeout(t time.Duration) {
+	s.client.Timeout = t
+}
+
 // URLEndpoint builds and returns the URL to send the HTTP requests.
 func (s *SlackAPI) urlEndpoint(action string, params map[string]string) string {
 	data := url.Values{}
