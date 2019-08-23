@@ -74,6 +74,39 @@ func (s *SlackAPI) urlEndpoint(action string, params map[string]string) string {
 	return url
 }
 
+func (s *SlackAPI) sendRequest(req *http.Request, output interface{}) error {
+	req.Header.Set("Accept-Language", "en-us")
+	req.Header.Set("Accept", "application/json")
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("User-Agent", "Mozilla/5.0 (KHTML, like Gecko) Safari/537.36")
+
+	if s.cookie != "" {
+		// NOTES(cixtor): some tokens are only accepted if a valid HTTP cookie
+		// is passed with the rest of the request. For example, tokens created
+		// by the web authorization flow.
+		req.Header.Set("Cookie", s.cookie)
+	}
+
+	res, err := s.client.Do(req)
+
+	if err != nil {
+		return fmt.Errorf("cannot http.Client.Do: %s", err)
+	}
+
+	defer func() {
+		if err := res.Body.Close(); err != nil {
+			panic(fmt.Errorf("cannot res.Body.Close: %s", err))
+		}
+	}()
+
+	// NOTES(cixtor): output is expected to be a pointer to a variable.
+	if err := json.NewDecoder(res.Body).Decode(output); err != nil {
+		return fmt.Errorf("cannot json.Decode: %s", err)
+	}
+
+	return nil
+}
+
 // HTTPRequest builds an HTTP request object and attaches the action parameters.
 func (s *SlackAPI) httpRequest(method string, body io.Reader, action string, params map[string]string) (*http.Request, error) {
 	req, err := http.NewRequest(method, s.urlEndpoint(action, params), body)
@@ -305,49 +338,19 @@ func (s *SlackAPI) checkFileReference(text string) (bool, string, string) {
 }
 
 func (s *SlackAPI) anyPOST(targetURL string, input interface{}, output interface{}) error {
-	var err error
-	var req *http.Request
-	var res *http.Response
-	var binput []byte
+	binput, err := json.Marshal(input)
 
-	if binput, err = json.Marshal(input); err != nil {
+	if err != nil {
 		return fmt.Errorf("cannot json.Marshal `%#v`: %s", input, err)
 	}
 
-	if req, err = http.NewRequest(http.MethodPost, targetURL, bytes.NewBuffer(binput)); err != nil {
-		return fmt.Errorf("cannot http.NewRequest: %s", err)
+	req, err := http.NewRequest(http.MethodPost, targetURL, bytes.NewBuffer(binput))
+
+	if err != nil {
+		return fmt.Errorf("cannot http.NewRequest.POST: %s", err)
 	}
 
-	req.Header.Set("Accept-Language", "en-us")
-	req.Header.Set("Accept", "application/json")
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("User-Agent", "Mozilla/5.0 (KHTML, like Gecko) Safari/537.36")
-
-	if s.cookie != "" {
-		// NOTES(cixtor): some tokens are only accepted if a valid HTTP cookie
-		// is passed with the rest of the request. For example, tokens created
-		// by the web authorization flow.
-		req.Header.Set("Cookie", s.cookie)
-	}
-
-	client := &http.Client{Timeout: time.Second * 15}
-
-	if res, err = client.Do(req); err != nil {
-		return fmt.Errorf("cannot http.Client.Do: %s", err)
-	}
-
-	defer func() {
-		if err := res.Body.Close(); err != nil {
-			panic(fmt.Errorf("cannot res.Body.Close: %s", err))
-		}
-	}()
-
-	// NOTES(cixtor): output is expected to be a pointer to a variable.
-	if err = json.NewDecoder(res.Body).Decode(output); err != nil {
-		return fmt.Errorf("cannot json.Decode: %s", err)
-	}
-
-	return nil
+	return s.sendRequest(req, output)
 }
 
 func (s *SlackAPI) basePOST(endpoint string, input interface{}, output interface{}) error {
