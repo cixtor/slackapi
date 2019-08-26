@@ -337,6 +337,16 @@ func (s *SlackAPI) checkFileReference(text string) (bool, string, string) {
 	return true, fpath, fname
 }
 
+func (s *SlackAPI) anyGET(targetURL string, input url.Values, output interface{}) error {
+	req, err := http.NewRequest(http.MethodGet, targetURL+"?"+input.Encode(), nil)
+
+	if err != nil {
+		return fmt.Errorf("cannot http.NewRequest.GET: %s", err)
+	}
+
+	return s.sendRequest(req, output)
+}
+
 func (s *SlackAPI) anyPOST(targetURL string, input interface{}, output interface{}) error {
 	binput, err := json.Marshal(input)
 

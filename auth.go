@@ -1,5 +1,9 @@
 package slackapi
 
+import (
+	"net/url"
+)
+
 // ResponseRevocation defines the JSON-encoded output for Revocation.
 type ResponseRevocation struct {
 	Response
