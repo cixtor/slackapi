@@ -22,7 +22,6 @@ import (
 // public channels, a list of all the accessible private groups, and a list of
 // the users registered into the Slack team.
 type SlackAPI struct {
-	owner        Owner
 	token        string
 	cookie       string
 	client       *http.Client

@@ -118,7 +118,11 @@ func (s *SlackAPI) SearchMessages(data SearchArgs) ResponseSearch {
 
 // SearchUsers searches for users matching a query.
 func (s *SlackAPI) SearchUsers(input SearchUsersArgs) (ResponseSearchUsers, error) {
-	owner := s.AuthTest()
+	owner, err := s.AuthTest()
+
+	if err != nil {
+		return ResponseSearchUsers{}, err
+	}
 
 	if owner.TeamID == "" {
 		return ResponseSearchUsers{Response: owner.Response}, nil

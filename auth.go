@@ -32,14 +32,11 @@ func (s *SlackAPI) AuthRevoke() ResponseRevocation {
 }
 
 // AuthTest checks authentication and identity.
-func (s *SlackAPI) AuthTest() Owner {
-	if s.owner.Ok {
-		return s.owner
+func (s *SlackAPI) AuthTest() (*Owner, error) {
+	var output Owner
+	input := url.Values{"token": []string{s.token}}
+	if err := s.baseGET("/api/auth.test", input, &output); err != nil {
+		return nil, err
 	}
-
-	var response Owner
-	s.getRequest(&response, "auth.test", nil)
-	s.owner = response
-
-	return response
+	return &output, nil
 }

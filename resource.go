@@ -78,13 +78,18 @@ func (s *SlackAPI) ResourceMark(action string, channel string, ts string) Respon
 
 // ResourceMyHistory displays messages of the current user from a channel.
 func (s *SlackAPI) ResourceMyHistory(action string, channel string, latest string) MyHistory {
-	var rhistory MyHistory
+	owner, err := s.AuthTest()
 
-	owner := s.AuthTest()
+	if err != nil {
+		return MyHistory{}
+	}
+
 	response := s.ResourceHistory(action, HistoryArgs{
 		Channel: channel,
 		Latest:  latest,
 	})
+
+	var rhistory MyHistory
 
 	for _, message := range response.Messages {
 		rhistory.Total++
