@@ -38,13 +38,69 @@ Note that the client runs with the same chat session of the user that is using t
 
 | :shipit: | Method | Description |
 |----------|--------|-------------|
+| :red_circle: | `admin.apps.approve` | Approve an app for installation on a workspace |
+| :red_circle: | `admin.apps.restrict` | Restrict an app for installation on a workspace |
+| :red_circle: | `admin.apps.approved.list` | List approved apps for an org or workspace |
+| :red_circle: | `admin.apps.requests.list` | List app requests for a team/workspace |
+| :red_circle: | `admin.apps.restricted.list` | List restricted apps for an org or workspace |
+| :red_circle: | `admin.conversations.restrictAccess.addGroup` | Add an allowlist of IDP groups for accessing a channel |
+| :red_circle: | `admin.conversations.restrictAccess.listGroups` | List all IDP Groups linked to a channel |
+| :red_circle: | `admin.conversations.restrictAccess.removeGroup` | Remove a linked IDP group linked from a private channel |
+| :red_circle: | `admin.conversations.setTeams` | Set the workspaces in an Enterprise grid org that connect to a channel |
+| :black_circle: | [admin.conversations.whitelist.add](https://api.slack.com/methods/admin.conversations.whitelist.add) | Add an allowlist of IDP groups for accessing a channel. This method is deprecated. Use `admin.conversations.restrictAccess.addGroup` instead |
+| :black_circle: | [admin.conversations.whitelist.listGroupsLinkedToChannel](https://api.slack.com/methods/admin.conversations.whitelist.listGroupsLinkedToChannel) | List all IDP Groups linked to a channel. This method is deprecated. Use `admin.conversations.restrictAccess.listGroups` instead |
+| :black_circle: | [admin.conversations.whitelist.remove](https://api.slack.com/methods/admin.conversations.whitelist.remove) | Remove an allowlisted IDP group linked to a private channel. This method is deprecated. Use `admin.conversations.restrictAccess.removeGroup` instead |
+| :red_circle: | `admin.emoji.add` | Add an emoji |
+| :red_circle: | `admin.emoji.addAlias` | Add an emoji alias |
+| :red_circle: | `admin.emoji.list` | List emoji for an Enterprise Grid organization |
+| :red_circle: | `admin.emoji.remove` | Remove an emoji across an Enterprise Grid organization |
+| :red_circle: | `admin.emoji.rename` | Rename an emoji |
+| :red_circle: | `admin.inviteRequests.approve` | Approve a workspace invite request |
+| :red_circle: | `admin.inviteRequests.deny` | Deny a workspace invite request |
+| :red_circle: | `admin.inviteRequests.list` | List all pending workspace invite requests |
+| :red_circle: | `admin.inviteRequests.approved.list` | List all approved workspace invite requests |
+| :red_circle: | `admin.inviteRequests.denied.list` | List all denied workspace invite requests |
+| :red_circle: | `admin.teams.admins.list` | List all of the admins on a given workspace |
+| :red_circle: | `admin.teams.create` | Create an Enterprise team |
+| :red_circle: | `admin.teams.list` | List all teams on an Enterprise organization |
+| :red_circle: | `admin.teams.owners.list` | List all of the owners on a given workspace |
+| :red_circle: | `admin.teams.settings.info` | Fetch information about settings in a workspace |
+| :red_circle: | `admin.teams.settings.setDefaultChannels` | Set the default channels of a workspace |
+| :red_circle: | `admin.teams.settings.setDescription` | Set the description of a given workspace |
+| :red_circle: | `admin.teams.settings.setDiscoverability` | An API method that allows admins to set the discoverability of a given workspace |
+| :red_circle: | `admin.teams.settings.setIcon` | Sets the icon of a workspace |
+| :red_circle: | `admin.teams.settings.setName` | Set the name of a given workspace |
+| :red_circle: | `admin.usergroups.addChannels` | Add one or more default channels to an IDP group |
+| :red_circle: | `admin.usergroups.addTeams` | Associate one or more default workspaces with an organization-wide IDP group |
+| :red_circle: | `admin.usergroups.listChannels` | List the channels linked to an org-level IDP group (user group) |
+| :red_circle: | `admin.usergroups.removeChannels` | Remove one or more default channels from an org-level IDP group (user group) |
+| :red_circle: | `admin.users.assign` | Add an Enterprise user to a workspace |
+| :red_circle: | `admin.users.invite` | Invite a user to a workspace |
+| :red_circle: | `admin.users.list` | List users on a workspace |
+| :red_circle: | `admin.users.remove` | Remove a user from a workspace |
+| :red_circle: | `admin.users.setAdmin` | Set an existing guest, regular user, or owner to be an admin user |
+| :red_circle: | `admin.users.setExpiration` | Set an expiration for a guest user |
+| :red_circle: | `admin.users.setOwner` | Set an existing guest, regular user, or admin user to be a workspace owner |
+| :red_circle: | `admin.users.setRegular` | Set an existing guest user, admin user, or owner to be a regular user |
+| :red_circle: | `admin.users.session.reset` | Wipes all valid sessions on all devices for a given user |
 | :large_blue_circle: | `api.test` | Checks API calling code |
 | :large_blue_circle: | `apps.list` | Lists associated applications |
 | :red_circle: | `apps.permissions.info` | Returns list of permissions this app has on a team |
 | :red_circle: | `apps.permissions.request` | Allows an app to request additional scopes |
+| :red_circle: | `apps.permissions.resources.list` | Returns list of resource grants this app has on a team |
+| :red_circle: | `apps.permissions.scopes.list` | Returns list of scopes this app has on a team |
+| :red_circle: | `apps.permissions.users.list` | Returns list of user grants and corresponding scopes this app has on a team |
+| :red_circle: | `apps.permissions.users.request` | Enables an app to trigger a permissions modal to grant an app access to a user access scope |
+| :red_circle: | `apps.uninstall` | Uninstalls your app from a workspace |
 | :large_blue_circle: | `auth.revoke` | Revokes a token |
 | :large_blue_circle: | `auth.test` | Checks authentication and identity |
 | :large_blue_circle: | `bots.info` | Gets information about a bot user |
+| :red_circle: | `calls.add` | Registers a new Call |
+| :red_circle: | `calls.end` | Ends a Call |
+| :red_circle: | `calls.info` | Returns information about a Call |
+| :red_circle: | `calls.update` | Updates information about a Call |
+| :red_circle: | `calls.participants.add` | Registers new participants added to a Call |
+| :red_circle: | `calls.participants.remove` | Registers participants removed from a Call |
 | :large_blue_circle: | `channels.archive` | Archives a channel |
 | :large_blue_circle: | `channels.create` | Creates a channel |
 | :large_blue_circle: | `channels.history` | Fetches history of messages and events from a channel |
@@ -66,11 +122,14 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `channels.suggestions` | Prints a list of suggested channels to join |
 | :large_blue_circle: | `channels.unarchive` | Unarchives a channel |
 | :large_blue_circle: | `chat.delete` | Deletes a message |
+| :red_circle: | `chat.deleteScheduledMessage` | Deletes a pending scheduled message from the queue |
 | :red_circle: | `chat.getPermalink` | Retrieve a permalink URL for a specific extant message |
 | :large_blue_circle: | `chat.meMessage` | Share a me message into a channel |
 | :red_circle: | `chat.postEphemeral` | Sends an ephemeral message to a user in a channel |
 | :large_blue_circle: | `chat.postMessage` | Sends a message to a channel |
 | :large_blue_circle: | `chat.robotMessage` | Sends a message to a channel as a robot |
+| :red_circle: | `chat.scheduleMessage` | Schedules a message to be sent to a channel |
+| :red_circle: | `chat.scheduledMessages.list` | Returns a list of scheduled messages |
 | :large_blue_circle: | `chat.session` | Starts a new chat session |
 | :red_circle: | `chat.unfurl` | Provide custom unfurl behavior for user-posted URLs |
 | :large_blue_circle: | `chat.update` | Updates a message |
@@ -113,6 +172,12 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `files.revokePublicURL` | Revokes public/external sharing access for a file |
 | :large_blue_circle: | `files.sharedPublicURL` | Enables a file for public/external sharing |
 | :large_blue_circle: | `files.upload` | Uploads or creates a file |
+| :red_circle: | `files.remote.add` | Adds a file from a remote service |
+| :red_circle: | `files.remote.info` | Retrieve information about a remote file added to Slack |
+| :red_circle: | `files.remote.list` | Retrieve information about a remote file added to Slack |
+| :red_circle: | `files.remote.remove` | Remove a remote file |
+| :red_circle: | `files.remote.share` | Share a remote file into a channel |
+| :red_circle: | `files.remote.update` | Updates an existing remote file |
 | :large_blue_circle: | `groups.archive` | Archives a private channel |
 | :large_blue_circle: | `groups.close` | Closes a private channel |
 | :large_blue_circle: | `groups.create` | Creates a private channel |
@@ -156,6 +221,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `mpim.replies` | Retrieve a thread of messages posted to a direct message conversation from a multiparty direct message |
 | :red_circle: | `oauth.access` | Exchanges a temporary OAuth code for an API token |
 | :red_circle: | `oauth.token` | Exchanges a temporary OAuth verifier code for a workspace token |
+| :red_circle: | `oauth.v2.access` | Exchanges a temporary OAuth verifier code for an access token |
 | :large_blue_circle: | `pins.add` | Pins an item to a channel |
 | :large_blue_circle: | `pins.list` | Lists items pinned to a channel |
 | :large_blue_circle: | `pins.remove` | Un-pins an item from a channel |
@@ -206,7 +272,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `users.profile.get` | Retrieves a user's profile information |
 | :large_blue_circle: | `users.profile.set` | Set the profile information for a user |
 | :large_blue_circle: | `users.search` | Search users by name or email address |
-| :black_circle: | `users.setActive` | Marked a user as active. **Deprecated and non-functional.** |
+| :black_circle: | [users.setActive](https://api.slack.com/methods/users.setActive) | Marked a user as active. **Deprecated** and non-functional. This method is no longer functional and the behavior it controlled is no longer offered. The method will no longer exist beginning May 8, 2018 |
 | :large_blue_circle: | `users.setAvatar` | Upload a picture and set it as the avatar |
 | :large_blue_circle: | `users.setEmail` | Changes the email address without confirmation |
 | :large_blue_circle: | `users.setPhoto` | Set the user profile photo |
@@ -214,3 +280,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `users.setStatus` | Set the status message and emoji |
 | :large_blue_circle: | `users.setUsername` | Changes the username without admin privileges |
 | :large_blue_circle: | `version` | Displays the program version number |
+| :red_circle: | `views.open` | Open a view for a user |
+| :red_circle: | `views.publish` | Publish a static view for a User |
+| :red_circle: | `views.push` | Push a view onto the stack of a root view |
+| :red_circle: | `views.update` | Update an existing view |
