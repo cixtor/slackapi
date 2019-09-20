@@ -26,11 +26,6 @@ type ChannelSuggestions struct {
 	SuggestionTypesTried []string `json:"suggestion_types_tried"`
 }
 
-// ChannelsArchive archives a channel.
-func (s *SlackAPI) ChannelsArchive(channel string) Response {
-	return s.ResourceArchive("channels.archive", s.ChannelsID(channel))
-}
-
 // ChannelsCreate creates a channel.
 func (s *SlackAPI) ChannelsCreate(name string) ResponseChannelsInfo {
 	var response ResponseChannelsInfo

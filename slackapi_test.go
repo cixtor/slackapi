@@ -53,13 +53,6 @@ func TestBotsInfo(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
-func TestChannelsArchive(t *testing.T) {
-	s := New()
-	x := s.ChannelsArchive("channel")
-	y := `{"ok":false,"error":"not_authed"}`
-	CheckResponse(t, x, y)
-}
-
 func TestChannelsCreate(t *testing.T) {
 	s := New()
 	x := s.ChannelsCreate("channel")
@@ -211,6 +204,13 @@ func TestChatUpdate(t *testing.T) {
 	s := New()
 	x := s.ChatUpdate(MessageArgs{})
 	y := `{"ok":false,"error":"not_authed","channel":"","ts":"","message":{"display_as_bot":false}}`
+	CheckResponse(t, x, y)
+}
+
+func TestConversationsArchive(t *testing.T) {
+	s := New()
+	x := s.ConversationsArchive("channel")
+	y := `{"ok":false,"error":"not_authed"}`
 	CheckResponse(t, x, y)
 }
 

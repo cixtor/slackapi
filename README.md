@@ -101,7 +101,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `calls.update` | Updates information about a Call |
 | :red_circle: | `calls.participants.add` | Registers new participants added to a Call |
 | :red_circle: | `calls.participants.remove` | Registers participants removed from a Call |
-| :large_blue_circle: | `channels.archive` | Archives a channel |
+| :black_circle: | `channels.archive` | Archives a channel. This method is deprecated. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. Please use these methods instead: `conversations.archive` |
 | :large_blue_circle: | `channels.create` | Creates a channel |
 | :large_blue_circle: | `channels.history` | Fetches history of messages and events from a channel |
 | :large_blue_circle: | `channels.id` | Gets channel identifier from readable name |
@@ -133,7 +133,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `chat.session` | Starts a new chat session |
 | :red_circle: | `chat.unfurl` | Provide custom unfurl behavior for user-posted URLs |
 | :large_blue_circle: | `chat.update` | Updates a message |
-| :red_circle: | `conversations.archive` | Archives a conversation |
+| :large_blue_circle: | `conversations.archive` | Archives a conversation |
 | :red_circle: | `conversations.close` | Closes a direct message or multi-person direct message |
 | :red_circle: | `conversations.create` | Initiates a public or private channel-based conversation |
 | :red_circle: | `conversations.history` | Fetches a conversation's history of messages and events |
