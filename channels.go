@@ -26,16 +26,6 @@ type ChannelSuggestions struct {
 	SuggestionTypesTried []string `json:"suggestion_types_tried"`
 }
 
-// ChannelsCreate creates a channel.
-func (s *SlackAPI) ChannelsCreate(name string) ResponseChannelsInfo {
-	var response ResponseChannelsInfo
-	s.postRequest(&response, "channels.create", struct {
-		Name     string `json:"name"`
-		Validate bool   `json:"validate"`
-	}{name, true})
-	return response
-}
-
 // ChannelsHistory fetches history of messages and events from a channel.
 func (s *SlackAPI) ChannelsHistory(data HistoryArgs) History {
 	return s.ResourceHistory("channels.history", data)

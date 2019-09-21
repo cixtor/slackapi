@@ -13,3 +13,19 @@ func (s *SlackAPI) ConversationsArchive(channel string) Response {
 	}
 	return out
 }
+
+// ConversationsCreate creates a channel.
+func (s *SlackAPI) ConversationsCreate(name string) ResponseChannelsInfo {
+	in := struct {
+		Name     string `json:"name"`
+		Validate bool   `json:"validate"`
+	}{
+		Name:     name,
+		Validate: true,
+	}
+	var out ResponseChannelsInfo
+	if err := s.basePOST("/api/channels.create", in, &out); err != nil {
+		return ResponseChannelsInfo{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
