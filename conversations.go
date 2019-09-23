@@ -29,3 +29,33 @@ func (s *SlackAPI) ConversationsCreate(name string) ResponseChannelsInfo {
 	}
 	return out
 }
+
+type ConversationsHistoryInput struct {
+	// Conversation ID to fetch history for.
+	Channel string `json:"channel"`
+	// Paginate through collections of data by setting the cursor parameter to
+	// a next_cursor attribute returned by a previous request's response_metadata.
+	// Default value fetches the first "page" of the collection. See pagination
+	// for more detail.
+	Cursor string `json:"cursor"`
+	// Include messages with latest or oldest timestamp in results only when
+	// either timestamp is specified.
+	Inclusive bool `json:"inclusive"`
+	// End of time range of messages to include in results.
+	Latest string `json:"latest"`
+	// The maximum number of items to return. Fewer than the requested number
+	// of items may be returned, even if the end of the users list hasn't been
+	// reached.
+	Limit int `json:"limit"`
+	// Start of time range of messages to include in results.
+	Oldest string `json:"oldest"`
+}
+
+// ConversationsHistory fetches a conversation's history of messages and events.
+func (s *SlackAPI) ConversationsHistory(input ConversationsHistoryInput) History {
+	var out History
+	if err := s.basePOST("/api/conversations.history", input, &out); err != nil {
+		return History{Response: Response{Error: err.Error()}}
+	}
+	return out
+}

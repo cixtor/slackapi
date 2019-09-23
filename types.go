@@ -29,11 +29,40 @@ type Owner struct {
 }
 
 // History defines the expected data from the JSON-encoded API response.
+//
+// Example:
+//
+//   {
+//       "ok": true,
+//       "messages": [
+//           {
+//               "type": "message",
+//               "user": "U012AB3CDE",
+//               "text": "I find you punny and would like to smell your nose letter",
+//               "ts": "1512085950.000216"
+//           },
+//           {
+//               "type": "message",
+//               "user": "U061F7AUR",
+//               "text": "What, you want to smell my shoes better?",
+//               "ts": "1512104434.000490"
+//           }
+//       ],
+//       "has_more": true,
+//       "pin_count": 0,
+//       "response_metadata": {
+//           "next_cursor": "bmV4dF90czoxNTEyMDg1ODYxMDAwNTQz"
+//       }
+//   }
 type History struct {
 	Response
-	HasMore            bool      `json:"has_more"`
 	Messages           []Message `json:"messages"`
+	HasMore            bool      `json:"has_more"`
+	PinCount           int       `json:"pin_count"`
 	UnreadCountDisplay int       `json:"unread_count_display"`
+	ResponseMetadata   struct {
+		NextCursor string `json:"next_cursor"`
+	} `json:"response_metadata"`
 }
 
 // MyHistory defines the expected data from the JSON-encoded API response.

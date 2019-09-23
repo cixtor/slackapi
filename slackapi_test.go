@@ -53,13 +53,6 @@ func TestBotsInfo(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
-func TestChannelsHistory(t *testing.T) {
-	s := New()
-	x := s.ChannelsHistory(HistoryArgs{Channel: "channel", Latest: "1234567890"})
-	y := `{"ok":false,"error":"not_authed","has_more":false,"messages":null,"unread_count_display":0}`
-	CheckResponse(t, x, y)
-}
-
 func TestChannelsID(t *testing.T) {
 	s := New()
 	x := s.ChannelsID("channel")
@@ -214,6 +207,13 @@ func TestConversationsCreate(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
+func TestConversationsHistory(t *testing.T) {
+	s := New()
+	x := s.ConversationsHistory(ConversationsHistoryInput{Channel: "channel", Latest: "1234567890"})
+	y := `{"ok":false,"error":"not_authed","messages":null,"has_more":false,"pin_count":0,"unread_count_display":0,"response_metadata":{"next_cursor":""}}`
+	CheckResponse(t, x, y)
+}
+
 func TestDNDEndDnd(t *testing.T) {
 	s := New()
 	x := s.DNDEndDnd()
@@ -350,7 +350,7 @@ func TestGroupsCreateChild(t *testing.T) {
 func TestGroupsHistory(t *testing.T) {
 	s := New()
 	x := s.GroupsHistory(HistoryArgs{Channel: "channel", Latest: "1234567890"})
-	y := `{"ok":false,"error":"not_authed","has_more":false,"messages":null,"unread_count_display":0}`
+	y := `{"ok":false,"error":"not_authed","messages":null,"has_more":false,"pin_count":0,"unread_count_display":0,"response_metadata":{"next_cursor":""}}`
 	CheckResponse(t, x, y)
 }
 
@@ -469,7 +469,7 @@ func TestInstantMessageClose(t *testing.T) {
 func TestInstantMessageHistory(t *testing.T) {
 	s := New()
 	x := s.InstantMessageHistory(HistoryArgs{Channel: "channel", Latest: "1234567890"})
-	y := `{"ok":false,"error":"not_authed","has_more":false,"messages":null,"unread_count_display":0}`
+	y := `{"ok":false,"error":"not_authed","messages":null,"has_more":false,"pin_count":0,"unread_count_display":0,"response_metadata":{"next_cursor":""}}`
 	CheckResponse(t, x, y)
 }
 
@@ -539,7 +539,7 @@ func TestMultiPartyInstantMessageClose(t *testing.T) {
 func TestMultiPartyInstantMessageHistory(t *testing.T) {
 	s := New()
 	x := s.MultiPartyInstantMessageHistory(HistoryArgs{Channel: "channel", Latest: "1234567890"})
-	y := `{"ok":false,"error":"not_authed","has_more":false,"messages":null,"unread_count_display":0}`
+	y := `{"ok":false,"error":"not_authed","messages":null,"has_more":false,"pin_count":0,"unread_count_display":0,"response_metadata":{"next_cursor":""}}`
 	CheckResponse(t, x, y)
 }
 
@@ -672,7 +672,7 @@ func TestResourceArchive(t *testing.T) {
 func TestResourceHistory(t *testing.T) {
 	s := New()
 	x := s.ResourceHistory("action", HistoryArgs{})
-	y := `{"ok":false,"error":"unknown_method","has_more":false,"messages":null,"unread_count_display":0}`
+	y := `{"ok":false,"error":"unknown_method","messages":null,"has_more":false,"pin_count":0,"unread_count_display":0,"response_metadata":{"next_cursor":""}}`
 	CheckResponse(t, x, y)
 }
 

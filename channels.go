@@ -26,11 +26,6 @@ type ChannelSuggestions struct {
 	SuggestionTypesTried []string `json:"suggestion_types_tried"`
 }
 
-// ChannelsHistory fetches history of messages and events from a channel.
-func (s *SlackAPI) ChannelsHistory(data HistoryArgs) History {
-	return s.ResourceHistory("channels.history", data)
-}
-
 // ChannelsID gets channel identifier from readable name.
 func (s *SlackAPI) ChannelsID(query string) string {
 	response := s.ChannelsList()
