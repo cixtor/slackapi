@@ -1,5 +1,9 @@
 package slackapi
 
+import (
+	"net/url"
+)
+
 // ConversationsArchive archives a conversation.
 func (s *SlackAPI) ConversationsArchive(channel string) Response {
 	in := struct {
@@ -56,6 +60,20 @@ func (s *SlackAPI) ConversationsHistory(input ConversationsHistoryInput) History
 	var out History
 	if err := s.basePOST("/api/conversations.history", input, &out); err != nil {
 		return History{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
+
+// ConversationsInfo retrieve information about a conversation.
+func (s *SlackAPI) ConversationsInfo(channel string) ResponseChannelsInfo {
+	in := url.Values{
+		"channel":             []string{channel},
+		"include_locale":      []string{"true"},
+		"include_num_members": []string{"true"},
+	}
+	var out ResponseChannelsInfo
+	if err := s.baseGET("/api/conversations.info", in, &out); err != nil {
+		return ResponseChannelsInfo{Response: Response{Error: err.Error()}}
 	}
 	return out
 }

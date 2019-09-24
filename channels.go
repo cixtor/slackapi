@@ -41,15 +41,6 @@ func (s *SlackAPI) ChannelsID(query string) string {
 	return query
 }
 
-// ChannelsInfo gets information about a channel.
-func (s *SlackAPI) ChannelsInfo(channel string) ResponseChannelsInfo {
-	var response ResponseChannelsInfo
-	s.getRequest(&response, "channels.info", struct {
-		Channel string `json:"channel"`
-	}{s.ChannelsID(channel)})
-	return response
-}
-
 // ChannelsInvite invites a user to a channel.
 func (s *SlackAPI) ChannelsInvite(channel string, user string) Response {
 	return s.ResourceInvite("channels.invite", s.ChannelsID(channel), user)
