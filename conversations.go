@@ -2,6 +2,7 @@ package slackapi
 
 import (
 	"net/url"
+	"strings"
 )
 
 // ConversationsArchive archives a conversation.
@@ -73,6 +74,22 @@ func (s *SlackAPI) ConversationsInfo(channel string) ResponseChannelsInfo {
 	}
 	var out ResponseChannelsInfo
 	if err := s.baseGET("/api/conversations.info", in, &out); err != nil {
+		return ResponseChannelsInfo{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
+
+// ConversationsInvite invites users to a channel.
+func (s *SlackAPI) ConversationsInvite(channel string, users ...string) ResponseChannelsInfo {
+	in := struct {
+		Channel string `json:"channel"`
+		Users   string `json:"users"`
+	}{
+		Channel: channel,
+		Users:   strings.Join(users, ","),
+	}
+	var out ResponseChannelsInfo
+	if err := s.basePOST("/api/conversations.invite", in, &out); err != nil {
 		return ResponseChannelsInfo{Response: Response{Error: err.Error()}}
 	}
 	return out
