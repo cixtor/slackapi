@@ -94,3 +94,17 @@ func (s *SlackAPI) ConversationsInvite(channel string, users ...string) Response
 	}
 	return out
 }
+
+// ConversationsJoin joins an existing conversation.
+func (s *SlackAPI) ConversationsJoin(channel string) ResponseChannelsInfo {
+	in := struct {
+		Channel string `json:"channel"`
+	}{
+		Channel: channel,
+	}
+	var out ResponseChannelsInfo
+	if err := s.basePOST("/api/conversations.join", in, &out); err != nil {
+		return ResponseChannelsInfo{Response: Response{Error: err.Error()}}
+	}
+	return out
+}

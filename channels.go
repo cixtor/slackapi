@@ -87,16 +87,6 @@ func (s *SlackAPI) ChannelsID(query string) string {
 	return query
 }
 
-// ChannelsJoin joins a channel, creating it if needed.
-func (s *SlackAPI) ChannelsJoin(name string) ResponseChannelsJoin {
-	var response ResponseChannelsJoin
-	s.postRequest(&response, "channels.join", struct {
-		Name     string `json:"name"`
-		Validate bool   `json:"validate"`
-	}{name, true})
-	return response
-}
-
 // ChannelsKick removes a user from a channel.
 func (s *SlackAPI) ChannelsKick(channel string, user string) Response {
 	return s.ResourceKick("channels.kick", s.ChannelsID(channel), user)
