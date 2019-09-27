@@ -108,7 +108,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :black_circle: | `channels.info` | Gets information about a channel. This method is deprecated. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. Learn more. Please use these methods instead: `conversations.info` |
 | :black_circle: | `channels.invite` | Invites a user to a channel. This method is deprecated. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. Learn more. Please use these methods instead: `conversations.invite` |
 | :black_circle: | `channels.join` | Joins a channel, creating it if needed. This method is deprecated. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. Learn more. Please use these methods instead: `conversations.join` |
-| :large_blue_circle: | `channels.kick` | Removes a user from a channel |
+| :black_circle: | `channels.kick` | Removes a user from a channel. This method is deprecated. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. Learn more. Please use these methods instead: `conversations.kick` |
 | :large_blue_circle: | `channels.leave` | Leaves a channel |
 | :large_blue_circle: | `channels.list` | Lists all channels in a Slack team |
 | :large_blue_circle: | `channels.mark` | Sets the read cursor in a channel |
@@ -140,7 +140,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `conversations.info` | Retrieve information about a conversation |
 | :large_blue_circle: | `conversations.invite` | Invites users to a channel |
 | :large_blue_circle: | `conversations.join` | Joins an existing conversation |
-| :red_circle: | `conversations.kick` | Removes a user from a conversation |
+| :large_blue_circle: | `conversations.kick` | Removes a user from a conversation |
 | :red_circle: | `conversations.leave` | Leaves a conversation |
 | :red_circle: | `conversations.list` | Lists all channels in a Slack team |
 | :red_circle: | `conversations.members` | Retrieve members of a conversation |

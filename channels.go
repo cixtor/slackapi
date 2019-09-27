@@ -87,11 +87,6 @@ func (s *SlackAPI) ChannelsID(query string) string {
 	return query
 }
 
-// ChannelsKick removes a user from a channel.
-func (s *SlackAPI) ChannelsKick(channel string, user string) Response {
-	return s.ResourceKick("channels.kick", s.ChannelsID(channel), user)
-}
-
 // ChannelsLeave leaves a channel.
 func (s *SlackAPI) ChannelsLeave(channel string) Response {
 	return s.ResourceLeave("channels.leave", s.ChannelsID(channel))

@@ -108,3 +108,19 @@ func (s *SlackAPI) ConversationsJoin(channel string) ResponseChannelsInfo {
 	}
 	return out
 }
+
+// ConversationsKick removes a user from a conversation.
+func (s *SlackAPI) ConversationsKick(channel string, user string) Response {
+	in := struct {
+		Channel string `json:"channel"`
+		User    string `json:"user"`
+	}{
+		Channel: channel,
+		User:    user,
+	}
+	var out Response
+	if err := s.basePOST("/api/conversations.kick", in, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+	return out
+}
