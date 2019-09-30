@@ -60,13 +60,6 @@ func TestChannelsID(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
-func TestChannelsLeave(t *testing.T) {
-	s := New()
-	x := s.ChannelsLeave("channel")
-	y := `{"ok":false,"error":"not_authed"}`
-	CheckResponse(t, x, y)
-}
-
 func TestChannelsList(t *testing.T) {
 	s := New()
 	x := s.ChannelsList()
@@ -210,6 +203,13 @@ func TestConversationsInvite(t *testing.T) {
 func TestConversationsKick(t *testing.T) {
 	s := New()
 	x := s.ConversationsKick("channel", "user")
+	y := `{"ok":false,"error":"not_authed"}`
+	CheckResponse(t, x, y)
+}
+
+func TestConversationsLeave(t *testing.T) {
+	s := New()
+	x := s.ConversationsLeave("channel")
 	y := `{"ok":false,"error":"not_authed"}`
 	CheckResponse(t, x, y)
 }

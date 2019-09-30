@@ -124,3 +124,17 @@ func (s *SlackAPI) ConversationsKick(channel string, user string) Response {
 	}
 	return out
 }
+
+// ConversationsLeave leaves a conversation.
+func (s *SlackAPI) ConversationsLeave(channel string) Response {
+	in := struct {
+		Channel string `json:"channel"`
+	}{
+		Channel: channel,
+	}
+	var out Response
+	if err := s.basePOST("/api/conversations.leave", in, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+	return out
+}

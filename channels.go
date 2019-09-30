@@ -87,11 +87,6 @@ func (s *SlackAPI) ChannelsID(query string) string {
 	return query
 }
 
-// ChannelsLeave leaves a channel.
-func (s *SlackAPI) ChannelsLeave(channel string) Response {
-	return s.ResourceLeave("channels.leave", s.ChannelsID(channel))
-}
-
 // ChannelsList lists all channels in a Slack team.
 func (s *SlackAPI) ChannelsList() ResponseChannelsList {
 	if s.teamChannels.Ok {
