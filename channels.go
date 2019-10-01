@@ -74,32 +74,7 @@ type ChannelSuggestions struct {
 
 // ChannelsID gets channel identifier from readable name.
 func (s *SlackAPI) ChannelsID(query string) string {
-	response := s.ChannelsList()
-
-	if response.Ok {
-		for _, room := range response.Channels {
-			if room.Name == query {
-				return room.ID
-			}
-		}
-	}
-
 	return query
-}
-
-// ChannelsList lists all channels in a Slack team.
-func (s *SlackAPI) ChannelsList() ResponseChannelsList {
-	if s.teamChannels.Ok {
-		return s.teamChannels
-	}
-
-	var response ResponseChannelsList
-	s.getRequest(&response, "channels.list", struct {
-		ExcludeArchived bool `json:"exclude_archived"`
-	}{false})
-	s.teamChannels = response
-
-	return response
 }
 
 // ChannelsMark sets the read cursor in a channel.

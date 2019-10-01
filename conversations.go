@@ -2,6 +2,7 @@ package slackapi
 
 import (
 	"net/url"
+	"strconv"
 	"strings"
 )
 
@@ -135,6 +136,50 @@ func (s *SlackAPI) ConversationsLeave(channel string) Response {
 	var out Response
 	if err := s.basePOST("/api/conversations.leave", in, &out); err != nil {
 		return Response{Error: err.Error()}
+	}
+	return out
+}
+
+type ConversationsListInput struct {
+	// Paginate through collections of data by setting the cursor parameter to
+	// a next_cursor attribute returned by a previous request's response_metadata.
+	// Default value fetches the first "page" of the collection. See pagination
+	// for more detail.
+	Cursor string `json:"cursor"`
+	// Set to true to exclude archived channels from the list
+	ExcludeArchived bool `json:"exclude_archived"`
+	// The maximum number of items to return. Fewer than the requested number
+	// of items may be returned, even if the end of the list hasn't been reached.
+	// Must be an integer no larger than 1000.
+	Limit int `json:"limit"`
+	// Mix and match channel types by providing a comma-separated list of any
+	// combination of public_channel, private_channel, mpim, im.
+	Types []string `json:"types"`
+}
+
+// ConversationsList lists all channels in a Slack team.
+func (s *SlackAPI) ConversationsList(input ConversationsListInput) ResponseChannelsList {
+	var in url.Values
+	var out ResponseChannelsList
+
+	if input.Cursor != "" {
+		in.Add("cursor", input.Cursor)
+	}
+
+	if input.ExcludeArchived {
+		in.Add("exclude_archived", "true")
+	}
+
+	if input.Limit > 0 {
+		in.Add("limit", strconv.Itoa(input.Limit))
+	}
+
+	if len(input.Types) > 0 {
+		in.Add("types", strings.Join(input.Types, ","))
+	}
+
+	if err := s.baseGET("/api/conversations.list", in, &out); err != nil {
+		return ResponseChannelsList{Response: Response{Error: err.Error()}}
 	}
 	return out
 }
