@@ -77,11 +77,6 @@ func (s *SlackAPI) ChannelsID(query string) string {
 	return query
 }
 
-// ChannelsMark sets the read cursor in a channel.
-func (s *SlackAPI) ChannelsMark(channel string, timestamp string) Response {
-	return s.ResourceMark("channels.mark", channel, timestamp)
-}
-
 // ChannelsMyHistory displays messages of the current user from a channel.
 func (s *SlackAPI) ChannelsMyHistory(channel string, latest string) MyHistory {
 	return s.ResourceMyHistory("channels.history", channel, latest)

@@ -60,13 +60,6 @@ func TestChannelsID(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
-func TestChannelsMark(t *testing.T) {
-	s := New()
-	x := s.ChannelsMark("channel", "1234567890")
-	y := `{"ok":false,"error":"not_authed"}`
-	CheckResponse(t, x, y)
-}
-
 func TestChannelsMyHistory(t *testing.T) {
 	s := New()
 	x := s.ChannelsMyHistory("channel", "1234567890")
