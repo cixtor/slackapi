@@ -183,3 +183,19 @@ func (s *SlackAPI) ConversationsList(input ConversationsListInput) ResponseChann
 	}
 	return out
 }
+
+// ConversationsRename renames a conversation.
+func (s *SlackAPI) ConversationsRename(channel string, name string) ResponseChannelsInfo {
+	in := struct {
+		Channel string `json:"channel"`
+		Name    string `json:"name"`
+	}{
+		Channel: channel,
+		Name:    name,
+	}
+	var out ResponseChannelsInfo
+	if err := s.basePOST("/api/conversations.rename", in, &out); err != nil {
+		return ResponseChannelsInfo{Response: Response{Error: err.Error()}}
+	}
+	return out
+}

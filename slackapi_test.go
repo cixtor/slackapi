@@ -74,13 +74,6 @@ func TestChannelsPurgeHistory(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
-func TestChannelsRename(t *testing.T) {
-	s := New()
-	x := s.ChannelsRename("channel", "lennahc")
-	y := `{"ok":false,"error":"not_authed","channel":{"id":"","is_channel":false,"is_group":false,"name":"","created":0}}`
-	CheckResponse(t, x, y)
-}
-
 func TestChannelsSetPurpose(t *testing.T) {
 	s := New()
 	x := s.ChannelsSetPurpose("channel", "purpose")
@@ -204,6 +197,13 @@ func TestConversationsList(t *testing.T) {
 	s := New()
 	x := s.ConversationsList(ConversationsListInput{})
 	y := `{"ok":false,"error":"not_authed","channels":null}`
+	CheckResponse(t, x, y)
+}
+
+func TestConversationsRename(t *testing.T) {
+	s := New()
+	x := s.ConversationsRename("channel", "lennahc")
+	y := `{"ok":false,"error":"not_authed","channel":{"created":0,"creator":"","id":"","is_archived":false,"is_channel":false,"is_general":false,"is_group":false,"is_member":false,"is_mpim":false,"is_open":false,"last_read":"","latest":{"text":"","ts":"","type":"","user":""},"members":null,"name":"","name_normalized":"","num_members":0,"purpose":{"creator":"","last_set":0,"value":""},"topic":{"creator":"","last_set":0,"value":""},"unread_count":0,"unread_count_display":0}}`
 	CheckResponse(t, x, y)
 }
 

@@ -114,7 +114,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :black_circle: | `channels.mark` | Sets the read cursor in a channel. This method is deprecated. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. [Learn more](https://api.slack.com/changelog/2020-01-deprecating-antecedents-to-the-conversations-api). There are no exact Conversations API equivalents for this method. [Browse these methods](https://api.slack.com/methods#conversations) for an alternative. |
 | :large_blue_circle: | `channels.myHistory` | Displays messages of the current user from a channel |
 | :large_blue_circle: | `channels.purgeHistory` | Deletes history of messages and events from a channel |
-| :large_blue_circle: | `channels.rename` | Renames a channel |
+| :black_circle: | `channels.rename` | Renames a channel. This method is deprecated. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. [Learn more](https://api.slack.com/changelog/2020-01-deprecating-antecedents-to-the-conversations-api). Please use these methods instead: `conversations.rename` |
 | :red_circle: | `channels.replies` | Retrieve a thread of messages posted to a channel |
 | :large_blue_circle: | `channels.setPurpose` | Sets the purpose for a channel |
 | :large_blue_circle: | `channels.setRetention` | Sets the retention time of the messages |
@@ -145,7 +145,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `conversations.list` | Lists all channels in a Slack team |
 | :red_circle: | `conversations.members` | Retrieve members of a conversation |
 | :red_circle: | `conversations.open` | Opens or resumes a direct message or multi-person direct message |
-| :red_circle: | `conversations.rename` | Renames a conversation |
+| :large_blue_circle: | `conversations.rename` | Renames a conversation |
 | :red_circle: | `conversations.replies` | Retrieve a thread of messages posted to a conversation |
 | :red_circle: | `conversations.setPurpose` | Sets the purpose for a conversation |
 | :red_circle: | `conversations.setTopic` | Sets the topic for a conversation |

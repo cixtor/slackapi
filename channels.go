@@ -87,11 +87,6 @@ func (s *SlackAPI) ChannelsPurgeHistory(channel string, latest string, verbose b
 	return s.ResourcePurgeHistory("channels.history", channel, latest, verbose)
 }
 
-// ChannelsRename renames a channel.
-func (s *SlackAPI) ChannelsRename(channel string, name string) ChannelRename {
-	return s.ResourceRename("channels.rename", s.ChannelsID(channel), name)
-}
-
 // ChannelsSetPurpose sets the purpose for a channel.
 func (s *SlackAPI) ChannelsSetPurpose(channel string, purpose string) ChannelPurposeNow {
 	return s.ResourceSetPurpose("channels.setPurpose", channel, purpose)
