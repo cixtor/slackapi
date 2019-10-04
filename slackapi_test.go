@@ -207,6 +207,13 @@ func TestConversationsRename(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
+func TestConversationsReplies(t *testing.T) {
+	s := New()
+	x := s.ConversationsReplies(ConversationsRepliesInput{Channel: "general", Timestamp: "1234567890.123456"})
+	y := `{"ok":false,"error":"not_authed","messages":null,"has_more":false,"pin_count":0,"unread_count_display":0,"response_metadata":{"next_cursor":""}}`
+	CheckResponse(t, x, y)
+}
+
 func TestDNDEndDnd(t *testing.T) {
 	s := New()
 	x := s.DNDEndDnd()

@@ -159,8 +159,7 @@ type ConversationsListInput struct {
 
 // ConversationsList lists all channels in a Slack team.
 func (s *SlackAPI) ConversationsList(input ConversationsListInput) ResponseChannelsList {
-	var in url.Values
-	var out ResponseChannelsList
+	in := url.Values{}
 
 	if input.Cursor != "" {
 		in.Add("cursor", input.Cursor)
@@ -178,6 +177,7 @@ func (s *SlackAPI) ConversationsList(input ConversationsListInput) ResponseChann
 		in.Add("types", strings.Join(input.Types, ","))
 	}
 
+	var out ResponseChannelsList
 	if err := s.baseGET("/api/conversations.list", in, &out); err != nil {
 		return ResponseChannelsList{Response: Response{Error: err.Error()}}
 	}
@@ -196,6 +196,58 @@ func (s *SlackAPI) ConversationsRename(channel string, name string) ResponseChan
 	var out ResponseChannelsInfo
 	if err := s.basePOST("/api/conversations.rename", in, &out); err != nil {
 		return ResponseChannelsInfo{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
+
+type ConversationsRepliesInput struct {
+	// Conversation ID to fetch thread from.
+	Channel string `json:"channel"`
+	// Unique identifier of a thread's parent message.
+	Timestamp string `json:"ts"`
+	// Paginate through collections of data by setting the cursor parameter to
+	// a next_cursor attribute returned by a previous request's response_metadata.
+	// Default value fetches the first "page" of the collection. See pagination
+	// for more detail.
+	Cursor string `json:"cursor"`
+	// Include messages with latest or oldest timestamp in results only when
+	// either timestamp is specified.
+	Inclusive bool `json:"inclusive"`
+	// End of time range of messages to include in results.
+	Latest string `json:"latest"`
+	// The maximum number of items to return. Fewer than the requested number
+	// of items may be returned, even if the end of the users list hasn't been
+	// reached.
+	Limit int `json:"limit"`
+	// Start of time range of messages to include in results.
+	Oldest string `json:"oldest"`
+}
+
+// ConversationsReplies lists all channels in a Slack team.
+func (s *SlackAPI) ConversationsReplies(input ConversationsRepliesInput) History {
+	in := url.Values{}
+
+	in.Add("channel", input.Channel)
+	in.Add("ts", input.Timestamp)
+
+	if input.Cursor != "" {
+		in.Add("cursor", input.Cursor)
+	}
+
+	if input.Inclusive {
+		in.Add("inclusive", "true")
+	}
+	in.Add("latest", input.Latest)
+
+	if input.Limit > 0 {
+		in.Add("limit", strconv.Itoa(input.Limit))
+	}
+
+	in.Add("oldest", input.Oldest)
+
+	var out History
+	if err := s.baseGET("/api/conversations.replies", in, &out); err != nil {
+		return History{Response: Response{Error: err.Error()}}
 	}
 	return out
 }
