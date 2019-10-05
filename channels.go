@@ -87,11 +87,6 @@ func (s *SlackAPI) ChannelsPurgeHistory(channel string, latest string, verbose b
 	return s.ResourcePurgeHistory("channels.history", channel, latest, verbose)
 }
 
-// ChannelsSetPurpose sets the purpose for a channel.
-func (s *SlackAPI) ChannelsSetPurpose(channel string, purpose string) ChannelPurposeNow {
-	return s.ResourceSetPurpose("channels.setPurpose", channel, purpose)
-}
-
 // ChannelsSetRetention sets the retention time of the messages.
 func (s *SlackAPI) ChannelsSetRetention(channel string, duration int) Response {
 	return s.ResourceSetRetention("channels.setRetention", channel, duration)

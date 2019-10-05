@@ -200,6 +200,22 @@ func (s *SlackAPI) ConversationsRename(channel string, name string) ResponseChan
 	return out
 }
 
+// ConversationsSetPurpose sets the purpose for a conversation.
+func (s *SlackAPI) ConversationsSetPurpose(channel string, purpose string) ChannelPurposeNow {
+	in := struct {
+		Channel string `json:"channel"`
+		Purpose string `json:"purpose"`
+	}{
+		Channel: channel,
+		Purpose: purpose,
+	}
+	var out ChannelPurposeNow
+	if err := s.basePOST("/api/conversations.setPurpose", in, &out); err != nil {
+		return ChannelPurposeNow{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
+
 type ConversationsRepliesInput struct {
 	// Conversation ID to fetch thread from.
 	Channel string `json:"channel"`
