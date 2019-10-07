@@ -92,11 +92,6 @@ func (s *SlackAPI) ChannelsSetRetention(channel string, duration int) Response {
 	return s.ResourceSetRetention("channels.setRetention", channel, duration)
 }
 
-// ChannelsSetTopic sets the topic for a channel.
-func (s *SlackAPI) ChannelsSetTopic(channel string, topic string) ChannelTopicNow {
-	return s.ResourceSetTopic("channels.setTopic", channel, topic)
-}
-
 // ChannelsSuggestions prints a list of suggested channels to join.
 func (s *SlackAPI) ChannelsSuggestions() ChannelSuggestions {
 	var response ChannelSuggestions

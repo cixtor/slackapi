@@ -81,13 +81,6 @@ func TestChannelsSetRetention(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
-func TestChannelsSetTopic(t *testing.T) {
-	s := New()
-	x := s.ChannelsSetTopic("channel", "topic")
-	y := `{"ok":false,"error":"not_authed","topic":""}`
-	CheckResponse(t, x, y)
-}
-
 func TestChannelsSuggestions(t *testing.T) {
 	s := New()
 	x := s.ChannelsSuggestions()
@@ -211,6 +204,13 @@ func TestConversationsSetPurpose(t *testing.T) {
 	s := New()
 	x := s.ConversationsSetPurpose("channel", "purpose")
 	y := `{"ok":false,"error":"not_authed","purpose":""}`
+	CheckResponse(t, x, y)
+}
+
+func TestConversationsSetTopic(t *testing.T) {
+	s := New()
+	x := s.ConversationsSetTopic("channel", "topic")
+	y := `{"ok":false,"error":"not_authed","topic":""}`
 	CheckResponse(t, x, y)
 }
 

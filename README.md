@@ -118,7 +118,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :black_circle: | `channels.replies` | Retrieve a thread of messages posted to a channel. This method is deprecated. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. [Learn more](https://api.slack.com/changelog/2020-01-deprecating-antecedents-to-the-conversations-api). Please use these methods instead: `conversations.replies` |
 | :black_circle: | `channels.setPurpose` | Sets the purpose for a channel. This method is deprecated. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. [Learn more](https://api.slack.com/changelog/2020-01-deprecating-antecedents-to-the-conversations-api). Please use these methods instead: `conversations.setPurpose` |
 | :large_blue_circle: | `channels.setRetention` | Sets the retention time of the messages |
-| :large_blue_circle: | `channels.setTopic` | Sets the topic for a channel |
+| :black_circle: | `channels.setTopic` | Sets the topic for a channel. This method is deprecated. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. [Learn more](https://api.slack.com/changelog/2020-01-deprecating-antecedents-to-the-conversations-api). Please use these methods instead: `conversations.setTopic` |
 | :large_blue_circle: | `channels.suggestions` | Prints a list of suggested channels to join |
 | :large_blue_circle: | `channels.unarchive` | Unarchives a channel |
 | :large_blue_circle: | `chat.delete` | Deletes a message |
@@ -148,7 +148,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `conversations.rename` | Renames a conversation |
 | :large_blue_circle: | `conversations.replies` | Retrieve a thread of messages posted to a conversation |
 | :large_blue_circle: | `conversations.setPurpose` | Sets the purpose for a conversation |
-| :red_circle: | `conversations.setTopic` | Sets the topic for a conversation |
+| :large_blue_circle: | `conversations.setTopic` | Sets the topic for a conversation |
 | :red_circle: | `conversations.unarchive` | Reverses conversation archival |
 | :red_circle: | `dialog.open` | Open a dialog with a user |
 | :large_blue_circle: | `dnd.endDnd` | Ends the current user's _"Do Not Disturb"_ session immediately |

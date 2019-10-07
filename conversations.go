@@ -200,22 +200,6 @@ func (s *SlackAPI) ConversationsRename(channel string, name string) ResponseChan
 	return out
 }
 
-// ConversationsSetPurpose sets the purpose for a conversation.
-func (s *SlackAPI) ConversationsSetPurpose(channel string, purpose string) ChannelPurposeNow {
-	in := struct {
-		Channel string `json:"channel"`
-		Purpose string `json:"purpose"`
-	}{
-		Channel: channel,
-		Purpose: purpose,
-	}
-	var out ChannelPurposeNow
-	if err := s.basePOST("/api/conversations.setPurpose", in, &out); err != nil {
-		return ChannelPurposeNow{Response: Response{Error: err.Error()}}
-	}
-	return out
-}
-
 type ConversationsRepliesInput struct {
 	// Conversation ID to fetch thread from.
 	Channel string `json:"channel"`
@@ -264,6 +248,38 @@ func (s *SlackAPI) ConversationsReplies(input ConversationsRepliesInput) History
 	var out History
 	if err := s.baseGET("/api/conversations.replies", in, &out); err != nil {
 		return History{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
+
+// ConversationsSetPurpose sets the purpose for a conversation.
+func (s *SlackAPI) ConversationsSetPurpose(channel string, purpose string) ChannelPurposeNow {
+	in := struct {
+		Channel string `json:"channel"`
+		Purpose string `json:"purpose"`
+	}{
+		Channel: channel,
+		Purpose: purpose,
+	}
+	var out ChannelPurposeNow
+	if err := s.basePOST("/api/conversations.setPurpose", in, &out); err != nil {
+		return ChannelPurposeNow{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
+
+// ConversationsSetTopic sets the topic for a conversation.
+func (s *SlackAPI) ConversationsSetTopic(channel string, topic string) ChannelTopicNow {
+	in := struct {
+		Channel string `json:"channel"`
+		Topic   string `json:"topic"`
+	}{
+		Channel: channel,
+		Topic:   topic,
+	}
+	var out ChannelTopicNow
+	if err := s.basePOST("/api/conversations.setTopic", in, &out); err != nil {
+		return ChannelTopicNow{Response: Response{Error: err.Error()}}
 	}
 	return out
 }
