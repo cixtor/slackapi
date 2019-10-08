@@ -283,3 +283,17 @@ func (s *SlackAPI) ConversationsSetTopic(channel string, topic string) ChannelTo
 	}
 	return out
 }
+
+// ConversationsUnarchive reverses conversation archival.
+func (s *SlackAPI) ConversationsUnarchive(channel string) Response {
+	in := struct {
+		Channel string `json:"channel"`
+	}{
+		Channel: channel,
+	}
+	var out Response
+	if err := s.basePOST("/api/conversations.unarchive", in, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+	return out
+}

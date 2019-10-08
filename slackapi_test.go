@@ -88,13 +88,6 @@ func TestChannelsSuggestions(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
-func TestChannelsUnarchive(t *testing.T) {
-	s := New()
-	x := s.ChannelsUnarchive("channel")
-	y := `{"ok":false,"error":"not_authed"}`
-	CheckResponse(t, x, y)
-}
-
 func TestChatDelete(t *testing.T) {
 	s := New()
 	x := s.ChatDelete(MessageArgs{})
@@ -211,6 +204,13 @@ func TestConversationsSetTopic(t *testing.T) {
 	s := New()
 	x := s.ConversationsSetTopic("channel", "topic")
 	y := `{"ok":false,"error":"not_authed","topic":""}`
+	CheckResponse(t, x, y)
+}
+
+func TestConversationsUnarchive(t *testing.T) {
+	s := New()
+	x := s.ConversationsUnarchive("channel")
+	y := `{"ok":false,"error":"not_authed"}`
 	CheckResponse(t, x, y)
 }
 

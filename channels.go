@@ -98,8 +98,3 @@ func (s *SlackAPI) ChannelsSuggestions() ChannelSuggestions {
 	s.getRequest(&response, "channels.suggestions", nil)
 	return response
 }
-
-// ChannelsUnarchive unarchives a channel.
-func (s *SlackAPI) ChannelsUnarchive(channel string) Response {
-	return s.ResourceUnarchive("channels.unarchive", s.ChannelsID(channel))
-}
