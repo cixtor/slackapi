@@ -34,7 +34,8 @@ Note that the client runs with the same chat session of the user that is using t
 
 - :large_blue_circle: means the method has been implemented
 - :red_circle: means the method is not implemented yet
-- :black_circle: means the method has been deprecated upstream
+- :black_circle: means the method has been deprecated upstream. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. [Learn more](https://api.slack.com/changelog/2020-01-deprecating-antecedents-to-the-conversations-api). Please use the equivalent method `conversations.METHOD`
+- :skull: means the method has been deprecated without a replacement
 
 | :shipit: | Method | Description |
 |----------|--------|-------------|
@@ -47,9 +48,9 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `admin.conversations.restrictAccess.listGroups` | List all IDP Groups linked to a channel |
 | :red_circle: | `admin.conversations.restrictAccess.removeGroup` | Remove a linked IDP group linked from a private channel |
 | :red_circle: | `admin.conversations.setTeams` | Set the workspaces in an Enterprise grid org that connect to a channel |
-| :black_circle: | [admin.conversations.whitelist.add](https://api.slack.com/methods/admin.conversations.whitelist.add) | Add an allowlist of IDP groups for accessing a channel. This method is deprecated. Use `admin.conversations.restrictAccess.addGroup` instead |
-| :black_circle: | [admin.conversations.whitelist.listGroupsLinkedToChannel](https://api.slack.com/methods/admin.conversations.whitelist.listGroupsLinkedToChannel) | List all IDP Groups linked to a channel. This method is deprecated. Use `admin.conversations.restrictAccess.listGroups` instead |
-| :black_circle: | [admin.conversations.whitelist.remove](https://api.slack.com/methods/admin.conversations.whitelist.remove) | Remove an allowlisted IDP group linked to a private channel. This method is deprecated. Use `admin.conversations.restrictAccess.removeGroup` instead |
+| :black_circle: | [admin.conversations.whitelist.add](https://api.slack.com/methods/admin.conversations.whitelist.add) | Add an allowlist of IDP groups for accessing a channel |
+| :black_circle: | [admin.conversations.whitelist.listGroupsLinkedToChannel](https://api.slack.com/methods/admin.conversations.whitelist.listGroupsLinkedToChannel) | List all IDP Groups linked to a channel |
+| :black_circle: | [admin.conversations.whitelist.remove](https://api.slack.com/methods/admin.conversations.whitelist.remove) | Remove an allowlisted IDP group linked to a private channel |
 | :red_circle: | `admin.emoji.add` | Add an emoji |
 | :red_circle: | `admin.emoji.addAlias` | Add an emoji alias |
 | :red_circle: | `admin.emoji.list` | List emoji for an Enterprise Grid organization |
@@ -101,26 +102,26 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `calls.update` | Updates information about a Call |
 | :red_circle: | `calls.participants.add` | Registers new participants added to a Call |
 | :red_circle: | `calls.participants.remove` | Registers participants removed from a Call |
-| :black_circle: | `channels.archive` | Archives a channel. This method is deprecated. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. Please use these methods instead: `conversations.archive` |
-| :black_circle: | `channels.create` | Creates a channel. This method is deprecated. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. [Learn more](https://api.slack.com/changelog/2020-01-deprecating-antecedents-to-the-conversations-api). Please use these methods instead: `conversations.create` |
-| :black_circle: | `channels.history` | Fetches history of messages and events from a channel. This method is deprecated. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. [Learn more](https://api.slack.com/changelog/2020-01-deprecating-antecedents-to-the-conversations-api). Please use these methods instead: `conversations.history` |
+| :black_circle: | `channels.archive` | Archives a channel |
+| :black_circle: | `channels.create` | Creates a channel |
+| :black_circle: | `channels.history` | Fetches history of messages and events from a channel |
 | :large_blue_circle: | `channels.id` | Gets channel identifier from readable name |
-| :black_circle: | `channels.info` | Gets information about a channel. This method is deprecated. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. [Learn more](https://api.slack.com/changelog/2020-01-deprecating-antecedents-to-the-conversations-api). Please use these methods instead: `conversations.info` |
-| :black_circle: | `channels.invite` | Invites a user to a channel. This method is deprecated. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. [Learn more](https://api.slack.com/changelog/2020-01-deprecating-antecedents-to-the-conversations-api). Please use these methods instead: `conversations.invite` |
-| :black_circle: | `channels.join` | Joins a channel, creating it if needed. This method is deprecated. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. [Learn more](https://api.slack.com/changelog/2020-01-deprecating-antecedents-to-the-conversations-api). Please use these methods instead: `conversations.join` |
-| :black_circle: | `channels.kick` | Removes a user from a channel. This method is deprecated. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. [Learn more](https://api.slack.com/changelog/2020-01-deprecating-antecedents-to-the-conversations-api). Please use these methods instead: `conversations.kick` |
-| :black_circle: | `channels.leave` | Leaves a channel. This method is deprecated. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. [Learn more](https://api.slack.com/changelog/2020-01-deprecating-antecedents-to-the-conversations-api). Please use these methods instead: `conversations.leave` |
-| :black_circle: | `channels.list` | Lists all channels in a Slack team. This method is deprecated. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. [Learn more](https://api.slack.com/changelog/2020-01-deprecating-antecedents-to-the-conversations-api). Please use these methods instead: `conversations.list`, `users.conversations` |
-| :black_circle: | `channels.mark` | Sets the read cursor in a channel. This method is deprecated. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. [Learn more](https://api.slack.com/changelog/2020-01-deprecating-antecedents-to-the-conversations-api). There are no exact Conversations API equivalents for this method. [Browse these methods](https://api.slack.com/methods#conversations) for an alternative. |
+| :black_circle: | `channels.info` | Gets information about a channel |
+| :black_circle: | `channels.invite` | Invites a user to a channel |
+| :black_circle: | `channels.join` | Joins a channel, creating it if needed |
+| :black_circle: | `channels.kick` | Removes a user from a channel |
+| :black_circle: | `channels.leave` | Leaves a channel |
+| :black_circle: | `channels.list` | Lists all channels in a Slack team |
+| :skull: | `channels.mark` | Sets the read cursor in a channel |
 | :large_blue_circle: | `channels.myHistory` | Displays messages of the current user from a channel |
 | :large_blue_circle: | `channels.purgeHistory` | Deletes history of messages and events from a channel |
-| :black_circle: | `channels.rename` | Renames a channel. This method is deprecated. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. [Learn more](https://api.slack.com/changelog/2020-01-deprecating-antecedents-to-the-conversations-api). Please use these methods instead: `conversations.rename` |
-| :black_circle: | `channels.replies` | Retrieve a thread of messages posted to a channel. This method is deprecated. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. [Learn more](https://api.slack.com/changelog/2020-01-deprecating-antecedents-to-the-conversations-api). Please use these methods instead: `conversations.replies` |
-| :black_circle: | `channels.setPurpose` | Sets the purpose for a channel. This method is deprecated. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. [Learn more](https://api.slack.com/changelog/2020-01-deprecating-antecedents-to-the-conversations-api). Please use these methods instead: `conversations.setPurpose` |
+| :black_circle: | `channels.rename` | Renames a channel |
+| :black_circle: | `channels.replies` | Retrieve a thread of messages posted to a channel |
+| :black_circle: | `channels.setPurpose` | Sets the purpose for a channel |
 | :large_blue_circle: | `channels.setRetention` | Sets the retention time of the messages |
-| :black_circle: | `channels.setTopic` | Sets the topic for a channel. This method is deprecated. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. [Learn more](https://api.slack.com/changelog/2020-01-deprecating-antecedents-to-the-conversations-api). Please use these methods instead: `conversations.setTopic` |
+| :black_circle: | `channels.setTopic` | Sets the topic for a channel |
 | :large_blue_circle: | `channels.suggestions` | Prints a list of suggested channels to join |
-| :black_circle: | `channels.unarchive` | Unarchives a channel. This method is deprecated. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. [Learn more](https://api.slack.com/changelog/2020-01-deprecating-antecedents-to-the-conversations-api). Please use these methods instead: `conversations.unarchive` |
+| :black_circle: | `channels.unarchive` | Unarchives a channel |
 | :large_blue_circle: | `chat.delete` | Deletes a message |
 | :red_circle: | `chat.deleteScheduledMessage` | Deletes a pending scheduled message from the queue |
 | :red_circle: | `chat.getPermalink` | Retrieve a permalink URL for a specific extant message |
