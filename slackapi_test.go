@@ -319,13 +319,6 @@ func TestFilesUpload(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
-func TestGroupsArchive(t *testing.T) {
-	s := New()
-	x := s.GroupsArchive("channel")
-	y := `{"ok":false,"error":"not_authed"}`
-	CheckResponse(t, x, y)
-}
-
 func TestGroupsClose(t *testing.T) {
 	s := New()
 	x := s.GroupsClose("channel")

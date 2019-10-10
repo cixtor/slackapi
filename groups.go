@@ -12,11 +12,6 @@ type ResponseGroupsList struct {
 	Groups []Channel `json:"groups"`
 }
 
-// GroupsArchive archives a private channel.
-func (s *SlackAPI) GroupsArchive(channel string) Response {
-	return s.ResourceArchive("groups.archive", s.GroupsID(channel))
-}
-
 // GroupsClose closes a private channel.
 func (s *SlackAPI) GroupsClose(channel string) Response {
 	var response Response

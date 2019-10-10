@@ -179,7 +179,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `files.remote.remove` | Remove a remote file |
 | :red_circle: | `files.remote.share` | Share a remote file into a channel |
 | :red_circle: | `files.remote.update` | Updates an existing remote file |
-| :large_blue_circle: | `groups.archive` | Archives a private channel |
+| :black_circle: | `groups.archive` | Archives a private channel |
 | :large_blue_circle: | `groups.close` | Closes a private channel |
 | :large_blue_circle: | `groups.create` | Creates a private channel |
 | :large_blue_circle: | `groups.createChild` | Clones and archives a private channel |
