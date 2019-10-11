@@ -181,7 +181,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `files.remote.update` | Updates an existing remote file |
 | :black_circle: | `groups.archive` | Archives a private channel |
 | :large_blue_circle: | `groups.close` | Closes a private channel |
-| :large_blue_circle: | `groups.create` | Creates a private channel |
+| :black_circle: | `groups.create` | Creates a private channel |
 | :large_blue_circle: | `groups.createChild` | Clones and archives a private channel |
 | :large_blue_circle: | `groups.history` | Fetches history of messages and events from a private channel |
 | :large_blue_circle: | `groups.id` | Gets private channel identifier from readable name |

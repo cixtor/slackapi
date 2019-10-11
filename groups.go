@@ -21,16 +21,6 @@ func (s *SlackAPI) GroupsClose(channel string) Response {
 	return response
 }
 
-// GroupsCreate creates a private channel.
-func (s *SlackAPI) GroupsCreate(name string) ResponseGroupsInfo {
-	var response ResponseGroupsInfo
-	s.getRequest(&response, "groups.create", struct {
-		Name     string `json:"name"`
-		Validate bool   `json:"validate"`
-	}{name, true})
-	return response
-}
-
 // GroupsCreateChild clones and archives a private channel.
 func (s *SlackAPI) GroupsCreateChild(channel string) ResponseGroupsInfo {
 	var response ResponseGroupsInfo
