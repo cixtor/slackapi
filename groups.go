@@ -21,15 +21,6 @@ func (s *SlackAPI) GroupsClose(channel string) Response {
 	return response
 }
 
-// GroupsCreateChild clones and archives a private channel.
-func (s *SlackAPI) GroupsCreateChild(channel string) ResponseGroupsInfo {
-	var response ResponseGroupsInfo
-	s.getRequest(&response, "groups.createChild", struct {
-		Channel string `json:"channel"`
-	}{s.GroupsID(channel)})
-	return response
-}
-
 // GroupsHistory fetches history of messages and events from a private channel.
 func (s *SlackAPI) GroupsHistory(data HistoryArgs) History {
 	return s.ResourceHistory("groups.history", data)
