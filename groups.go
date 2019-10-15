@@ -21,11 +21,6 @@ func (s *SlackAPI) GroupsClose(channel string) Response {
 	return response
 }
 
-// GroupsHistory fetches history of messages and events from a private channel.
-func (s *SlackAPI) GroupsHistory(data HistoryArgs) History {
-	return s.ResourceHistory("groups.history", data)
-}
-
 // GroupsID gets private channel identifier from readable name.
 func (s *SlackAPI) GroupsID(query string) string {
 	response := s.GroupsList()

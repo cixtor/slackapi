@@ -326,13 +326,6 @@ func TestGroupsClose(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
-func TestGroupsHistory(t *testing.T) {
-	s := New()
-	x := s.GroupsHistory(HistoryArgs{Channel: "channel", Latest: "1234567890"})
-	y := `{"ok":false,"error":"not_authed","messages":null,"has_more":false,"pin_count":0,"unread_count_display":0,"response_metadata":{"next_cursor":""}}`
-	CheckResponse(t, x, y)
-}
-
 func TestGroupsID(t *testing.T) {
 	s := New()
 	x := s.GroupsID("channel")
