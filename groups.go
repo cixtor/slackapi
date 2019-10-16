@@ -36,15 +36,6 @@ func (s *SlackAPI) GroupsID(query string) string {
 	return query
 }
 
-// GroupsInfo gets information about a private channel.
-func (s *SlackAPI) GroupsInfo(channel string) ResponseGroupsInfo {
-	var response ResponseGroupsInfo
-	s.getRequest(&response, "groups.info", struct {
-		Channel string `json:"channel"`
-	}{s.GroupsID(channel)})
-	return response
-}
-
 // GroupsInvite invites a user to a private channel.
 func (s *SlackAPI) GroupsInvite(channel string, user string) Response {
 	return s.ResourceInvite("groups.invite", s.GroupsID(channel), user)
