@@ -36,11 +36,6 @@ func (s *SlackAPI) GroupsID(query string) string {
 	return query
 }
 
-// GroupsKick removes a user from a private channel.
-func (s *SlackAPI) GroupsKick(channel string, user string) Response {
-	return s.ResourceKick("groups.kick", s.GroupsID(channel), user)
-}
-
 // GroupsLeave leaves a private channel.
 func (s *SlackAPI) GroupsLeave(channel string) Response {
 	return s.ResourceLeave("groups.leave", s.GroupsID(channel))

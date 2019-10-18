@@ -333,13 +333,6 @@ func TestGroupsID(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
-func TestGroupsKick(t *testing.T) {
-	s := New()
-	x := s.GroupsKick("channel", "user")
-	y := `{"ok":false,"error":"not_authed"}`
-	CheckResponse(t, x, y)
-}
-
 func TestGroupsLeave(t *testing.T) {
 	s := New()
 	x := s.GroupsLeave("channel")
