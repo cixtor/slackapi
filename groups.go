@@ -36,11 +36,6 @@ func (s *SlackAPI) GroupsID(query string) string {
 	return query
 }
 
-// GroupsLeave leaves a private channel.
-func (s *SlackAPI) GroupsLeave(channel string) Response {
-	return s.ResourceLeave("groups.leave", s.GroupsID(channel))
-}
-
 // GroupsList lists private channels that the calling user has access to.
 func (s *SlackAPI) GroupsList() ResponseGroupsList {
 	if s.teamGroups.Ok {
