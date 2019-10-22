@@ -23,32 +23,7 @@ func (s *SlackAPI) GroupsClose(channel string) Response {
 
 // GroupsID gets private channel identifier from readable name.
 func (s *SlackAPI) GroupsID(query string) string {
-	response := s.GroupsList()
-
-	if response.Ok {
-		for _, room := range response.Groups {
-			if room.Name == query {
-				return room.ID
-			}
-		}
-	}
-
 	return query
-}
-
-// GroupsList lists private channels that the calling user has access to.
-func (s *SlackAPI) GroupsList() ResponseGroupsList {
-	if s.teamGroups.Ok {
-		return s.teamGroups
-	}
-
-	var response ResponseGroupsList
-	s.getRequest(&response, "groups.list", struct {
-		ExcludeArchived bool `json:"exclude_archived"`
-	}{false})
-	s.teamGroups = response
-
-	return response
 }
 
 // GroupsMark sets the read cursor in a private channel.

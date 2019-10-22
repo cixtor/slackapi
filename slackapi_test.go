@@ -333,13 +333,6 @@ func TestGroupsID(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
-func TestGroupsList(t *testing.T) {
-	s := New()
-	x := s.GroupsList()
-	y := `{"ok":false,"error":"not_authed","groups":null}`
-	CheckResponse(t, x, y)
-}
-
 func TestGroupsMark(t *testing.T) {
 	s := New()
 	x := s.GroupsMark("channel", "1234567890")

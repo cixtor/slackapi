@@ -189,7 +189,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :black_circle: | `groups.invite` | Invites a user to a private channel |
 | :black_circle: | `groups.kick` | Removes a user from a private channel |
 | :black_circle: | `groups.leave` | Leaves a private channel |
-| :large_blue_circle: | `groups.list` | Lists private channels that the calling user has access to |
+| :black_circle: | `groups.list` | Lists private channels that the calling user has access to |
 | :large_blue_circle: | `groups.mark` | Sets the read cursor in a private channel |
 | :large_blue_circle: | `groups.myHistory` | Displays messages of the current user from a private channel |
 | :large_blue_circle: | `groups.open` | Opens a private channel |
