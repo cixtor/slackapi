@@ -333,13 +333,6 @@ func TestGroupsID(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
-func TestGroupsMark(t *testing.T) {
-	s := New()
-	x := s.GroupsMark("channel", "1234567890")
-	y := `{"ok":false,"error":"not_authed"}`
-	CheckResponse(t, x, y)
-}
-
 func TestGroupsMyHistory(t *testing.T) {
 	s := New()
 	x := s.GroupsMyHistory("channel", "1234567890")

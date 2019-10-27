@@ -26,11 +26,6 @@ func (s *SlackAPI) GroupsID(query string) string {
 	return query
 }
 
-// GroupsMark sets the read cursor in a private channel.
-func (s *SlackAPI) GroupsMark(channel string, timestamp string) Response {
-	return s.ResourceMark("groups.mark", channel, timestamp)
-}
-
 // GroupsMyHistory displays messages of the current user from a private channel.
 func (s *SlackAPI) GroupsMyHistory(channel string, latest string) MyHistory {
 	return s.ResourceMyHistory("groups.history", channel, latest)
