@@ -340,13 +340,6 @@ func TestGroupsMyHistory(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
-func TestGroupsOpen(t *testing.T) {
-	s := New()
-	x := s.GroupsOpen("channel")
-	y := `{"ok":false,"error":"not_authed","already_open":false,"no_op":false,"channel":{"id":""}}`
-	CheckResponse(t, x, y)
-}
-
 func TestGroupsPurgeHistory(t *testing.T) {
 	s := New()
 	x := s.GroupsPurgeHistory("channel", "1234567890", true)

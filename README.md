@@ -192,7 +192,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :black_circle: | `groups.list` | Lists private channels that the calling user has access to |
 | :skull: | `groups.mark` | Sets the read cursor in a private channel |
 | :large_blue_circle: | `groups.myHistory` | Displays messages of the current user from a private channel |
-| :large_blue_circle: | `groups.open` | Opens a private channel |
+| :skull: | `groups.open` | Opens a private channel |
 | :large_blue_circle: | `groups.purgeHistory` | Deletes history of messages and events from a private channel |
 | :large_blue_circle: | `groups.rename` | Renames a private channel |
 | :red_circle: | `groups.replies` | Retrieve a thread of messages posted to a private channel |

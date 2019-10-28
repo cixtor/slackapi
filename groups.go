@@ -31,16 +31,6 @@ func (s *SlackAPI) GroupsMyHistory(channel string, latest string) MyHistory {
 	return s.ResourceMyHistory("groups.history", channel, latest)
 }
 
-// GroupsOpen opens a private channel.
-func (s *SlackAPI) GroupsOpen(channel string) Session {
-	var response Session
-	channel = s.GroupsID(channel)
-	s.getRequest(&response, "groups.open", struct {
-		Channel string `json:"channel"`
-	}{channel})
-	return response
-}
-
 // GroupsPurgeHistory deletes history of messages and events from a private channel.
 func (s *SlackAPI) GroupsPurgeHistory(channel string, latest string, verbose bool) DeletedHistory {
 	return s.ResourcePurgeHistory("groups.history", channel, latest, verbose)
