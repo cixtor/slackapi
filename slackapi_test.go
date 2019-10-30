@@ -347,13 +347,6 @@ func TestGroupsPurgeHistory(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
-func TestGroupsRename(t *testing.T) {
-	s := New()
-	x := s.GroupsRename("channel", "lennahc")
-	y := `{"ok":false,"error":"not_authed","channel":{"id":"","is_channel":false,"is_group":false,"name":"","created":0}}`
-	CheckResponse(t, x, y)
-}
-
 func TestGroupsSetPurpose(t *testing.T) {
 	s := New()
 	x := s.GroupsSetPurpose("channel", "purpose")

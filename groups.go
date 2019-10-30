@@ -36,11 +36,6 @@ func (s *SlackAPI) GroupsPurgeHistory(channel string, latest string, verbose boo
 	return s.ResourcePurgeHistory("groups.history", channel, latest, verbose)
 }
 
-// GroupsRename renames a private channel.
-func (s *SlackAPI) GroupsRename(channel string, name string) ChannelRename {
-	return s.ResourceRename("groups.rename", s.GroupsID(channel), name)
-}
-
 // GroupsSetPurpose sets the purpose for a private channel.
 func (s *SlackAPI) GroupsSetPurpose(channel string, purpose string) ChannelPurposeNow {
 	return s.ResourceSetPurpose("groups.setPurpose", channel, purpose)
