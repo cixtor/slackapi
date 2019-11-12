@@ -196,7 +196,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `groups.purgeHistory` | Deletes history of messages and events from a private channel |
 | :black_circle: | `groups.rename` | Renames a private channel |
 | :black_circle: | `groups.replies` | Retrieve a thread of messages posted to a private channel |
-| :large_blue_circle: | `groups.setPurpose` | Sets the purpose for a private channel |
+| :black_circle: | `groups.setPurpose` | Sets the purpose for a private channel |
 | :large_blue_circle: | `groups.setRetention` | Sets the retention time of the messages |
 | :large_blue_circle: | `groups.setTopic` | Sets the topic for a private channel |
 | :large_blue_circle: | `groups.unarchive` | Unarchives a private channel |

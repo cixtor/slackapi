@@ -347,13 +347,6 @@ func TestGroupsPurgeHistory(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
-func TestGroupsSetPurpose(t *testing.T) {
-	s := New()
-	x := s.GroupsSetPurpose("channel", "purpose")
-	y := `{"ok":false,"error":"not_authed","purpose":""}`
-	CheckResponse(t, x, y)
-}
-
 func TestGroupsSetRetention(t *testing.T) {
 	s := New()
 	x := s.GroupsSetRetention("channel", 1)
