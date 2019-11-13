@@ -354,13 +354,6 @@ func TestGroupsSetRetention(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
-func TestGroupsSetTopic(t *testing.T) {
-	s := New()
-	x := s.GroupsSetTopic("channel", "topic")
-	y := `{"ok":false,"error":"not_authed","topic":""}`
-	CheckResponse(t, x, y)
-}
-
 func TestGroupsUnarchive(t *testing.T) {
 	s := New()
 	x := s.GroupsUnarchive("channel")

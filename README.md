@@ -198,7 +198,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :black_circle: | `groups.replies` | Retrieve a thread of messages posted to a private channel |
 | :black_circle: | `groups.setPurpose` | Sets the purpose for a private channel |
 | :large_blue_circle: | `groups.setRetention` | Sets the retention time of the messages |
-| :large_blue_circle: | `groups.setTopic` | Sets the topic for a private channel |
+| :black_circle: | `groups.setTopic` | Sets the topic for a private channel |
 | :large_blue_circle: | `groups.unarchive` | Unarchives a private channel |
 | :large_blue_circle: | `help` | Displays usage and program options |
 | :large_blue_circle: | `help.issues.list` | List issues reported by the current user |

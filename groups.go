@@ -40,12 +40,6 @@ func (s *SlackAPI) GroupsPurgeHistory(channel string, latest string, verbose boo
 func (s *SlackAPI) GroupsSetRetention(channel string, duration int) Response {
 	return s.ResourceSetRetention("groups.setRetention", channel, duration)
 }
-
-// GroupsSetTopic sets the topic for a private channel.
-func (s *SlackAPI) GroupsSetTopic(channel string, topic string) ChannelTopicNow {
-	return s.ResourceSetTopic("groups.setTopic", channel, topic)
-}
-
 // GroupsUnarchive unarchives a private channel.
 func (s *SlackAPI) GroupsUnarchive(channel string) Response {
 	return s.ResourceUnarchive("groups.unarchive", s.GroupsID(channel))
