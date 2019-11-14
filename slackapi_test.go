@@ -354,13 +354,6 @@ func TestGroupsSetRetention(t *testing.T) {
 	CheckResponse(t, x, y)
 }
 
-func TestGroupsUnarchive(t *testing.T) {
-	s := New()
-	x := s.GroupsUnarchive("channel")
-	y := `{"ok":false,"error":"not_authed"}`
-	CheckResponse(t, x, y)
-}
-
 func TestInstantMessageClose(t *testing.T) {
 	s := New()
 	x := s.InstantMessageClose("channel")
