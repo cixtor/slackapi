@@ -12,15 +12,6 @@ type ResponseGroupsList struct {
 	Groups []Channel `json:"groups"`
 }
 
-// GroupsClose closes a private channel.
-func (s *SlackAPI) GroupsClose(channel string) Response {
-	var response Response
-	s.getRequest(&response, "groups.close", struct {
-		Channel string `json:"channel"`
-	}{channel})
-	return response
-}
-
 // GroupsID gets private channel identifier from readable name.
 func (s *SlackAPI) GroupsID(query string) string {
 	return query

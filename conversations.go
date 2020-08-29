@@ -20,6 +20,29 @@ func (s *SlackAPI) ConversationsArchive(channel string) Response {
 	return out
 }
 
+type ResponseConversationsClose struct {
+	Response
+	NoOp          bool `json:"no_op,omitempty"`
+	AlreadyClosed bool `json:"already_closed,omitempty"`
+}
+
+// ConversationsClose closes a direct message or multi-person direct message.
+// Ref: https://api.slack.com/methods/conversations.close
+func (s *SlackAPI) ConversationsClose(channel string) ResponseConversationsClose {
+	in := struct {
+		Token   string `json:"token"`
+		Channel string `json:"channel"`
+	}{
+		Token:   s.token,
+		Channel: channel,
+	}
+	var out ResponseConversationsClose
+	if err := s.basePOST("/api/conversations.close", in, &out); err != nil {
+		return ResponseConversationsClose{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
+
 // ConversationsCreate creates a channel.
 func (s *SlackAPI) ConversationsCreate(name string) ResponseChannelsInfo {
 	in := struct {
