@@ -52,6 +52,11 @@ type ResponseChannelsInfo struct {
 	Channel Channel `json:"channel"`
 }
 
+type ResponseChannelsGenericInfo struct {
+	Response
+	Channels []Channel `json:"channels"`
+}
+
 // ResponseChannelsJoin defines the JSON-encoded output for ChannelsJoin.
 type ResponseChannelsJoin struct {
 	Response

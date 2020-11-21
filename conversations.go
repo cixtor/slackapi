@@ -103,6 +103,18 @@ func (s *SlackAPI) ConversationsInfo(channel string) ResponseChannelsInfo {
 	return out
 }
 
+// ConversationsGenericInfo retrieve information about a generic conversation.
+func (s *SlackAPI) ConversationsGenericInfo(channels string) ResponseChannelsGenericInfo {
+	in := url.Values{
+		"channels": []string{channels},
+	}
+	var out ResponseChannelsGenericInfo
+	if err := s.baseGET("/api/conversations.genericInfo", in, &out); err != nil {
+		return ResponseChannelsGenericInfo{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
+
 // ConversationsInvite invites users to a channel.
 func (s *SlackAPI) ConversationsInvite(channel string, users ...string) ResponseChannelsInfo {
 	in := struct {
