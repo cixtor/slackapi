@@ -135,8 +135,9 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `chat.unfurl` | Provide custom unfurl behavior for user-posted URLs |
 | :large_blue_circle: | `chat.update` | Updates a message |
 | :large_blue_circle: | `conversations.archive` | Archives a conversation |
-| :red_circle: | `conversations.close` | Closes a direct message or multi-person direct message |
+| :large_blue_circle: | `conversations.close` | Closes a direct message or multi-person direct message |
 | :large_blue_circle: | `conversations.create` | Initiates a public or private channel-based conversation |
+| :large_blue_circle: | `conversations.genericInfo` | Retrieve information about various channels |
 | :large_blue_circle: | `conversations.history` | Fetches a conversation's history of messages and events |
 | :large_blue_circle: | `conversations.info` | Retrieve information about a conversation |
 | :large_blue_circle: | `conversations.invite` | Invites users to a channel |
@@ -144,7 +145,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `conversations.kick` | Removes a user from a conversation |
 | :large_blue_circle: | `conversations.leave` | Leaves a conversation |
 | :large_blue_circle: | `conversations.list` | Lists all channels in a Slack team |
-| :red_circle: | `conversations.members` | Retrieve members of a conversation |
+| :large_blue_circle: | `conversations.members` | Retrieve members of a conversation |
 | :red_circle: | `conversations.open` | Opens or resumes a direct message or multi-person direct message |
 | :large_blue_circle: | `conversations.rename` | Renames a conversation |
 | :large_blue_circle: | `conversations.replies` | Retrieve a thread of messages posted to a conversation |

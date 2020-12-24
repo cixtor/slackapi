@@ -219,6 +219,31 @@ func (s *SlackAPI) ConversationsList(input ConversationsListInput) ResponseChann
 	return out
 }
 
+type ConversationsMembersInput struct {
+	Token   string `json:"token"`
+	Channel string `json:"channel"`
+	Cursor  string `json:"cursor"`
+	Limit   int    `json:"limit"`
+}
+
+type ResponseConversationsMembers struct {
+	Response
+	Members          []string         `json:"members"`
+	ResponseMetadata ResponseMetadata `json:"response_metadata"`
+}
+
+// ConversationsMembers retrieve members of a conversation.
+func (s *SlackAPI) ConversationsMembers(input ConversationsMembersInput) ResponseConversationsMembers {
+	if input.Token == "" {
+		input.Token = s.token
+	}
+	var out ResponseConversationsMembers
+	if err := s.basePOST("/api/conversations.members", input, &out); err != nil {
+		return ResponseConversationsMembers{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
+
 // ConversationsRename renames a conversation.
 func (s *SlackAPI) ConversationsRename(channel string, name string) ResponseChannelsInfo {
 	in := struct {
