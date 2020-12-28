@@ -145,6 +145,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `conversations.kick` | Removes a user from a conversation |
 | :large_blue_circle: | `conversations.leave` | Leaves a conversation |
 | :large_blue_circle: | `conversations.list` | Lists all channels in a Slack team |
+| :large_blue_circle: | `conversations.mark` | Sets the read cursor in a channel |
 | :large_blue_circle: | `conversations.members` | Retrieve members of a conversation |
 | :red_circle: | `conversations.open` | Opens or resumes a direct message or multi-person direct message |
 | :large_blue_circle: | `conversations.rename` | Renames a conversation |
@@ -206,7 +207,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `im.close` | Close a direct message channel |
 | :large_blue_circle: | `im.history` | Fetches history of messages and events from direct message channel |
 | :large_blue_circle: | `im.list` | Lists direct message channels for the calling user |
-| :large_blue_circle: | `im.mark` | Sets the read cursor in a direct message channel |
+| :skull: | `im.mark` | Sets the read cursor in a direct message channel |
 | :large_blue_circle: | `im.myHistory` | Displays messages of the current user from direct message channel |
 | :large_blue_circle: | `im.open` | Opens a direct message channel |
 | :red_circle: | `im.replies` | Retrieve a thread of messages posted to a direct message conversation |
@@ -216,7 +217,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `mpim.history` | Fetches history of messages and events from a multiparty direct message |
 | :large_blue_circle: | `mpim.list` | Lists multiparty direct message channels for the calling user |
 | :large_blue_circle: | `mpim.listSimple` | Lists ID and members in a multiparty direct message channels |
-| :large_blue_circle: | `mpim.mark` | Sets the read cursor in a multiparty direct message channel |
+| :skull: | `mpim.mark` | Sets the read cursor in a multiparty direct message channel |
 | :large_blue_circle: | `mpim.myHistory` | Displays messages of the current user from multiparty direct message channel |
 | :large_blue_circle: | `mpim.open` | This method opens a multiparty direct message |
 | :large_blue_circle: | `mpim.purgeHistory` | Deletes history of messages and events from multiparty direct message channel |

@@ -36,11 +36,6 @@ func (s *SlackAPI) InstantMessageList() InstantMessageList {
 	return response
 }
 
-// InstantMessageMark sets the read cursor in a direct message channel.
-func (s *SlackAPI) InstantMessageMark(channel string, timestamp string) Response {
-	return s.ResourceMark("im.mark", channel, timestamp)
-}
-
 // InstantMessageMyHistory displays messages of the current user from direct message channel.
 func (s *SlackAPI) InstantMessageMyHistory(channel string, latest string) MyHistory {
 	return s.ResourceMyHistory("im.history", channel, latest)

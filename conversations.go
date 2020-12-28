@@ -175,6 +175,25 @@ func (s *SlackAPI) ConversationsLeave(channel string) Response {
 	return out
 }
 
+type ConversationsMarkInput struct {
+	// Authentication token bearing required scopes. Tokens should be passed
+	// as an HTTP Authorization header or alternatively, as a POST parameter.
+	Token string `json:"token"`
+	// Conversation ID to fetch thread from.
+	Channel string `json:"channel"`
+	// Unique identifier of a thread's parent message.
+	Timestamp string `json:"ts"`
+}
+
+// ConversationsMark sets the read cursor in a channel.
+func (s *SlackAPI) ConversationsMark(input ConversationsMarkInput) Response {
+	var out Response
+	if err := s.basePOST("/api/conversations.mark", input, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+	return out
+}
+
 type ConversationsListInput struct {
 	// Paginate through collections of data by setting the cursor parameter to
 	// a next_cursor attribute returned by a previous request's response_metadata.
