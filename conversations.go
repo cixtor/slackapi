@@ -43,17 +43,22 @@ func (s *SlackAPI) ConversationsClose(channel string) ResponseConversationsClose
 	return out
 }
 
+type ConversationsCreateInput struct {
+	// Authentication token bearing required scopes. Tokens should be passed
+	// as an HTTP Authorization header or alternatively, as a POST parameter.
+	Token string `json:"token"`
+	// Name of the public or private channel to create.
+	Name string `json:"name"`
+	// Create a private channel instead of a public one.
+	IsPrivate bool `json:"is_private"`
+	// Encoded team id to create the channel in, required if org token is used.
+	TeamID string `json:"team_id"`
+}
+
 // ConversationsCreate creates a channel.
-func (s *SlackAPI) ConversationsCreate(name string) ResponseChannelsInfo {
-	in := struct {
-		Name     string `json:"name"`
-		Validate bool   `json:"validate"`
-	}{
-		Name:     name,
-		Validate: true,
-	}
+func (s *SlackAPI) ConversationsCreate(input ConversationsCreateInput) ResponseChannelsInfo {
 	var out ResponseChannelsInfo
-	if err := s.basePOST("/api/channels.create", in, &out); err != nil {
+	if err := s.basePOST("/api/conversations.create", input, &out); err != nil {
 		return ResponseChannelsInfo{Response: Response{Error: err.Error()}}
 	}
 	return out
