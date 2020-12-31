@@ -9,6 +9,7 @@ import (
 	"log"
 	"mime/multipart"
 	"net/http"
+	"net/http/httputil"
 	"net/url"
 	"os"
 	"reflect"
@@ -25,6 +26,7 @@ type SlackAPI struct {
 	token        string
 	cookie       string
 	client       *http.Client
+	debug        bool
 	teamUsers    ResponseUsersList
 	teamGroups   ResponseGroupsList
 	teamChannels ResponseChannelsList
@@ -42,6 +44,11 @@ func New() *SlackAPI {
 // SetToken sets the API token for the session.
 func (s *SlackAPI) SetToken(token string) {
 	s.token = token
+}
+
+// SetDebug instructs the library to print all HTTP requests.
+func (s *SlackAPI) SetDebug(enable bool) {
+	s.debug = enable
 }
 
 // SetCookie sets the API cookie for the session. Slack changed the permissions
@@ -84,6 +91,15 @@ func (s *SlackAPI) sendRequest(req *http.Request, output interface{}) error {
 		// is passed with the rest of the request. For example, tokens created
 		// by the web authorization flow.
 		req.Header.Set("Cookie", s.cookie)
+	}
+
+	if s.debug {
+		reqText, err := httputil.DumpRequest(req, true)
+		if err != nil {
+			fmt.Println("httputil.DumpRequest", err)
+		} else {
+			fmt.Printf("%s\n\n", reqText)
+		}
 	}
 
 	res, err := s.client.Do(req)
