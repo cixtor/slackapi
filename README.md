@@ -103,9 +103,9 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `calls.participants.add` | Registers new participants added to a Call |
 | :red_circle: | `calls.participants.remove` | Registers participants removed from a Call |
 | :black_circle: | `channels.archive` | Archives a channel |
-| :black_circle: | `channels.create` | Creates a channel |
+| :skull: | `channels.create` | Creates a channel |
 | :black_circle: | `channels.history` | Fetches history of messages and events from a channel |
-| :large_blue_circle: | `channels.id` | Gets channel identifier from readable name |
+| :skull: | `channels.id` | Gets channel identifier from readable name |
 | :black_circle: | `channels.info` | Gets information about a channel |
 | :black_circle: | `channels.invite` | Invites a user to a channel |
 | :black_circle: | `channels.join` | Joins a channel, creating it if needed |

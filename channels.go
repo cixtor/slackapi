@@ -77,11 +77,6 @@ type ChannelSuggestions struct {
 	SuggestionTypesTried []string `json:"suggestion_types_tried"`
 }
 
-// ChannelsID gets channel identifier from readable name.
-func (s *SlackAPI) ChannelsID(query string) string {
-	return query
-}
-
 // ChannelsMyHistory displays messages of the current user from a channel.
 func (s *SlackAPI) ChannelsMyHistory(channel string, latest string) MyHistory {
 	return s.ResourceMyHistory("channels.history", channel, latest)
