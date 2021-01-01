@@ -79,8 +79,3 @@ func (s *SlackAPI) ChannelsMyHistory(channel string, latest string) MyHistory {
 func (s *SlackAPI) ChannelsPurgeHistory(channel string, latest string, verbose bool) DeletedHistory {
 	return s.ResourcePurgeHistory("channels.history", channel, latest, verbose)
 }
-
-// ChannelsSetRetention sets the retention time of the messages.
-func (s *SlackAPI) ChannelsSetRetention(channel string, duration int) Response {
-	return s.ResourceSetRetention("channels.setRetention", channel, duration)
-}
