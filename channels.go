@@ -70,13 +70,6 @@ type ResponseChannelsList struct {
 	Channels []Channel `json:"channels"`
 }
 
-// ChannelSuggestions defines the expected data from the JSON-encoded API response.
-type ChannelSuggestions struct {
-	Response
-	Status               Response `json:"status"`
-	SuggestionTypesTried []string `json:"suggestion_types_tried"`
-}
-
 // ChannelsMyHistory displays messages of the current user from a channel.
 func (s *SlackAPI) ChannelsMyHistory(channel string, latest string) MyHistory {
 	return s.ResourceMyHistory("channels.history", channel, latest)
@@ -90,11 +83,4 @@ func (s *SlackAPI) ChannelsPurgeHistory(channel string, latest string, verbose b
 // ChannelsSetRetention sets the retention time of the messages.
 func (s *SlackAPI) ChannelsSetRetention(channel string, duration int) Response {
 	return s.ResourceSetRetention("channels.setRetention", channel, duration)
-}
-
-// ChannelsSuggestions prints a list of suggested channels to join.
-func (s *SlackAPI) ChannelsSuggestions() ChannelSuggestions {
-	var response ChannelSuggestions
-	s.getRequest(&response, "channels.suggestions", nil)
-	return response
 }

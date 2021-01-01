@@ -120,7 +120,6 @@ Note that the client runs with the same chat session of the user that is using t
 | :black_circle: | `channels.setPurpose` | Sets the purpose for a channel |
 | :large_blue_circle: | `channels.setRetention` | Sets the retention time of the messages |
 | :black_circle: | `channels.setTopic` | Sets the topic for a channel |
-| :large_blue_circle: | `channels.suggestions` | Prints a list of suggested channels to join |
 | :black_circle: | `channels.unarchive` | Unarchives a channel |
 | :large_blue_circle: | `chat.delete` | Deletes a message |
 | :red_circle: | `chat.deleteScheduledMessage` | Deletes a pending scheduled message from the queue |
