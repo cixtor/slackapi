@@ -889,10 +889,3 @@ func TestUsersSetAvatar(t *testing.T) {
 	y := `{"ok":false,"upload_id":"","upload_url":"","profile":{"avatar_hash":"","image_1024":"","image_192":"","image_24":"","image_32":"","image_48":"","image_512":"","image_72":"","image_original":""}}`
 	CheckResponse(t, x, y)
 }
-
-func TestUsersSetPhoto(t *testing.T) {
-	s := New()
-	x := s.UsersSetPhoto("imageid")
-	y := `{"ok":false,"error":"not_authed","profile":{"avatar_hash":"","image_1024":"","image_192":"","image_24":"","image_32":"","image_48":"","image_512":"","image_72":"","image_original":""}}`
-	CheckResponse(t, x, y)
-}
