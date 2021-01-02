@@ -896,10 +896,3 @@ func TestUsersSetPhoto(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","profile":{"avatar_hash":"","image_1024":"","image_192":"","image_24":"","image_32":"","image_48":"","image_512":"","image_72":"","image_original":""}}`
 	CheckResponse(t, x, y)
 }
-
-func TestUsersSetPresence(t *testing.T) {
-	s := New()
-	x := s.UsersSetPresence("value")
-	y := `{"ok":false,"error":"not_authed"}`
-	CheckResponse(t, x, y)
-}
