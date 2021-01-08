@@ -847,10 +847,3 @@ func TestUsersPreparePhoto(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","id":"","url":""}`
 	CheckResponse(t, x, y)
 }
-
-func TestUsersProfileGet(t *testing.T) {
-	s := New()
-	x := s.UsersProfileGet("user")
-	y := `{"ok":false,"error":"not_authed","profile":{"api_app_id":"","bot_id":"","avatar_hash":"","email":"","fields":null,"first_name":"","image_1024":"","image_192":"","image_24":"","image_32":"","image_48":"","image_512":"","image_72":"","image_original":"","last_name":"","phone":"","real_name":"","real_name_normalized":"","status_text":"","status_emoji":"","skype":"","title":""}}`
-	CheckResponse(t, x, y)
-}
