@@ -812,10 +812,3 @@ func TestUsersList(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","members":null,"cache_ts":0,"response_metadata":{"next_cursor":""}}`
 	CheckResponse(t, x, y)
 }
-
-func TestUsersListWithPresence(t *testing.T) {
-	s := New()
-	x := s.UsersListWithPresence()
-	y := `{"ok":false,"error":"not_authed","members":null,"cache_ts":0,"response_metadata":{"next_cursor":""}}`
-	CheckResponse(t, x, y)
-}
