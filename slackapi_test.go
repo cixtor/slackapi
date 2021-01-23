@@ -784,10 +784,3 @@ func TestUsersGetPresence(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","presence":"","connection_count":0,"last_activity":0,"auto_away":false,"manual_away":false,"online":false}`
 	CheckResponse(t, x, y)
 }
-
-func TestUsersID(t *testing.T) {
-	s := New()
-	x := s.UsersID("user", 20)
-	y := `"user"`
-	CheckResponse(t, x, y)
-}
