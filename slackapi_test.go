@@ -798,10 +798,3 @@ func TestUsersIdentity(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","team":{"domain":"","email_domain":"","icon":{"image_102":"","image_132":"","image_34":"","image_44":"","image_68":"","image_88":"","image_original":""},"id":"","name":""},"user":{"id":"","name":"","email":"","image_24":"","image_32":"","image_48":"","image_72":"","image_192":""}}`
 	CheckResponse(t, x, y)
 }
-
-func TestUsersInfo(t *testing.T) {
-	s := New()
-	x := s.UsersInfo("user")
-	y := `{"ok":false,"error":"not_authed","user":{"color":"","id":"","name":"","presence":"","profile":{"api_app_id":"","bot_id":"","avatar_hash":"","email":"","fields":null,"first_name":"","image_1024":"","image_192":"","image_24":"","image_32":"","image_48":"","image_512":"","image_72":"","image_original":"","last_name":"","phone":"","real_name":"","real_name_normalized":"","status_text":"","status_emoji":"","skype":"","title":""},"real_name":"","status":"","team_id":"","two_factor_type":"","tz":"","tz_label":"","tz_offset":0,"deleted":false,"has_2fa":false,"is_admin":false,"is_bot":false,"is_owner":false,"is_primary_owner":false,"is_restricted":false,"is_ultra_restricted":false}}`
-	CheckResponse(t, x, y)
-}
