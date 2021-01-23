@@ -791,10 +791,3 @@ func TestUsersID(t *testing.T) {
 	y := `"user"`
 	CheckResponse(t, x, y)
 }
-
-func TestUsersIdentity(t *testing.T) {
-	s := New()
-	x := s.UsersIdentity()
-	y := `{"ok":false,"error":"not_authed","team":{"domain":"","email_domain":"","icon":{"image_102":"","image_132":"","image_34":"","image_44":"","image_68":"","image_88":"","image_original":""},"id":"","name":""},"user":{"id":"","name":"","email":"","image_24":"","image_32":"","image_48":"","image_72":"","image_192":""}}`
-	CheckResponse(t, x, y)
-}
