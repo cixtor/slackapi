@@ -763,10 +763,3 @@ func TestTeamProfileGet(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","profile":{"fields":null}}`
 	CheckResponse(t, x, y)
 }
-
-func TestUsersCounts(t *testing.T) {
-	s := New()
-	x := s.UsersCounts()
-	y := `{"ok":false,"error":"not_authed","channels":null,"groups":null,"ims":null}`
-	CheckResponse(t, x, y)
-}
