@@ -770,10 +770,3 @@ func TestUsersCounts(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","channels":null,"groups":null,"ims":null}`
 	CheckResponse(t, x, y)
 }
-
-func TestUsersDeletePhoto(t *testing.T) {
-	s := New()
-	x := s.UsersDeletePhoto()
-	y := `{"ok":false,"error":"not_authed"}`
-	CheckResponse(t, x, y)
-}
