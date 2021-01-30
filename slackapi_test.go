@@ -756,10 +756,3 @@ func TestTeamInfo(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","team":{"domain":"","email_domain":"","icon":{"image_102":"","image_132":"","image_34":"","image_44":"","image_68":"","image_88":"","image_original":""},"id":"","name":""}}`
 	CheckResponse(t, x, y)
 }
-
-func TestTeamProfileGet(t *testing.T) {
-	s := New()
-	x := s.TeamProfileGet()
-	y := `{"ok":false,"error":"not_authed","profile":{"fields":null}}`
-	CheckResponse(t, x, y)
-}
