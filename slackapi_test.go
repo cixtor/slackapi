@@ -749,10 +749,3 @@ func TestTeamBillableInfo(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","billable_info":null}`
 	CheckResponse(t, x, y)
 }
-
-func TestTeamInfo(t *testing.T) {
-	s := New()
-	x := s.TeamInfo()
-	y := `{"ok":false,"error":"not_authed","team":{"domain":"","email_domain":"","icon":{"image_102":"","image_132":"","image_34":"","image_44":"","image_68":"","image_88":"","image_original":""},"id":"","name":""}}`
-	CheckResponse(t, x, y)
-}
