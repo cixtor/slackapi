@@ -742,10 +742,3 @@ func TestTeamAccessLogs(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","logins":null}`
 	CheckResponse(t, x, y)
 }
-
-func TestTeamBillableInfo(t *testing.T) {
-	s := New()
-	x := s.TeamBillableInfo("user")
-	y := `{"ok":false,"error":"not_authed","billable_info":null}`
-	CheckResponse(t, x, y)
-}
