@@ -728,10 +728,3 @@ func TestStarsRemoveFile(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed"}`
 	CheckResponse(t, x, y)
 }
-
-func TestStarsRemoveFileComment(t *testing.T) {
-	s := New()
-	x := s.StarsRemove("channel", "Fc12345678")
-	y := `{"ok":false,"error":"not_authed"}`
-	CheckResponse(t, x, y)
-}
