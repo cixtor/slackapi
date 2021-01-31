@@ -735,10 +735,3 @@ func TestStarsRemoveFileComment(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed"}`
 	CheckResponse(t, x, y)
 }
-
-func TestTeamAccessLogs(t *testing.T) {
-	s := New()
-	x := s.TeamAccessLogs(AccessLogArgs{})
-	y := `{"ok":false,"error":"not_authed","logins":null}`
-	CheckResponse(t, x, y)
-}
