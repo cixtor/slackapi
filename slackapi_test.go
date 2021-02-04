@@ -700,10 +700,3 @@ func TestStarsAddFile(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed"}`
 	CheckResponse(t, x, y)
 }
-
-func TestStarsAddFileComment(t *testing.T) {
-	s := New()
-	x := s.StarsAdd("channel", "Fc12345678")
-	y := `{"ok":false,"error":"not_authed"}`
-	CheckResponse(t, x, y)
-}
