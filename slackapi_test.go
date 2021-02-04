@@ -707,10 +707,3 @@ func TestStarsAddFileComment(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed"}`
 	CheckResponse(t, x, y)
 }
-
-func TestStarsList(t *testing.T) {
-	s := New()
-	x := s.StarsList(1000, 1)
-	y := `{"ok":false,"error":"not_authed","items":null,"paging":{"count":0,"page":0,"pages":0,"total":0}}`
-	CheckResponse(t, x, y)
-}
