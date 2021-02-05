@@ -678,11 +678,3 @@ func TestSearchUsers(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","results":null,"presence_active_ids":null}`
 	CheckResponse(t, x, y)
 }
-
-func TestSetToken(t *testing.T) {
-	s := New()
-	s.SetToken("foobar")
-	if s.token != "foobar" {
-		t.Fatal("token was not programmatically set")
-	}
-}
