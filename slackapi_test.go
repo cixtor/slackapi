@@ -686,10 +686,3 @@ func TestSetToken(t *testing.T) {
 		t.Fatal("token was not programmatically set")
 	}
 }
-
-func TestStarsAdd(t *testing.T) {
-	s := New()
-	x := s.StarsAdd("channel", "1234567890")
-	y := `{"ok":false,"error":"not_authed"}`
-	CheckResponse(t, x, y)
-}
