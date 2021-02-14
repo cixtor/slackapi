@@ -668,13 +668,3 @@ func TestSearchMessages(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","query":"","files":{"matches":null,"pagination":{"first":0,"last":0,"page":0,"page_count":0,"per_page":0,"total_count":0},"paging":{"count":0,"page":0,"pages":0,"total":0},"total":0},"posts":{"matches":null,"pagination":{"first":0,"last":0,"page":0,"page_count":0,"per_page":0,"total_count":0},"paging":{"count":0,"page":0,"pages":0,"total":0},"total":0},"messages":{"matches":null,"pagination":{"first":0,"last":0,"page":0,"page_count":0,"per_page":0,"total_count":0},"paging":{"count":0,"page":0,"pages":0,"total":0},"total":0}}`
 	CheckResponse(t, x, y)
 }
-
-func TestSearchUsers(t *testing.T) {
-	s := New()
-	x, err := s.SearchUsers(SearchUsersArgs{Query: "foobar", Count: 20})
-	if err != nil {
-		t.Fatal(err)
-	}
-	y := `{"ok":false,"error":"not_authed","results":null,"presence_active_ids":null}`
-	CheckResponse(t, x, y)
-}
