@@ -640,10 +640,3 @@ func TestResourceSetTopic(t *testing.T) {
 	y := `{"ok":false,"error":"unknown_method","topic":""}`
 	CheckResponse(t, x, y)
 }
-
-func TestResourceUnarchive(t *testing.T) {
-	s := New()
-	x := s.ResourceUnarchive("action", "channel")
-	y := `{"ok":false,"error":"unknown_method"}`
-	CheckResponse(t, x, y)
-}
