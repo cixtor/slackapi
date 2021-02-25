@@ -626,10 +626,3 @@ func TestResourceSetPurpose(t *testing.T) {
 	y := `{"ok":false,"error":"unknown_method","purpose":""}`
 	CheckResponse(t, x, y)
 }
-
-func TestResourceSetRetention(t *testing.T) {
-	s := New()
-	x := s.ResourceSetRetention("action", "channel", 1)
-	y := `{"ok":false,"error":"unknown_method"}`
-	CheckResponse(t, x, y)
-}
