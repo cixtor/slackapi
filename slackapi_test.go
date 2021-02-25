@@ -612,10 +612,3 @@ func TestResourcePurgeHistory(t *testing.T) {
 	y := `{"Deleted":0,"NotDeleted":0,"Messages":null}`
 	CheckResponse(t, x, y)
 }
-
-func TestResourceRename(t *testing.T) {
-	s := New()
-	x := s.ResourceRename("action", "channel", "lennahc")
-	y := `{"ok":false,"error":"unknown_method","channel":{"id":"","is_channel":false,"is_group":false,"name":"","created":0}}`
-	CheckResponse(t, x, y)
-}
