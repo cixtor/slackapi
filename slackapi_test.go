@@ -619,10 +619,3 @@ func TestResourceRename(t *testing.T) {
 	y := `{"ok":false,"error":"unknown_method","channel":{"id":"","is_channel":false,"is_group":false,"name":"","created":0}}`
 	CheckResponse(t, x, y)
 }
-
-func TestResourceSetPurpose(t *testing.T) {
-	s := New()
-	x := s.ResourceSetPurpose("action", "channel", "purpose")
-	y := `{"ok":false,"error":"unknown_method","purpose":""}`
-	CheckResponse(t, x, y)
-}
