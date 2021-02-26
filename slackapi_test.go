@@ -598,10 +598,3 @@ func TestResourceMark(t *testing.T) {
 	y := `{"ok":false,"error":"unknown_method"}`
 	CheckResponse(t, x, y)
 }
-
-func TestResourceMyHistory(t *testing.T) {
-	s := New()
-	x := s.ResourceMyHistory("action", "channel", "1234567890")
-	y := `{"Filtered":0,"Latest":"","Messages":null,"Oldest":"","Total":0,"Username":""}`
-	CheckResponse(t, x, y)
-}
