@@ -591,10 +591,3 @@ func TestResourceLeave(t *testing.T) {
 	y := `{"ok":false,"error":"unknown_method"}`
 	CheckResponse(t, x, y)
 }
-
-func TestResourceMark(t *testing.T) {
-	s := New()
-	x := s.ResourceMark("action", "channel", "1234567890")
-	y := `{"ok":false,"error":"unknown_method"}`
-	CheckResponse(t, x, y)
-}
