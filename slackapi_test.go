@@ -605,10 +605,3 @@ func TestResourceMyHistory(t *testing.T) {
 	y := `{"Filtered":0,"Latest":"","Messages":null,"Oldest":"","Total":0,"Username":""}`
 	CheckResponse(t, x, y)
 }
-
-func TestResourcePurgeHistory(t *testing.T) {
-	s := New()
-	x := s.ResourcePurgeHistory("action", "channel", "1234567890", true)
-	y := `{"Deleted":0,"NotDeleted":0,"Messages":null}`
-	CheckResponse(t, x, y)
-}
