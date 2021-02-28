@@ -577,10 +577,3 @@ func TestResourceInvite(t *testing.T) {
 	y := `{"ok":false,"error":"unknown_method"}`
 	CheckResponse(t, x, y)
 }
-
-func TestResourceKick(t *testing.T) {
-	s := New()
-	x := s.ResourceKick("action", "channel", "user")
-	y := `{"ok":false,"error":"unknown_method"}`
-	CheckResponse(t, x, y)
-}
