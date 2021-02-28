@@ -570,10 +570,3 @@ func TestResourceHistory(t *testing.T) {
 	y := `{"ok":false,"error":"unknown_method","messages":null,"has_more":false,"pin_count":0,"unread_count_display":0,"response_metadata":{"next_cursor":""}}`
 	CheckResponse(t, x, y)
 }
-
-func TestResourceInvite(t *testing.T) {
-	s := New()
-	x := s.ResourceInvite("action", "channel", "user")
-	y := `{"ok":false,"error":"unknown_method"}`
-	CheckResponse(t, x, y)
-}
