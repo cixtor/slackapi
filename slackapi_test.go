@@ -549,10 +549,3 @@ func TestReactionsList(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","items":null,"paging":{"count":0,"page":0,"pages":0,"total":0}}`
 	CheckResponse(t, x, y)
 }
-
-func TestReactionsRemove(t *testing.T) {
-	s := New()
-	x := s.ReactionsRemove(ReactionArgs{})
-	y := `{"ok":false,"error":"not_authed"}`
-	CheckResponse(t, x, y)
-}
