@@ -556,10 +556,3 @@ func TestReactionsRemove(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed"}`
 	CheckResponse(t, x, y)
 }
-
-func TestResourceArchive(t *testing.T) {
-	s := New()
-	x := s.ResourceArchive("action", "channel")
-	y := `{"ok":false,"error":"unknown_method"}`
-	CheckResponse(t, x, y)
-}
