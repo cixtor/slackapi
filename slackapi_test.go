@@ -563,10 +563,3 @@ func TestResourceArchive(t *testing.T) {
 	y := `{"ok":false,"error":"unknown_method"}`
 	CheckResponse(t, x, y)
 }
-
-func TestResourceHistory(t *testing.T) {
-	s := New()
-	x := s.ResourceHistory("action", HistoryArgs{})
-	y := `{"ok":false,"error":"unknown_method","messages":null,"has_more":false,"pin_count":0,"unread_count_display":0,"response_metadata":{"next_cursor":""}}`
-	CheckResponse(t, x, y)
-}
