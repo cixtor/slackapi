@@ -528,10 +528,3 @@ func TestPinsRemoveFileComment(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed"}`
 	CheckResponse(t, x, y)
 }
-
-func TestReactionsAdd(t *testing.T) {
-	s := New()
-	x := s.ReactionsAdd(ReactionArgs{})
-	y := `{"ok":false,"error":"not_authed"}`
-	CheckResponse(t, x, y)
-}
