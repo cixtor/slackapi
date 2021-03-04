@@ -507,10 +507,3 @@ func TestPinsList(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","items":null}`
 	CheckResponse(t, x, y)
 }
-
-func TestPinsRemove(t *testing.T) {
-	s := New()
-	x := s.PinsRemove("channel", "1234567890")
-	y := `{"ok":false,"error":"not_authed"}`
-	CheckResponse(t, x, y)
-}
