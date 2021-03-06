@@ -486,10 +486,3 @@ func TestPinsAdd(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed"}`
 	CheckResponse(t, x, y)
 }
-
-func TestPinsAddFile(t *testing.T) {
-	s := New()
-	x := s.PinsAdd("channel", "F123456789")
-	y := `{"ok":false,"error":"not_authed"}`
-	CheckResponse(t, x, y)
-}
