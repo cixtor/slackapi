@@ -451,10 +451,3 @@ func TestMultiPartyInstantMessageListSimple(t *testing.T) {
 	y := `{}`
 	CheckResponse(t, x, y)
 }
-
-func TestMultiPartyInstantMessageMark(t *testing.T) {
-	s := New()
-	x := s.MultiPartyInstantMessageMark("channel", "1234567890")
-	y := `{"ok":false,"error":"not_authed"}`
-	CheckResponse(t, x, y)
-}
