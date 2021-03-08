@@ -437,10 +437,3 @@ func TestMultiPartyInstantMessageHistory(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","messages":null,"has_more":false,"pin_count":0,"unread_count_display":0,"response_metadata":{"next_cursor":""}}`
 	CheckResponse(t, x, y)
 }
-
-func TestMultiPartyInstantMessageList(t *testing.T) {
-	s := New()
-	x := s.MultiPartyInstantMessageList()
-	y := `{"ok":false,"error":"not_authed","groups":null}`
-	CheckResponse(t, x, y)
-}
