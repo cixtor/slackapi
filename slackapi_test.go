@@ -444,10 +444,3 @@ func TestMultiPartyInstantMessageList(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","groups":null}`
 	CheckResponse(t, x, y)
 }
-
-func TestMultiPartyInstantMessageListSimple(t *testing.T) {
-	s := New()
-	x := s.MultiPartyInstantMessageListSimple()
-	y := `{}`
-	CheckResponse(t, x, y)
-}
