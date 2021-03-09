@@ -416,10 +416,3 @@ func TestHelpIssuesList(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","issues":null}`
 	CheckResponse(t, x, y)
 }
-
-func TestMigrationExchange(t *testing.T) {
-	s := New()
-	x := s.MigrationExchange([]string{}, false)
-	y := `{"ok":false,"error":"not_authed","team_id":"","enterprise_id":"","user_id_map":null,"invalid_user_ids":null}`
-	CheckResponse(t, x, y)
-}
