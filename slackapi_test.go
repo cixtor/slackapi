@@ -423,10 +423,3 @@ func TestMigrationExchange(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","team_id":"","enterprise_id":"","user_id_map":null,"invalid_user_ids":null}`
 	CheckResponse(t, x, y)
 }
-
-func TestMultiPartyInstantMessageClose(t *testing.T) {
-	s := New()
-	x := s.MultiPartyInstantMessageClose("1234567890")
-	y := `{"ok":false,"error":"not_authed"}`
-	CheckResponse(t, x, y)
-}
