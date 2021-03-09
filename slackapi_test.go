@@ -409,10 +409,3 @@ func TestEventlogHistory(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","events":null,"has_more":false,"total":0}`
 	CheckResponse(t, x, y)
 }
-
-func TestHelpIssuesList(t *testing.T) {
-	s := New()
-	x := s.HelpIssuesList()
-	y := `{"ok":false,"error":"not_authed","issues":null}`
-	CheckResponse(t, x, y)
-}
