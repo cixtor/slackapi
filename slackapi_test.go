@@ -395,10 +395,3 @@ func TestInstantMessageOpen(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","already_open":false,"no_op":false,"channel":{"id":""}}`
 	CheckResponse(t, x, y)
 }
-
-func TestInstantMessagePurgeHistory(t *testing.T) {
-	s := New()
-	x := s.InstantMessagePurgeHistory("channel", "1234567890", true)
-	y := `{"Deleted":0,"NotDeleted":0,"Messages":null}`
-	CheckResponse(t, x, y)
-}
