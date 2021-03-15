@@ -367,10 +367,3 @@ func TestInstantMessageHistory(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","messages":null,"has_more":false,"pin_count":0,"unread_count_display":0,"response_metadata":{"next_cursor":""}}`
 	CheckResponse(t, x, y)
 }
-
-func TestInstantMessageList(t *testing.T) {
-	s := New()
-	x := s.InstantMessageList()
-	y := `{"ok":false,"error":"not_authed","ims":null}`
-	CheckResponse(t, x, y)
-}
