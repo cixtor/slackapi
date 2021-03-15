@@ -374,10 +374,3 @@ func TestInstantMessageList(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","ims":null}`
 	CheckResponse(t, x, y)
 }
-
-func TestInstantMessageMark(t *testing.T) {
-	s := New()
-	x := s.InstantMessageMark("channel", "1234567890")
-	y := `{"ok":false,"error":"not_authed"}`
-	CheckResponse(t, x, y)
-}
