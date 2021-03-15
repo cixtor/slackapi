@@ -381,10 +381,3 @@ func TestInstantMessageMark(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed"}`
 	CheckResponse(t, x, y)
 }
-
-func TestInstantMessageMyHistory(t *testing.T) {
-	s := New()
-	x := s.InstantMessageMyHistory("channel", "1234567890")
-	y := `{"Filtered":0,"Latest":"","Messages":null,"Oldest":"","Total":0,"Username":""}`
-	CheckResponse(t, x, y)
-}
