@@ -346,10 +346,3 @@ func TestGroupsPurgeHistory(t *testing.T) {
 	y := `{"Deleted":0,"NotDeleted":0,"Messages":null}`
 	CheckResponse(t, x, y)
 }
-
-func TestGroupsSetRetention(t *testing.T) {
-	s := New()
-	x := s.GroupsSetRetention("channel", 1)
-	y := `{"ok":false,"error":"not_authed"}`
-	CheckResponse(t, x, y)
-}
