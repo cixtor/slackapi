@@ -360,10 +360,3 @@ func TestInstantMessageClose(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed"}`
 	CheckResponse(t, x, y)
 }
-
-func TestInstantMessageHistory(t *testing.T) {
-	s := New()
-	x := s.InstantMessageHistory(HistoryArgs{Channel: "channel", Latest: "1234567890"})
-	y := `{"ok":false,"error":"not_authed","messages":null,"has_more":false,"pin_count":0,"unread_count_display":0,"response_metadata":{"next_cursor":""}}`
-	CheckResponse(t, x, y)
-}
