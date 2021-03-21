@@ -353,10 +353,3 @@ func TestGroupsSetRetention(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed"}`
 	CheckResponse(t, x, y)
 }
-
-func TestInstantMessageClose(t *testing.T) {
-	s := New()
-	x := s.InstantMessageClose("channel")
-	y := `{"ok":false,"error":"not_authed"}`
-	CheckResponse(t, x, y)
-}
