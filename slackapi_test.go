@@ -325,10 +325,3 @@ func TestGroupsClose(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed"}`
 	CheckResponse(t, x, y)
 }
-
-func TestGroupsID(t *testing.T) {
-	s := New()
-	x := s.GroupsID("channel")
-	y := `"channel"`
-	CheckResponse(t, x, y)
-}
