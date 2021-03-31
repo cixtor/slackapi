@@ -297,10 +297,3 @@ func TestFilesList(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","files":null,"paging":{"count":0,"page":0,"pages":0,"total":0}}`
 	CheckResponse(t, x, y)
 }
-
-func TestFilesRevokePublicURL(t *testing.T) {
-	s := New()
-	x := s.FilesRevokePublicURL("fileid")
-	y := `{"error":"not_authed","ok":false}`
-	CheckResponse(t, x, y)
-}
