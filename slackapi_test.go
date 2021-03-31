@@ -290,10 +290,3 @@ func TestFilesInfo(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","file":{"channels":null,"comments_count":0,"created":0,"deanimate_gif":"","edit_link":"","external_type":"","filetype":"","groups":null,"id":"","image_exif_rotation":0,"initial_comment":{"comment":"","id":"","user":"","created":0,"timestamp":0,"is_intro":false},"ims":null,"lines":0,"lines_more":0,"mimetype":"","mode":"","name":"","num_stars":0,"original_h":0,"original_w":0,"permalink":"","permalink_public":"","pretty_type":"","preview":"","preview_highlight":"","reactions":null,"score":"","size":0,"thumb_160":"","thumb_360":"","thumb_360_gif":"","thumb_360_h":0,"thumb_360_w":0,"thumb_480":"","thumb_480_gif":"","thumb_480_h":0,"thumb_480_w":0,"thumb_64":"","thumb_80":"","timestamp":0,"title":"","url":"","url_download":"","url_private":"","url_private_download":"","user":"","username":"","display_as_bot":false,"editable":false,"is_external":false,"is_public":false,"is_starred":false,"public_url_shared":false,"top_file":false},"comments":null,"paging":{"count":0,"page":0,"pages":0,"total":0}}`
 	CheckResponse(t, x, y)
 }
-
-func TestFilesList(t *testing.T) {
-	s := New()
-	x := s.FilesList(FileListArgs{})
-	y := `{"ok":false,"error":"not_authed","files":null,"paging":{"count":0,"page":0,"pages":0,"total":0}}`
-	CheckResponse(t, x, y)
-}
