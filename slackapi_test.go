@@ -269,10 +269,3 @@ func TestFilesCommentsDelete(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed"}`
 	CheckResponse(t, x, y)
 }
-
-func TestFilesCommentsEdit(t *testing.T) {
-	s := New()
-	x := s.FilesCommentsEdit("fileid", "commentid", "comment")
-	y := `{"ok":false,"error":"unknown_method","comment":{"comment":"","id":"","user":"","created":0,"timestamp":0,"is_intro":false}}`
-	CheckResponse(t, x, y)
-}
