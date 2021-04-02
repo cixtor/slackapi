@@ -248,10 +248,3 @@ func TestDNDTeamInfo(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","cached":false,"users":null}`
 	CheckResponse(t, x, y)
 }
-
-func TestEmojiList(t *testing.T) {
-	s := New()
-	x := s.EmojiList()
-	y := `{"ok":false,"error":"not_authed","cache_ts":"","emoji":null}`
-	CheckResponse(t, x, y)
-}
