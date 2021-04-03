@@ -234,10 +234,3 @@ func TestDNDInfo(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","dnd_enabled":false,"next_dnd_start_ts":0,"next_dnd_end_ts":0,"snooze_debug":{}}`
 	CheckResponse(t, x, y)
 }
-
-func TestDNDSetSnooze(t *testing.T) {
-	s := New()
-	x := s.DNDSetSnooze(60)
-	y := `{"ok":false,"error":"not_authed","snooze_debug":{}}`
-	CheckResponse(t, x, y)
-}
