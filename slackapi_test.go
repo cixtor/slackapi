@@ -206,10 +206,3 @@ func TestConversationsSetTopic(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","topic":""}`
 	CheckResponse(t, x, y)
 }
-
-func TestConversationsUnarchive(t *testing.T) {
-	s := New()
-	x := s.ConversationsUnarchive("channel")
-	y := `{"ok":false,"error":"not_authed"}`
-	CheckResponse(t, x, y)
-}
