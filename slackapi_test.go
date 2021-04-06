@@ -192,10 +192,3 @@ func TestConversationsReplies(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","messages":null,"has_more":false,"pin_count":0,"unread_count_display":0,"response_metadata":{"next_cursor":""}}`
 	CheckResponse(t, x, y)
 }
-
-func TestConversationsSetPurpose(t *testing.T) {
-	s := New()
-	x := s.ConversationsSetPurpose("channel", "purpose")
-	y := `{"ok":false,"error":"not_authed","purpose":""}`
-	CheckResponse(t, x, y)
-}
