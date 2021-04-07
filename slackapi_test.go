@@ -164,10 +164,3 @@ func TestConversationsKick(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed"}`
 	CheckResponse(t, x, y)
 }
-
-func TestConversationsLeave(t *testing.T) {
-	s := New()
-	x := s.ConversationsLeave("channel")
-	y := `{"ok":false,"error":"not_authed"}`
-	CheckResponse(t, x, y)
-}
