@@ -101,10 +101,3 @@ func TestChatMeMessage(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","channel":"","text":"","ts":""}`
 	CheckResponse(t, x, y)
 }
-
-func TestChatPostMessage(t *testing.T) {
-	s := New()
-	x := s.ChatPostMessage(MessageArgs{})
-	y := `{"ok":false,"error":"not_authed","channel":"","ts":"","message":{"display_as_bot":false}}`
-	CheckResponse(t, x, y)
-}
