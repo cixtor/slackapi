@@ -87,10 +87,3 @@ func TestChannelsSuggestions(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","status":{"ok":false},"suggestion_types_tried":null}`
 	CheckResponse(t, x, y)
 }
-
-func TestChatDelete(t *testing.T) {
-	s := New()
-	x := s.ChatDelete(MessageArgs{})
-	y := `{"ok":false,"error":"not_authed","channel":"","text":"","ts":""}`
-	CheckResponse(t, x, y)
-}
