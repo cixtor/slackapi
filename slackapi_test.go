@@ -80,10 +80,3 @@ func TestChannelsSetRetention(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed"}`
 	CheckResponse(t, x, y)
 }
-
-func TestChannelsSuggestions(t *testing.T) {
-	s := New()
-	x := s.ChannelsSuggestions()
-	y := `{"ok":false,"error":"not_authed","status":{"ok":false},"suggestion_types_tried":null}`
-	CheckResponse(t, x, y)
-}
