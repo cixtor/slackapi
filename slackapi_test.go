@@ -94,10 +94,3 @@ func TestChatDelete(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","channel":"","text":"","ts":""}`
 	CheckResponse(t, x, y)
 }
-
-func TestChatMeMessage(t *testing.T) {
-	s := New()
-	x := s.ChatMeMessage(MessageArgs{})
-	y := `{"ok":false,"error":"not_authed","channel":"","text":"","ts":""}`
-	CheckResponse(t, x, y)
-}
