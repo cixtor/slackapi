@@ -66,10 +66,3 @@ func TestChannelsMyHistory(t *testing.T) {
 	y := `{"Filtered":0,"Latest":"","Messages":null,"Oldest":"","Total":0,"Username":""}`
 	CheckResponse(t, x, y)
 }
-
-func TestChannelsPurgeHistory(t *testing.T) {
-	s := New()
-	x := s.ChannelsPurgeHistory("channel", "1234567890", true)
-	y := `{"Deleted":0,"NotDeleted":0,"Messages":null}`
-	CheckResponse(t, x, y)
-}
