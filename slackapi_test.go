@@ -73,10 +73,3 @@ func TestChannelsPurgeHistory(t *testing.T) {
 	y := `{"Deleted":0,"NotDeleted":0,"Messages":null}`
 	CheckResponse(t, x, y)
 }
-
-func TestChannelsSetRetention(t *testing.T) {
-	s := New()
-	x := s.ChannelsSetRetention("channel", 1)
-	y := `{"ok":false,"error":"not_authed"}`
-	CheckResponse(t, x, y)
-}
