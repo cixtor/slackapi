@@ -35,13 +35,3 @@ func TestAuthRevoke(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","revoked":false}`
 	CheckResponse(t, x, y)
 }
-
-func TestAuthTest(t *testing.T) {
-	s := New()
-	x, err := s.AuthTest()
-	if err != nil {
-		t.Fatal(err)
-	}
-	y := `{"ok":false,"error":"not_authed","team":"","team_id":"","url":"","user":"","user_id":""}`
-	CheckResponse(t, x, y)
-}
