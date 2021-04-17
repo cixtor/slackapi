@@ -52,10 +52,3 @@ func TestBotsInfo(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","bot":{"id":"","deleted":false,"name":"","icons":null}}`
 	CheckResponse(t, x, y)
 }
-
-func TestChannelsID(t *testing.T) {
-	s := New()
-	x := s.ChannelsID("channel")
-	y := `"channel"`
-	CheckResponse(t, x, y)
-}
