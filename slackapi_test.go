@@ -45,10 +45,3 @@ func TestAuthTest(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","team":"","team_id":"","url":"","user":"","user_id":""}`
 	CheckResponse(t, x, y)
 }
-
-func TestBotsInfo(t *testing.T) {
-	s := New()
-	x := s.BotsInfo("user")
-	y := `{"ok":false,"error":"not_authed","bot":{"id":"","deleted":false,"name":"","icons":null}}`
-	CheckResponse(t, x, y)
-}
