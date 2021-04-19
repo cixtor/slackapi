@@ -14,10 +14,3 @@ func CheckResponse(t *testing.T, x interface{}, y string) {
 		t.Fatalf("invalid json response;\n- %s\n+ %s\n", y, out)
 	}
 }
-
-func TestAPITest(t *testing.T) {
-	s := New()
-	x := s.APITest()
-	y := `{"ok":true}`
-	CheckResponse(t, x, y)
-}
