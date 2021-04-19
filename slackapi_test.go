@@ -28,10 +28,3 @@ func TestAppsList(t *testing.T) {
 	y := `{"ok":false,"error":"not_authed","apps":null,"cache_ts":""}`
 	CheckResponse(t, x, y)
 }
-
-func TestAuthRevoke(t *testing.T) {
-	s := New()
-	x := s.AuthRevoke()
-	y := `{"ok":false,"error":"not_authed","revoked":false}`
-	CheckResponse(t, x, y)
-}
