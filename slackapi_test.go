@@ -21,10 +21,3 @@ func TestAPITest(t *testing.T) {
 	y := `{"ok":true}`
 	CheckResponse(t, x, y)
 }
-
-func TestAppsList(t *testing.T) {
-	s := New()
-	x := s.AppsList()
-	y := `{"ok":false,"error":"not_authed","apps":null,"cache_ts":""}`
-	CheckResponse(t, x, y)
-}
