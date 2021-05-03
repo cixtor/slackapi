@@ -28,19 +28,28 @@ func (s *SlackAPI) PinsAdd(channel string, itemid string) Response {
 		s.postRequest(&response, "pins.add", struct {
 			Channel     string `json:"channel"`
 			FileComment string `json:"file_comment"`
-		}{s.ChannelsID(channel), itemid})
+		}{
+			Channel:     channel,
+			FileComment: itemid,
+		})
 	} else if len(itemid) >= 2 && itemid[0] == 'F' {
 		/* remove pinned file */
 		s.postRequest(&response, "pins.add", struct {
 			Channel string `json:"channel"`
 			File    string `json:"file"`
-		}{s.ChannelsID(channel), itemid})
+		}{
+			Channel: channel,
+			File:    itemid,
+		})
 	} else {
 		/* remove pinned message */
 		s.postRequest(&response, "pins.add", struct {
 			Channel   string `json:"channel"`
 			Timestamp string `json:"timestamp"`
-		}{s.ChannelsID(channel), itemid})
+		}{
+			Channel:   channel,
+			Timestamp: itemid,
+		})
 	}
 
 	return response
@@ -51,7 +60,9 @@ func (s *SlackAPI) PinsList(channel string) ResponsePinsList {
 	var response ResponsePinsList
 	s.getRequest(&response, "pins.list", struct {
 		Channel string `json:"channel"`
-	}{s.ChannelsID(channel)})
+	}{
+		Channel: channel,
+	})
 	return response
 }
 
@@ -64,19 +75,28 @@ func (s *SlackAPI) PinsRemove(channel string, itemid string) Response {
 		s.postRequest(&response, "pins.remove", struct {
 			Channel     string `json:"channel"`
 			FileComment string `json:"file_comment"`
-		}{s.ChannelsID(channel), itemid})
+		}{
+			Channel:     channel,
+			FileComment: itemid,
+		})
 	} else if len(itemid) >= 2 && itemid[0] == 'F' {
 		/* remove pinned file */
 		s.postRequest(&response, "pins.remove", struct {
 			Channel string `json:"channel"`
 			File    string `json:"file"`
-		}{s.ChannelsID(channel), itemid})
+		}{
+			Channel: channel,
+			File:    itemid,
+		})
 	} else {
 		/* remove pinned message */
 		s.postRequest(&response, "pins.remove", struct {
 			Channel   string `json:"channel"`
 			Timestamp string `json:"timestamp"`
-		}{s.ChannelsID(channel), itemid})
+		}{
+			Channel:   channel,
+			Timestamp: itemid,
+		})
 	}
 
 	return response
