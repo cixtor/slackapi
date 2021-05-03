@@ -25,19 +25,28 @@ func (s *SlackAPI) StarsAdd(channel string, itemid string) Response {
 		s.postRequest(&response, "stars.add", struct {
 			Channel     string `json:"channel"`
 			FileComment string `json:"file_comment"`
-		}{s.ChannelsID(channel), itemid})
+		}{
+			Channel:     channel,
+			FileComment: itemid,
+		})
 	} else if len(itemid) >= 2 && itemid[0] == 'F' {
 		/* remove pinned file */
 		s.postRequest(&response, "stars.add", struct {
 			Channel string `json:"channel"`
 			File    string `json:"file"`
-		}{s.ChannelsID(channel), itemid})
+		}{
+			Channel: channel,
+			File:    itemid,
+		})
 	} else {
 		/* remove pinned message */
 		s.postRequest(&response, "stars.add", struct {
 			Channel   string `json:"channel"`
 			Timestamp string `json:"timestamp"`
-		}{s.ChannelsID(channel), itemid})
+		}{
+			Channel:   channel,
+			Timestamp: itemid,
+		})
 	}
 
 	return response
@@ -49,7 +58,10 @@ func (s *SlackAPI) StarsList(count int, page int) ResponseStarsList {
 	s.getRequest(&response, "stars.list", struct {
 		Count int `json:"count"`
 		Page  int `json:"page"`
-	}{count, page})
+	}{
+		Count: count,
+		Page:  page,
+	})
 	return response
 }
 
@@ -62,19 +74,28 @@ func (s *SlackAPI) StarsRemove(channel string, itemid string) Response {
 		s.postRequest(&response, "stars.remove", struct {
 			Channel     string `json:"channel"`
 			FileComment string `json:"file_comment"`
-		}{s.ChannelsID(channel), itemid})
+		}{
+			Channel:     channel,
+			FileComment: itemid,
+		})
 	} else if len(itemid) >= 2 && itemid[0] == 'F' {
 		/* remove pinned file */
 		s.postRequest(&response, "stars.remove", struct {
 			Channel string `json:"channel"`
 			File    string `json:"file"`
-		}{s.ChannelsID(channel), itemid})
+		}{
+			Channel: channel,
+			File:    itemid,
+		})
 	} else {
 		/* remove pinned message */
 		s.postRequest(&response, "stars.remove", struct {
 			Channel   string `json:"channel"`
 			Timestamp string `json:"timestamp"`
-		}{s.ChannelsID(channel), itemid})
+		}{
+			Channel:   channel,
+			Timestamp: itemid,
+		})
 	}
 
 	return response
