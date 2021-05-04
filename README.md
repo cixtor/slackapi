@@ -161,27 +161,6 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `files.remote.remove` | Remove a remote file |
 | :red_circle: | `files.remote.share` | Share a remote file into a channel |
 | :red_circle: | `files.remote.update` | Updates an existing remote file |
-| :black_circle: | `groups.archive` | Archives a private channel |
-| :large_blue_circle: | `groups.close` | Closes a private channel |
-| :black_circle: | `groups.create` | Creates a private channel |
-| :skull: | `groups.createChild` | Clones and archives a private channel |
-| :black_circle: | `groups.history` | Fetches history of messages and events from a private channel |
-| :large_blue_circle: | `groups.id` | Gets private channel identifier from readable name |
-| :black_circle: | `groups.info` | Gets information about a private channel |
-| :black_circle: | `groups.invite` | Invites a user to a private channel |
-| :black_circle: | `groups.kick` | Removes a user from a private channel |
-| :black_circle: | `groups.leave` | Leaves a private channel |
-| :black_circle: | `groups.list` | Lists private channels that the calling user has access to |
-| :skull: | `groups.mark` | Sets the read cursor in a private channel |
-| :large_blue_circle: | `groups.myHistory` | Displays messages of the current user from a private channel |
-| :skull: | `groups.open` | Opens a private channel |
-| :large_blue_circle: | `groups.purgeHistory` | Deletes history of messages and events from a private channel |
-| :black_circle: | `groups.rename` | Renames a private channel |
-| :black_circle: | `groups.replies` | Retrieve a thread of messages posted to a private channel |
-| :black_circle: | `groups.setPurpose` | Sets the purpose for a private channel |
-| :large_blue_circle: | `groups.setRetention` | Sets the retention time of the messages |
-| :black_circle: | `groups.setTopic` | Sets the topic for a private channel |
-| :black_circle: | `groups.unarchive` | Unarchives a private channel |
 | :large_blue_circle: | `help` | Displays usage and program options |
 | :large_blue_circle: | `help.issues.list` | List issues reported by the current user |
 | :large_blue_circle: | `im.close` | Close a direct message channel |

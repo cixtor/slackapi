@@ -28,7 +28,6 @@ type SlackAPI struct {
 	client       *http.Client
 	debug        bool
 	teamUsers    ResponseUsersList
-	teamGroups   ResponseGroupsList
 	teamChannels ResponseChannelsList
 }
 
