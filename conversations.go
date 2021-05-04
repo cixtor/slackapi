@@ -55,6 +55,11 @@ type ConversationsCreateInput struct {
 	TeamID string `json:"team_id"`
 }
 
+type ResponseChannelsInfo struct {
+	Response
+	Channel Channel `json:"channel"`
+}
+
 // ConversationsCreate creates a channel.
 func (s *SlackAPI) ConversationsCreate(input ConversationsCreateInput) ResponseChannelsInfo {
 	var out ResponseChannelsInfo
@@ -108,14 +113,20 @@ func (s *SlackAPI) ConversationsInfo(channel string) ResponseChannelsInfo {
 	return out
 }
 
+// ResponseChannelsList defines the JSON-encoded output for ChannelsList.
+type ResponseChannelsList struct {
+	Response
+	Channels []Channel `json:"channels"`
+}
+
 // ConversationsGenericInfo retrieve information about a generic conversation.
-func (s *SlackAPI) ConversationsGenericInfo(channels string) ResponseChannelsGenericInfo {
+func (s *SlackAPI) ConversationsGenericInfo(channels string) ResponseChannelsList {
 	in := url.Values{
 		"channels": []string{channels},
 	}
-	var out ResponseChannelsGenericInfo
+	var out ResponseChannelsList
 	if err := s.baseGET("/api/conversations.genericInfo", in, &out); err != nil {
-		return ResponseChannelsGenericInfo{Response: Response{Error: err.Error()}}
+		return ResponseChannelsList{Response: Response{Error: err.Error()}}
 	}
 	return out
 }
