@@ -164,15 +164,6 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `help` | Displays usage and program options |
 | :large_blue_circle: | `help.issues.list` | List issues reported by the current user |
 | :large_blue_circle: | `migration.exchange` | For Enterprise Grid workspaces, map local user IDs to global user IDs |
-| :large_blue_circle: | `mpim.close` | Closes a multiparty direct message channel |
-| :large_blue_circle: | `mpim.history` | Fetches history of messages and events from a multiparty direct message |
-| :large_blue_circle: | `mpim.list` | Lists multiparty direct message channels for the calling user |
-| :large_blue_circle: | `mpim.listSimple` | Lists ID and members in a multiparty direct message channels |
-| :skull: | `mpim.mark` | Sets the read cursor in a multiparty direct message channel |
-| :large_blue_circle: | `mpim.myHistory` | Displays messages of the current user from multiparty direct message channel |
-| :large_blue_circle: | `mpim.open` | This method opens a multiparty direct message |
-| :large_blue_circle: | `mpim.purgeHistory` | Deletes history of messages and events from multiparty direct message channel |
-| :red_circle: | `mpim.replies` | Retrieve a thread of messages posted to a direct message conversation from a multiparty direct message |
 | :red_circle: | `oauth.access` | Exchanges a temporary OAuth code for an API token |
 | :red_circle: | `oauth.token` | Exchanges a temporary OAuth verifier code for a workspace token |
 | :red_circle: | `oauth.v2.access` | Exchanges a temporary OAuth verifier code for an access token |
