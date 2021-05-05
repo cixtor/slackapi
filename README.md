@@ -163,14 +163,6 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `files.remote.update` | Updates an existing remote file |
 | :large_blue_circle: | `help` | Displays usage and program options |
 | :large_blue_circle: | `help.issues.list` | List issues reported by the current user |
-| :large_blue_circle: | `im.close` | Close a direct message channel |
-| :large_blue_circle: | `im.history` | Fetches history of messages and events from direct message channel |
-| :large_blue_circle: | `im.list` | Lists direct message channels for the calling user |
-| :skull: | `im.mark` | Sets the read cursor in a direct message channel |
-| :large_blue_circle: | `im.myHistory` | Displays messages of the current user from direct message channel |
-| :large_blue_circle: | `im.open` | Opens a direct message channel |
-| :red_circle: | `im.replies` | Retrieve a thread of messages posted to a direct message conversation |
-| :large_blue_circle: | `im.purgeHistory` | Deletes history of messages and events from direct message channel |
 | :large_blue_circle: | `migration.exchange` | For Enterprise Grid workspaces, map local user IDs to global user IDs |
 | :large_blue_circle: | `mpim.close` | Closes a multiparty direct message channel |
 | :large_blue_circle: | `mpim.history` | Fetches history of messages and events from a multiparty direct message |

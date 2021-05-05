@@ -8,16 +8,6 @@ type Response struct {
 	Provided string `json:"provided,omitempty"`
 }
 
-// Session defines the expected data from the JSON-encoded API response.
-type Session struct {
-	Response
-	AlreadyOpen bool `json:"already_open"`
-	NoOp        bool `json:"no_op"`
-	Channel     struct {
-		ID string `json:"id"`
-	} `json:"channel"`
-}
-
 // Owner defines the expected data from the JSON-encoded API response.
 type Owner struct {
 	Response
