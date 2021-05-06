@@ -75,13 +75,6 @@ type ModifiedMessage struct {
 	Timestamp string `json:"ts"`
 }
 
-// DeletedMessage defines the expected data from the JSON-encoded API response.
-type DeletedMessage struct {
-	Deleted   bool
-	Text      string
-	Timestamp string
-}
-
 // Edited defines the structure of a modified message.
 type Edited struct {
 	User      string `json:"user,omitempty"`

@@ -55,23 +55,6 @@ type History struct {
 	} `json:"response_metadata"`
 }
 
-// MyHistory defines the expected data from the JSON-encoded API response.
-type MyHistory struct {
-	Filtered int
-	Latest   string
-	Messages []Message
-	Oldest   string
-	Total    int
-	Username string
-}
-
-// DeletedHistory defines the expected data from the JSON-encoded API response.
-type DeletedHistory struct {
-	Deleted    int
-	NotDeleted int
-	Messages   []DeletedMessage
-}
-
 // Post defines the expected data from the JSON-encoded API response.
 type Post struct {
 	Response
