@@ -86,6 +86,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `admin.users.session.reset` | Wipes all valid sessions on all devices for a given user |
 | :large_blue_circle: | `api.test` | Checks API calling code |
 | :large_blue_circle: | `apps.list` | Lists associated applications |
+| :large_blue_circle: | `apps.connections.open` | Generate a temporary Socket Mode WebSocket URL that your app can connect to in order to receive events and interactive payloads over |
 | :red_circle: | `apps.permissions.info` | Returns list of permissions this app has on a team |
 | :red_circle: | `apps.permissions.request` | Allows an app to request additional scopes |
 | :red_circle: | `apps.permissions.resources.list` | Returns list of resource grants this app has on a team |
