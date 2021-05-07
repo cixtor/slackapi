@@ -41,3 +41,17 @@ func (s *SlackAPI) AppsEventAuthorizationsList(input AppsEventAuthorizationsList
 	}
 	return out
 }
+
+// AppsManifestCreate is https://api.slack.com/methods/apps.manifest.create
+func (s *SlackAPI) AppsManifestCreate(manifest string) AppsEventAuthorizationsListResponse {
+	in := struct {
+		Manifest string `json:"manifest"`
+	}{
+		Manifest: manifest,
+	}
+	var out AppsEventAuthorizationsListResponse
+	if err := s.basePOST("/api/apps.manifest.create", in, &out); err != nil {
+		return AppsEventAuthorizationsListResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
