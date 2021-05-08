@@ -128,10 +128,6 @@ func (s *SlackAPI) SearchUsers(input SearchUsersArgs) (ResponseSearchUsers, erro
 		return ResponseSearchUsers{Response: owner.Response}, nil
 	}
 
-	if input.Token == "" {
-		input.Token = s.token
-	}
-
 	var response ResponseSearchUsers
 	if err := s.edgePOST("/cache/"+owner.TeamID+"/users/search", input, &response); err != nil {
 		return ResponseSearchUsers{}, err

@@ -84,6 +84,7 @@ func (s *SlackAPI) sendRequest(req *http.Request, output interface{}) error {
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("User-Agent", "Mozilla/5.0 (KHTML, like Gecko) Safari/537.36")
+	req.Header.Set("Authorization", "Bearer "+s.token)
 
 	if s.cookie != "" {
 		// NOTES(cixtor): some tokens are only accepted if a valid HTTP cookie

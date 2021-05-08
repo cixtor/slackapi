@@ -34,7 +34,7 @@ func (s *SlackAPI) AuthRevoke() ResponseRevocation {
 // AuthTest checks authentication and identity.
 func (s *SlackAPI) AuthTest() (*Owner, error) {
 	var output Owner
-	input := url.Values{"token": []string{s.token}}
+	input := url.Values{}
 	if err := s.baseGET("/api/auth.test", input, &output); err != nil {
 		return nil, err
 	}

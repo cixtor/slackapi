@@ -30,10 +30,8 @@ type ResponseConversationsClose struct {
 // Ref: https://api.slack.com/methods/conversations.close
 func (s *SlackAPI) ConversationsClose(channel string) ResponseConversationsClose {
 	in := struct {
-		Token   string `json:"token"`
 		Channel string `json:"channel"`
 	}{
-		Token:   s.token,
 		Channel: channel,
 	}
 	var out ResponseConversationsClose
@@ -269,9 +267,6 @@ type ResponseConversationsMembers struct {
 
 // ConversationsMembers retrieve members of a conversation.
 func (s *SlackAPI) ConversationsMembers(input ConversationsMembersInput) ResponseConversationsMembers {
-	if input.Token == "" {
-		input.Token = s.token
-	}
 	var out ResponseConversationsMembers
 	if err := s.basePOST("/api/conversations.members", input, &out); err != nil {
 		return ResponseConversationsMembers{Response: Response{Error: err.Error()}}
