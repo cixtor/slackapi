@@ -342,6 +342,12 @@ func (s *SlackAPI) ConversationsReplies(input ConversationsRepliesInput) History
 	return out
 }
 
+// ChannelPurposeNow defines the expected data from the JSON-encoded API response.
+type ChannelPurposeNow struct {
+	Response
+	Purpose string `json:"purpose"`
+}
+
 // ConversationsSetPurpose sets the purpose for a conversation.
 func (s *SlackAPI) ConversationsSetPurpose(channel string, purpose string) ChannelPurposeNow {
 	in := struct {
@@ -356,6 +362,12 @@ func (s *SlackAPI) ConversationsSetPurpose(channel string, purpose string) Chann
 		return ChannelPurposeNow{Response: Response{Error: err.Error()}}
 	}
 	return out
+}
+
+// ChannelTopicNow defines the expected data from the JSON-encoded API response.
+type ChannelTopicNow struct {
+	Response
+	Topic string `json:"topic"`
 }
 
 // ConversationsSetTopic sets the topic for a conversation.

@@ -112,35 +112,11 @@ type ChannelPurpose struct {
 	Value   string `json:"value"`
 }
 
-// ChannelRename defines the expected data from the JSON-encoded API response.
-type ChannelRename struct {
-	Response
-	Channel struct {
-		ID        string `json:"id"`
-		IsChannel bool   `json:"is_channel"`
-		IsGroup   bool   `json:"is_group"`
-		Name      string `json:"name"`
-		Created   int    `json:"created"`
-	} `json:"channel"`
-}
-
 // ChannelTopic defines the expected data from the JSON-encoded API response.
 type ChannelTopic struct {
 	Creator string `json:"creator"`
 	LastSet int    `json:"last_set"`
 	Value   string `json:"value"`
-}
-
-// ChannelPurposeNow defines the expected data from the JSON-encoded API response.
-type ChannelPurposeNow struct {
-	Response
-	Purpose string `json:"purpose"`
-}
-
-// ChannelTopicNow defines the expected data from the JSON-encoded API response.
-type ChannelTopicNow struct {
-	Response
-	Topic string `json:"topic"`
 }
 
 // AppsList defines the expected data from the JSON-encoded API response.
