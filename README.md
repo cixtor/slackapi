@@ -90,6 +90,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `apps.event.authorizations.list` | Get a list of authorizations for the given event context. Each authorization represents an app installation that the event is visible to |
 | :red_circle: | `apps.manifest.create` | Create an app from an app manifest |
 | :red_circle: | `apps.manifest.delete` | Permanently deletes an app created through app manifests |
+| :red_circle: | `apps.manifest.export` | Export an app manifest from an existing app |
 | :red_circle: | `apps.permissions.info` | Returns list of permissions this app has on a team |
 | :red_circle: | `apps.permissions.request` | Allows an app to request additional scopes |
 | :red_circle: | `apps.permissions.resources.list` | Returns list of resource grants this app has on a team |
