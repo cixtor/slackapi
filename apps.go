@@ -42,16 +42,44 @@ func (s *SlackAPI) AppsEventAuthorizationsList(input AppsEventAuthorizationsList
 	return out
 }
 
+type AppsManifestCreateResponse struct {
+	Response
+	AppID             string                  `json:"app_id"`
+	Credentials       AppsManifestCredentials `json:"credentials"`
+	OauthAuthorizeURL string                  `json:"oauth_authorize_url"`
+}
+
+type AppsManifestCredentials struct {
+	ClientID          string `json:"client_id"`
+	ClientSecret      string `json:"client_secret"`
+	VerificationToken string `json:"verification_token"`
+	SigningSecret     string `json:"signing_secret"`
+}
+
 // AppsManifestCreate is https://api.slack.com/methods/apps.manifest.create
-func (s *SlackAPI) AppsManifestCreate(manifest string) AppsEventAuthorizationsListResponse {
+func (s *SlackAPI) AppsManifestCreate(manifest string) AppsManifestCreateResponse {
 	in := struct {
 		Manifest string `json:"manifest"`
 	}{
 		Manifest: manifest,
 	}
-	var out AppsEventAuthorizationsListResponse
+	var out AppsManifestCreateResponse
 	if err := s.basePOST("/api/apps.manifest.create", in, &out); err != nil {
-		return AppsEventAuthorizationsListResponse{Response: Response{Error: err.Error()}}
+		return AppsManifestCreateResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
+
+// AppsManifestDelete is https://api.slack.com/methods/apps.manifest.delete
+func (s *SlackAPI) AppsManifestDelete(appID string) Response {
+	in := struct {
+		AppID string `json:"app_id"`
+	}{
+		AppID: appID,
+	}
+	var out Response
+	if err := s.basePOST("/api/apps.manifest.delete", in, &out); err != nil {
+		return Response{Error: err.Error()}
 	}
 	return out
 }
