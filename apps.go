@@ -168,3 +168,25 @@ func (s *SlackAPI) AppsManifestExport(appID string) AppsManifestExportResponse {
 	}
 	return out
 }
+
+type AppsManifestUpdateResponse struct {
+	Response
+	AppID              string `json:"app_id"`
+	PermissionsUpdated bool   `json:"permissions_updated"`
+}
+
+// AppsManifestUpdate is https://api.slack.com/methods/apps.manifest.update
+func (s *SlackAPI) AppsManifestUpdate(appID string, manifest string) AppsManifestUpdateResponse {
+	in := struct {
+		AppID    string `json:"app_id"`
+		Manifest string `json:"manifest"`
+	}{
+		AppID:    appID,
+		Manifest: manifest,
+	}
+	var out AppsManifestUpdateResponse
+	if err := s.basePOST("/api/apps.manifest.update", in, &out); err != nil {
+		return AppsManifestUpdateResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
