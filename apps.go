@@ -190,3 +190,19 @@ func (s *SlackAPI) AppsManifestUpdate(appID string, manifest string) AppsManifes
 	}
 	return out
 }
+
+// AppsManifestValidate is https://api.slack.com/methods/apps.manifest.validate
+func (s *SlackAPI) AppsManifestValidate(manifest string, appID string) Response {
+	in := struct {
+		Manifest string `json:"manifest"`
+		AppID    string `json:"app_id"`
+	}{
+		Manifest: manifest,
+		AppID:    appID,
+	}
+	var out Response
+	if err := s.basePOST("/api/apps.manifest.validate", in, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+	return out
+}
