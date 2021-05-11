@@ -87,19 +87,13 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `api.test` | Checks API calling code |
 | :large_blue_circle: | `apps.list` | Lists associated applications |
 | :large_blue_circle: | `apps.connections.open` | Generate a temporary Socket Mode WebSocket URL that your app can connect to in order to receive events and interactive payloads over |
-| :red_circle: | `apps.event.authorizations.list` | Get a list of authorizations for the given event context. Each authorization represents an app installation that the event is visible to |
-| :red_circle: | `apps.manifest.create` | Create an app from an app manifest |
-| :red_circle: | `apps.manifest.delete` | Permanently deletes an app created through app manifests |
-| :red_circle: | `apps.manifest.export` | Export an app manifest from an existing app |
-| :red_circle: | `apps.manifest.update` | Update an app from an app manifest |
-| :red_circle: | `apps.manifest.validate` | Validate an app manifest |
-| :red_circle: | `apps.permissions.info` | Returns list of permissions this app has on a team |
-| :red_circle: | `apps.permissions.request` | Allows an app to request additional scopes |
-| :red_circle: | `apps.permissions.resources.list` | Returns list of resource grants this app has on a team |
-| :red_circle: | `apps.permissions.scopes.list` | Returns list of scopes this app has on a team |
-| :red_circle: | `apps.permissions.users.list` | Returns list of user grants and corresponding scopes this app has on a team |
-| :red_circle: | `apps.permissions.users.request` | Enables an app to trigger a permissions modal to grant an app access to a user access scope |
-| :red_circle: | `apps.uninstall` | Uninstalls your app from a workspace |
+| :large_blue_circle: | `apps.event.authorizations.list` | Get a list of authorizations for the given event context. Each authorization represents an app installation that the event is visible to |
+| :large_blue_circle: | `apps.manifest.create` | Create an app from an app manifest |
+| :large_blue_circle: | `apps.manifest.delete` | Permanently deletes an app created through app manifests |
+| :large_blue_circle: | `apps.manifest.export` | Export an app manifest from an existing app |
+| :large_blue_circle: | `apps.manifest.update` | Update an app from an app manifest |
+| :large_blue_circle: | `apps.manifest.validate` | Validate an app manifest |
+| :large_blue_circle: | `apps.uninstall` | Uninstalls your app from a workspace |
 | :large_blue_circle: | `auth.revoke` | Revokes a token |
 | :large_blue_circle: | `auth.test` | Checks authentication and identity |
 | :large_blue_circle: | `bots.info` | Gets information about a bot user |
