@@ -1,5 +1,39 @@
 package slackapi
 
+type AppsListResponse struct {
+	Response
+	Apps           []AppInfo `json:"apps"`
+	CacheTimestamp string    `json:"cache_ts"`
+}
+
+type AppInfo struct {
+	ID    string   `json:"id"`
+	Name  string   `json:"name"`
+	Icons AppIcons `json:"icons"`
+}
+
+type AppIcons struct {
+	Image1024 string `json:"image_1024"`
+	Image128  string `json:"image_128"`
+	Image192  string `json:"image_192"`
+	Image32   string `json:"image_32"`
+	Image36   string `json:"image_36"`
+	Image48   string `json:"image_48"`
+	Image512  string `json:"image_512"`
+	Image64   string `json:"image_64"`
+	Image72   string `json:"image_72"`
+	Image96   string `json:"image_96"`
+}
+
+// AppsList lists associated applications.
+func (s *SlackAPI) AppsList() AppsListResponse {
+	var out AppsListResponse
+	if err := s.baseGET("/api/apps.list", nil, &out); err != nil {
+		return AppsListResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
+
 type AppsConnectionsOpenResponse struct {
 	Response
 	URL string `json:"url"`

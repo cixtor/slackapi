@@ -95,6 +95,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `apps.manifest.validate` | Validate an app manifest |
 | :large_blue_circle: | `apps.uninstall` | Uninstalls your app from a workspace |
 | :large_blue_circle: | `auth.revoke` | Revokes a token |
+| :large_blue_circle: | `auth.teams.list` | List the workspaces a token can access |
 | :large_blue_circle: | `auth.test` | Checks authentication and identity |
 | :large_blue_circle: | `bots.info` | Gets information about a bot user |
 | :red_circle: | `calls.add` | Registers a new Call |

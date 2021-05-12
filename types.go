@@ -52,13 +52,11 @@ type Owner struct {
 //   }
 type History struct {
 	Response
-	Messages           []Message `json:"messages"`
-	HasMore            bool      `json:"has_more"`
-	PinCount           int       `json:"pin_count"`
-	UnreadCountDisplay int       `json:"unread_count_display"`
-	ResponseMetadata   struct {
-		NextCursor string `json:"next_cursor"`
-	} `json:"response_metadata"`
+	Messages           []Message        `json:"messages"`
+	HasMore            bool             `json:"has_more"`
+	PinCount           int              `json:"pin_count"`
+	UnreadCountDisplay int              `json:"unread_count_display"`
+	ResponseMetadata   ResponseMetadata `json:"response_metadata"`
 }
 
 // Post defines the expected data from the JSON-encoded API response.
@@ -123,34 +121,6 @@ type ChannelTopic struct {
 	Creator string `json:"creator"`
 	LastSet int    `json:"last_set"`
 	Value   string `json:"value"`
-}
-
-// AppsList defines the expected data from the JSON-encoded API response.
-type AppsList struct {
-	Response
-	Apps           []AppsListApps `json:"apps"`
-	CacheTimestamp string         `json:"cache_ts"`
-}
-
-// AppsListApps defines the expected data from the JSON-encoded API response.
-type AppsListApps struct {
-	ID    string            `json:"id"`
-	Name  string            `json:"name"`
-	Icons AppsListAppsIcons `json:"icons"`
-}
-
-// AppsListAppsIcons defines the expected data from the JSON-encoded API response.
-type AppsListAppsIcons struct {
-	Image1024 string `json:"image_1024"`
-	Image128  string `json:"image_128"`
-	Image192  string `json:"image_192"`
-	Image32   string `json:"image_32"`
-	Image36   string `json:"image_36"`
-	Image48   string `json:"image_48"`
-	Image512  string `json:"image_512"`
-	Image64   string `json:"image_64"`
-	Image72   string `json:"image_72"`
-	Image96   string `json:"image_96"`
 }
 
 type Pagination struct {
