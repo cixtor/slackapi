@@ -5,8 +5,7 @@ import (
 	"strconv"
 )
 
-// ResponseRevocation defines the JSON-encoded output for Revocation.
-type ResponseRevocation struct {
+type AuthRevokeResponse struct {
 	Response
 	Revoked bool `json:"revoked"`
 }
@@ -18,11 +17,17 @@ func (s *SlackAPI) APITest() Response {
 	return response
 }
 
-// AuthRevoke revokes a token.
-func (s *SlackAPI) AuthRevoke() ResponseRevocation {
-	var response ResponseRevocation
-	s.getRequest(&response, "auth.revoke", nil)
-	return response
+// AuthRevoke is https://api.slack.com/methods/auth.revoke
+func (s *SlackAPI) AuthRevoke(test bool) AuthRevokeResponse {
+	in := url.Values{}
+	if test {
+		in.Add("test", "1")
+	}
+	var out AuthRevokeResponse
+	if err := s.baseGET("/api/auth.revoke", in, &out); err != nil {
+		return AuthRevokeResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
 }
 
 type AuthTeamsListInput struct {
