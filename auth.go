@@ -10,13 +10,6 @@ type AuthRevokeResponse struct {
 	Revoked bool `json:"revoked"`
 }
 
-// APITest checks API calling code.
-func (s *SlackAPI) APITest() Response {
-	var response Response
-	s.getRequest(&response, "api.test", nil)
-	return response
-}
-
 // AuthRevoke is https://api.slack.com/methods/auth.revoke
 func (s *SlackAPI) AuthRevoke(test bool) AuthRevokeResponse {
 	in := url.Values{}
