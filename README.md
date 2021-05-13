@@ -34,7 +34,6 @@ Note that the client runs with the same chat session of the user that is using t
 
 - :large_blue_circle: means the method has been implemented
 - :red_circle: means the method is not implemented yet
-- :black_circle: means the method has been deprecated upstream. It will stop functioning in February 2021 and will not work with newly created apps after June 10th, 2020. [Learn more](https://api.slack.com/changelog/2020-01-deprecating-antecedents-to-the-conversations-api). Please use the equivalent method `conversations.METHOD`
 - :skull: means the method has been deprecated without a replacement
 
 | :shipit: | Method | Description |
@@ -48,9 +47,6 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `admin.conversations.restrictAccess.listGroups` | List all IDP Groups linked to a channel |
 | :red_circle: | `admin.conversations.restrictAccess.removeGroup` | Remove a linked IDP group linked from a private channel |
 | :red_circle: | `admin.conversations.setTeams` | Set the workspaces in an Enterprise grid org that connect to a channel |
-| :black_circle: | [admin.conversations.whitelist.add](https://api.slack.com/methods/admin.conversations.whitelist.add) | Add an allowlist of IDP groups for accessing a channel |
-| :black_circle: | [admin.conversations.whitelist.listGroupsLinkedToChannel](https://api.slack.com/methods/admin.conversations.whitelist.listGroupsLinkedToChannel) | List all IDP Groups linked to a channel |
-| :black_circle: | [admin.conversations.whitelist.remove](https://api.slack.com/methods/admin.conversations.whitelist.remove) | Remove an allowlisted IDP group linked to a private channel |
 | :red_circle: | `admin.emoji.add` | Add an emoji |
 | :red_circle: | `admin.emoji.addAlias` | Add an emoji alias |
 | :red_circle: | `admin.emoji.list` | List emoji for an Enterprise Grid organization |
@@ -71,7 +67,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `admin.teams.settings.setDiscoverability` | An API method that allows admins to set the discoverability of a given workspace |
 | :red_circle: | `admin.teams.settings.setIcon` | Sets the icon of a workspace |
 | :red_circle: | `admin.teams.settings.setName` | Set the name of a given workspace |
-| :red_circle: | `admin.usergroups.addChannels` | Add one or more default channels to an IDP group |
+| :red_circle: | `admin.usergroups.addChannels` | Add up to one hundred default channels to an IDP group |
 | :red_circle: | `admin.usergroups.addTeams` | Associate one or more default workspaces with an organization-wide IDP group |
 | :red_circle: | `admin.usergroups.listChannels` | List the channels linked to an org-level IDP group (user group) |
 | :red_circle: | `admin.usergroups.removeChannels` | Remove one or more default channels from an org-level IDP group (user group) |
@@ -110,10 +106,8 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `chat.meMessage` | Share a me message into a channel |
 | :red_circle: | `chat.postEphemeral` | Sends an ephemeral message to a user in a channel |
 | :large_blue_circle: | `chat.postMessage` | Sends a message to a channel |
-| :large_blue_circle: | `chat.robotMessage` | Sends a message to a channel as a robot |
 | :red_circle: | `chat.scheduleMessage` | Schedules a message to be sent to a channel |
 | :red_circle: | `chat.scheduledMessages.list` | Returns a list of scheduled messages |
-| :large_blue_circle: | `chat.session` | Starts a new chat session |
 | :red_circle: | `chat.unfurl` | Provide custom unfurl behavior for user-posted URLs |
 | :large_blue_circle: | `chat.update` | Updates a message |
 | :large_blue_circle: | `conversations.archive` | Archives a conversation |
@@ -140,7 +134,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `dnd.endSnooze` | Ends the current user's snooze mode immediately |
 | :large_blue_circle: | `dnd.info` | Retrieves a user's current _"Do Not Disturb"_ status |
 | :large_blue_circle: | `dnd.setSnooze` | Turns on _"Do Not Disturb"_ mode for the current user, or changes its duration |
-| :large_blue_circle: | `dnd.teamInfo` | Retrieves the _"Do Not Disturb"_ status for users on a team |
+| :large_blue_circle: | `dnd.teamInfo` | Retrieves the _"Do Not Disturb"_ status for up to 50 users on a team |
 | :large_blue_circle: | `emoji.list` | Lists custom emoji for a team |
 | :large_blue_circle: | `eventlog.history` | Lists all the events since the specified time |
 | :large_blue_circle: | `files.comments.add` | Add a comment to an existing file |
@@ -163,7 +157,6 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `files.remote.remove` | Remove a remote file |
 | :red_circle: | `files.remote.share` | Share a remote file into a channel |
 | :red_circle: | `files.remote.update` | Updates an existing remote file |
-| :large_blue_circle: | `help` | Displays usage and program options |
 | :large_blue_circle: | `help.issues.list` | List issues reported by the current user |
 | :large_blue_circle: | `migration.exchange` | For Enterprise Grid workspaces, map local user IDs to global user IDs |
 | :red_circle: | `oauth.access` | Exchanges a temporary OAuth code for an API token |
@@ -187,6 +180,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `search.all` | Searches for messages and files matching a query |
 | :large_blue_circle: | `search.files` | Searches for files matching a query |
 | :large_blue_circle: | `search.messages` | Searches for messages matching a query |
+| :large_blue_circle: | `search.users` | Search users by name or email address |
 | :large_blue_circle: | `signup.checkEmail` | Checks if an email address is valid |
 | :large_blue_circle: | `signup.confirmEmail` | Confirm an email address for signup |
 | :large_blue_circle: | `stars.add` | Adds a star to an item |
@@ -205,10 +199,8 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `usergroups.users.list` | List all users in a User Group |
 | :red_circle: | `usergroups.users.update` | Update the list of users for a User Group |
 | :red_circle: | `users.conversations` | List conversations the calling user may access |
-| :large_blue_circle: | `users.counts` | Count number of users in the team |
 | :large_blue_circle: | `users.deletePhoto` | Delete the user profile photo |
 | :large_blue_circle: | `users.getPresence` | Gets user presence information |
-| :large_blue_circle: | `users.id` | Gets user identifier from username |
 | :large_blue_circle: | `users.identity` | Get a user's identity |
 | :large_blue_circle: | `users.info` | Gets information about a user |
 | :large_blue_circle: | `users.list` | Lists all users in a Slack team |
@@ -218,8 +210,6 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `users.preparePhoto` | Upload a picture to use as the avatar |
 | :large_blue_circle: | `users.profile.get` | Retrieves a user's profile information |
 | :large_blue_circle: | `users.profile.set` | Set the profile information for a user |
-| :large_blue_circle: | `users.search` | Search users by name or email address |
-| :black_circle: | [users.setActive](https://api.slack.com/methods/users.setActive) | Marked a user as active. **Deprecated** and non-functional. This method is no longer functional and the behavior it controlled is no longer offered. The method will no longer exist beginning May 8, 2018 |
 | :large_blue_circle: | `users.setAvatar` | Upload a picture and set it as the avatar |
 | :large_blue_circle: | `users.setEmail` | Changes the email address without confirmation |
 | :large_blue_circle: | `users.setPhoto` | Set the user profile photo |
