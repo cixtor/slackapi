@@ -87,8 +87,11 @@ type Channel struct {
 	IsGeneral          bool           `json:"is_general"`
 	IsGroup            bool           `json:"is_group"`
 	IsMember           bool           `json:"is_member"`
+	IsIm               bool           `json:"is_im"`
 	IsMpim             bool           `json:"is_mpim"`
+	IsOrgShared        bool           `json:"is_org_shared"`
 	IsOpen             bool           `json:"is_open"`
+	User               string         `json:"user"`
 	LastRead           string         `json:"last_read"`
 	Latest             ChannelLatest  `json:"latest"`
 	Members            []string       `json:"members"`
@@ -97,6 +100,7 @@ type Channel struct {
 	NumMembers         int            `json:"num_members"`
 	Purpose            ChannelPurpose `json:"purpose"`
 	Topic              ChannelTopic   `json:"topic"`
+	Priority           int            `json:"priority"`
 	UnreadCount        int            `json:"unread_count"`
 	UnreadCountDisplay int            `json:"unread_count_display"`
 }

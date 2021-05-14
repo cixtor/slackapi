@@ -274,6 +274,37 @@ func (s *SlackAPI) ConversationsMembers(input ConversationsMembersInput) Respons
 	return out
 }
 
+type ConversationsOpenInput struct {
+	// Resume a conversation by supplying an im or mpim's ID.
+	Channel string `json:"channel"`
+	// Do not create a direct message or multi-person direct message.
+	// This is used to see if there is an existing dm or mpdm.
+	PreventCreation bool `json:"prevent_creation"`
+	// Indicates you want the full IM channel definition in the response.
+	ReturnIm bool `json:"return_im"`
+	// Comma separated lists of users. If only one user is included, this
+	// creates a 1:1 DM. The ordering of the users is preserved whenever a
+	// multi-person direct message is returned. Supply a channel when not
+	// supplying users.
+	Users string `json:"users"`
+}
+
+type ConversationsOpenResponse struct {
+	Response
+	Channel
+	NoOp        bool `json:"no_op"`
+	AlreadyOpen bool `json:"already_open"`
+}
+
+// ConversationsOpen is https://api.slack.com/methods/conversations.open
+func (s *SlackAPI) ConversationsOpen(input ConversationsOpenInput) ConversationsOpenResponse {
+	var out ConversationsOpenResponse
+	if err := s.basePOST("/api/conversations.open", input, &out); err != nil {
+		return ConversationsOpenResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
+
 // ConversationsRename renames a conversation.
 func (s *SlackAPI) ConversationsRename(channel string, name string) ResponseChannelsInfo {
 	in := struct {
