@@ -36,24 +36,11 @@ type ResponseEventItem struct {
 	Timestamp string `json:"ts"`
 }
 
-// ResponseIssues defines the JSON-encoded output for Issues.
-type ResponseIssues struct {
-	Response
-	Issues []string `json:"issues"`
-}
-
 // EventlogHistory lists all the events since the specified time.
 func (s *SlackAPI) EventlogHistory(start string) ResponseEventlogs {
 	var response ResponseEventlogs
 	s.getRequest(&response, "eventlog.history", struct {
 		Start string `json:"start"`
 	}{start})
-	return response
-}
-
-// HelpIssuesList list issues reported by the current user.
-func (s *SlackAPI) HelpIssuesList() ResponseIssues {
-	var response ResponseIssues
-	s.getRequest(&response, "help.issues.list", nil)
 	return response
 }
