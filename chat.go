@@ -14,11 +14,13 @@ func (s *SlackAPI) ChatMeMessage(data MessageArgs) ModifiedMessage {
 	return response
 }
 
-// ChatPostMessage sends a message to a channel.
-func (s *SlackAPI) ChatPostMessage(data MessageArgs) Post {
-	var response Post
-	s.postRequest(&response, "chat.postMessage", data)
-	return response
+// ChatPostMessage is https://api.slack.com/methods/chat.postMessage
+func (s *SlackAPI) ChatPostMessage(input MessageArgs) Post {
+	var out Post
+	if err := s.basePOST("/api/chat.postMessage", input, &out); err != nil {
+		return Post{Response: Response{Error: err.Error()}}
+	}
+	return out
 }
 
 // ChatUpdate updates a message.

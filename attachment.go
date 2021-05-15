@@ -1,6 +1,8 @@
 package slackapi
 
-import "encoding/json"
+import (
+	"encoding/json"
+)
 
 // Attachment defines the expected data from the JSON-encoded API response.
 type Attachment struct {
