@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"net/url"
 	"reflect"
 
 	"golang.org/x/net/websocket"
@@ -19,14 +20,10 @@ type RTM struct {
 	stopListener chan bool
 }
 
-// RTMArgs defines the data to send to the API service.
-type RTMArgs struct {
+// RTMInput defines the data to send to the API service.
+type RTMInput struct {
 	BatchPresenceAware bool `json:"batch_presence_aware"`
-	MpimAware          bool `json:"mpim_aware"`
-	NoLatest           bool `json:"no_latest"`
-	NoUnreads          bool `json:"no_unreads"`
 	PresenceSub        bool `json:"presence_sub"`
-	// SimpleLatest       bool `json:"simple_latest"`
 }
 
 // RTMResponse defines the JSON-encoded output for RTM connection.
@@ -124,16 +121,44 @@ var EventTypes = map[string]interface{}{
 	"user_typing":             UserTypingEvent{},
 }
 
-// NewRTM connects to the real time messaging websocket.
-func (s *SlackAPI) NewRTM(data RTMArgs) (*RTM, error) {
-	var response RTMResponse
-	s.getRequest(&response, "rtm.start", data)
+// NewRTM is https://api.slack.com/methods/rtm.connect
+//
+// Example:
+//
+//   rtm, err := s.Client.NewRTM(slackapi.RTMInput{})
+//   if err != nil {
+//     panic(err)
+//   }
+//   rtm.ManageEvents()
+//   go func() {
+//     time.Sleep(time.Minute)
+//     rtm.Disconnect()
+//   }()
+//   for msg := range s.Session.Events {
+//     fmt.Printf("%#v\n", msg)
+//   }
+func (s *SlackAPI) NewRTM(input RTMInput) (*RTM, error) {
+	in := url.Values{}
 
-	if !response.Ok {
-		return &RTM{}, errors.New(response.Error)
+	if input.BatchPresenceAware {
+		in.Add("batch_presence_aware", "true")
 	}
 
-	ws, err := websocket.Dial(response.URL, "", "https://api.slack.com")
+	if input.PresenceSub {
+		in.Add("presence_sub", "true")
+	}
+
+	var out RTMResponse
+
+	if err := s.baseGET("/api/rtm.connect", in, &out); err != nil {
+		return nil, err
+	}
+
+	if !out.Ok {
+		return &RTM{}, errors.New(out.Error)
+	}
+
+	ws, err := websocket.Dial(out.URL, "", "https://api.slack.com")
 
 	if err != nil {
 		return &RTM{}, err
@@ -141,7 +166,7 @@ func (s *SlackAPI) NewRTM(data RTMArgs) (*RTM, error) {
 
 	return &RTM{
 		conn:         ws,
-		connURL:      response.URL,
+		connURL:      out.URL,
 		Events:       make(chan Event),
 		rawEvents:    make(chan json.RawMessage),
 		stopListener: make(chan bool, 1),
@@ -163,12 +188,11 @@ func (rtm *RTM) ManageEvents() {
 }
 
 func (rtm *RTM) handleIncomingEvents() {
-LOOP:
 	for {
 		select {
 		case <-rtm.stopListener:
 			close(rtm.rawEvents)
-			break LOOP
+			return
 
 		default:
 			rtm.receiveIncomingEvent()
@@ -177,12 +201,11 @@ LOOP:
 }
 
 func (rtm *RTM) handleCapturedEvents() {
-LOOP:
 	for {
 		select {
 		case <-rtm.stopCaptured:
 			close(rtm.Events)
-			break LOOP
+			return
 
 		case rawEvent := <-rtm.rawEvents:
 			rtm.handleRawEvent(rawEvent)

@@ -175,7 +175,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `reminders.info` | Gets information about a reminder |
 | :red_circle: | `reminders.list` | Lists all reminders created by or for a given user |
 | :red_circle: | `rtm.connect` | Starts a Real Time Messaging session |
-| :large_blue_circle: | `rtm.start` | Starts a Real Time Messaging session |
+| :large_blue_circle: | `rtm.start` | Deprecated: Starts a Real Time Messaging session. Use rtm.connect instead |
 | :large_blue_circle: | `rtm.events` | Prints the API events in real time |
 | :large_blue_circle: | `search.all` | Searches for messages and files matching a query |
 | :large_blue_circle: | `search.files` | Searches for files matching a query |
