@@ -110,6 +110,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `chat.scheduledMessages.list` | Returns a list of scheduled messages |
 | :red_circle: | `chat.unfurl` | Provide custom unfurl behavior for user-posted URLs |
 | :large_blue_circle: | `chat.update` | Updates a message |
+| :large_blue_circle: | `conversations.acceptSharedInvite` | Accepts an invitation to a Slack Connect channel |
 | :large_blue_circle: | `conversations.archive` | Archives a conversation |
 | :large_blue_circle: | `conversations.close` | Closes a direct message or multi-person direct message |
 | :large_blue_circle: | `conversations.create` | Initiates a public or private channel-based conversation |
@@ -123,7 +124,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `conversations.list` | Lists all channels in a Slack team |
 | :large_blue_circle: | `conversations.mark` | Sets the read cursor in a channel |
 | :large_blue_circle: | `conversations.members` | Retrieve members of a conversation |
-| :red_circle: | `conversations.open` | Opens or resumes a direct message or multi-person direct message |
+| :large_blue_circle: | `conversations.open` | Opens or resumes a direct message or multi-person direct message |
 | :large_blue_circle: | `conversations.rename` | Renames a conversation |
 | :large_blue_circle: | `conversations.replies` | Retrieve a thread of messages posted to a conversation |
 | :large_blue_circle: | `conversations.setPurpose` | Sets the purpose for a conversation |

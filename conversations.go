@@ -6,6 +6,34 @@ import (
 	"strings"
 )
 
+type ConversationsAcceptSharedInviteInput struct {
+	// Name of the channel. If the channel does not exist already in your
+	// workspace, this name is the one that the channel will take.
+	ChannelName string `json:"channel_name"`
+	// ID of the channel that you'd like to accept.
+	// Must provide either invite_id or channel_id.
+	ChannelID string `json:"channel_id"`
+	// Whether you'd like to use your workspace's free trial for Slack Connect.
+	FreeTrialAccepted bool `json:"free_trial_accepted"`
+	// See the shared_channel_invite_received event payload for more details
+	// on how to retrieve the ID of the invitation.
+	InviteID string `json:"invite_id"`
+	// Whether the channel should be private.
+	IsPrivate bool `json:"is_private"`
+	// The ID of the workspace to accept the channel in. If an org-level token
+	// is used to call this method, the team_id argument is required.
+	TeamID string `json:"team_id"`
+}
+
+// ConversationsAcceptSharedInvite is https://api.slack.com/methods/conversations.acceptSharedInvite
+func (s *SlackAPI) ConversationsAcceptSharedInvite(input ConversationsAcceptSharedInviteInput) Response {
+	var out Response
+	if err := s.basePOST("/api/conversations.acceptSharedInvite", input, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+	return out
+}
+
 // ConversationsArchive archives a conversation.
 func (s *SlackAPI) ConversationsArchive(channel string) Response {
 	in := struct {
