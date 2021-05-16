@@ -34,6 +34,22 @@ func (s *SlackAPI) ConversationsAcceptSharedInvite(input ConversationsAcceptShar
 	return out
 }
 
+// ConversationsApproveSharedInvite is https://api.slack.com/methods/conversations.approveSharedInvite
+func (s *SlackAPI) ConversationsApproveSharedInvite(invite_id string, target_team string) Response {
+	in := struct {
+		InviteID   string `json:"invite_id"`
+		TargetTeam string `json:"target_team"`
+	}{
+		InviteID:   invite_id,
+		TargetTeam: target_team,
+	}
+	var out Response
+	if err := s.basePOST("/api/conversations.approveSharedInvite", in, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+	return out
+}
+
 // ConversationsArchive archives a conversation.
 func (s *SlackAPI) ConversationsArchive(channel string) Response {
 	in := struct {
