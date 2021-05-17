@@ -111,6 +111,32 @@ func (s *SlackAPI) ConversationsCreate(input ConversationsCreateInput) ResponseC
 	return out
 }
 
+type ConversationsDeclineSharedInviteInput struct {
+	// ID of the Slack Connect invite to decline. Subscribe to the
+	// shared_channel_invite_accepted event to receive IDs of Slack Connect
+	// channel invites that have been accepted and are awaiting approval.
+	InviteID string `json:"invite_id"`
+	// The team or enterprise id of the other party involved in the invitation
+	// you are declining
+	TargetTeam string `json:"target_team"`
+}
+
+// ConversationsDeclineSharedInvite is https://api.slack.com/methods/conversations.declineSharedInvite
+func (s *SlackAPI) ConversationsDeclineSharedInvite(input ConversationsDeclineSharedInviteInput) Response {
+	in := url.Values{}
+	if input.InviteID != "" {
+		in.Add("invite_id", input.InviteID)
+	}
+	if input.TargetTeam != "" {
+		in.Add("target_team", input.TargetTeam)
+	}
+	var out Response
+	if err := s.baseGET("/api/conversations.declineSharedInvite", in, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+	return out
+}
+
 type ConversationsHistoryInput struct {
 	// Conversation ID to fetch history for.
 	Channel string `json:"channel"`
