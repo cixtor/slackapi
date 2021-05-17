@@ -120,6 +120,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `conversations.history` | Fetches a conversation's history of messages and events |
 | :large_blue_circle: | `conversations.info` | Retrieve information about a conversation |
 | :large_blue_circle: | `conversations.invite` | Invites users to a channel |
+| :large_blue_circle: | `conversations.inviteShared` | Sends an invitation to a Slack Connect channel |
 | :large_blue_circle: | `conversations.join` | Joins an existing conversation |
 | :large_blue_circle: | `conversations.kick` | Removes a user from a conversation |
 | :large_blue_circle: | `conversations.leave` | Leaves a conversation |

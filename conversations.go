@@ -215,6 +215,55 @@ func (s *SlackAPI) ConversationsInvite(channel string, users ...string) Response
 	return out
 }
 
+type ConversationsInviteSharedInput struct {
+	// ID of the channel on your team that you'd like to share
+	Channel string `json:"channel"`
+	// Optional email to receive this invite.
+	// Either emails or user_ids must be provided.
+	Emails []string `json:"emails"`
+	// Optional boolean on whether invite is to a external limited member.
+	// Defaults to true.
+	ExternalLimited bool `json:"external_limited"`
+	// Optional user_id to receive this invite. Either emails or user_ids
+	// must be provided.
+	UserIDs []string `json:"user_ids"`
+}
+
+type ConversationsInviteSharedResponse struct {
+	Response
+	InviteID              string `json:"invite_id"`
+	IsLegacySharedChannel bool   `json:"is_legacy_shared_channel"`
+}
+
+// ConversationsInviteShared is https://api.slack.com/methods/conversations.inviteShared
+func (s *SlackAPI) ConversationsInviteShared(input ConversationsInviteSharedInput) ConversationsInviteSharedResponse {
+	in := url.Values{}
+
+	if input.Channel != "" {
+		in.Add("channel", input.Channel)
+	}
+
+	if len(input.Emails) > 0 {
+		in.Add("emails", strings.Join(input.Emails, ","))
+	}
+
+	if input.ExternalLimited {
+		in.Add("external_limited", "true")
+	} else {
+		in.Add("external_limited", "false")
+	}
+
+	if len(input.UserIDs) > 0 {
+		in.Add("user_ids", strings.Join(input.UserIDs, ","))
+	}
+
+	var out ConversationsInviteSharedResponse
+	if err := s.baseGET("/api/conversations.inviteShared", in, &out); err != nil {
+		return ConversationsInviteSharedResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
+
 // ConversationsJoin joins an existing conversation.
 func (s *SlackAPI) ConversationsJoin(channel string) ResponseChannelsInfo {
 	in := struct {
