@@ -226,3 +226,4 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `views.publish` | Publish a static view for a User |
 | :red_circle: | `views.push` | Push a view onto the stack of a root view |
 | :red_circle: | `views.update` | Update an existing view |
+| :large_blue_circle: | `workflows.stepCompleted` | Indicate that an app's step in a workflow completed execution |
