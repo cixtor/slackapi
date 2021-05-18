@@ -125,6 +125,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `conversations.kick` | Removes a user from a conversation |
 | :large_blue_circle: | `conversations.leave` | Leaves a conversation |
 | :large_blue_circle: | `conversations.list` | Lists all channels in a Slack team |
+| :large_blue_circle: | `conversations.listConnectInvites` | Lists shared channel invites that have been generated or received but have not been approved by all parties |
 | :large_blue_circle: | `conversations.mark` | Sets the read cursor in a channel |
 | :large_blue_circle: | `conversations.members` | Retrieve members of a conversation |
 | :large_blue_circle: | `conversations.open` | Opens or resumes a direct message or multi-person direct message |

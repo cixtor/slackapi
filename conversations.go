@@ -371,6 +371,30 @@ func (s *SlackAPI) ConversationsList(input ConversationsListInput) ResponseChann
 	return out
 }
 
+type ConversationsListConnectInvitesInput struct {
+	// Maximum number of invites to return.
+	Count int `json:"count"`
+	// Set to next_cursor returned by previous call to list items in subsequent page.
+	Cursor string `json:"cursor"`
+	// Encoded team id for the workspace to retrieve invites for.
+	TeamID string `json:"team_id"`
+}
+
+// ConversationsListConnectInvitesResponse is https://api.slack.com/methods/conversations.listConnectInvites#markdown
+type ConversationsListConnectInvitesResponse struct {
+	Response
+	Invites []interface{} `json:"invites"`
+}
+
+// ConversationsListConnectInvites retrieve members of a conversation.
+func (s *SlackAPI) ConversationsListConnectInvites(input ConversationsListConnectInvitesInput) ConversationsListConnectInvitesResponse {
+	var out ConversationsListConnectInvitesResponse
+	if err := s.basePOST("/api/conversations.listConnectInvites", input, &out); err != nil {
+		return ConversationsListConnectInvitesResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
+
 type ConversationsMembersInput struct {
 	Token   string `json:"token"`
 	Channel string `json:"channel"`
