@@ -228,3 +228,4 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `views.update` | Update an existing view |
 | :large_blue_circle: | `workflows.stepCompleted` | Indicate that an app's step in a workflow completed execution |
 | :large_blue_circle: | `workflows.stepFailed` | Indicate that an app's step in a workflow failed to execute |
+| :large_blue_circle: | `workflows.updateStep` | Update the configuration for a workflow step |
