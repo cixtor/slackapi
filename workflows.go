@@ -8,3 +8,12 @@ func (s *SlackAPI) WorkflowsStepCompleted() Response {
 	}
 	return out
 }
+
+// WorkflowsStepFailed https://api.slack.com/methods/workflows.stepFailed
+func (s *SlackAPI) WorkflowsStepFailed() Response {
+	var out Response
+	if err := s.basePOST("/api/workflows.stepFailed", nil, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+	return out
+}
