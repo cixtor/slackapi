@@ -2,19 +2,68 @@ package slackapi
 
 import (
 	"encoding/json"
+	"net/url"
+	"strconv"
 )
 
-// AccessLogArgs defines the data to send to the API service.
-type AccessLogArgs struct {
+type TeamAccessLogsInput struct {
+	// End of time range of logs to include in results (inclusive).
 	Before string `json:"before"`
-	Count  int    `json:"count"`
-	Page   int    `json:"page"`
+	// Number of items to return per page.
+	Count int `json:"count"`
+	// Page number of results to return.
+	Page int `json:"page"`
+	// Encoded team id to get logs from, required if org token is used.
+	TeamID string `json:"team_id"`
 }
 
-// ResponseTeamAccessLogs defines the JSON-encoded output for TeamAccessLogs.
-type ResponseTeamAccessLogs struct {
+// TeamAccessLogsResponse defines the JSON-encoded output for TeamAccessLogs.
+type TeamAccessLogsResponse struct {
 	Response
-	AccessLogs []AccessLog `json:"logins"`
+	Logins []AccessLog `json:"logins"`
+}
+
+// AccessLog defines the expected data from the JSON-encoded API response.
+type AccessLog struct {
+	UserID    string      `json:"user_id"`
+	Username  string      `json:"username"`
+	DateFirst json.Number `json:"date_first"`
+	DateLast  json.Number `json:"date_last"`
+	Count     int         `json:"count"`
+	IP        string      `json:"ip"`
+	UserAgent string      `json:"user_agent"`
+	ISP       string      `json:"isp"`
+	Country   string      `json:"country"`
+	Region    string      `json:"region"`
+}
+
+// TeamAccessLogs is https://api.slack.com/methods/team.accessLogs
+func (s *SlackAPI) TeamAccessLogs(input TeamAccessLogsInput) TeamAccessLogsResponse {
+	in := url.Values{}
+
+	if input.Before != "" {
+		in.Add("before", input.Before)
+	}
+
+	if input.Count > 0 {
+		in.Add("count", strconv.Itoa(input.Count))
+	} else {
+		in.Add("count", "100")
+	}
+
+	if input.Page > 0 {
+		in.Add("page", strconv.Itoa(input.Page))
+	}
+
+	if input.TeamID != "" {
+		in.Add("team_id", input.TeamID)
+	}
+
+	var out TeamAccessLogsResponse
+	if err := s.baseGET("/api/team.accessLogs", in, &out); err != nil {
+		return TeamAccessLogsResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
 }
 
 // ResponseTeamInfo defines the JSON-encoded output for TeamInfo.
@@ -33,20 +82,6 @@ type ResponseTeamProfile struct {
 type ResponseBillableInfo struct {
 	Response
 	BillableInfo map[string]BillableInfo `json:"billable_info"`
-}
-
-// AccessLog defines the expected data from the JSON-encoded API response.
-type AccessLog struct {
-	UserID    string      `json:"user_id"`
-	Username  string      `json:"username"`
-	DateFirst json.Number `json:"date_first"`
-	DateLast  json.Number `json:"date_last"`
-	Count     int         `json:"count"`
-	IP        string      `json:"ip"`
-	UserAgent string      `json:"user_agent"`
-	ISP       string      `json:"isp"`
-	Country   string      `json:"country"`
-	Region    string      `json:"region"`
 }
 
 // Team defines the expected data from the JSON-encoded API response.
@@ -90,13 +125,6 @@ type TeamIcon struct {
 // BillableInfo defines the expected data from the JSON-encoded API response.
 type BillableInfo struct {
 	BillingActive bool `json:"billing_active"`
-}
-
-// TeamAccessLogs gets the access logs for the current team.
-func (s *SlackAPI) TeamAccessLogs(data AccessLogArgs) ResponseTeamAccessLogs {
-	var response ResponseTeamAccessLogs
-	s.getRequest(&response, "team.accessLogs", data)
-	return response
 }
 
 // TeamBillableInfo gets billable users information for the current team.
