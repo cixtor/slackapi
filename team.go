@@ -66,6 +66,34 @@ func (s *SlackAPI) TeamAccessLogs(input TeamAccessLogsInput) TeamAccessLogsRespo
 	return out
 }
 
+type TeamBillableInfoResponse struct {
+	Response
+	BillableInfo map[string]BillableInfo `json:"billable_info"`
+}
+
+type BillableInfo struct {
+	BillingActive bool `json:"billing_active"`
+}
+
+// TeamBillableInfo is https://api.slack.com/methods/team.billableInfo
+func (s *SlackAPI) TeamBillableInfo(teamID string, user string) TeamBillableInfoResponse {
+	in := url.Values{}
+
+	if teamID != "" {
+		in.Add("team_id", teamID)
+	}
+
+	if user != "" {
+		in.Add("user", user)
+	}
+
+	var out TeamBillableInfoResponse
+	if err := s.baseGET("/api/team.billableInfo", in, &out); err != nil {
+		return TeamBillableInfoResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
+
 // ResponseTeamInfo defines the JSON-encoded output for TeamInfo.
 type ResponseTeamInfo struct {
 	Response
@@ -76,12 +104,6 @@ type ResponseTeamInfo struct {
 type ResponseTeamProfile struct {
 	Response
 	Profile TeamProfile `json:"profile"`
-}
-
-// ResponseBillableInfo defines the JSON-encoded output for BillableInfo.
-type ResponseBillableInfo struct {
-	Response
-	BillableInfo map[string]BillableInfo `json:"billable_info"`
 }
 
 // Team defines the expected data from the JSON-encoded API response.
@@ -120,20 +142,6 @@ type TeamIcon struct {
 	Image68       string `json:"image_68"`
 	Image88       string `json:"image_88"`
 	ImageOriginal string `json:"image_original"`
-}
-
-// BillableInfo defines the expected data from the JSON-encoded API response.
-type BillableInfo struct {
-	BillingActive bool `json:"billing_active"`
-}
-
-// TeamBillableInfo gets billable users information for the current team.
-func (s *SlackAPI) TeamBillableInfo(user string) ResponseBillableInfo {
-	var response ResponseBillableInfo
-	s.getRequest(&response, "team.billableInfo", struct {
-		User string `json:"user"`
-	}{user})
-	return response
 }
 
 // TeamInfo gets information about the current team.
