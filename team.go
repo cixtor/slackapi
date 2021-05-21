@@ -109,16 +109,9 @@ func (s *SlackAPI) TeamBillingInfo() TeamBillingInfoResponse {
 	return out
 }
 
-// ResponseTeamInfo defines the JSON-encoded output for TeamInfo.
-type ResponseTeamInfo struct {
+type TeamInfoResponse struct {
 	Response
 	Team Team `json:"team"`
-}
-
-// ResponseTeamProfile defines the JSON-encoded output for TeamProfile.
-type ResponseTeamProfile struct {
-	Response
-	Profile TeamProfile `json:"profile"`
 }
 
 // Team defines the expected data from the JSON-encoded API response.
@@ -128,6 +121,40 @@ type Team struct {
 	Icon        TeamIcon `json:"icon"`
 	ID          string   `json:"id"`
 	Name        string   `json:"name"`
+}
+
+// TeamIcon defines the expected data from the JSON-encoded API response.
+type TeamIcon struct {
+	Image102      string `json:"image_102"`
+	Image132      string `json:"image_132"`
+	Image34       string `json:"image_34"`
+	Image44       string `json:"image_44"`
+	Image68       string `json:"image_68"`
+	Image88       string `json:"image_88"`
+	ImageOriginal string `json:"image_original"`
+}
+
+// TeamInfo gets information about the current team.
+//
+// The team parameter is to get info on, if omitted, will return information
+// about the current team. Will only return team that the authenticated token
+// is allowed to see through external shared channels
+func (s *SlackAPI) TeamInfo(team string) TeamInfoResponse {
+	in := url.Values{}
+	if team != "" {
+		in.Add("team", team)
+	}
+	var out TeamInfoResponse
+	if err := s.baseGET("/api/team.info", in, &out); err != nil {
+		return TeamInfoResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
+
+// ResponseTeamProfile defines the JSON-encoded output for TeamProfile.
+type ResponseTeamProfile struct {
+	Response
+	Profile TeamProfile `json:"profile"`
 }
 
 // TeamProfile defines the expected data from the JSON-encoded API response.
@@ -146,24 +173,6 @@ type TeamProfileField struct {
 	PossibleValues interface{} `json:"possible_values"`
 	Options        interface{} `json:"options"`
 	IsHidden       bool        `json:"is_hidden"`
-}
-
-// TeamIcon defines the expected data from the JSON-encoded API response.
-type TeamIcon struct {
-	Image102      string `json:"image_102"`
-	Image132      string `json:"image_132"`
-	Image34       string `json:"image_34"`
-	Image44       string `json:"image_44"`
-	Image68       string `json:"image_68"`
-	Image88       string `json:"image_88"`
-	ImageOriginal string `json:"image_original"`
-}
-
-// TeamInfo gets information about the current team.
-func (s *SlackAPI) TeamInfo() ResponseTeamInfo {
-	var response ResponseTeamInfo
-	s.getRequest(&response, "team.info", nil)
-	return response
 }
 
 // TeamProfileGet retrieve a team's profile.
