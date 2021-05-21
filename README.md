@@ -193,6 +193,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `stars.remove` | Removes a star from an item |
 | :large_blue_circle: | `team.accessLogs` | Gets the access logs for the current team |
 | :large_blue_circle: | `team.billableInfo` | Gets billable users information for the current team |
+| :large_blue_circle: | `team.billing.info` | Reads a workspace's billing plan information |
 | :large_blue_circle: | `team.info` | Gets information about the current team |
 | :red_circle: | `team.integrationLogs` | Gets the integration logs for the current team |
 | :large_blue_circle: | `team.profile.get` | Retrieve a team's profile |

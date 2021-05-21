@@ -94,6 +94,21 @@ func (s *SlackAPI) TeamBillableInfo(teamID string, user string) TeamBillableInfo
 	return out
 }
 
+type TeamBillingInfoResponse struct {
+	Response
+	Plan string `json:"plan"`
+}
+
+// TeamBillingInfo is https://api.slack.com/methods/team.billing.info
+func (s *SlackAPI) TeamBillingInfo() TeamBillingInfoResponse {
+	in := url.Values{}
+	var out TeamBillingInfoResponse
+	if err := s.baseGET("/api/team.billing.info", in, &out); err != nil {
+		return TeamBillingInfoResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
+
 // ResponseTeamInfo defines the JSON-encoded output for TeamInfo.
 type ResponseTeamInfo struct {
 	Response
