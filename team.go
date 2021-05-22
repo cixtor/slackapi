@@ -225,8 +225,8 @@ func (s *SlackAPI) TeamIntegrationLogs(input TeamIntegrationLogsInput) TeamInteg
 	return out
 }
 
-// ResponseTeamProfile defines the JSON-encoded output for TeamProfile.
-type ResponseTeamProfile struct {
+// TeamProfileResponse defines the JSON-encoded output for TeamProfile.
+type TeamProfileResponse struct {
 	Response
 	Profile TeamProfile `json:"profile"`
 }
@@ -249,9 +249,12 @@ type TeamProfileField struct {
 	IsHidden       bool        `json:"is_hidden"`
 }
 
-// TeamProfileGet retrieve a team's profile.
-func (s *SlackAPI) TeamProfileGet() ResponseTeamProfile {
-	var response ResponseTeamProfile
-	s.getRequest(&response, "team.profile.get", nil)
-	return response
+// TeamProfileGet https://api.slack.com/methods/team.profile.get
+func (s *SlackAPI) TeamProfileGet() TeamProfileResponse {
+	in := url.Values{}
+	var out TeamProfileResponse
+	if err := s.baseGET("/api/team.profile.get", in, &out); err != nil {
+		return TeamProfileResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
 }
