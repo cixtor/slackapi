@@ -9,6 +9,7 @@ type MessageArgs struct {
 	Parse          string       `json:"parse"`
 	Text           string       `json:"text"`
 	ThreadTs       string       `json:"thread_ts"`
+	Ts             string       `json:"ts"`
 	Username       string       `json:"username"`
 	AsUser         bool         `json:"as_user"`
 	LinkNames      bool         `json:"link_names"`
