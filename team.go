@@ -225,13 +225,30 @@ func (s *SlackAPI) TeamIntegrationLogs(input TeamIntegrationLogsInput) TeamInteg
 	return out
 }
 
-// TeamProfileResponse defines the JSON-encoded output for TeamProfile.
+type TeamPreferencesListResponse struct {
+	Response
+	AllowMessageDeletion bool   `json:"allow_message_deletion"`
+	DisplayRealNames     bool   `json:"display_real_names"`
+	DisableFileUploads   string `json:"disable_file_uploads"`
+	MsgEditWindowMins    int    `json:"msg_edit_window_mins"`
+	WhoCanPostGeneral    string `json:"who_can_post_general"`
+}
+
+// TeamPreferencesList https://api.slack.com/methods/team.preferences.list
+func (s *SlackAPI) TeamPreferencesList() TeamPreferencesListResponse {
+	in := url.Values{}
+	var out TeamPreferencesListResponse
+	if err := s.baseGET("/api/team.preferences.list", in, &out); err != nil {
+		return TeamPreferencesListResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
+
 type TeamProfileResponse struct {
 	Response
 	Profile TeamProfile `json:"profile"`
 }
 
-// TeamProfile defines the expected data from the JSON-encoded API response.
 type TeamProfile struct {
 	Fields []TeamProfileField `json:"fields"`
 }

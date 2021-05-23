@@ -196,6 +196,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `team.billing.info` | Reads a workspace's billing plan information |
 | :large_blue_circle: | `team.info` | Gets information about the current team |
 | :large_blue_circle: | `team.integrationLogs` | Gets the integration logs for the current team |
+| :large_blue_circle: | `team.preferences.list` | Retrieve a list of a workspace's team preferences |
 | :large_blue_circle: | `team.profile.get` | Retrieve a team's profile |
 | :red_circle: | `usergroups.create` | Create a User Group |
 | :red_circle: | `usergroups.disable` | Disable an existing User Group |
