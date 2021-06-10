@@ -18,10 +18,22 @@ func (s *SlackAPI) WorkflowsStepCompleted(input WorkflowsStepCompletedInput) Res
 	return out
 }
 
+type WorkflowsStepFailedInput struct {
+	// Context identifier that maps to the correct workflow step execution.
+	WorkflowStepExecuteID string `json:"workflow_step_execute_id"`
+	// A JSON-based object with a message property that should contain a
+	// human readable error message.
+	Error WorkflowError
+}
+
+type WorkflowError struct {
+	Message string `json:"message"`
+}
+
 // WorkflowsStepFailed https://api.slack.com/methods/workflows.stepFailed
-func (s *SlackAPI) WorkflowsStepFailed() Response {
+func (s *SlackAPI) WorkflowsStepFailed(input WorkflowsStepFailedInput) Response {
 	var out Response
-	if err := s.basePOST("/api/workflows.stepFailed", nil, &out); err != nil {
+	if err := s.basePOST("/api/workflows.stepFailed", input, &out); err != nil {
 		return Response{Error: err.Error()}
 	}
 	return out
