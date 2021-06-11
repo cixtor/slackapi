@@ -39,10 +39,39 @@ func (s *SlackAPI) WorkflowsStepFailed(input WorkflowsStepFailedInput) Response 
 	return out
 }
 
+type WorkflowsUpdateStepInput struct {
+	// Context identifier that maps to the correct workflow step execution.
+	WorkflowStepExecuteID string `json:"workflow_step_execute_id"`
+	// JSON key-value map of inputs required from a user during configuration.
+	// This is the data your app expects to receive when the workflow step
+	// starts.
+	//
+	// Example:
+	//
+	//   {"title":{"value":"The Title"},"submitter":{"value":"{{user}}"}}
+	Inputs interface{} `json:"inputs"`
+	// An JSON array of output objects used during step execution. This is the
+	// data your app agrees to provide when your workflow step was executed.
+	//
+	// Example:
+	//
+	//   [
+	//     {"name":"ticket_id","type":"text","label":"Ticket ID"},
+	//     {"name":"title","type":"text","label":"Title"}
+	//   ]
+	Outputs interface{} `json:"outputs"`
+	// An optional field that can be used to override app image that is shown
+	// in the Workflow Builder.
+	StepImageURL string `json:"step_image_url"`
+	// An optional field that can be used to override the step name that is
+	// shown in the Workflow Builder.
+	StepName string `json:"step_name"`
+}
+
 // WorkflowsUpdateStep https://api.slack.com/methods/workflows.updateStep
-func (s *SlackAPI) WorkflowsUpdateStep() Response {
+func (s *SlackAPI) WorkflowsUpdateStep(input WorkflowsUpdateStepInput) Response {
 	var out Response
-	if err := s.basePOST("/api/workflows.updateStep", nil, &out); err != nil {
+	if err := s.basePOST("/api/workflows.updateStep", input, &out); err != nil {
 		return Response{Error: err.Error()}
 	}
 	return out
