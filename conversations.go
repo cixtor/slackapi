@@ -86,9 +86,6 @@ func (s *SlackAPI) ConversationsClose(channel string) ResponseConversationsClose
 }
 
 type ConversationsCreateInput struct {
-	// Authentication token bearing required scopes. Tokens should be passed
-	// as an HTTP Authorization header or alternatively, as a POST parameter.
-	Token string `json:"token"`
 	// Name of the public or private channel to create.
 	Name string `json:"name"`
 	// Create a private channel instead of a public one.
@@ -309,9 +306,6 @@ func (s *SlackAPI) ConversationsLeave(channel string) Response {
 }
 
 type ConversationsMarkInput struct {
-	// Authentication token bearing required scopes. Tokens should be passed
-	// as an HTTP Authorization header or alternatively, as a POST parameter.
-	Token string `json:"token"`
 	// Conversation ID to fetch thread from.
 	Channel string `json:"channel"`
 	// Unique identifier of a thread's parent message.
@@ -396,7 +390,6 @@ func (s *SlackAPI) ConversationsListConnectInvites(input ConversationsListConnec
 }
 
 type ConversationsMembersInput struct {
-	Token   string `json:"token"`
 	Channel string `json:"channel"`
 	Cursor  string `json:"cursor"`
 	Limit   int    `json:"limit"`

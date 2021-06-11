@@ -93,7 +93,6 @@ type ConfirmationField struct {
 // your webhook when a user or bot clicks a button or selects an option from the
 // select box in interactive messages.
 type AttachmentActionCallback struct {
-	Token            string             `json:"token"`
 	CallbackID       string             `json:"callback_id"`
 	ResponseURL      string             `json:"response_url"`
 	AttachmentID     string             `json:"attachment_id"`

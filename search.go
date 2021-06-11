@@ -11,7 +11,6 @@ type SearchArgs struct {
 }
 
 type SearchUsersArgs struct {
-	Token               string `json:"token"`
 	Query               string `json:"query"`
 	Count               int    `json:"count"`
 	Fuzz                int    `json:"fuzz"`
