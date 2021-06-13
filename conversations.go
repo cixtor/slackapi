@@ -136,29 +136,48 @@ func (s *SlackAPI) ConversationsDeclineSharedInvite(input ConversationsDeclineSh
 
 type ConversationsHistoryInput struct {
 	// Conversation ID to fetch history for.
-	Channel string `json:"channel"`
+	Channel string `json:"channel,omitempty"`
 	// Paginate through collections of data by setting the cursor parameter to
 	// a next_cursor attribute returned by a previous request's response_metadata.
 	// Default value fetches the first "page" of the collection. See pagination
 	// for more detail.
-	Cursor string `json:"cursor"`
+	Cursor string `json:"cursor,omitempty"`
 	// Include messages with latest or oldest timestamp in results only when
 	// either timestamp is specified.
-	Inclusive bool `json:"inclusive"`
+	Inclusive bool `json:"inclusive,omitempty"`
 	// End of time range of messages to include in results.
-	Latest string `json:"latest"`
+	Latest string `json:"latest,omitempty"`
 	// The maximum number of items to return. Fewer than the requested number
 	// of items may be returned, even if the end of the users list hasn't been
 	// reached.
-	Limit int `json:"limit"`
+	Limit int `json:"limit,omitempty"`
 	// Start of time range of messages to include in results.
-	Oldest string `json:"oldest"`
+	Oldest string `json:"oldest,omitempty"`
 }
 
 // ConversationsHistory fetches a conversation's history of messages and events.
 func (s *SlackAPI) ConversationsHistory(input ConversationsHistoryInput) History {
+	in := url.Values{}
+	if input.Channel != "" {
+		in.Add("channel", input.Channel)
+	}
+	if input.Cursor != "" {
+		in.Add("cursor", input.Cursor)
+	}
+	if input.Inclusive {
+		in.Add("inclusive", "true")
+	}
+	if input.Latest != "" {
+		in.Add("latest", input.Latest)
+	}
+	if input.Limit > 0 {
+		in.Add("limit", strconv.Itoa(input.Limit))
+	}
+	if input.Oldest != "" {
+		in.Add("oldest", input.Oldest)
+	}
 	var out History
-	if err := s.basePOST("/api/conversations.history", input, &out); err != nil {
+	if err := s.baseGET("/api/conversations.history", in, &out); err != nil {
 		return History{Response: Response{Error: err.Error()}}
 	}
 	return out
