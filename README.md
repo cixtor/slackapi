@@ -101,6 +101,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `calls.participants.add` | Registers new participants added to a Call |
 | :red_circle: | `calls.participants.remove` | Registers participants removed from a Call |
 | :large_blue_circle: | `chat.delete` | Deletes a message |
+| :large_blue_circle: | `chat.deleteAttachment` | Deletes a message attachment |
 | :red_circle: | `chat.deleteScheduledMessage` | Deletes a pending scheduled message from the queue |
 | :red_circle: | `chat.getPermalink` | Retrieve a permalink URL for a specific extant message |
 | :large_blue_circle: | `chat.meMessage` | Share a me message into a channel |
