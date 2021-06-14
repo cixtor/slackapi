@@ -2,16 +2,24 @@ package slackapi
 
 // Response defines the expected data from the JSON-encoded API response.
 type Response struct {
-	Ok       bool      `json:"ok"`
-	Error    string    `json:"error,omitempty"`
-	Needed   string    `json:"needed,omitempty"`
-	Provided string    `json:"provided,omitempty"`
-	Errors   []ErrMsgs `json:"errors,omitempty"`
+	Ok               bool             `json:"ok"`
+	Error            string           `json:"error,omitempty"`
+	Warning          string           `json:"warning,omitempty"`
+	Needed           string           `json:"needed,omitempty"`
+	Provided         string           `json:"provided,omitempty"`
+	Errors           []ErrMsgs        `json:"errors,omitempty"`
+	ResponseMetadata ResponseMetadata `json:"response_metadata,omitempty"`
 }
 
 type ErrMsgs struct {
 	Message string `json:"message"`
 	Pointer string `json:"pointer"`
+}
+
+type ResponseMetadata struct {
+	Messages   []string `json:"messages"`
+	Warnings   []string `json:"warnings"`
+	NextCursor string   `json:"next_cursor"`
 }
 
 // Owner defines the expected data from the JSON-encoded API response.

@@ -24,11 +24,6 @@ type ResponseUsersList struct {
 	ResponseMetadata ResponseMetadata `json:"response_metadata"`
 }
 
-// ResponseMetadata defines the JSON-encoded output for metadata.
-type ResponseMetadata struct {
-	NextCursor string `json:"next_cursor"`
-}
-
 // ResponseUserPrefs defines the JSON-encoded output for UserPrefs.
 type ResponseUserPrefs struct {
 	Response
