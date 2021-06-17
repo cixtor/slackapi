@@ -115,6 +115,44 @@ func (s *SlackAPI) SearchMessages(data SearchArgs) ResponseSearch {
 	return s.searchStuff("search.messages", data)
 }
 
+type SearchModulesInput struct {
+	ExcludeMyChannels    bool   `json:"exclude_my_channels"`
+	ExtraMessageData     bool   `json:"extra_message_data"`
+	Highlight            bool   `json:"highlight"`
+	NoUserProfile        bool   `json:"no_user_profile"`
+	Sort                 string `json:"sort"`
+	SortDir              string `json:"sort_dir"`
+	Browse               string `json:"browse"`
+	BrowseSessionID      string `json:"browse_session_id"`
+	ClientReqID          string `json:"client_req_id"`
+	Count                int    `json:"count"`
+	MaxFilterSuggestions int    `json:"max_filter_suggestions"`
+	Module               string `json:"module"`
+	Page                 int    `json:"page"`
+	ChannelType          string `json:"channel_type"`
+	Extracts             int    `json:"extracts"`
+	Query                string `json:"query"`
+	Team                 string `json:"team"`
+}
+
+type SearchModulesResponse struct {
+	Response
+	Module     string      `json:"module"`
+	Filters    interface{} `json:"filters"`
+	Query      string      `json:"query"`
+	Pagination Pagination  `json:"pagination"`
+	Items      []Channel   `json:"items"`
+}
+
+// SearchModules is https://api.slack.com/methods/search.modules
+func (s *SlackAPI) SearchModules(input SearchModulesInput) SearchModulesResponse {
+	var out SearchModulesResponse
+	if err := s.basePOST("/api/search.modules", input, &out); err != nil {
+		return SearchModulesResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
+
 // SearchUsers searches for users matching a query.
 func (s *SlackAPI) SearchUsers(input SearchUsersArgs) (ResponseSearchUsers, error) {
 	owner, err := s.AuthTest()

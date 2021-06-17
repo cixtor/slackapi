@@ -186,6 +186,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `search.all` | Searches for messages and files matching a query |
 | :large_blue_circle: | `search.files` | Searches for files matching a query |
 | :large_blue_circle: | `search.messages` | Searches for messages matching a query |
+| :large_blue_circle: | `search.modules` | Searches for modules matching a query |
 | :large_blue_circle: | `search.users` | Search users by name or email address |
 | :large_blue_circle: | `signup.checkEmail` | Checks if an email address is valid |
 | :large_blue_circle: | `signup.confirmEmail` | Confirm an email address for signup |

@@ -90,6 +90,7 @@ type Channel struct {
 	Created            int            `json:"created"`
 	Creator            string         `json:"creator"`
 	ID                 string         `json:"id"`
+	IID                string         `json:"iid"`
 	IsArchived         bool           `json:"is_archived"`
 	IsChannel          bool           `json:"is_channel"`
 	IsGeneral          bool           `json:"is_general"`
@@ -105,6 +106,7 @@ type Channel struct {
 	Members            []string       `json:"members"`
 	Name               string         `json:"name"`
 	NameNormalized     string         `json:"name_normalized"`
+	MemberCount        int            `json:"member_count"`
 	NumMembers         int            `json:"num_members"`
 	Purpose            ChannelPurpose `json:"purpose"`
 	Topic              ChannelTopic   `json:"topic"`
