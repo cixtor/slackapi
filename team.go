@@ -114,13 +114,19 @@ type TeamInfoResponse struct {
 	Team Team `json:"team"`
 }
 
-// Team defines the expected data from the JSON-encoded API response.
 type Team struct {
-	Domain      string   `json:"domain"`
-	EmailDomain string   `json:"email_domain"`
-	Icon        TeamIcon `json:"icon"`
-	ID          string   `json:"id"`
-	Name        string   `json:"name"`
+	ID            string        `json:"id"`
+	Name          string        `json:"name"`
+	URL           string        `json:"url"`
+	Domain        string        `json:"domain"`
+	EmailDomain   string        `json:"email_domain"`
+	Icon          TeamIcon      `json:"icon"`
+	AvatarBaseURL string        `json:"avatar_base_url"`
+	IsVerified    bool          `json:"is_verified"`
+	PublicURL     string        `json:"public_url"`
+	OrgMigrations OrgMigrations `json:"external_org_migrations"`
+	Channels      []string      `json:"channels"`
+	Counts        TeamCounts    `json:"counts"`
 }
 
 // TeamIcon defines the expected data from the JSON-encoded API response.
@@ -132,6 +138,19 @@ type TeamIcon struct {
 	Image68       string `json:"image_68"`
 	Image88       string `json:"image_88"`
 	ImageOriginal string `json:"image_original"`
+	Image230      string `json:"image_230"`
+}
+
+type OrgMigrations struct {
+	DateUpdated int           `json:"date_updated"`
+	Current     []interface{} `json:"current"`
+}
+
+type TeamCounts struct {
+	Im      int `json:"im"`
+	Mpim    int `json:"mpim"`
+	Private int `json:"private"`
+	Public  int `json:"public"`
 }
 
 // TeamInfo gets information about the current team.
@@ -221,6 +240,25 @@ func (s *SlackAPI) TeamIntegrationLogs(input TeamIntegrationLogsInput) TeamInteg
 	var out TeamIntegrationLogsResponse
 	if err := s.baseGET("/api/team.integrationLogs", in, &out); err != nil {
 		return TeamIntegrationLogsResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
+
+type TeamListExternalInput struct {
+	IncludeAllVisible   int `json:"include_all_visible"`
+	IncludeApprovedOrgs int `json:"include_approved_orgs"`
+}
+
+type TeamListExternalResponse struct {
+	Response
+	Teams []Team `json:"teams"`
+}
+
+// TeamListExternal is https://api.slack.com/methods/team.listExternal
+func (s *SlackAPI) TeamListExternal(input TeamListExternalInput) TeamListExternalResponse {
+	var out TeamListExternalResponse
+	if err := s.basePOST("/api/team.listExternal", input, &out); err != nil {
+		return TeamListExternalResponse{Response: Response{Error: err.Error()}}
 	}
 	return out
 }
