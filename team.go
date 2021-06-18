@@ -109,6 +109,26 @@ func (s *SlackAPI) TeamBillingInfo() TeamBillingInfoResponse {
 	return out
 }
 
+type TeamChannelsInfoInput struct {
+	TeamID          string   `json:"-"`
+	CheckMembership bool     `json:"check_membership"`
+	ChannelIDs      []string `json:"ids"`
+}
+
+type TeamChannelsInfoResponse struct {
+	Response
+	Results []Channel `json:"results"`
+}
+
+// TeamChannelsInfo is https://api.slack.com/methods/team.channels.info
+func (s *SlackAPI) TeamChannelsInfo(input TeamChannelsInfoInput) TeamChannelsInfoResponse {
+	var out TeamChannelsInfoResponse
+	if err := s.edgePOST("/cache/"+input.TeamID+"/channels/info", input, &out); err != nil {
+		return TeamChannelsInfoResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
+
 type TeamInfoResponse struct {
 	Response
 	Team Team `json:"team"`
