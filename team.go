@@ -115,18 +115,21 @@ type TeamInfoResponse struct {
 }
 
 type Team struct {
-	ID            string        `json:"id"`
-	Name          string        `json:"name"`
-	URL           string        `json:"url"`
-	Domain        string        `json:"domain"`
-	EmailDomain   string        `json:"email_domain"`
-	Icon          TeamIcon      `json:"icon"`
-	AvatarBaseURL string        `json:"avatar_base_url"`
-	IsVerified    bool          `json:"is_verified"`
-	PublicURL     string        `json:"public_url"`
-	OrgMigrations OrgMigrations `json:"external_org_migrations"`
-	Channels      []string      `json:"channels"`
-	Counts        TeamCounts    `json:"counts"`
+	ID             string        `json:"id"`
+	Name           string        `json:"name"`
+	URL            string        `json:"url"`
+	Domain         string        `json:"domain"`
+	EmailDomain    string        `json:"email_domain"`
+	Icon           TeamIcon      `json:"icon"`
+	AvatarBaseURL  string        `json:"avatar_base_url"`
+	IsVerified     bool          `json:"is_verified"`
+	PublicURL      string        `json:"public_url"`
+	OrgMigrations  OrgMigrations `json:"external_org_migrations"`
+	Channels       []string      `json:"channels"`
+	Counts         TeamCounts    `json:"counts"`
+	DateCreated    int           `json:"date_created"`
+	EnterpriseID   string        `json:"enterprise_id"`
+	EnterpriseName string        `json:"enterprise_name"`
 }
 
 // TeamIcon defines the expected data from the JSON-encoded API response.
