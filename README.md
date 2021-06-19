@@ -135,6 +135,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `conversations.replies` | Retrieve a thread of messages posted to a conversation |
 | :large_blue_circle: | `conversations.setPurpose` | Sets the purpose for a conversation |
 | :large_blue_circle: | `conversations.setTopic` | Sets the topic for a conversation |
+| :large_blue_circle: | `conversations.suggestions` | List Slack suggestions to join conversations |
 | :large_blue_circle: | `conversations.unarchive` | Reverses conversation archival |
 | :red_circle: | `dialog.open` | Open a dialog with a user |
 | :large_blue_circle: | `dnd.endDnd` | Ends the current user's _"Do Not Disturb"_ session immediately |

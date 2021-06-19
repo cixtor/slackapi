@@ -572,6 +572,22 @@ func (s *SlackAPI) ConversationsSetTopic(channel string, topic string) ChannelTo
 	return out
 }
 
+type ConversationsSuggestionsResponse struct {
+	Response
+	Status               string   `json:"status"`
+	SuggestionTypesTried []string `json:"suggestion_types_tried"`
+}
+
+// ConversationsSuggestions is https://api.slack.com/methods/conversations.suggestions
+func (s *SlackAPI) ConversationsSuggestions() ConversationsSuggestionsResponse {
+	in := struct{}{}
+	var out ConversationsSuggestionsResponse
+	if err := s.basePOST("/api/conversations.suggestions", in, &out); err != nil {
+		return ConversationsSuggestionsResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
+
 // ConversationsUnarchive reverses conversation archival.
 func (s *SlackAPI) ConversationsUnarchive(channel string) Response {
 	in := struct {
