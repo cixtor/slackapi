@@ -112,6 +112,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `chat.unfurl` | Provide custom unfurl behavior for user-posted URLs |
 | :large_blue_circle: | `chat.update` | Updates a message |
 | :large_blue_circle: | `client.counts` | List mentions in different conversations |
+| :large_blue_circle: | `client.shouldReload` | Determine if the Slack client must reload or not |
 | :large_blue_circle: | `conversations.acceptSharedInvite` | Accepts an invitation to a Slack Connect channel |
 | :large_blue_circle: | `conversations.approveSharedInvite` | Approves an invitation to a Slack Connect channel |
 | :large_blue_circle: | `conversations.archive` | Archives a conversation |

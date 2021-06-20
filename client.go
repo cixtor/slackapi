@@ -39,3 +39,27 @@ func (s *SlackAPI) ClientCounts(input ClientCountsInput) ClientCountsResponse {
 	}
 	return out
 }
+
+type ClientShouldReloadInput struct {
+	VersionTs       int    `json:"version_ts"`
+	BuildVersionTs  int    `json:"build_version_ts"`
+	ConfigVersionTs int    `json:"config_version_ts"`
+	TeamIDs         string `json:"team_ids"`
+}
+
+type ClientShouldReloadResponse struct {
+	Response
+	BuildVersionEnabled    bool `json:"build_version_enabled"`
+	ShouldReload           bool `json:"should_reload"`
+	ClientMinVersion       int  `json:"client_min_version"`
+	ClientMinConfigVersion int  `json:"client_min_config_version"`
+}
+
+// ClientShouldReload is https://api.slack.com/methods/client.shouldReload
+func (s *SlackAPI) ClientShouldReload(input ClientShouldReloadInput) ClientShouldReloadResponse {
+	var out ClientShouldReloadResponse
+	if err := s.basePOST("/api/client.shouldReload", input, &out); err != nil {
+		return ClientShouldReloadResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
