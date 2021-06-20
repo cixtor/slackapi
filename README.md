@@ -200,6 +200,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `team.billableInfo` | Gets billable users information for the current team |
 | :large_blue_circle: | `team.billing.info` | Reads a workspace's billing plan information |
 | :large_blue_circle: | `team.channels.info` | Retrieve a list of channels in a specific team |
+| :large_blue_circle: | `team.channels.membership` | Retrieve membership information about a team |
 | :large_blue_circle: | `team.info` | Gets information about the current team |
 | :large_blue_circle: | `team.integrationLogs` | Gets the integration logs for the current team |
 | :large_blue_circle: | `team.listExternal` | List external teams and their corresponding information |

@@ -129,6 +129,27 @@ func (s *SlackAPI) TeamChannelsInfo(input TeamChannelsInfoInput) TeamChannelsInf
 	return out
 }
 
+type TeamChannelsMembershipInput struct {
+	TeamID  string   `json:"-"`
+	Channel string   `json:"channel"`
+	UserIDs []string `json:"users"`
+}
+
+type TeamChannelsMembershipResponse struct {
+	Response
+	Channel string   `json:"channel"`
+	Members []string `json:"members"`
+}
+
+// TeamChannelsMembership is https://api.slack.com/methods/team.channels.membership
+func (s *SlackAPI) TeamChannelsMembership(input TeamChannelsMembershipInput) TeamChannelsMembershipResponse {
+	var out TeamChannelsMembershipResponse
+	if err := s.edgePOST("/cache/"+input.TeamID+"/channels/membership", input, &out); err != nil {
+		return TeamChannelsMembershipResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
+
 type TeamInfoResponse struct {
 	Response
 	Team Team `json:"team"`
