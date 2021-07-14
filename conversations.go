@@ -422,8 +422,22 @@ type ResponseConversationsMembers struct {
 
 // ConversationsMembers retrieve members of a conversation.
 func (s *SlackAPI) ConversationsMembers(input ConversationsMembersInput) ResponseConversationsMembers {
+	in := url.Values{}
+
+	if input.Channel != "" {
+		in.Add("channel", input.Channel)
+	}
+
+	if input.Cursor != "" {
+		in.Add("cursor", input.Cursor)
+	}
+
+	if input.Limit > 0 {
+		in.Add("limit", strconv.Itoa(input.Limit))
+	}
+
 	var out ResponseConversationsMembers
-	if err := s.basePOST("/api/conversations.members", input, &out); err != nil {
+	if err := s.baseGET("/api/conversations.members", in, &out); err != nil {
 		return ResponseConversationsMembers{Response: Response{Error: err.Error()}}
 	}
 	return out
