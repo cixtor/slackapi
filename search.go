@@ -1,5 +1,10 @@
 package slackapi
 
+import (
+	"net/url"
+	"strconv"
+)
+
 // SearchArgs defines the data to send to the API service.
 type SearchArgs struct {
 	Query     string `json:"query"`
@@ -146,8 +151,60 @@ type SearchModulesResponse struct {
 
 // SearchModules is https://api.slack.com/methods/search.modules
 func (s *SlackAPI) SearchModules(input SearchModulesInput) SearchModulesResponse {
+	in := url.Values{}
+	if input.ExcludeMyChannels {
+		in.Add("exclude_my_channels", "true")
+	}
+	if input.ExtraMessageData {
+		in.Add("extra_message_data", "true")
+	}
+	if input.Highlight {
+		in.Add("highlight", "true")
+	}
+	if input.NoUserProfile {
+		in.Add("no_user_profile", "true")
+	}
+	if input.Sort != "" {
+		in.Add("sort", input.Sort)
+	}
+	if input.SortDir != "" {
+		in.Add("sort_dir", input.SortDir)
+	}
+	if input.Browse != "" {
+		in.Add("browse", input.Browse)
+	}
+	if input.BrowseSessionID != "" {
+		in.Add("browse_session_id", input.BrowseSessionID)
+	}
+	if input.ClientReqID != "" {
+		in.Add("client_req_id", input.ClientReqID)
+	}
+	if input.Count > 0 {
+		in.Add("count", strconv.Itoa(input.Count))
+	}
+	if input.MaxFilterSuggestions > 0 {
+		in.Add("max_filter_suggestions", strconv.Itoa(input.MaxFilterSuggestions))
+	}
+	if input.Module != "" {
+		in.Add("module", input.Module)
+	}
+	if input.Page > 0 {
+		in.Add("page", strconv.Itoa(input.Page))
+	}
+	if input.ChannelType != "" {
+		in.Add("channel_type", input.ChannelType)
+	}
+	if input.Extracts > 0 {
+		in.Add("extracts", strconv.Itoa(input.Extracts))
+	}
+	if input.Query != "" {
+		in.Add("query", input.Query)
+	}
+	if input.Team != "" {
+		in.Add("team", input.Team)
+	}
 	var out SearchModulesResponse
-	if err := s.basePOST("/api/search.modules", input, &out); err != nil {
+	if err := s.baseGET("/api/search.modules", in, &out); err != nil {
 		return SearchModulesResponse{Response: Response{Error: err.Error()}}
 	}
 	return out
