@@ -119,6 +119,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `conversations.close` | Closes a direct message or multi-person direct message |
 | :large_blue_circle: | `conversations.create` | Initiates a public or private channel-based conversation |
 | :large_blue_circle: | `conversations.declineSharedInvite` | Declines a Slack Connect channel invite |
+| :large_blue_circle: | `conversations.delete` | Delete a public or private channel |
 | :large_blue_circle: | `conversations.genericInfo` | Retrieve information about various channels |
 | :large_blue_circle: | `conversations.history` | Fetches a conversation's history of messages and events |
 | :large_blue_circle: | `conversations.info` | Retrieve information about a conversation |

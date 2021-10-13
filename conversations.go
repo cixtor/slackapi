@@ -134,6 +134,20 @@ func (s *SlackAPI) ConversationsDeclineSharedInvite(input ConversationsDeclineSh
 	return out
 }
 
+// ConversationsDelete deletes a channel and all its data forever.
+func (s *SlackAPI) ConversationsDelete(channel string) Response {
+	in := struct {
+		Channel string `json:"channel"`
+	}{
+		Channel: channel,
+	}
+	var out Response
+	if err := s.basePOST("/api/conversations.delete", in, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+	return out
+}
+
 type ConversationsHistoryInput struct {
 	// Conversation ID to fetch history for.
 	Channel string `json:"channel,omitempty"`
