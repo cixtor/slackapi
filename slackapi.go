@@ -80,11 +80,9 @@ func (s *SlackAPI) urlEndpoint(action string, params map[string]string) string {
 }
 
 func (s *SlackAPI) sendRequest(req *http.Request, output interface{}) error {
-	req.Header.Set("Accept-Language", "en-us")
 	req.Header.Set("Accept", "application/json")
-	req.Header.Set("Content-Type", "application/json; charset=utf-8")
-	req.Header.Set("User-Agent", "Mozilla/5.0 (KHTML, like Gecko) Safari/537.36")
 	req.Header.Set("Authorization", "Bearer "+s.token)
+	req.Header.Set("User-Agent", "Mozilla/5.0 (KHTML, like Gecko) Safari/537.36")
 
 	if s.cookie != "" {
 		// NOTES(cixtor): some tokens are only accepted if a valid HTTP cookie
@@ -123,7 +121,7 @@ func (s *SlackAPI) sendRequest(req *http.Request, output interface{}) error {
 	}
 
 	if s.debug {
-		resText, err := httputil.DumpResponse(res, true)
+		resText, err := httputil.DumpResponse(res, false)
 
 		if err != nil {
 			fmt.Println("httputil.DumpResponse", err)
@@ -379,10 +377,12 @@ func (s *SlackAPI) anyGET(targetURL string, input url.Values, output interface{}
 		return fmt.Errorf("cannot http.NewRequest.GET: %s", err)
 	}
 
+	req.Header.Set("Content-Type", "application/json; charset=utf-8")
+
 	return s.sendRequest(req, output)
 }
 
-func (s *SlackAPI) anyPOST(targetURL string, input interface{}, output interface{}) error {
+func (s *SlackAPI) jsonPOST(targetURL string, input interface{}, output interface{}) error {
 	binput, err := json.Marshal(input)
 
 	if err != nil {
@@ -394,6 +394,20 @@ func (s *SlackAPI) anyPOST(targetURL string, input interface{}, output interface
 	if err != nil {
 		return fmt.Errorf("cannot http.NewRequest.POST: %s", err)
 	}
+
+	req.Header.Set("Content-Type", "application/json; charset=utf-8")
+
+	return s.sendRequest(req, output)
+}
+
+func (s *SlackAPI) paramPOST(targetURL string, input url.Values, output interface{}) error {
+	req, err := http.NewRequest(http.MethodPost, targetURL, strings.NewReader(input.Encode()))
+
+	if err != nil {
+		return fmt.Errorf("cannot http.NewRequest.POST: %s", err)
+	}
+
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
 	return s.sendRequest(req, output)
 }
@@ -407,9 +421,13 @@ func (s *SlackAPI) edgeGET(endpoint string, input url.Values, output interface{}
 }
 
 func (s *SlackAPI) basePOST(endpoint string, input interface{}, output interface{}) error {
-	return s.anyPOST("https://slack.com"+endpoint, input, output)
+	return s.jsonPOST("https://slack.com"+endpoint, input, output)
+}
+
+func (s *SlackAPI) baseParamPOST(endpoint string, input url.Values, output interface{}) error {
+	return s.paramPOST("https://slack.com"+endpoint, input, output)
 }
 
 func (s *SlackAPI) edgePOST(endpoint string, input interface{}, output interface{}) error {
-	return s.anyPOST("https://edgeapi.slack.com"+endpoint, input, output)
+	return s.jsonPOST("https://edgeapi.slack.com"+endpoint, input, output)
 }
