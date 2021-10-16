@@ -82,7 +82,7 @@ func (s *SlackAPI) urlEndpoint(action string, params map[string]string) string {
 func (s *SlackAPI) sendRequest(req *http.Request, output interface{}) error {
 	req.Header.Set("Accept-Language", "en-us")
 	req.Header.Set("Accept", "application/json")
-	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Content-Type", "application/json; charset=utf-8")
 	req.Header.Set("User-Agent", "Mozilla/5.0 (KHTML, like Gecko) Safari/537.36")
 	req.Header.Set("Authorization", "Bearer "+s.token)
 
@@ -94,9 +94,10 @@ func (s *SlackAPI) sendRequest(req *http.Request, output interface{}) error {
 	}
 
 	if s.debug {
-		reqText, err := httputil.DumpRequest(req, true)
+		reqText, err := httputil.DumpRequestOut(req, true)
+
 		if err != nil {
-			fmt.Println("httputil.DumpRequest", err)
+			fmt.Println("httputil.DumpRequestOut", err)
 		} else {
 			fmt.Printf("%s\n\n", reqText)
 		}
@@ -114,9 +115,28 @@ func (s *SlackAPI) sendRequest(req *http.Request, output interface{}) error {
 		}
 	}()
 
+	reader := io.LimitReader(res.Body, 2<<22)
+	rawJSON, err := ioutil.ReadAll(reader)
+
+	if err != nil {
+		return fmt.Errorf("cannot ioutil.ReadAll: %s", err)
+	}
+
+	if s.debug {
+		resText, err := httputil.DumpResponse(res, true)
+
+		if err != nil {
+			fmt.Println("httputil.DumpResponse", err)
+		} else {
+			fmt.Printf("%s", resText)
+		}
+
+		fmt.Printf("%s\n\n", rawJSON)
+	}
+
 	// NOTES(cixtor): output is expected to be a pointer to a variable.
-	if err := json.NewDecoder(res.Body).Decode(output); err != nil {
-		return fmt.Errorf("cannot json.Decode: %s", err)
+	if err := json.Unmarshal(rawJSON, output); err != nil {
+		return fmt.Errorf("cannot json.Unmarshal: %s", err)
 	}
 
 	return nil
