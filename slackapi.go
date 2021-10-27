@@ -371,7 +371,11 @@ func (s *SlackAPI) checkFileReference(text string) (bool, string, string) {
 }
 
 func (s *SlackAPI) anyGET(targetURL string, input url.Values, output interface{}) error {
-	req, err := http.NewRequest(http.MethodGet, targetURL+"?"+input.Encode(), nil)
+	if params := input.Encode(); params != "" {
+		targetURL += "?" + input.Encode()
+	}
+
+	req, err := http.NewRequest(http.MethodGet, targetURL, nil)
 
 	if err != nil {
 		return fmt.Errorf("cannot http.NewRequest.GET: %s", err)
