@@ -1,6 +1,8 @@
 package slackapi
 
 import (
+	"encoding/json"
+	"fmt"
 	"net/url"
 )
 
@@ -58,6 +60,54 @@ func (s *SlackAPI) EmojiListWithCategories() EmojiListWithCategoriesResponse {
 		out = EmojiListWithCategoriesResponse{}
 		out.Error = err.Error()
 		return out
+	}
+	return out
+}
+
+type EmojiAdminListInput struct {
+	Page    int
+	Count   int
+	Queries []string
+	UserIDs []string
+	SortBy  string
+	SortDir string
+}
+
+type EmojiAdminListResponse struct {
+	Response
+	CustomEmojiTotalCount int     `json:"custom_emoji_total_count"`
+	DisabledEmoji         []Emoji `json:"disabled_emoji"`
+	Emoji                 []Emoji `json:"emoji"`
+	Paging                Paging  `json:"paging"`
+}
+
+// EmojiAdminList lists custom emoji for a team as an administrator.
+func (s *SlackAPI) EmojiAdminList(input EmojiAdminListInput) EmojiAdminListResponse {
+	in := url.Values{}
+	if input.Page > 0 {
+		in.Add("page", fmt.Sprintf("%d", input.Page))
+	}
+	if input.Count > 0 {
+		in.Add("count", fmt.Sprintf("%d", input.Count))
+	}
+	if len(input.Queries) > 0 {
+		b, _ := json.Marshal(input.Queries)
+		in.Add("queries", string(b))
+	}
+	if len(input.UserIDs) > 0 {
+		b, _ := json.Marshal(input.UserIDs)
+		in.Add("user_ids", string(b))
+	}
+	if input.SortBy != "" {
+		in.Add("sort_by", input.SortBy)
+	}
+	if input.SortDir != "" {
+		in.Add("sort_dir", input.SortDir)
+	}
+
+	var out EmojiAdminListResponse
+	if err := s.baseGET("/api/emoji.adminList", in, &out); err != nil {
+		return EmojiAdminListResponse{Response: Response{Error: err.Error()}}
 	}
 	return out
 }
