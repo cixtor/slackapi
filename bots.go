@@ -1,12 +1,14 @@
 package slackapi
 
-// ResponseBot defines the JSON-encoded output for Bot.
-type ResponseBot struct {
+import (
+	"net/url"
+)
+
+type BotResponse struct {
 	Response
 	Bot Bot `json:"bot"`
 }
 
-// Bot defines the expected data from the JSON-encoded API response.
 type Bot struct {
 	ID      string            `json:"id"`
 	Deleted bool              `json:"deleted"`
@@ -15,10 +17,11 @@ type Bot struct {
 }
 
 // BotsInfo gets information about a bot user.
-func (s *SlackAPI) BotsInfo(bot string) ResponseBot {
-	var response ResponseBot
-	s.getRequest(&response, "bots.info", struct {
-		Bot string `json:"bot"`
-	}{bot})
-	return response
+func (s *SlackAPI) BotsInfo(bot string) BotResponse {
+	in := url.Values{"bot": {bot}}
+	var out BotResponse
+	if err := s.baseGET("/api/bots.info", in, &out); err != nil {
+		return BotResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
 }
