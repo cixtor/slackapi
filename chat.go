@@ -60,9 +60,11 @@ func (s *SlackAPI) ChatPostMessage(input MessageArgs) Post {
 	return out
 }
 
-// ChatUpdate updates a message.
-func (s *SlackAPI) ChatUpdate(data MessageArgs) Post {
-	var response Post
-	s.postRequest(&response, "chat.update", data)
-	return response
+// ChatUpdate is https://api.slack.com/methods/chat.update
+func (s *SlackAPI) ChatUpdate(input MessageArgs) Post {
+	var out Post
+	if err := s.basePOST("/api/chat.update", input, &out); err != nil {
+		return Post{Response: Response{Error: err.Error()}}
+	}
+	return out
 }
