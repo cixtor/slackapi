@@ -68,14 +68,6 @@ type Comment struct {
 	Comment   string `json:"comment,omitempty"`
 }
 
-// ModifiedMessage defines the expected data from the JSON-encoded API response.
-type ModifiedMessage struct {
-	Response
-	Channel   string `json:"channel"`
-	Text      string `json:"text"`
-	Timestamp string `json:"ts"`
-}
-
 // Edited defines the structure of a modified message.
 type Edited struct {
 	User      string `json:"user,omitempty"`

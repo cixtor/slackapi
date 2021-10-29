@@ -5,11 +5,24 @@ import (
 	"strconv"
 )
 
-// ChatDelete deletes a message.
-func (s *SlackAPI) ChatDelete(data MessageArgs) ModifiedMessage {
-	var response ModifiedMessage
-	s.postRequest(&response, "chat.delete", data)
-	return response
+type DeleteMessageInput struct {
+	Channel   string `json:"channel"`
+	Timestamp string `json:"ts"`
+}
+
+type DeleteMessageResponse struct {
+	Response
+	Channel   string `json:"channel"`
+	Timestamp string `json:"ts"`
+}
+
+// ChatDelete is https://api.slack.com/methods/chat.delete
+func (s *SlackAPI) ChatDelete(input DeleteMessageInput) DeleteMessageResponse {
+	var out DeleteMessageResponse
+	if err := s.basePOST("/api/chat.delete", input, &out); err != nil {
+		return DeleteMessageResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
 }
 
 type ChatDeleteAttachmentInput struct {
