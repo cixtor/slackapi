@@ -44,11 +44,24 @@ func (s *SlackAPI) ChatDeleteAttachment(input ChatDeleteAttachmentInput) ChatDel
 	return out
 }
 
-// ChatMeMessage share a me message into a channel.
-func (s *SlackAPI) ChatMeMessage(data MessageArgs) ModifiedMessage {
-	var response ModifiedMessage
-	s.postRequest(&response, "chat.meMessage", data)
-	return response
+type MeMessageInput struct {
+	Channel string `json:"channel"`
+	Text    string `json:"text"`
+}
+
+type MeMessageResponse struct {
+	Response
+	Channel   string `json:"channel"`
+	Timestamp string `json:"ts"`
+}
+
+// ChatMeMessage is https://api.slack.com/methods/chat.meMessage
+func (s *SlackAPI) ChatMeMessage(input MeMessageInput) MeMessageResponse {
+	var out MeMessageResponse
+	if err := s.basePOST("/api/chat.meMessage", input, &out); err != nil {
+		return MeMessageResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
 }
 
 // ChatPostMessage is https://api.slack.com/methods/chat.postMessage
