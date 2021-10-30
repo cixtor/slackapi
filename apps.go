@@ -43,7 +43,7 @@ type AppsConnectionsOpenResponse struct {
 func (s *SlackAPI) AppsConnectionsOpen() AppsConnectionsOpenResponse {
 	in := struct{}{}
 	var out AppsConnectionsOpenResponse
-	if err := s.basePOST("/api/apps.connections.open", in, &out); err != nil {
+	if err := s.baseJSONPOST("/api/apps.connections.open", in, &out); err != nil {
 		return AppsConnectionsOpenResponse{Response: Response{Error: err.Error()}}
 	}
 	return out
@@ -70,7 +70,7 @@ type AppAuthorization struct {
 // AppsEventAuthorizationsList is https://api.slack.com/methods/apps.event.authorizations.list
 func (s *SlackAPI) AppsEventAuthorizationsList(input AppsEventAuthorizationsListInput) AppsEventAuthorizationsListResponse {
 	var out AppsEventAuthorizationsListResponse
-	if err := s.basePOST("/api/apps.event.authorizations.list", input, &out); err != nil {
+	if err := s.baseJSONPOST("/api/apps.event.authorizations.list", input, &out); err != nil {
 		return AppsEventAuthorizationsListResponse{Response: Response{Error: err.Error()}}
 	}
 	return out
@@ -98,7 +98,7 @@ func (s *SlackAPI) AppsManifestCreate(manifest string) AppsManifestCreateRespons
 		Manifest: manifest,
 	}
 	var out AppsManifestCreateResponse
-	if err := s.basePOST("/api/apps.manifest.create", in, &out); err != nil {
+	if err := s.baseJSONPOST("/api/apps.manifest.create", in, &out); err != nil {
 		return AppsManifestCreateResponse{Response: Response{Error: err.Error()}}
 	}
 	return out
@@ -112,7 +112,7 @@ func (s *SlackAPI) AppsManifestDelete(appID string) Response {
 		AppID: appID,
 	}
 	var out Response
-	if err := s.basePOST("/api/apps.manifest.delete", in, &out); err != nil {
+	if err := s.baseJSONPOST("/api/apps.manifest.delete", in, &out); err != nil {
 		return Response{Error: err.Error()}
 	}
 	return out
@@ -197,7 +197,7 @@ func (s *SlackAPI) AppsManifestExport(appID string) AppsManifestExportResponse {
 		AppID: appID,
 	}
 	var out AppsManifestExportResponse
-	if err := s.basePOST("/api/apps.manifest.export", in, &out); err != nil {
+	if err := s.baseJSONPOST("/api/apps.manifest.export", in, &out); err != nil {
 		return AppsManifestExportResponse{Response: Response{Error: err.Error()}}
 	}
 	return out
@@ -219,7 +219,7 @@ func (s *SlackAPI) AppsManifestUpdate(appID string, manifest string) AppsManifes
 		Manifest: manifest,
 	}
 	var out AppsManifestUpdateResponse
-	if err := s.basePOST("/api/apps.manifest.update", in, &out); err != nil {
+	if err := s.baseJSONPOST("/api/apps.manifest.update", in, &out); err != nil {
 		return AppsManifestUpdateResponse{Response: Response{Error: err.Error()}}
 	}
 	return out
@@ -235,7 +235,7 @@ func (s *SlackAPI) AppsManifestValidate(manifest string, appID string) Response 
 		AppID:    appID,
 	}
 	var out Response
-	if err := s.basePOST("/api/apps.manifest.validate", in, &out); err != nil {
+	if err := s.baseJSONPOST("/api/apps.manifest.validate", in, &out); err != nil {
 		return Response{Error: err.Error()}
 	}
 	return out

@@ -424,11 +424,11 @@ func (s *SlackAPI) edgeGET(endpoint string, input url.Values, output interface{}
 	return s.anyGET("https://edgeapi.slack.com"+endpoint, input, output)
 }
 
-func (s *SlackAPI) basePOST(endpoint string, input interface{}, output interface{}) error {
+func (s *SlackAPI) baseJSONPOST(endpoint string, input interface{}, output interface{}) error {
 	return s.jsonPOST("https://slack.com"+endpoint, input, output)
 }
 
-func (s *SlackAPI) baseParamPOST(endpoint string, input url.Values, output interface{}) error {
+func (s *SlackAPI) baseFormPOST(endpoint string, input url.Values, output interface{}) error {
 	return s.paramPOST("https://slack.com"+endpoint, input, output)
 }
 

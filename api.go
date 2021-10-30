@@ -8,7 +8,7 @@ func (s *SlackAPI) APITest(error string) Response {
 		Error: error,
 	}
 	var out Response
-	if err := s.basePOST("/api/api.test", in, &out); err != nil {
+	if err := s.baseJSONPOST("/api/api.test", in, &out); err != nil {
 		return Response{Error: err.Error()}
 	}
 	return out

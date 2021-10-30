@@ -34,7 +34,7 @@ type Mention struct {
 // ClientCounts is https://api.slack.com/methods/client.counts
 func (s *SlackAPI) ClientCounts(input ClientCountsInput) ClientCountsResponse {
 	var out ClientCountsResponse
-	if err := s.basePOST("/api/client.counts", input, &out); err != nil {
+	if err := s.baseJSONPOST("/api/client.counts", input, &out); err != nil {
 		return ClientCountsResponse{Response: Response{Error: err.Error()}}
 	}
 	return out
@@ -58,7 +58,7 @@ type ClientShouldReloadResponse struct {
 // ClientShouldReload is https://api.slack.com/methods/client.shouldReload
 func (s *SlackAPI) ClientShouldReload(input ClientShouldReloadInput) ClientShouldReloadResponse {
 	var out ClientShouldReloadResponse
-	if err := s.basePOST("/api/client.shouldReload", input, &out); err != nil {
+	if err := s.baseJSONPOST("/api/client.shouldReload", input, &out); err != nil {
 		return ClientShouldReloadResponse{Response: Response{Error: err.Error()}}
 	}
 	return out

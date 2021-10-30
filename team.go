@@ -301,7 +301,7 @@ type TeamListExternalResponse struct {
 // TeamListExternal is https://api.slack.com/methods/team.listExternal
 func (s *SlackAPI) TeamListExternal(input TeamListExternalInput) TeamListExternalResponse {
 	var out TeamListExternalResponse
-	if err := s.basePOST("/api/team.listExternal", input, &out); err != nil {
+	if err := s.baseJSONPOST("/api/team.listExternal", input, &out); err != nil {
 		return TeamListExternalResponse{Response: Response{Error: err.Error()}}
 	}
 	return out

@@ -12,7 +12,7 @@ type WorkflowsStepCompletedInput struct {
 // WorkflowsStepCompleted https://api.slack.com/methods/workflows.stepCompleted
 func (s *SlackAPI) WorkflowsStepCompleted(input WorkflowsStepCompletedInput) Response {
 	var out Response
-	if err := s.basePOST("/api/workflows.stepCompleted", input, &out); err != nil {
+	if err := s.baseJSONPOST("/api/workflows.stepCompleted", input, &out); err != nil {
 		return Response{Error: err.Error()}
 	}
 	return out
@@ -33,7 +33,7 @@ type WorkflowError struct {
 // WorkflowsStepFailed https://api.slack.com/methods/workflows.stepFailed
 func (s *SlackAPI) WorkflowsStepFailed(input WorkflowsStepFailedInput) Response {
 	var out Response
-	if err := s.basePOST("/api/workflows.stepFailed", input, &out); err != nil {
+	if err := s.baseJSONPOST("/api/workflows.stepFailed", input, &out); err != nil {
 		return Response{Error: err.Error()}
 	}
 	return out
@@ -71,7 +71,7 @@ type WorkflowsUpdateStepInput struct {
 // WorkflowsUpdateStep https://api.slack.com/methods/workflows.updateStep
 func (s *SlackAPI) WorkflowsUpdateStep(input WorkflowsUpdateStepInput) Response {
 	var out Response
-	if err := s.basePOST("/api/workflows.updateStep", input, &out); err != nil {
+	if err := s.baseJSONPOST("/api/workflows.updateStep", input, &out); err != nil {
 		return Response{Error: err.Error()}
 	}
 	return out

@@ -28,7 +28,7 @@ type ConversationsAcceptSharedInviteInput struct {
 // ConversationsAcceptSharedInvite is https://api.slack.com/methods/conversations.acceptSharedInvite
 func (s *SlackAPI) ConversationsAcceptSharedInvite(input ConversationsAcceptSharedInviteInput) Response {
 	var out Response
-	if err := s.basePOST("/api/conversations.acceptSharedInvite", input, &out); err != nil {
+	if err := s.baseJSONPOST("/api/conversations.acceptSharedInvite", input, &out); err != nil {
 		return Response{Error: err.Error()}
 	}
 	return out
@@ -44,7 +44,7 @@ func (s *SlackAPI) ConversationsApproveSharedInvite(invite_id string, target_tea
 		TargetTeam: target_team,
 	}
 	var out Response
-	if err := s.basePOST("/api/conversations.approveSharedInvite", in, &out); err != nil {
+	if err := s.baseJSONPOST("/api/conversations.approveSharedInvite", in, &out); err != nil {
 		return Response{Error: err.Error()}
 	}
 	return out
@@ -58,7 +58,7 @@ func (s *SlackAPI) ConversationsArchive(channel string) Response {
 		Channel: channel,
 	}
 	var out Response
-	if err := s.basePOST("/api/conversations.archive", in, &out); err != nil {
+	if err := s.baseJSONPOST("/api/conversations.archive", in, &out); err != nil {
 		return Response{Error: err.Error()}
 	}
 	return out
@@ -79,7 +79,7 @@ func (s *SlackAPI) ConversationsClose(channel string) ResponseConversationsClose
 		Channel: channel,
 	}
 	var out ResponseConversationsClose
-	if err := s.basePOST("/api/conversations.close", in, &out); err != nil {
+	if err := s.baseJSONPOST("/api/conversations.close", in, &out); err != nil {
 		return ResponseConversationsClose{Response: Response{Error: err.Error()}}
 	}
 	return out
@@ -102,7 +102,7 @@ type ResponseChannelsInfo struct {
 // ConversationsCreate creates a channel.
 func (s *SlackAPI) ConversationsCreate(input ConversationsCreateInput) ResponseChannelsInfo {
 	var out ResponseChannelsInfo
-	if err := s.basePOST("/api/conversations.create", input, &out); err != nil {
+	if err := s.baseJSONPOST("/api/conversations.create", input, &out); err != nil {
 		return ResponseChannelsInfo{Response: Response{Error: err.Error()}}
 	}
 	return out
@@ -136,13 +136,9 @@ func (s *SlackAPI) ConversationsDeclineSharedInvite(input ConversationsDeclineSh
 
 // ConversationsDelete deletes a channel and all its data forever.
 func (s *SlackAPI) ConversationsDelete(channel string) Response {
-	in := struct {
-		Channel string `json:"channel"`
-	}{
-		Channel: channel,
-	}
+	in := url.Values{"channel": {channel}}
 	var out Response
-	if err := s.basePOST("/api/conversations.delete", in, &out); err != nil {
+	if err := s.baseFormPOST("/api/conversations.delete", in, &out); err != nil {
 		return Response{Error: err.Error()}
 	}
 	return out
@@ -239,7 +235,7 @@ func (s *SlackAPI) ConversationsInvite(channel string, users ...string) Response
 		Users:   strings.Join(users, ","),
 	}
 	var out ResponseChannelsInfo
-	if err := s.basePOST("/api/conversations.invite", in, &out); err != nil {
+	if err := s.baseJSONPOST("/api/conversations.invite", in, &out); err != nil {
 		return ResponseChannelsInfo{Response: Response{Error: err.Error()}}
 	}
 	return out
@@ -302,7 +298,7 @@ func (s *SlackAPI) ConversationsJoin(channel string) ResponseChannelsInfo {
 		Channel: channel,
 	}
 	var out ResponseChannelsInfo
-	if err := s.basePOST("/api/conversations.join", in, &out); err != nil {
+	if err := s.baseJSONPOST("/api/conversations.join", in, &out); err != nil {
 		return ResponseChannelsInfo{Response: Response{Error: err.Error()}}
 	}
 	return out
@@ -318,7 +314,7 @@ func (s *SlackAPI) ConversationsKick(channel string, user string) Response {
 		User:    user,
 	}
 	var out Response
-	if err := s.basePOST("/api/conversations.kick", in, &out); err != nil {
+	if err := s.baseJSONPOST("/api/conversations.kick", in, &out); err != nil {
 		return Response{Error: err.Error()}
 	}
 	return out
@@ -332,7 +328,7 @@ func (s *SlackAPI) ConversationsLeave(channel string) Response {
 		Channel: channel,
 	}
 	var out Response
-	if err := s.basePOST("/api/conversations.leave", in, &out); err != nil {
+	if err := s.baseJSONPOST("/api/conversations.leave", in, &out); err != nil {
 		return Response{Error: err.Error()}
 	}
 	return out
@@ -348,7 +344,7 @@ type ConversationsMarkInput struct {
 // ConversationsMark sets the read cursor in a channel.
 func (s *SlackAPI) ConversationsMark(input ConversationsMarkInput) Response {
 	var out Response
-	if err := s.basePOST("/api/conversations.mark", input, &out); err != nil {
+	if err := s.baseJSONPOST("/api/conversations.mark", input, &out); err != nil {
 		return Response{Error: err.Error()}
 	}
 	return out
@@ -416,7 +412,7 @@ type ConversationsListConnectInvitesResponse struct {
 // ConversationsListConnectInvites retrieve members of a conversation.
 func (s *SlackAPI) ConversationsListConnectInvites(input ConversationsListConnectInvitesInput) ConversationsListConnectInvitesResponse {
 	var out ConversationsListConnectInvitesResponse
-	if err := s.basePOST("/api/conversations.listConnectInvites", input, &out); err != nil {
+	if err := s.baseJSONPOST("/api/conversations.listConnectInvites", input, &out); err != nil {
 		return ConversationsListConnectInvitesResponse{Response: Response{Error: err.Error()}}
 	}
 	return out
@@ -482,7 +478,7 @@ type ConversationsOpenResponse struct {
 // ConversationsOpen is https://api.slack.com/methods/conversations.open
 func (s *SlackAPI) ConversationsOpen(input ConversationsOpenInput) ConversationsOpenResponse {
 	var out ConversationsOpenResponse
-	if err := s.basePOST("/api/conversations.open", input, &out); err != nil {
+	if err := s.baseJSONPOST("/api/conversations.open", input, &out); err != nil {
 		return ConversationsOpenResponse{Response: Response{Error: err.Error()}}
 	}
 	return out
@@ -498,7 +494,7 @@ func (s *SlackAPI) ConversationsRename(channel string, name string) ResponseChan
 		Name:    name,
 	}
 	var out ResponseChannelsInfo
-	if err := s.basePOST("/api/conversations.rename", in, &out); err != nil {
+	if err := s.baseJSONPOST("/api/conversations.rename", in, &out); err != nil {
 		return ResponseChannelsInfo{Response: Response{Error: err.Error()}}
 	}
 	return out
@@ -572,7 +568,7 @@ func (s *SlackAPI) ConversationsSetPurpose(channel string, purpose string) Chann
 		Purpose: purpose,
 	}
 	var out ChannelPurposeNow
-	if err := s.basePOST("/api/conversations.setPurpose", in, &out); err != nil {
+	if err := s.baseJSONPOST("/api/conversations.setPurpose", in, &out); err != nil {
 		return ChannelPurposeNow{Response: Response{Error: err.Error()}}
 	}
 	return out
@@ -594,7 +590,7 @@ func (s *SlackAPI) ConversationsSetTopic(channel string, topic string) ChannelTo
 		Topic:   topic,
 	}
 	var out ChannelTopicNow
-	if err := s.basePOST("/api/conversations.setTopic", in, &out); err != nil {
+	if err := s.baseJSONPOST("/api/conversations.setTopic", in, &out); err != nil {
 		return ChannelTopicNow{Response: Response{Error: err.Error()}}
 	}
 	return out
@@ -610,7 +606,7 @@ type ConversationsSuggestionsResponse struct {
 func (s *SlackAPI) ConversationsSuggestions() ConversationsSuggestionsResponse {
 	in := struct{}{}
 	var out ConversationsSuggestionsResponse
-	if err := s.basePOST("/api/conversations.suggestions", in, &out); err != nil {
+	if err := s.baseJSONPOST("/api/conversations.suggestions", in, &out); err != nil {
 		return ConversationsSuggestionsResponse{Response: Response{Error: err.Error()}}
 	}
 	return out
@@ -624,7 +620,7 @@ func (s *SlackAPI) ConversationsUnarchive(channel string) Response {
 		Channel: channel,
 	}
 	var out Response
-	if err := s.basePOST("/api/conversations.unarchive", in, &out); err != nil {
+	if err := s.baseJSONPOST("/api/conversations.unarchive", in, &out); err != nil {
 		return Response{Error: err.Error()}
 	}
 	return out

@@ -19,7 +19,7 @@ type DeleteMessageResponse struct {
 // ChatDelete is https://api.slack.com/methods/chat.delete
 func (s *SlackAPI) ChatDelete(input DeleteMessageInput) DeleteMessageResponse {
 	var out DeleteMessageResponse
-	if err := s.basePOST("/api/chat.delete", input, &out); err != nil {
+	if err := s.baseJSONPOST("/api/chat.delete", input, &out); err != nil {
 		return DeleteMessageResponse{Response: Response{Error: err.Error()}}
 	}
 	return out
@@ -71,7 +71,7 @@ type MeMessageResponse struct {
 // ChatMeMessage is https://api.slack.com/methods/chat.meMessage
 func (s *SlackAPI) ChatMeMessage(input MeMessageInput) MeMessageResponse {
 	var out MeMessageResponse
-	if err := s.basePOST("/api/chat.meMessage", input, &out); err != nil {
+	if err := s.baseJSONPOST("/api/chat.meMessage", input, &out); err != nil {
 		return MeMessageResponse{Response: Response{Error: err.Error()}}
 	}
 	return out
@@ -80,7 +80,7 @@ func (s *SlackAPI) ChatMeMessage(input MeMessageInput) MeMessageResponse {
 // ChatPostMessage is https://api.slack.com/methods/chat.postMessage
 func (s *SlackAPI) ChatPostMessage(input MessageArgs) Post {
 	var out Post
-	if err := s.basePOST("/api/chat.postMessage", input, &out); err != nil {
+	if err := s.baseJSONPOST("/api/chat.postMessage", input, &out); err != nil {
 		return Post{Response: Response{Error: err.Error()}}
 	}
 	return out
@@ -89,7 +89,7 @@ func (s *SlackAPI) ChatPostMessage(input MessageArgs) Post {
 // ChatUpdate is https://api.slack.com/methods/chat.update
 func (s *SlackAPI) ChatUpdate(input MessageArgs) Post {
 	var out Post
-	if err := s.basePOST("/api/chat.update", input, &out); err != nil {
+	if err := s.baseJSONPOST("/api/chat.update", input, &out); err != nil {
 		return Post{Response: Response{Error: err.Error()}}
 	}
 	return out
