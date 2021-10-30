@@ -1,5 +1,10 @@
 package slackapi
 
+import (
+	"net/url"
+	"strings"
+)
+
 // SnoozeDebug defines the JSON-encoded output for SnoozeDebug.
 type SnoozeDebug struct {
 	SnoozeEndDate string `json:"snooze_end_date,omitempty"`
@@ -25,13 +30,6 @@ type DNDStatus struct {
 type ResponseDNDStatus struct {
 	Response
 	DNDStatus
-}
-
-// ResponseDNDTeam defines the JSON-encoded output for DND team status.
-type ResponseDNDTeam struct {
-	Response
-	Cached bool                 `json:"cached"`
-	Users  map[string]DNDStatus `json:"users"`
 }
 
 // ResponseSnoozeStatus defines the JSON-encoded output for set Snooze.
@@ -72,11 +70,18 @@ func (s *SlackAPI) DNDSetSnooze(minutes int) ResponseSnoozeStatus {
 	return response
 }
 
-// DNDTeamInfo retrieves the "Do Not Disturb" status for users on a team.
-func (s *SlackAPI) DNDTeamInfo(users string) ResponseDNDTeam {
-	var response ResponseDNDTeam
-	s.postRequest(&response, "dnd.teamInfo", struct {
-		Users string `json:"users"`
-	}{users})
-	return response
+type DNDTeamResponse struct {
+	Response
+	Cached bool                 `json:"cached"`
+	Users  map[string]DNDStatus `json:"users"`
+}
+
+// DNDTeamInfo is https://api.slack.com/methods/dnd.teamInfo
+func (s *SlackAPI) DNDTeamInfo(users []string) DNDTeamResponse {
+	in := url.Values{"users": {strings.Join(users, ",")}}
+	var out DNDTeamResponse
+	if err := s.baseFormPOST("/api/dnd.teamInfo", in, &out); err != nil {
+		return DNDTeamResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
 }
