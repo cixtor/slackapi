@@ -26,8 +26,7 @@ type DNDStatus struct {
 	SnoozeInfo
 }
 
-// ResponseDNDStatus defines the JSON-encoded output for DND status.
-type ResponseDNDStatus struct {
+type DNDStatusResponse struct {
 	Response
 	DNDStatus
 }
@@ -52,13 +51,14 @@ func (s *SlackAPI) DNDEndSnooze() ResponseDNDStatus {
 	return response
 }
 
-// DNDInfo retrieves a user's current "Do Not Disturb" status
-func (s *SlackAPI) DNDInfo(user string) ResponseDNDStatus {
-	var response ResponseDNDStatus
-	s.postRequest(&response, "dnd.info", struct {
-		User string `json:"user"`
-	}{user})
-	return response
+// DNDInfo is https://api.slack.com/methods/dnd.info
+func (s *SlackAPI) DNDInfo(user string) DNDStatusResponse {
+	in := url.Values{"user": {user}}
+	var out DNDStatusResponse
+	if err := s.baseFormPOST("/api/dnd.info", in, &out); err != nil {
+		return DNDStatusResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
 }
 
 // DNDSetSnooze turns on "Do Not Disturb" mode for the current user.
