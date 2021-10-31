@@ -1,6 +1,7 @@
 package slackapi
 
 import (
+	"fmt"
 	"net/url"
 	"strings"
 )
@@ -12,10 +13,11 @@ type SnoozeDebug struct {
 
 // SnoozeInfo defines the JSON-encoded output for SnoozeInfo.
 type SnoozeInfo struct {
-	SnoozeEnabled   bool        `json:"snooze_enabled,omitempty"`
-	SnoozeEndTime   int         `json:"snooze_endtime,omitempty"`
-	SnoozeRemaining int         `json:"snooze_remaining,omitempty"`
-	SnoozeDebug     SnoozeDebug `json:"snooze_debug,omitempty"`
+	SnoozeEnabled      bool        `json:"snooze_enabled,omitempty"`
+	SnoozeEndTime      int         `json:"snooze_endtime,omitempty"`
+	SnoozeRemaining    int         `json:"snooze_remaining,omitempty"`
+	SnoozeIsIndefinite int         `json:"snooze_is_indefinite,omitempty"`
+	SnoozeDebug        SnoozeDebug `json:"snooze_debug,omitempty"`
 }
 
 // DNDStatus defines the status of the do not disturb setting.
@@ -31,8 +33,7 @@ type DNDStatusResponse struct {
 	DNDStatus
 }
 
-// ResponseSnoozeStatus defines the JSON-encoded output for set Snooze.
-type ResponseSnoozeStatus struct {
+type SnoozeStatusResponse struct {
 	Response
 	SnoozeInfo
 }
@@ -61,13 +62,14 @@ func (s *SlackAPI) DNDInfo(user string) DNDStatusResponse {
 	return out
 }
 
-// DNDSetSnooze turns on "Do Not Disturb" mode for the current user.
-func (s *SlackAPI) DNDSetSnooze(minutes int) ResponseSnoozeStatus {
-	var response ResponseSnoozeStatus
-	s.postRequest(&response, "dnd.setSnooze", struct {
-		NumMinutes int `json:"num_minutes"`
-	}{minutes})
-	return response
+// DNDSetSnooze is https://api.slack.com/methods/dnd.setSnooze
+func (s *SlackAPI) DNDSetSnooze(minutes int) SnoozeStatusResponse {
+	in := url.Values{"num_minutes": {fmt.Sprintf("%d", minutes)}}
+	var out SnoozeStatusResponse
+	if err := s.baseFormPOST("/api/dnd.setSnooze", in, &out); err != nil {
+		return SnoozeStatusResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
 }
 
 type DNDTeamResponse struct {
