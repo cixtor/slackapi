@@ -45,11 +45,13 @@ func (s *SlackAPI) DNDEndDnd() Response {
 	return response
 }
 
-// DNDEndSnooze ends the current user's snooze mode immediately.
-func (s *SlackAPI) DNDEndSnooze() ResponseDNDStatus {
-	var response ResponseDNDStatus
-	s.postRequest(&response, "dnd.endSnooze", nil)
-	return response
+// DNDEndSnooze is https://api.slack.com/methods/dnd.endSnooze
+func (s *SlackAPI) DNDEndSnooze() DNDStatusResponse {
+	var out DNDStatusResponse
+	if err := s.baseFormPOST("/api/dnd.endSnooze", nil, &out); err != nil {
+		return DNDStatusResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
 }
 
 // DNDInfo is https://api.slack.com/methods/dnd.info
