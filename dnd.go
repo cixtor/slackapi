@@ -6,12 +6,10 @@ import (
 	"strings"
 )
 
-// SnoozeDebug defines the JSON-encoded output for SnoozeDebug.
 type SnoozeDebug struct {
 	SnoozeEndDate string `json:"snooze_end_date,omitempty"`
 }
 
-// SnoozeInfo defines the JSON-encoded output for SnoozeInfo.
 type SnoozeInfo struct {
 	SnoozeEnabled      bool        `json:"snooze_enabled,omitempty"`
 	SnoozeEndTime      int         `json:"snooze_endtime,omitempty"`
@@ -20,7 +18,6 @@ type SnoozeInfo struct {
 	SnoozeDebug        SnoozeDebug `json:"snooze_debug,omitempty"`
 }
 
-// DNDStatus defines the status of the do not disturb setting.
 type DNDStatus struct {
 	Enabled            bool `json:"dnd_enabled"`
 	NextStartTimestamp int  `json:"next_dnd_start_ts"`
@@ -38,11 +35,13 @@ type SnoozeStatusResponse struct {
 	SnoozeInfo
 }
 
-// DNDEndDnd ends the current user's "Do Not Disturb" session immediately.
+// DNDEndDnd is https://api.slack.com/methods/dnd.endDnd
 func (s *SlackAPI) DNDEndDnd() Response {
-	var response Response
-	s.postRequest(&response, "dnd.endDnd", nil)
-	return response
+	var out Response
+	if err := s.baseFormPOST("/api/dnd.endDnd", nil, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+	return out
 }
 
 // DNDEndSnooze is https://api.slack.com/methods/dnd.endSnooze
