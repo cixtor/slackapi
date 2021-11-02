@@ -146,6 +146,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `dnd.setSnooze` | Turns on _"Do Not Disturb"_ mode for the current user, or changes its duration |
 | :large_blue_circle: | `dnd.teamInfo` | Retrieves the _"Do Not Disturb"_ status for up to 50 users on a team |
 | :large_blue_circle: | `emoji.list` | Lists custom emoji for a team |
+| :large_blue_circle: | `emoji.remove` | Remove an emoji from a team |
 | :large_blue_circle: | `eventlog.history` | Lists all the events since the specified time |
 | :large_blue_circle: | `files.comments.add` | Add a comment to an existing file |
 | :large_blue_circle: | `files.comments.delete` | Deletes an existing comment on a file |

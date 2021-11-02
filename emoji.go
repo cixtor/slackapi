@@ -111,3 +111,13 @@ func (s *SlackAPI) EmojiAdminList(input EmojiAdminListInput) EmojiAdminListRespo
 	}
 	return out
 }
+
+// EmojiRemove deletes a custom emoji for a team as an administrator.
+func (s *SlackAPI) EmojiRemove(name string) Response {
+	in := url.Values{"name": {name}}
+	var out Response
+	if err := s.baseFormPOST("/api/emoji.remove", in, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+	return out
+}
