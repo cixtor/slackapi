@@ -121,3 +121,18 @@ func (s *SlackAPI) EmojiRemove(name string) Response {
 	}
 	return out
 }
+
+type EmojiInfoResponse struct {
+	Response
+	Emoji
+}
+
+// EmojiGetInfo returns information about an existing emoji.
+func (s *SlackAPI) EmojiGetInfo(name string) EmojiInfoResponse {
+	in := url.Values{"name": {name}}
+	var out EmojiInfoResponse
+	if err := s.baseFormPOST("/api/emoji.getInfo", in, &out); err != nil {
+		return EmojiInfoResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
