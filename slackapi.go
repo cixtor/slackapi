@@ -436,6 +436,30 @@ func (s *SlackAPI) edgePOST(endpoint string, input interface{}, output interface
 	return s.jsonPOST("https://edgeapi.slack.com"+endpoint, input, output)
 }
 
+func addParamsToReq(input url.Values) (io.Reader, string, error) {
+	var body bytes.Buffer
+
+	writer := multipart.NewWriter(&body)
+
+	for name := range input {
+		// Append a file into the HTTP request body.
+		// Example: @image=/path/to/image.png
+		if len(name) > 0 && name[0] == '@' {
+			if _, err := addFileToReq(writer, name[1:], input.Get(name)); err != nil {
+				return nil, "", err
+			}
+			continue
+		}
+
+		// Append generic form fields into the HTTP request body.
+		if err := writer.WriteField(name, input.Get(name)); err != nil {
+			return nil, "", err
+		}
+	}
+
+	return &body, writer.FormDataContentType(), nil
+}
+
 func addFileToReq(writer *multipart.Writer, name string, filename string) (int64, error) {
 	w, err := writer.CreateFormFile(name, filename)
 
