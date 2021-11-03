@@ -435,3 +435,21 @@ func (s *SlackAPI) baseFormPOST(endpoint string, input url.Values, output interf
 func (s *SlackAPI) edgePOST(endpoint string, input interface{}, output interface{}) error {
 	return s.jsonPOST("https://edgeapi.slack.com"+endpoint, input, output)
 }
+
+func addFileToReq(writer *multipart.Writer, name string, filename string) (int64, error) {
+	w, err := writer.CreateFormFile(name, filename)
+
+	if err != nil {
+		return 0, err
+	}
+
+	file, err := os.OpenFile(filename, os.O_RDONLY, 0644)
+
+	if err != nil {
+		return 0, err
+	}
+
+	defer file.Close()
+
+	return io.Copy(w, file)
+}
