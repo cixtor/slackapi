@@ -420,10 +420,6 @@ func (s *SlackAPI) baseGET(endpoint string, input url.Values, output interface{}
 	return s.anyGET("https://slack.com"+endpoint, input, output)
 }
 
-func (s *SlackAPI) edgeGET(endpoint string, input url.Values, output interface{}) error {
-	return s.anyGET("https://edgeapi.slack.com"+endpoint, input, output)
-}
-
 func (s *SlackAPI) baseJSONPOST(endpoint string, input interface{}, output interface{}) error {
 	return s.jsonPOST("https://slack.com"+endpoint, input, output)
 }
@@ -432,8 +428,34 @@ func (s *SlackAPI) baseFormPOST(endpoint string, input url.Values, output interf
 	return s.paramPOST("https://slack.com"+endpoint, input, output)
 }
 
+func (s *SlackAPI) edgeGET(endpoint string, input url.Values, output interface{}) error {
+	return s.anyGET("https://edgeapi.slack.com"+endpoint, input, output)
+}
+
 func (s *SlackAPI) edgePOST(endpoint string, input interface{}, output interface{}) error {
 	return s.jsonPOST("https://edgeapi.slack.com"+endpoint, input, output)
+}
+
+func (s *SlackAPI) baseFilePOST(endpoint string, input url.Values, output interface{}) error {
+	return s.filePOST("https://slack.com"+endpoint, input, output)
+}
+
+func (s *SlackAPI) filePOST(targetURL string, input url.Values, output interface{}) error {
+	body, boundary, err := addParamsToReq(input)
+
+	if err != nil {
+		return fmt.Errorf("cannot add params to request: %s", err)
+	}
+
+	req, err := http.NewRequest(http.MethodPost, targetURL, body)
+
+	if err != nil {
+		return fmt.Errorf("cannot http.NewRequest.POST: %s", err)
+	}
+
+	req.Header.Set("Content-Type", boundary)
+
+	return s.sendRequest(req, output)
 }
 
 func addParamsToReq(input url.Values) (io.Reader, string, error) {
