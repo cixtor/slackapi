@@ -22,6 +22,20 @@ type Emoji struct {
 	UserID          string   `json:"user_id"`
 }
 
+// EmojiAdd uploads and registers a new custom emoji.
+func (s *SlackAPI) EmojiAdd(name string, filename string) Response {
+	in := url.Values{
+		"name":   {name},
+		"mode":   {"data"},
+		"@image": {filename},
+	}
+	var out Response
+	if err := s.baseFilePOST("/api/emoji.add", in, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+	return out
+}
+
 type EmojiListInput struct {
 	IncludeCategories bool `json:"include_categories"`
 }
