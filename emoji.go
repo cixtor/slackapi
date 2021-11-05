@@ -23,14 +23,28 @@ type Emoji struct {
 }
 
 // EmojiAdd uploads and registers a new custom emoji.
-func (s *SlackAPI) EmojiAdd(name string, filename string) Response {
+func (s *SlackAPI) EmojiAdd(emoji string, filename string) Response {
 	in := url.Values{
-		"name":   {name},
+		"name":   {emoji},
 		"mode":   {"data"},
 		"@image": {filename},
 	}
 	var out Response
 	if err := s.baseFilePOST("/api/emoji.add", in, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+	return out
+}
+
+// EmojiAddAlias creates an alias for an existing emoji.
+func (s *SlackAPI) EmojiAddAlias(emoji string, alias string) Response {
+	in := url.Values{
+		"alias_for": {emoji},
+		"name":      {alias},
+		"mode":      {"alias"},
+	}
+	var out Response
+	if err := s.baseFormPOST("/api/emoji.add", in, &out); err != nil {
 		return Response{Error: err.Error()}
 	}
 	return out
