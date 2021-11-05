@@ -25,3 +25,33 @@ func (s *SlackAPI) BotsInfo(bot string) BotResponse {
 	}
 	return out
 }
+
+type SlackbotResponse struct {
+	Response
+	AutoResponse AutoResponse `json:"response"`
+}
+
+type AutoResponse struct {
+	ID        string   `json:"id"`
+	Creator   string   `json:"creator"`
+	Created   int      `json:"created"`
+	Responses []string `json:"responses"`
+	Triggers  []string `json:"triggers"`
+}
+
+// SlackbotResponsesAdd instructs Slackbot to automatically respond to messages
+// that members of your workspace send in channels. By default, all members can
+// edit Slackbot responses. You can change this in admin settings.
+//
+// Source: https://cixtor.slack.com/customize/slackbot
+func (s *SlackAPI) SlackbotResponsesAdd(triggers string, responses string) SlackbotResponse {
+	in := url.Values{
+		"triggers":  {triggers},
+		"responses": {responses},
+	}
+	var out SlackbotResponse
+	if err := s.baseFormPOST("/api/slackbot.responses.add", in, &out); err != nil {
+		return SlackbotResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
