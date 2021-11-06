@@ -68,3 +68,12 @@ func (s *SlackAPI) SlackbotResponsesEdit(id string, triggers string, responses s
 	}
 	return out
 }
+
+func (s *SlackAPI) SlackbotResponsesDelete(id string) Response {
+	in := url.Values{"response": {id}}
+	var out Response
+	if err := s.baseFormPOST("/api/slackbot.responses.delete", in, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+	return out
+}
