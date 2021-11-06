@@ -199,6 +199,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `signup.checkEmail` | Checks if an email address is valid |
 | :large_blue_circle: | `signup.confirmEmail` | Confirm an email address for signup |
 | :large_blue_circle: | `slackbot.responses.add` | Adds a new automatic Slackbot response |
+| :large_blue_circle: | `slackbot.responses.edit` | Edits an existing automatic Slackbot response |
 | :large_blue_circle: | `stars.add` | Adds a star to an item |
 | :large_blue_circle: | `stars.list` | Lists stars for a user |
 | :large_blue_circle: | `stars.remove` | Removes a star from an item |

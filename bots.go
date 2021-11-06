@@ -55,3 +55,16 @@ func (s *SlackAPI) SlackbotResponsesAdd(triggers string, responses string) Slack
 	}
 	return out
 }
+
+func (s *SlackAPI) SlackbotResponsesEdit(id string, triggers string, responses string) SlackbotResponse {
+	in := url.Values{
+		"response":  {id},
+		"triggers":  {triggers},
+		"responses": {responses},
+	}
+	var out SlackbotResponse
+	if err := s.baseFormPOST("/api/slackbot.responses.edit", in, &out); err != nil {
+		return SlackbotResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
