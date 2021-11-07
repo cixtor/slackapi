@@ -599,3 +599,38 @@ func (s *SlackAPI) UsersSetStatus(emoji string, text string) ResponseUserIdentit
 
 	return s.UsersProfileSetMultiple(string(profile))
 }
+
+type Invitation struct {
+	Email string `json:"email"`
+	Type  string `json:"type"`
+	Mode  string `json:"mode"`
+}
+
+type InviteBulkInput struct {
+	Invites                    []Invitation `json:"invites"`
+	Source                     string       `json:"source"`
+	Campaign                   string       `json:"campaign"`
+	Mode                       string       `json:"mode"`
+	Restricted                 bool         `json:"restricted"`
+	UltraRestricted            bool         `json:"ultra_restricted"`
+	EmailPasswordPolicyEnabled bool         `json:"email_password_policy_enabled"`
+}
+
+type UsersAdminInviteBulkResponse struct {
+	Response
+	Invites []InvitationResponse `json:"invites"`
+}
+
+type InvitationResponse struct {
+	Response
+	Email string `json:"email"`
+}
+
+// UsersAdminInviteBulk is https://cixtor.slack.com/admin/invites
+func (s *SlackAPI) UsersAdminInviteBulk(input InviteBulkInput) UsersAdminInviteBulkResponse {
+	var out UsersAdminInviteBulkResponse
+	if err := s.baseJSONPOST("/api/users.admin.inviteBulk", input, &out); err != nil {
+		return UsersAdminInviteBulkResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
