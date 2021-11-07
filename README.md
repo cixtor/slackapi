@@ -221,6 +221,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `usergroups.update` | Update an existing User Group |
 | :red_circle: | `usergroups.users.list` | List all users in a User Group |
 | :red_circle: | `usergroups.users.update` | Update the list of users for a User Group |
+| :large_blue_circle: | `users.admin.fetchInvitesHistory` | Gets invitations to join your workspace |
 | :large_blue_circle: | `users.admin.inviteBulk` | Invite others to join your workspace |
 | :red_circle: | `users.conversations` | List conversations the calling user may access |
 | :large_blue_circle: | `users.deletePhoto` | Delete the user profile photo |

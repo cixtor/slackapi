@@ -2,6 +2,7 @@ package slackapi
 
 import (
 	"encoding/json"
+	"net/url"
 )
 
 // ResponseUsersInfo defines the JSON-encoded output for UsersInfo.
@@ -631,6 +632,61 @@ func (s *SlackAPI) UsersAdminInviteBulk(input InviteBulkInput) UsersAdminInviteB
 	var out UsersAdminInviteBulkResponse
 	if err := s.baseJSONPOST("/api/users.admin.inviteBulk", input, &out); err != nil {
 		return UsersAdminInviteBulkResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
+
+type InvitesHistoryInput struct {
+	// Type must be "pending" or "accepted".
+	Type string
+	// SortBy is any InvitationHistory property name, e.g. date_create
+	SortBy string
+	// SortDir must be "ASC" or "DESC"
+	SortDir string
+}
+
+type Inviter struct {
+	ID   string `json:"id"`
+	Name string `json:"name"`
+}
+
+type InvitationHistory struct {
+	ID         int      `json:"id"`
+	Email      string   `json:"email"`
+	DateCreate int      `json:"date_create"`
+	DateResent int      `json:"date_resent"`
+	Bouncing   bool     `json:"bouncing"`
+	Channels   []string `json:"channels"`
+	Inviter    Inviter  `json:"inviter"`
+	InviteType string   `json:"invite_type"`
+}
+
+type InvitesHistoryResponse struct {
+	Response
+	Invites []InvitationHistory `json:"invites"`
+}
+
+// UsersAdminFetchInvitesHistory is https://cixtor.slack.com/admin/invites
+func (s *SlackAPI) UsersAdminFetchInvitesHistory(input InvitesHistoryInput) InvitesHistoryResponse {
+	in := url.Values{}
+	if input.Type == "accepted" {
+		in.Add("type", "accepted")
+	} else {
+		in.Add("type", "pending")
+	}
+	if input.SortBy == "" {
+		in.Add("sort_by", "date_create")
+	} else {
+		in.Add("sort_by", input.SortBy)
+	}
+	if input.SortDir == "ASC" {
+		in.Add("sort_dir", "ASC")
+	} else {
+		in.Add("sort_dir", "DESC")
+	}
+	var out InvitesHistoryResponse
+	if err := s.baseFormPOST("/api/users.admin.fetchInvitesHistory", in, &out); err != nil {
+		return InvitesHistoryResponse{Response: Response{Error: err.Error()}}
 	}
 	return out
 }
