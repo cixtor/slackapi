@@ -692,6 +692,16 @@ func (s *SlackAPI) UsersAdminFetchInvitesHistory(input InvitesHistoryInput) Invi
 	return out
 }
 
+// UsersAdminResendInvitation is https://cixtor.slack.com/admin/invites
+func (s *SlackAPI) UsersAdminResendInvitation(inviteID int) Response {
+	in := url.Values{"invite_id": {fmt.Sprintf("%d", inviteID)}}
+	var out Response
+	if err := s.baseFormPOST("/api/users.admin.resendInvitation", in, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+	return out
+}
+
 // UsersAdminRevokeInvitation is https://cixtor.slack.com/admin/invites
 func (s *SlackAPI) UsersAdminRevokeInvitation(inviteID int) Response {
 	in := url.Values{"invite_id": {fmt.Sprintf("%d", inviteID)}}
