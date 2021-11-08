@@ -2,6 +2,7 @@ package slackapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 )
 
@@ -687,6 +688,16 @@ func (s *SlackAPI) UsersAdminFetchInvitesHistory(input InvitesHistoryInput) Invi
 	var out InvitesHistoryResponse
 	if err := s.baseFormPOST("/api/users.admin.fetchInvitesHistory", in, &out); err != nil {
 		return InvitesHistoryResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
+}
+
+// UsersAdminRevokeInvitation is https://cixtor.slack.com/admin/invites
+func (s *SlackAPI) UsersAdminRevokeInvitation(inviteID int) Response {
+	in := url.Values{"invite_id": {fmt.Sprintf("%d", inviteID)}}
+	var out Response
+	if err := s.baseFormPOST("/api/users.admin.revokeInvitation", in, &out); err != nil {
+		return Response{Error: err.Error()}
 	}
 	return out
 }
