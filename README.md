@@ -226,6 +226,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :large_blue_circle: | `users.admin.resendInvitation` | Resend an invitation to join your workspace |
 | :large_blue_circle: | `users.admin.revokeInvitation` | Revoke an invitation to join your workspace |
 | :large_blue_circle: | `users.admin.setInactive` | Deactivates an existing user account |
+| :large_blue_circle: | `users.admin.setRegular` | Activates an account as a regular user |
 | :red_circle: | `users.conversations` | List conversations the calling user may access |
 | :large_blue_circle: | `users.deletePhoto` | Delete the user profile photo |
 | :large_blue_circle: | `users.getPresence` | Gets user presence information |
