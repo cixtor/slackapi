@@ -556,6 +556,16 @@ func (s *SlackAPI) UsersSetActive() Response {
 	return response
 }
 
+// UsersAdminSetInactive deactivates an existing user account.
+func (s *SlackAPI) UsersAdminSetInactive(user string) Response {
+	in := url.Values{"user": {user}}
+	var out Response
+	if err := s.baseFormPOST("/api/users.admin.setInactive", in, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+	return out
+}
+
 // UsersSetAvatar upload a picture and set it as the avatar.
 func (s *SlackAPI) UsersSetAvatar(image string) ResponseUserAvatar {
 	var response ResponseUserAvatar
