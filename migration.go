@@ -1,7 +1,6 @@
 package slackapi
 
-// ResponseMigrationExchange defines the expected data from the JSON-encoded API response.
-type ResponseMigrationExchange struct {
+type MigrationExchangeResponse struct {
 	Response
 	TeamID         string            `json:"team_id"`
 	EnterpriseID   string            `json:"enterprise_id"`
@@ -10,11 +9,17 @@ type ResponseMigrationExchange struct {
 }
 
 // MigrationExchange for Enterprise Grid workspaces, map local user IDs to global user IDs.
-func (s *SlackAPI) MigrationExchange(users []string, order bool) ResponseMigrationExchange {
-	var response ResponseMigrationExchange
-	s.getRequest(&response, "migration.exchange", struct {
+func (s *SlackAPI) MigrationExchange(users []string, order bool) MigrationExchangeResponse {
+	in := struct {
 		Users []string `json:"users"`
 		ToOld bool     `json:"to_old"`
-	}{users, order})
-	return response
+	}{
+		Users: users,
+		ToOld: order,
+	}
+	var out MigrationExchangeResponse
+	if err := s.baseJSONPOST("/api/migration.exchange", in, &out); err != nil {
+		return MigrationExchangeResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
 }
