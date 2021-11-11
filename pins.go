@@ -5,22 +5,7 @@ import (
 	"net/url"
 )
 
-// ResponsePinsList defines the JSON-encoded output for PinsList.
-type ResponsePinsList struct {
-	Response
-	Items []PinsListItem `json:"items"`
-}
-
-// PinsListItem defines the JSON-encoded output for one pinned message.
-type PinsListItem struct {
-	Channel   string      `json:"channel"`
-	Created   json.Number `json:"created"`
-	CreatedBy string      `json:"created_by"`
-	Message   Message     `json:"message"`
-	Type      string      `json:"type"`
-}
-
-// PinsAdd pins an item to a channel.
+// PinsAdd is https://api.slack.com/methods/pins.add
 func (s *SlackAPI) PinsAdd(channel string, itemid string) Response {
 	in := url.Values{"channel": {channel}}
 	var out Response
@@ -40,15 +25,27 @@ func (s *SlackAPI) PinsAdd(channel string, itemid string) Response {
 	return out
 }
 
-// PinsList lists items pinned to a channel.
-func (s *SlackAPI) PinsList(channel string) ResponsePinsList {
-	var response ResponsePinsList
-	s.getRequest(&response, "pins.list", struct {
-		Channel string `json:"channel"`
-	}{
-		Channel: channel,
-	})
-	return response
+type PinsListResponse struct {
+	Response
+	Items []PinsListItem `json:"items"`
+}
+
+type PinsListItem struct {
+	Channel   string      `json:"channel"`
+	Created   json.Number `json:"created"`
+	CreatedBy string      `json:"created_by"`
+	Message   Message     `json:"message"`
+	Type      string      `json:"type"`
+}
+
+// PinsList is https://api.slack.com/methods/pins.list
+func (s *SlackAPI) PinsList(channel string) PinsListResponse {
+	in := url.Values{"channel": {channel}}
+	var out PinsListResponse
+	if err := s.baseGET("/api/pins.list", in, &out); err != nil {
+		return PinsListResponse{Response: Response{Error: err.Error()}}
+	}
+	return out
 }
 
 // PinsRemove lists items pinned to a channel.
