@@ -2,6 +2,7 @@ package slackapi
 
 import (
 	"encoding/json"
+	"net/url"
 )
 
 // ResponsePinsList defines the JSON-encoded output for PinsList.
@@ -21,38 +22,22 @@ type PinsListItem struct {
 
 // PinsAdd pins an item to a channel.
 func (s *SlackAPI) PinsAdd(channel string, itemid string) Response {
-	var response Response
+	in := url.Values{"channel": {channel}}
+	var out Response
 
 	if len(itemid) >= 3 && itemid[0:2] == "Fc" {
-		/* remove pinned file comment */
-		s.postRequest(&response, "pins.add", struct {
-			Channel     string `json:"channel"`
-			FileComment string `json:"file_comment"`
-		}{
-			Channel:     channel,
-			FileComment: itemid,
-		})
+		in.Add("file_comment", itemid) // remove pinned file comment.
 	} else if len(itemid) >= 2 && itemid[0] == 'F' {
-		/* remove pinned file */
-		s.postRequest(&response, "pins.add", struct {
-			Channel string `json:"channel"`
-			File    string `json:"file"`
-		}{
-			Channel: channel,
-			File:    itemid,
-		})
+		in.Add("file", itemid) // remove pinned file.
 	} else {
-		/* remove pinned message */
-		s.postRequest(&response, "pins.add", struct {
-			Channel   string `json:"channel"`
-			Timestamp string `json:"timestamp"`
-		}{
-			Channel:   channel,
-			Timestamp: itemid,
-		})
+		in.Add("timestamp", itemid) // remove pinned message.
 	}
 
-	return response
+	if err := s.baseFormPOST("/api/pins.add", in, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+
+	return out
 }
 
 // PinsList lists items pinned to a channel.
