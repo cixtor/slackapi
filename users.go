@@ -731,3 +731,14 @@ func (s *SlackAPI) UsersAdminRevokeInvitation(inviteID int) Response {
 	}
 	return out
 }
+
+// AdminUsersSessionClearSettings is https://api.slack.com/methods/admin.users.session.clearSettings
+func (s *SlackAPI) AdminUsersSessionClearSettings(users []string) Response {
+	b, _ := json.Marshal(users)
+	in := url.Values{"users": {string(b)}}
+	var out Response
+	if err := s.baseFormPOST("/api/admin.users.session.clearSettings", in, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+	return out
+}
