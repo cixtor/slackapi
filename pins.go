@@ -11,11 +11,11 @@ func (s *SlackAPI) PinsAdd(channel string, itemid string) Response {
 	var out Response
 
 	if len(itemid) >= 3 && itemid[0:2] == "Fc" {
-		in.Add("file_comment", itemid) // remove pinned file comment.
+		in.Add("file_comment", itemid) // add pinned file comment.
 	} else if len(itemid) >= 2 && itemid[0] == 'F' {
-		in.Add("file", itemid) // remove pinned file.
+		in.Add("file", itemid) // add pinned file.
 	} else {
-		in.Add("timestamp", itemid) // remove pinned message.
+		in.Add("timestamp", itemid) // add pinned message.
 	}
 
 	if err := s.baseFormPOST("/api/pins.add", in, &out); err != nil {
@@ -48,38 +48,22 @@ func (s *SlackAPI) PinsList(channel string) PinsListResponse {
 	return out
 }
 
-// PinsRemove lists items pinned to a channel.
+// PinsRemove is https://api.slack.com/methods/pins.remove
 func (s *SlackAPI) PinsRemove(channel string, itemid string) Response {
-	var response Response
+	in := url.Values{"channel": {channel}}
+	var out Response
 
 	if len(itemid) >= 3 && itemid[0:2] == "Fc" {
-		/* remove pinned file comment */
-		s.postRequest(&response, "pins.remove", struct {
-			Channel     string `json:"channel"`
-			FileComment string `json:"file_comment"`
-		}{
-			Channel:     channel,
-			FileComment: itemid,
-		})
+		in.Add("file_comment", itemid) // remove pinned file comment.
 	} else if len(itemid) >= 2 && itemid[0] == 'F' {
-		/* remove pinned file */
-		s.postRequest(&response, "pins.remove", struct {
-			Channel string `json:"channel"`
-			File    string `json:"file"`
-		}{
-			Channel: channel,
-			File:    itemid,
-		})
+		in.Add("file", itemid) // remove pinned file.
 	} else {
-		/* remove pinned message */
-		s.postRequest(&response, "pins.remove", struct {
-			Channel   string `json:"channel"`
-			Timestamp string `json:"timestamp"`
-		}{
-			Channel:   channel,
-			Timestamp: itemid,
-		})
+		in.Add("timestamp", itemid) // remove pinned message.
 	}
 
-	return response
+	if err := s.baseFormPOST("/api/pins.remove", in, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+
+	return out
 }
