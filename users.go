@@ -753,3 +753,16 @@ func (s *SlackAPI) AdminUsersSessionGetSettings(users []string) Response {
 	}
 	return out
 }
+
+// AdminUsersSessionInvalidate is https://api.slack.com/methods/admin.users.session.invalidate
+func (s *SlackAPI) AdminUsersSessionInvalidate(sessionID int, teamID string) Response {
+	in := url.Values{
+		"session_id": {fmt.Sprintf("%d", sessionID)},
+		"team_id":    {teamID},
+	}
+	var out Response
+	if err := s.baseFormPOST("/api/admin.users.session.invalidate", in, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+	return out
+}
