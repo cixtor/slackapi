@@ -76,6 +76,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `admin.users.list` | List users on a workspace |
 | :red_circle: | `admin.users.remove` | Remove a user from a workspace |
 | :red_circle: | `admin.users.session.clearSettings` | Clear user-specific session settings—the session duration and what happens when the client closes—for a list of users |
+| :red_circle: | `admin.users.session.getSettings` | Get user-specific session settings—the session duration and what happens when the client closes—given a list of users |
 | :red_circle: | `admin.users.setAdmin` | Set an existing guest, regular user, or owner to be an admin user |
 | :red_circle: | `admin.users.setExpiration` | Set an expiration for a guest user |
 | :red_circle: | `admin.users.setOwner` | Set an existing guest, regular user, or admin user to be a workspace owner |

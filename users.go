@@ -742,3 +742,14 @@ func (s *SlackAPI) AdminUsersSessionClearSettings(users []string) Response {
 	}
 	return out
 }
+
+// AdminUsersSessionGetSettings is https://api.slack.com/methods/admin.users.session.getSettings
+func (s *SlackAPI) AdminUsersSessionGetSettings(users []string) Response {
+	b, _ := json.Marshal(users)
+	in := url.Values{"users": {string(b)}}
+	var out Response
+	if err := s.baseFormPOST("/api/admin.users.session.getSettings", in, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+	return out
+}
