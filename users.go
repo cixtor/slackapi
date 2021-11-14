@@ -766,3 +766,32 @@ func (s *SlackAPI) AdminUsersSessionInvalidate(sessionID int, teamID string) Res
 	}
 	return out
 }
+
+type AdminUsersSessionListInput struct {
+	Cursor    string
+	Limit     int
+	TeamID    string
+	SessionID string
+}
+
+// AdminUsersSessionList is https://api.slack.com/methods/admin.users.session.list
+func (s *SlackAPI) AdminUsersSessionList(input AdminUsersSessionListInput) Response {
+	in := url.Values{}
+	if input.Cursor != "" {
+		in.Add("cursor", input.Cursor)
+	}
+	if input.Limit != 0 {
+		in.Add("limit", fmt.Sprintf("%d", input.Limit))
+	}
+	if input.TeamID != "" {
+		in.Add("team_id", input.TeamID)
+	}
+	if input.SessionID != "" {
+		in.Add("session_id", input.SessionID)
+	}
+	var out Response
+	if err := s.baseFormPOST("/api/admin.users.session.list", in, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+	return out
+}
