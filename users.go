@@ -795,3 +795,28 @@ func (s *SlackAPI) AdminUsersSessionList(input AdminUsersSessionListInput) Respo
 	}
 	return out
 }
+
+type AdminUsersSessionResetInput struct {
+	UserID     string
+	MobileOnly bool
+	WebOnly    bool
+}
+
+// AdminUsersSessionReset is https://api.slack.com/methods/admin.users.session.reset
+func (s *SlackAPI) AdminUsersSessionReset(input AdminUsersSessionResetInput) Response {
+	in := url.Values{}
+	if input.UserID != "" {
+		in.Add("user_id", input.UserID)
+	}
+	if input.MobileOnly {
+		in.Add("mobile_only", "true")
+	}
+	if input.WebOnly {
+		in.Add("web_only", "true")
+	}
+	var out Response
+	if err := s.baseFormPOST("/api/admin.users.session.reset", in, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+	return out
+}
