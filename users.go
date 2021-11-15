@@ -846,3 +846,31 @@ func (s *SlackAPI) AdminUsersSessionResetBulk(input AdminUsersSessionResetBulkIn
 	}
 	return out
 }
+
+type AdminUsersSessionSetSettingsInput struct {
+	UserIDs               []string
+	DesktopAppBrowserQuit bool
+	SessionDuration       int
+}
+
+// AdminUsersSessionSetSettings is https://api.slack.com/methods/admin.users.session.setSettings
+func (s *SlackAPI) AdminUsersSessionSetSettings(input AdminUsersSessionSetSettingsInput) Response {
+	in := url.Values{}
+	if len(input.UserIDs) > 0 {
+		b, _ := json.Marshal(input.UserIDs)
+		in.Add("user_ids", string(b))
+	}
+	if input.DesktopAppBrowserQuit {
+		in.Add("desktop_app_browser_quit", "true")
+	}
+	if input.SessionDuration >= 28800 && input.SessionDuration <= 315569520 {
+		in.Add("duration", fmt.Sprintf("%d", input.SessionDuration))
+	} else if input.SessionDuration != 0 {
+		return Response{Error: "28800 <= n seconds <= 315569520"}
+	}
+	var out Response
+	if err := s.baseFormPOST("/api/admin.users.session.setSettings", in, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+	return out
+}
