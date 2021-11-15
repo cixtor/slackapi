@@ -820,3 +820,29 @@ func (s *SlackAPI) AdminUsersSessionReset(input AdminUsersSessionResetInput) Res
 	}
 	return out
 }
+
+type AdminUsersSessionResetBulkInput struct {
+	UserIDs    []string
+	MobileOnly bool
+	WebOnly    bool
+}
+
+// AdminUsersSessionResetBulk is https://api.slack.com/methods/admin.users.session.resetBulk
+func (s *SlackAPI) AdminUsersSessionResetBulk(input AdminUsersSessionResetBulkInput) Response {
+	in := url.Values{}
+	if len(input.UserIDs) > 0 {
+		b, _ := json.Marshal(input.UserIDs)
+		in.Add("user_ids", string(b))
+	}
+	if input.MobileOnly {
+		in.Add("mobile_only", "true")
+	}
+	if input.WebOnly {
+		in.Add("web_only", "true")
+	}
+	var out Response
+	if err := s.baseFormPOST("/api/admin.users.session.resetBulk", in, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+	return out
+}
