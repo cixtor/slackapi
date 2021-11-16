@@ -75,18 +75,17 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `admin.users.invite` | Invite a user to a workspace |
 | :red_circle: | `admin.users.list` | List users on a workspace |
 | :red_circle: | `admin.users.remove` | Remove a user from a workspace |
-| :red_circle: | `admin.users.session.clearSettings` | Clear user-specific session settings—the session duration and what happens when the client closes—for a list of users |
-| :red_circle: | `admin.users.session.getSettings` | Get user-specific session settings—the session duration and what happens when the client closes—given a list of users |
-| :red_circle: | `admin.users.session.invalidate` | Revoke a single session for a user. The user will be forced to login to Slack |
-| :red_circle: | `admin.users.session.list` | List active user sessions for an organization |
-| :red_circle: | `admin.users.session.reset` | Wipes all valid sessions on all devices for a given user |
-| :red_circle: | `admin.users.session.resetBulk` | Enqueues an asynchronous job to wipe all valid sessions on all devices for a given list of users |
-| :red_circle: | `admin.users.session.setSettings` | Configure the user-level session settings—the session duration and what happens when the client closes—for one or more users |
+| :large_blue_circle: | `admin.users.session.clearSettings` | Clear user-specific session settings—the session duration and what happens when the client closes—for a list of users |
+| :large_blue_circle: | `admin.users.session.getSettings` | Get user-specific session settings—the session duration and what happens when the client closes—given a list of users |
+| :large_blue_circle: | `admin.users.session.invalidate` | Revoke a single session for a user. The user will be forced to login to Slack |
+| :large_blue_circle: | `admin.users.session.list` | List active user sessions for an organization |
+| :large_blue_circle: | `admin.users.session.reset` | Wipes all valid sessions on all devices for a given user |
+| :large_blue_circle: | `admin.users.session.resetBulk` | Enqueues an asynchronous job to wipe all valid sessions on all devices for a given list of users |
+| :large_blue_circle: | `admin.users.session.setSettings` | Configure the user-level session settings—the session duration and what happens when the client closes—for one or more users |
 | :red_circle: | `admin.users.setAdmin` | Set an existing guest, regular user, or owner to be an admin user |
 | :red_circle: | `admin.users.setExpiration` | Set an expiration for a guest user |
 | :red_circle: | `admin.users.setOwner` | Set an existing guest, regular user, or admin user to be a workspace owner |
 | :red_circle: | `admin.users.setRegular` | Set an existing guest user, admin user, or owner to be a regular user |
-| :red_circle: | `admin.users.session.reset` | Wipes all valid sessions on all devices for a given user |
 | :large_blue_circle: | `api.test` | Checks API calling code |
 | :large_blue_circle: | `apps.list` | Lists associated applications |
 | :large_blue_circle: | `apps.connections.open` | Generate a temporary Socket Mode WebSocket URL that your app can connect to in order to receive events and interactive payloads over |
@@ -196,7 +195,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `reminders.delete` | Deletes a reminder |
 | :red_circle: | `reminders.info` | Gets information about a reminder |
 | :red_circle: | `reminders.list` | Lists all reminders created by or for a given user |
-| :red_circle: | `rtm.connect` | Starts a Real Time Messaging session |
+| :large_blue_circle: | `rtm.connect` | Starts a Real Time Messaging session |
 | :large_blue_circle: | `rtm.start` | Deprecated: Starts a Real Time Messaging session. Use rtm.connect instead |
 | :large_blue_circle: | `rtm.events` | Prints the API events in real time |
 | :large_blue_circle: | `search.all` | Searches for messages and files matching a query |
