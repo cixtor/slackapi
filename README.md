@@ -87,6 +87,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `admin.users.setOwner` | Set an existing guest, regular user, or admin user to be a workspace owner |
 | :red_circle: | `admin.users.setRegular` | Set an existing guest user, admin user, or owner to be a regular user |
 | :large_blue_circle: | `api.test` | Checks API calling code |
+| :large_blue_circle: | `api.getFlannelHttpUrl` | Gets the organization's canonical API endpoint  |
 | :large_blue_circle: | `apps.list` | Lists associated applications |
 | :large_blue_circle: | `apps.connections.open` | Generate a temporary Socket Mode WebSocket URL that your app can connect to in order to receive events and interactive payloads over |
 | :large_blue_circle: | `apps.event.authorizations.list` | Get a list of authorizations for the given event context. Each authorization represents an app installation that the event is visible to |
