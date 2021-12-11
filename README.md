@@ -185,6 +185,7 @@ Note that the client runs with the same chat session of the user that is using t
 | :red_circle: | `oauth.v2.access` | Exchanges a temporary OAuth verifier code for an access token |
 | :large_blue_circle: | `oauth.v2.exchange` | Exchanges a legacy access token for a new expiring access token and refresh token |
 | :large_blue_circle: | `payments.billing.addresses.get` | Gets the organization billing address |
+| :large_blue_circle: | `payments.billing.addresses.validateAndSet` | Validates and sets the organization billing address |
 | :large_blue_circle: | `pins.add` | Pins an item to a channel |
 | :large_blue_circle: | `pins.list` | Lists items pinned to a channel |
 | :large_blue_circle: | `pins.remove` | Un-pins an item from a channel |
