@@ -1,5 +1,9 @@
 package slackapi
 
+import (
+	"net/url"
+)
+
 // FileListArgs defines the data to send to the API service.
 type FileListArgs struct {
 	Channel string `json:"channel"`
@@ -156,11 +160,12 @@ func (s *SlackAPI) FilesCommentsEdit(file string, commentid string, comment stri
 
 // FilesDelete deletes a file.
 func (s *SlackAPI) FilesDelete(file string) Response {
-	var response Response
-	s.postRequest(&response, "files.delete", struct {
-		File string `json:"file"`
-	}{file})
-	return response
+	in := url.Values{"file": {file}}
+	var out Response
+	if err := s.baseFormPOST("/api/files.delete", in, &out); err != nil {
+		return Response{Error: err.Error()}
+	}
+	return out
 }
 
 // FilesInfo gets information about a team file.
