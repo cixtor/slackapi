@@ -36,28 +36,28 @@ type Owner struct {
 //
 // Example:
 //
-//   {
-//       "ok": true,
-//       "messages": [
-//           {
-//               "type": "message",
-//               "user": "U012AB3CDE",
-//               "text": "I find you punny and would like to smell your nose letter",
-//               "ts": "1512085950.000216"
-//           },
-//           {
-//               "type": "message",
-//               "user": "U061F7AUR",
-//               "text": "What, you want to smell my shoes better?",
-//               "ts": "1512104434.000490"
-//           }
-//       ],
-//       "has_more": true,
-//       "pin_count": 0,
-//       "response_metadata": {
-//           "next_cursor": "bmV4dF90czoxNTEyMDg1ODYxMDAwNTQz"
-//       }
-//   }
+//	{
+//	    "ok": true,
+//	    "messages": [
+//	        {
+//	            "type": "message",
+//	            "user": "U012AB3CDE",
+//	            "text": "I find you punny and would like to smell your nose letter",
+//	            "ts": "1512085950.000216"
+//	        },
+//	        {
+//	            "type": "message",
+//	            "user": "U061F7AUR",
+//	            "text": "What, you want to smell my shoes better?",
+//	            "ts": "1512104434.000490"
+//	        }
+//	    ],
+//	    "has_more": true,
+//	    "pin_count": 0,
+//	    "response_metadata": {
+//	        "next_cursor": "bmV4dF90czoxNTEyMDg1ODYxMDAwNTQz"
+//	    }
+//	}
 type History struct {
 	Response
 	Messages           []Message        `json:"messages"`
@@ -86,43 +86,43 @@ type Item struct {
 }
 
 type Channel struct {
-	Created                 int            `json:"created"`
-	Creator                 string         `json:"creator"`
-	ID                      string         `json:"id"`
-	IID                     string         `json:"iid"`
-	IsArchived              bool           `json:"is_archived"`
-	IsChannel               bool           `json:"is_channel"`
-	IsGeneral               bool           `json:"is_general"`
-	IsGroup                 bool           `json:"is_group"`
-	IsMember                bool           `json:"is_member"`
-	IsIm                    bool           `json:"is_im"`
-	IsMpim                  bool           `json:"is_mpim"`
-	IsPrivate               bool           `json:"is_private"`
-	IsOrgShared             bool           `json:"is_org_shared"`
-	IsOpen                  bool           `json:"is_open"`
-	IsShared                bool           `json:"is_shared"`
-	IsFrozen                bool           `json:"is_frozen"`
-	User                    string         `json:"user"`
-	LastRead                string         `json:"last_read"`
-	Latest                  ChannelLatest  `json:"latest"`
-	Members                 []string       `json:"members"`
-	Name                    string         `json:"name"`
-	NameNormalized          string         `json:"name_normalized"`
-	MemberCount             int            `json:"member_count"`
-	NumMembers              int            `json:"num_members"`
-	Unlinked                int            `json:"unlinked"`
-	Purpose                 ChannelPurpose `json:"purpose"`
-	Topic                   ChannelTopic   `json:"topic"`
-	Priority                int            `json:"priority"`
-	UnreadCount             int            `json:"unread_count"`
-	UnreadCountDisplay      int            `json:"unread_count_display"`
-	IsPendingExtShared      bool           `json:"is_pending_ext_shared"`
-	PendingShared           []string       `json:"pending_shared"`
-	ParentConversation      interface{}    `json:"parent_conversation"`
-	IsExtShared             bool           `json:"is_ext_shared"`
-	SharedTeamIds           []string       `json:"shared_team_ids"`
-	PendingConnectedTeamIds []string       `json:"pending_connected_team_ids"`
-	PreviousNames           []string       `json:"previous_names"`
+	Created                 int           `json:"created"`
+	Creator                 string        `json:"creator"`
+	ID                      string        `json:"id"`
+	IID                     string        `json:"iid"`
+	IsArchived              bool          `json:"is_archived"`
+	IsChannel               bool          `json:"is_channel"`
+	IsGeneral               bool          `json:"is_general"`
+	IsGroup                 bool          `json:"is_group"`
+	IsMember                bool          `json:"is_member"`
+	IsIm                    bool          `json:"is_im"`
+	IsMpim                  bool          `json:"is_mpim"`
+	IsPrivate               bool          `json:"is_private"`
+	IsOrgShared             bool          `json:"is_org_shared"`
+	IsOpen                  bool          `json:"is_open"`
+	IsShared                bool          `json:"is_shared"`
+	IsFrozen                bool          `json:"is_frozen"`
+	User                    string        `json:"user"`
+	LastRead                string        `json:"last_read"`
+	Latest                  ChannelLatest `json:"latest"`
+	Members                 []string      `json:"members"`
+	Name                    string        `json:"name"`
+	NameNormalized          string        `json:"name_normalized"`
+	MemberCount             int           `json:"member_count"`
+	NumMembers              int           `json:"num_members"`
+	Unlinked                int           `json:"unlinked"`
+	Purpose                 LastSet       `json:"purpose"`
+	Topic                   LastSet       `json:"topic"`
+	Priority                int           `json:"priority"`
+	UnreadCount             int           `json:"unread_count"`
+	UnreadCountDisplay      int           `json:"unread_count_display"`
+	IsPendingExtShared      bool          `json:"is_pending_ext_shared"`
+	PendingShared           []string      `json:"pending_shared"`
+	ParentConversation      interface{}   `json:"parent_conversation"`
+	IsExtShared             bool          `json:"is_ext_shared"`
+	SharedTeamIds           []string      `json:"shared_team_ids"`
+	PendingConnectedTeamIds []string      `json:"pending_connected_team_ids"`
+	PreviousNames           []string      `json:"previous_names"`
 }
 
 // ChannelLatest defines the expected data from the JSON-encoded API response.
@@ -133,15 +133,7 @@ type ChannelLatest struct {
 	User      string `json:"user"`
 }
 
-// ChannelPurpose defines the expected data from the JSON-encoded API response.
-type ChannelPurpose struct {
-	Creator string `json:"creator"`
-	LastSet int    `json:"last_set"`
-	Value   string `json:"value"`
-}
-
-// ChannelTopic defines the expected data from the JSON-encoded API response.
-type ChannelTopic struct {
+type LastSet struct {
 	Creator string `json:"creator"`
 	LastSet int    `json:"last_set"`
 	Value   string `json:"value"`
