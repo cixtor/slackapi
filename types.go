@@ -87,6 +87,7 @@ type Item struct {
 
 type Channel struct {
 	Created                 int           `json:"created"`
+	Updated                 int           `json:"updated"`
 	Creator                 string        `json:"creator"`
 	ID                      string        `json:"id"`
 	IID                     string        `json:"iid"`
@@ -120,9 +121,10 @@ type Channel struct {
 	PendingShared           []string      `json:"pending_shared"`
 	ParentConversation      interface{}   `json:"parent_conversation"`
 	IsExtShared             bool          `json:"is_ext_shared"`
-	SharedTeamIds           []string      `json:"shared_team_ids"`
-	PendingConnectedTeamIds []string      `json:"pending_connected_team_ids"`
+	SharedTeamIDs           []string      `json:"shared_team_ids"`
+	PendingConnectedTeamIDs []string      `json:"pending_connected_team_ids"`
 	PreviousNames           []string      `json:"previous_names"`
+	ContextTeamID           string        `json:"context_team_id"`
 }
 
 // ChannelLatest defines the expected data from the JSON-encoded API response.
