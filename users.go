@@ -99,26 +99,30 @@ type UserPresence struct {
 
 // User defines the expected data from the JSON-encoded API response.
 type User struct {
-	Color             string      `json:"color"`
-	ID                string      `json:"id"`
-	Name              string      `json:"name"`
-	Presence          string      `json:"presence"`
-	Profile           UserProfile `json:"profile"`
-	RealName          string      `json:"real_name"`
-	Status            string      `json:"status"`
-	TeamID            string      `json:"team_id"`
-	TwoFactorType     string      `json:"two_factor_type"`
-	Tz                string      `json:"tz"`
-	TzLabel           string      `json:"tz_label"`
-	TzOffset          int         `json:"tz_offset"`
-	Deleted           bool        `json:"deleted"`
-	Has2fa            bool        `json:"has_2fa"`
-	IsAdmin           bool        `json:"is_admin"`
-	IsBot             bool        `json:"is_bot"`
-	IsOwner           bool        `json:"is_owner"`
-	IsPrimaryOwner    bool        `json:"is_primary_owner"`
-	IsRestricted      bool        `json:"is_restricted"`
-	IsUltraRestricted bool        `json:"is_ultra_restricted"`
+	Color                  string      `json:"color"`
+	ID                     string      `json:"id"`
+	Name                   string      `json:"name"`
+	Presence               string      `json:"presence"`
+	Profile                UserProfile `json:"profile"`
+	RealName               string      `json:"real_name"`
+	Status                 string      `json:"status"`
+	TeamID                 string      `json:"team_id"`
+	TwoFactorType          string      `json:"two_factor_type"`
+	Tz                     string      `json:"tz"`
+	TzLabel                string      `json:"tz_label"`
+	TzOffset               int         `json:"tz_offset"`
+	Updated                int         `json:"updated"`
+	Deleted                bool        `json:"deleted"`
+	Has2fa                 bool        `json:"has_2fa"`
+	IsAdmin                bool        `json:"is_admin"`
+	IsBot                  bool        `json:"is_bot"`
+	IsOwner                bool        `json:"is_owner"`
+	IsPrimaryOwner         bool        `json:"is_primary_owner"`
+	IsRestricted           bool        `json:"is_restricted"`
+	IsUltraRestricted      bool        `json:"is_ultra_restricted"`
+	IsAppUser              bool        `json:"is_app_user"`
+	IsEmailConfirmed       bool        `json:"is_email_confirmed"`
+	WhoCanShareContactCard string      `json:"who_can_share_contact_card"`
 }
 
 // UsersIdentity defines the expected data from the JSON-encoded API response.
@@ -135,28 +139,37 @@ type UsersIdentity struct {
 
 // UserProfile defines the expected data from the JSON-encoded API response.
 type UserProfile struct {
-	APIAppID           string      `json:"api_app_id"`
-	BotID              string      `json:"bot_id"`
-	AvatarHash         string      `json:"avatar_hash"`
-	Email              string      `json:"email"`
-	Fields             interface{} `json:"fields"`
-	FirstName          string      `json:"first_name"`
-	Image1024          string      `json:"image_1024"`
-	Image192           string      `json:"image_192"`
-	Image24            string      `json:"image_24"`
-	Image32            string      `json:"image_32"`
-	Image48            string      `json:"image_48"`
-	Image512           string      `json:"image_512"`
-	Image72            string      `json:"image_72"`
-	ImageOriginal      string      `json:"image_original"`
-	LastName           string      `json:"last_name"`
-	Phone              string      `json:"phone"`
-	RealName           string      `json:"real_name"`
-	RealNameNormalized string      `json:"real_name_normalized"`
-	StatusText         string      `json:"status_text"`
-	StatusEmoji        string      `json:"status_emoji"`
-	Skype              string      `json:"skype"`
-	Title              string      `json:"title"`
+	APIAppID                string        `json:"api_app_id"`
+	BotID                   string        `json:"bot_id"`
+	AvatarHash              string        `json:"avatar_hash"`
+	Email                   string        `json:"email"`
+	Fields                  interface{}   `json:"fields"`
+	FirstName               string        `json:"first_name"`
+	Image1024               string        `json:"image_1024"`
+	Image192                string        `json:"image_192"`
+	Image24                 string        `json:"image_24"`
+	Image32                 string        `json:"image_32"`
+	Image48                 string        `json:"image_48"`
+	Image512                string        `json:"image_512"`
+	Image72                 string        `json:"image_72"`
+	ImageOriginal           string        `json:"image_original"`
+	IsCustomImage           bool          `json:"is_custom_image"`
+	LastName                string        `json:"last_name"`
+	Phone                   string        `json:"phone"`
+	RealName                string        `json:"real_name"`
+	RealNameNormalized      string        `json:"real_name_normalized"`
+	DisplayName             string        `json:"display_name"`
+	DisplayNameNormalized   string        `json:"display_name_normalized"`
+	StatusText              string        `json:"status_text"`
+	StatusEmoji             string        `json:"status_emoji"`
+	StatusEmojiDisplayInfo  []interface{} `json:"status_emoji_display_info"`
+	StatusExpiration        int           `json:"status_expiration"`
+	Skype                   string        `json:"skype"`
+	Title                   string        `json:"title"`
+	HuddleState             string        `json:"huddle_state"`
+	HuddleStateExpirationTs int           `json:"huddle_state_expiration_ts"`
+	StatusTextCanonical     string        `json:"status_text_canonical"`
+	Team                    string        `json:"team"`
 }
 
 // CountChannel defines the expected data from the JSON-encoded API response.
