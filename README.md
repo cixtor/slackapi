@@ -38,6 +38,7 @@ Note that the client runs with the same chat session of the user that is using t
 
 | :shipit: | Method | Description |
 |----------|--------|-------------|
+| :large_blue_circle: | `admin.analytics.getChannelsAnalytics` | Retrieve analytics data for all the workspace channels |
 | :red_circle: | `admin.apps.approve` | Approve an app for installation on a workspace |
 | :red_circle: | `admin.apps.restrict` | Restrict an app for installation on a workspace |
 | :red_circle: | `admin.apps.approved.list` | List approved apps for an org or workspace |
